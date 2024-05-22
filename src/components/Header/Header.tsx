@@ -1,4 +1,3 @@
-import React from 'react'
 import { Box, Flex, Image, Button, Link } from '@chakra-ui/react'
 import NavBar from '../NavBar/NavBar'
 
