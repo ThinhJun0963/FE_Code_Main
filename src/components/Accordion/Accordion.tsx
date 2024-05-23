@@ -1,40 +1,98 @@
-import { Accordion, AccordionItem, AccordionButton, AccordionPanel, AccordionIcon, Box} from "@chakra-ui/react"
+import {
+    Accordion,
+    AccordionItem,
+    AccordionButton,
+    AccordionPanel,
+    AccordionIcon,
+    Box,
+    VStack
+} from '@chakra-ui/react'
 
-function FAQ() {
+
+const BookingStep = () => {
     return (
-        <div style={{ color: "black" }}>
-            <h1 style={{ textAlign: 'center' }}>Câu hỏi thường gặp</h1>
-            <Accordion allowToggle>
-                <AccordionItem>
+        <Accordion allowToggle>
+            <Box mb={5}>
+                <AccordionItem pb={4} backgroundColor="white" borderRadius="lg">
                     <h2>
                         <AccordionButton>
-                            <Box flex="1" textAlign="center">
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Magnam, adipisci?
+                            <Box as='span' flex='1' textAlign="left" color="black">
+                                1. Chọn hình thức khám
                             </Box>
-                            <AccordionIcon />
+                            <AccordionIcon color="black" />
                         </AccordionButton>
                     </h2>
-                    <AccordionPanel pb={4} textAlign="center">
-                        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Officiis alias dignissimos autem provident praesentium culpa dolor veritatis labore, ipsa consequuntur?
+                    <AccordionPanel pb={4}>
+                        <VStack spacing={4} align="stretch" color="black">
+                            <Box as='span'>Khám tổng quát</Box>
+                            <Box as='span'>Khám theo dịch vụ</Box>
+                            <Box as='span'>Khám định kì</Box>
+                        </VStack>
                     </AccordionPanel>
-                </AccordionItem>
+                </AccordionItem >
+            </Box>
 
-                <AccordionItem>
+            <Box mb={5}>
+                <AccordionItem backgroundColor="white" borderRadius="lg">
                     <h2>
                         <AccordionButton>
-                            <Box flex="1" textAlign="center">
-                                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quos, ipsa!
+                            <Box as='span' flex='1' textAlign="left" color="black">
+                                2. Chọn ngày khám
                             </Box>
-                            <AccordionIcon />
+                            <AccordionIcon color="black" />
                         </AccordionButton>
                     </h2>
-                    <AccordionPanel pb={4} textAlign="center">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum tempore perferendis saepe, magni ratione enim iure quibusdam eius quo voluptatibus?
+                    <AccordionPanel pb={4}>
                     </AccordionPanel>
                 </AccordionItem>
-            </Accordion>
-        </div>
+            </Box>
+
+            <Box mb={5}>
+                <AccordionItem backgroundColor="white" borderRadius="lg">
+                    <h2>
+                        <AccordionButton>
+                            <Box as='span' flex='1' textAlign="left" color="black">
+                                3. Chọn giờ khám
+                            </Box>
+                            <AccordionIcon color="black" />
+                        </AccordionButton>
+                    </h2>
+                    <AccordionPanel pb={4}>
+                    </AccordionPanel>
+                </AccordionItem>
+            </Box>
+
+            <Box mb={5}>
+                <AccordionItem backgroundColor="white" borderRadius="lg">
+                    <h2>
+                        <AccordionButton>
+                            <Box as='span' flex='1' textAlign="left" color="black">
+                                4. Xác nhận thông tin
+                            </Box>
+                            <AccordionIcon color="black" />
+                        </AccordionButton>
+                    </h2>
+                    <AccordionPanel pb={4}>
+                    </AccordionPanel>
+                </AccordionItem>
+            </Box>
+
+            <Box mb={5}>
+                <AccordionItem backgroundColor="white" borderRadius="lg">
+                    <h2>
+                        <AccordionButton>
+                            <Box as='span' flex='1' textAlign="left" color="black">
+                                5. Thanh toán
+                            </Box>
+                            <AccordionIcon color="black" />
+                        </AccordionButton>
+                    </h2>
+                    <AccordionPanel pb={4}>
+                    </AccordionPanel>
+                </AccordionItem>
+            </Box>
+        </Accordion>
     )
 }
 
-export default FAQ;
+export default BookingStep;

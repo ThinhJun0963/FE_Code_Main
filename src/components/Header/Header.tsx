@@ -1,4 +1,4 @@
-import { Box, Flex, Image, Button, Link } from '@chakra-ui/react'
+import { Box, Flex, Image, Button, Link, Container } from '@chakra-ui/react'
 import NavBar from '../NavBar/NavBar'
 
 const Header = () => {
@@ -17,7 +17,9 @@ const Header = () => {
               </Link>
             </Button>
             <Button variant="outline" color="#181b26" borderColor="#181b26">
-              Đặt lịch ngay
+              <Link href="/booking">
+                Đặt lịch ngay
+              </Link>
             </Button>
           </Flex>
         </Flex>

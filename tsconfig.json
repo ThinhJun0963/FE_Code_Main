@@ -20,6 +20,6 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["src"],
+  "include": ["src", "src/routing", "src/pages/Booking"], // Add the correct path to the "include" array
   "references": [{ "path": "./tsconfig.node.json" }]
 }
