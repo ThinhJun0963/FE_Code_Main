@@ -16,7 +16,7 @@ function FAQ() {
                             </AccordionButton>
                         </h2>
                         <AccordionPanel pb={4} textAlign="left" w={800}>
-                            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Officiis alias dignissimos autem provident praesentium culpa dolor veritatis labore, ipsa consequuntur?
+                        Không, dịch vụ đăng ký khám online hoàn toàn miễn phí. Bạn chỉ cần chọn thời gian và bác sĩ phù hợp để đặt lịch hẹn một cách tiện lợi.
                         </AccordionPanel>
                     </AccordionItem>
 
@@ -30,7 +30,7 @@ function FAQ() {
                             </AccordionButton>
                         </h2>
                         <AccordionPanel pb={4} textAlign="left" w={800}>
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum tempore perferendis saepe, magni ratione enim iure quibusdam eius quo voluptatibus?
+                                    Sử dụng ứng dụng đăng ký khám bệnh mang lại nhiều lợi ích như: tiết kiệm thời gian, dễ dàng chọn lựa bác sĩ và thời gian khám phù hợp, nhận nhắc nhở lịch hẹn, và truy cập thông tin khám chữa bệnh một cách thuận tiện.
                         </AccordionPanel>
                     </AccordionItem>
                 </Accordion>

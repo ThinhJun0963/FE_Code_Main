@@ -22,8 +22,7 @@ export default function Hero() {
                 >
                     <Box pt={20}>
                         <Text fontSize={40} fontWeight="bold">Ứng dụng đặt khám</Text>
-                        <Text fontSize={25}>Đặt khám với hơn 100 phòng khám trên SmileCare
-                            để có số thứ tự và khung giờ khám trước.
+                        <Text fontSize={25}>Đặt lịch khám ngay với hơn 100 phòng khám trên SmileCare để có số thứ tự ưu tiên và khung giờ khám lý tưởng, không cần chờ đợi lâu
                         </Text>
                         <div className='input-wrapper'>
                             <input type="text" placeholder="Tìm kiếm phòng khám" value={inputValue} onChange={(e) => setInputValue(e.target.value)} />
