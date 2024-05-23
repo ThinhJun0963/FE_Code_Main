@@ -1,10 +1,8 @@
-import { Box, ChakraProvider, Step, StepDescription, StepIcon, StepIndicator, StepNumber, StepSeparator, StepStatus, StepTitle, Stepper, defineStyleConfig, extendTheme, useSteps } from '@chakra-ui/react';
+import {  ChakraProvider, Step, StepIcon, StepIndicator, StepNumber, StepSeparator, StepStatus, Stepper, defineStyleConfig, extendTheme, useSteps } from '@chakra-ui/react';
 
 const stepperTheme = defineStyleConfig({
     baseStyle: {
-        // select the indicator part
         indicator: {
-            // change the default border radius to 0
             borderRadius: 10,
             boderWidth: 10,
             bg: 'blue.600'

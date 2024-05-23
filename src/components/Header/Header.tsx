@@ -3,7 +3,7 @@ import NavBar from '../NavBar/NavBar'
 
 const Header = () => {
   return (
-    <Box bg=" #ffffff" px={4}>
+    <Box bg="#ffffff" px={4}>
       <Flex justify="space-between" align="center">
         <Box>
           <img src="../../assets/logo.jpg" alt="Logo"></img>

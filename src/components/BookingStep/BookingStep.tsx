@@ -12,8 +12,8 @@ const BookingStep = () => {
         { title: '1. Chọn hình thức khám', content: <ExaminationType />},
         { title: '2. Chọn ngày', content: <Calendar /> },
         { title: '3. Chọn giờ', content: <TimeSlot /> },
-        { title: '4. Xác nhận thông tin', content: '101112' },
-        { title: '5. Thanh toán', content: '131415' }
+        { title: '4. Xác nhận thông tin', content: '' },
+        { title: '5. Thanh toán', content: '' }
     ];
 
     const [active, setActive] = useState<number | null>(null);

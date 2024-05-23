@@ -37,7 +37,7 @@ const ClinicCarousel = () => {
     <div className="container">
       <div className="header-container">
         <h1>Đặt lịch khám trực tuyến</h1>
-        <span><button>Xem thêm</button></span>
+        <span><button>Xem tất cả</button></span>
       </div>
       <div className="carousel-container">
         <Carousel responsive={responsive}>

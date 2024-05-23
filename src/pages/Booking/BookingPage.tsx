@@ -5,7 +5,7 @@ import BookingStep from '../../components/BookingStep/BookingStep';
 
 const BookingPage = () => {
   return (
-    <Box bg="#c5c6c8" minH="100vh">
+    <Box bg="#e1e8f0" minH="100vh">
       <Box mb={10}>
         <Header />
       </Box>
