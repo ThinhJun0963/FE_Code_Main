@@ -20,6 +20,11 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["src", "src/routing", "src/pages/Booking"], // Add the correct path to the "include" array
+  "include": [
+    "src",
+    "src/routing",
+    "src/pages/Booking",
+    "src/components/BookingStep/TypeOfExamination"
+  ],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

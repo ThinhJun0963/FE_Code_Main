@@ -21,9 +21,12 @@
     "immer": "^9.0.19",
     "react": "^18.2.0",
     "react-alice-carousel": "^2.9.1",
+    "react-big-calendar": "^1.12.2",
+    "react-calendar": "^5.0.0",
     "react-dom": "^18.2.0",
     "react-hook-form": "7.43",
     "react-icons": "^4.7.1",
+    "react-multi-carousel": "^2.8.5",
     "react-router-dom": "^6.23.1",
     "react-slick": "^0.30.2",
     "zod": "^3.20.6"

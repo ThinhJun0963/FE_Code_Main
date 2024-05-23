@@ -1,7 +1,12 @@
-import { Box, Flex, Text, Input, InputGroup, InputRightElement } from '@chakra-ui/react'
-import { SearchIcon } from '@chakra-ui/icons';
+import { Box, Flex, Text, Input, HStack } from '@chakra-ui/react'
+import { FaSearch } from 'react-icons/fa';
+import './Hero.css'
+import { useState } from 'react';
 
 export default function Hero() {
+    const [inputValue, setInputValue] = useState('');
+
+
     return (
         <Box
             h={'50vh'}
@@ -20,13 +25,10 @@ export default function Hero() {
                         <Text fontSize={25}>Đặt khám với hơn 100 phòng khám trên SmileCare
                             để có số thứ tự và khung giờ khám trước.
                         </Text>
-                        <InputGroup>
-                            <Input mt={4} placeholder="Triệu chứng, phòng khám" backgroundColor="white" sx={{ "::placeholder": { color: "black" } }} />
-                            <InputRightElement
-                                pointerEvents="none"
-                                children={<SearchIcon color="gray.300" />}
-                            />
-                        </InputGroup>
+                        <div className='input-wrapper'>
+                            <input type="text" placeholder="Tìm kiếm phòng khám" value={inputValue} onChange={(e) => setInputValue(e.target.value)} />
+                            <FaSearch color="black" />
+                        </div>
                     </Box>
                 </Flex>
             </Box>

@@ -1,24 +1,50 @@
 import "react-alice-carousel/lib/alice-carousel.css";
-import AliceCarousel from 'react-alice-carousel';
 import Card from '../Card/Card';
+import './Carousel.css';
+import Carousel from "react-multi-carousel";
+import 'react-multi-carousel/lib/styles.css';
+import { Link } from "react-router-dom";
 
-const Carousel = () => {
+const ClinicCarousel = () => {
 
-  // const handleDragStart = (e: { preventDefault: () => any; }) => e.preventDefault();
+  const responsive = {
+    desktop: {
+      breakpoint: { max: 3000, min: 1024 },
+      items: 3,
+      slidesToSlide: 3
+    },
+    tablet: {
+      breakpoint: { max: 1024, min: 464 },
+      items: 2,
+      slidesToSlide: 2
+    },
+    mobile: {
+      breakpoint: { max: 464, min: 0 },
+      items: 1,
+      slidesToSlide: 1
+    }
+  };
 
   const items = [
-    <Card image='../../assets/banner1.png' description='Khám ở phòng khám 1' title='Phòng khám 1' />,
-    <Card image='../../assets/banner2.png' description='Khám ở phòng khám 2' title='Phòng khám 2' />
+    <Link to="/detail/1"><div><Card image='' description='Đặt lịch khám' title='Phòng khám 1' /></div></Link>,
+    <Link to="/detail/2"><div><Card image='' description='Đặt lịch khám' title='Phòng khám 2' /></div></Link>,
+    <Link to="/detail/3"><div><Card image='' description='Đặt lịch khám' title='Phòng khám 3' /></div></Link>,
+    <Link to="detail/4"><div><Card image='' description='Đặt lịch khám' title='Phòng khám 4' /></div></Link>,
+    <Link to="/detail/5"><div><Card image='' description='Đặt lịch khám' title='Phòng khám 5' /></div></Link>,
   ];
 
-  const Gallery = () => <AliceCarousel mouseTracking items={items} />;
-
   return (
-    <div>
-      <h1 style={{ textAlign: "center", color: "black"}}>Đặt lịch khám trực tuyến</h1>
-      <Gallery />
+    <div className="container">
+      <div className="header-container">
+        <h1>Đặt lịch khám trực tuyến</h1>
+        <span><button>Xem thêm</button></span>
+      </div>
+      <div className="carousel-container">
+        <Carousel responsive={responsive}>
+          {items.map((item, index) => <div style={{ margin: '10px' }} key={index}>{item}</div>)}
+        </Carousel>;
+      </div>
     </div>
   )
 }
-
-export default Carousel
+export default ClinicCarousel

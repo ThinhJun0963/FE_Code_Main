@@ -10,14 +10,22 @@ const HomePage = () => {
     return (
         <>
             <Box bg="gray.200" minH="100vh">
-                <Stack divider={<StackDivider />}>
+                <Box>
                     <Header />
+                </Box>
+                <Box>
                     <Hero />
+                </Box>
+                <Box pt={10}>
                     <Carousel />
+                </Box>
+                <Box pt={10}>
                     <FAQ />
+                </Box>
+                <Box pt={10}>
                     <SimpleThreeColumns />
-                    <Footer />
-                </Stack>
+                </Box>
+                <Footer />
             </Box>
         </>
     )

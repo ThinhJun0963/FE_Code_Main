@@ -30,30 +30,33 @@ const Feature = ({ title, text, icon }: FeatureProps) => {
 
 export default function SimpleThreeColumns() {
   return (
-    <Box p={4} color={"black"}>
-      <SimpleGrid columns={{ base: 1, md: 3 }} spacing={10}>
-        <Feature
-          icon={<Icon as={FcAssistant} w={10} h={10} />}
-          title={'Lifetime Support'}
-          text={
-            'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore...'
-          }
-        />
-        <Feature
-          icon={<Icon as={FcDonate} w={10} h={10} />}
-          title={'Unlimited Donations'}
-          text={
-            'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore...'
-          }
-        />
-        <Feature
-          icon={<Icon as={FcInTransit} w={10} h={10} />}
-          title={'Instant Delivery'}
-          text={
-            'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore...'
-          }
-        />
-      </SimpleGrid>
-    </Box>
+    <Flex justifyContent="center" alignItems="center" pt={20}>
+      <Box p={4} color={"black"} w={1000}>
+        <Box textAlign="center"><h1>Tiện ích</h1></Box>
+        <SimpleGrid columns={{ base: 1, md: 3 }} spacing={10}>
+          <Feature
+            icon={<Icon as={FcAssistant} w={10} h={10} />}
+            title={'Tư vấn miễn phí'}
+            text={
+              'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore...'
+            }
+          />
+          <Feature
+            icon={<Icon as={FcDonate} w={10} h={10} />}
+            title={'Bảo mật thông tin'}
+            text={
+              'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore...'
+            }
+          />
+          <Feature
+            icon={<Icon as={FcInTransit} w={10} h={10} />}
+            title={'Tiết kiệm thời gian'}
+            text={
+              'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore...'
+            }
+          />
+        </SimpleGrid>
+      </Box>
+    </Flex>
   );
 }

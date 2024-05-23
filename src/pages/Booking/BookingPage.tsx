@@ -1,7 +1,7 @@
 import { Box, Container, Flex, SimpleGrid } from '@chakra-ui/react'
 import ProgressBar from '../../components/ProgressBar/ProgressBar'
 import Header from '../../components/Header/Header';
-import Step from '../../components/Accordion/Accordion';
+import BookingStep from '../../components/BookingStep/BookingStep';
 
 const BookingPage = () => {
   return (
@@ -9,12 +9,12 @@ const BookingPage = () => {
       <Box mb={10}>
         <Header />
       </Box>
-      <Flex direction="column" justifyContent="center" alignItems="center" mt={100}>
+      <Flex direction="column" alignItems="center" mt={100}>
         <Box w={1000} mb={10}>
           <ProgressBar />
         </Box>
         <Box w={1000}>
-          <Step />
+          <BookingStep />
         </Box>
       </Flex>
     </Box>
