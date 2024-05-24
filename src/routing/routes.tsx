@@ -5,6 +5,7 @@ import AdminPage from "../pages/Admin/AdminPage";
 import AdminUserPage from "../pages/Admin/AdminUser/AdminUserPage";
 import AdminClinicPage from "../pages/Admin/AdminClinic/AdminClinicPage";
 import ClinicOwnerPage from "../pages/ClinicOwnerPage/ClinicOwnerPage";
+import UserProfile from "../pages/UserProfile/UserProfile";
 
 const router = createBrowserRouter([
   { path: "/", element: <HomePage /> },
@@ -14,6 +15,7 @@ const router = createBrowserRouter([
   { path: "/admin/users", element: <AdminUserPage /> },
   { path: "/admin/clinic", element: <AdminClinicPage /> },
   { path: "/owner", element: <ClinicOwnerPage /> },
+  { path: "/profile", element: <UserProfile /> },
 ]);
 
 export default router;
