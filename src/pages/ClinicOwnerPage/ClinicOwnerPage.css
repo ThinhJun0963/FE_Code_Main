@@ -1,0 +1,132 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.header {
+  background-color: #f4f4f4;
+  padding: 20px;
+  text-align: center;
+  border-bottom: 1px solid #ddd;
+}
+
+.footer {
+  background-color: #f4f4f4;
+  padding: 10px;
+  text-align: center;
+  border-top: 1px solid #ddd;
+  margin-top: auto;
+}
+
+.clinic-info-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.clinic-info {
+  display: flex;
+  align-items: center;
+  border: 1px solid #ddd;
+  padding: 20px;
+  border-radius: 8px;
+  width: 80%;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.avatar {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  margin-right: 20px;
+}
+
+.clinic-details {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.contact-info {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+  gap: 20px;
+}
+
+.contact-info span {
+  font-size: 14px;
+  color: #555;
+}
+
+.status {
+  margin-left: 20px;
+  padding: 5px 10px;
+  border-radius: 5px;
+  color: #fff;
+  font-weight: bold;
+}
+
+.status.online {
+  background-color: green;
+}
+
+.status.offline {
+  background-color: gray;
+}
+
+.main-content {
+  display: flex;
+  padding: 20px;
+}
+
+.left-column, .right-column {
+  flex: 1;
+  margin: 10px;
+}
+
+.additional-info .images {
+  margin-bottom: 20px;
+}
+
+.additional-info .image-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  gap: 10px;
+}
+
+.additional-info .image-grid img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+.additional-info .rating, .additional-info .services {
+  margin-top: 20px;
+}
+
+.additional-info .services ul {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  gap: 10px;
+}
+
+.additional-info .services li {
+  background-color: #f4f4f4;
+  padding: 5px;
+  border-radius: 5px;
+  text-align: center;
+}
