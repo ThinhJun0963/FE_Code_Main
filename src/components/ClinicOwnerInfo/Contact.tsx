@@ -11,7 +11,10 @@ interface ContactProps {
 const ContactInfo: React.FC<ContactProps> = ({ contact }) => (
   <div className="contact-info">
     <div>
-      <strong>Website:</strong> {contact.website}
+      <strong>Website: </strong>
+      <a href={contact.website} target="_blank" rel="noopener noreferrer">
+        {contact.website}
+      </a>
     </div>
     <div>
       <strong>Địa chỉ:</strong> {contact.address}
