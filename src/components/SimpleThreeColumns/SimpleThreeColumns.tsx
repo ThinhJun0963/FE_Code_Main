@@ -38,21 +38,21 @@ export default function SimpleThreeColumns() {
             icon={<Icon as={FcAssistant} w={10} h={10} />}
             title={'Tư vấn miễn phí'}
             text={
-              'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore...'
+              'Đặt lịch hẹn ngay hôm nay để nhận tư vấn chăm sóc răng miệng hoàn toàn miễn phí từ các chuyên gia nha khoa của các phòng khám hàng đầu.'
             }
           />
           <Feature
             icon={<Icon as={FcDonate} w={10} h={10} />}
             title={'Bảo mật thông tin'}
             text={
-              'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore...'
+              'Chúng tôi cam kết bảo vệ và giữ kín mọi thông tin cá nhân của khách hàng theo các tiêu chuẩn bảo mật cao nhất.'
             }
           />
           <Feature
             icon={<Icon as={FcInTransit} w={10} h={10} />}
             title={'Tiết kiệm thời gian'}
             text={
-              'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore...'
+              'Đặt lịch hẹn trực tuyến dễ dàng và nhanh chóng, giúp bạn tiết kiệm thời gian và đến thăm khám đúng giờ.'
             }
           />
         </SimpleGrid>
