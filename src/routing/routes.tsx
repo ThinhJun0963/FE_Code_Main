@@ -4,7 +4,6 @@ import BookingPage from '../pages/Booking/BookingPage'; // Import the BookingPag
 import AdminPage from '../pages/Admin/AdminPage';
 import AdminUserPage from '../pages/Admin/AdminUser/AdminUserPage';
 import AdminClinicPage from '../pages/Admin/AdminClinic/AdminClinicPage';
-import ClinicRegisterForm from '../pages/ClinicRegister/ClinicRegister';
 
 const router = createBrowserRouter([
     { path: '/', element: <HomePage /> },
@@ -12,8 +11,7 @@ const router = createBrowserRouter([
     { path: '/detail/:id', element: <div>Detail</div> },
     { path: '/admin', element: < AdminPage /> },
     { path: '/admin/users', element: <AdminUserPage/> },
-    { path: '/admin/clinic', element: <AdminClinicPage /> },
-    { path: '/for-owner', element: <ClinicRegisterForm/>}
+    { path: '/admin/clinic', element: <AdminClinicPage/> },
 ])
 
 export default router;

@@ -4,7 +4,7 @@ const theme = extendTheme({
   components: {
     Button: {
       baseStyle: {
-        fontWeight: "bold", // For example
+        fontWeight: "bold", 
       },
     },
   },

@@ -1,10 +1,10 @@
-import { Box, Flex, Link } from '@chakra-ui/react'
+import { Box, Flex, Link } from "@chakra-ui/react";
 
 const NavBar = () => {
   return (
     <Flex px={8} py={4} color="#181b26" align="center" justify="space-between">
       <Box>
-        <Link href="/" p={2} fontSize='md' fontWeight="bold">
+        <Link href="/" p={2} fontSize="md" fontWeight="bold">
           Trang chủ
         </Link>
       </Box>
@@ -14,12 +14,12 @@ const NavBar = () => {
         </Link>
       </Box>
       <Box>
-        <Link href="/for-owner" p={2} fontSize="md" fontWeight="bold">
+        <Link href="/owner" p={2} fontSize="md" fontWeight="bold">
           Dành cho chủ phòng khám
         </Link>
       </Box>
     </Flex>
-  )
-}
+  );
+};
 
-export default NavBar
+export default NavBar;
