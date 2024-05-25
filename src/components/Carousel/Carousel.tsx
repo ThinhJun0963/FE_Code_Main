@@ -29,7 +29,7 @@ const ClinicCarousel = () => {
     <Link to="/detail/1"><div><Card image='' description='Đặt lịch khám' title='Phòng khám 1' /></div></Link>,
     <Link to="/detail/2"><div><Card image='' description='Đặt lịch khám' title='Phòng khám 2' /></div></Link>,
     <Link to="/detail/3"><div><Card image='' description='Đặt lịch khám' title='Phòng khám 3' /></div></Link>,
-    <Link to="detail/4"><div><Card image='' description='Đặt lịch khám' title='Phòng khám 4' /></div></Link>,
+    <Link to="/detail/4"><div><Card image='' description='Đặt lịch khám' title='Phòng khám 4' /></div></Link>,
     <Link to="/detail/5"><div><Card image='' description='Đặt lịch khám' title='Phòng khám 5' /></div></Link>,
   ];
 

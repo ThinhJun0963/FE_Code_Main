@@ -6,7 +6,7 @@ const Header = () => {
     <Box bg="#ffffff" px={4}>
       <Flex justify="space-between" align="center">
         <Box>
-          <img src="../../assets/logo.jpg" alt="Logo"></img>
+          <img src="/logo.jpg" alt="Logo"></img>
         </Box>
         <Flex justify="space-between" align="center" width="auto">
           <NavBar />

@@ -5,6 +5,7 @@ import 'bootstrap/dist/css/bootstrap.css'
 import { RouterProvider } from 'react-router-dom'
 import router from './routing/routes'
 
+
 const rootElement = document.getElementById('root')
 if (rootElement) {
   ReactDOM.createRoot(rootElement).render(
