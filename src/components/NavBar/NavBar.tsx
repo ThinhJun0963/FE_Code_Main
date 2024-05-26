@@ -14,7 +14,7 @@ const NavBar = () => {
         </Link>
       </Box>
       <Box>
-        <Link href="/owner" p={2} fontSize="md" fontWeight="bold">
+        <Link href="/for-owner" p={2} fontSize="md" fontWeight="bold">
           Dành cho chủ phòng khám
         </Link>
       </Box>

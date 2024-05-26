@@ -1,23 +1,24 @@
-import CardGenerator from "../../../components/Card/CardGenerator";
+import Box from "../../../components/Box/Box";
 import SideBar from "../../../components/SideBar/SideBar"
 import styles from './AdminClinic.module.css';
-import sidebarStyles from './SideBar.module.css';
 import { adminClinicData, sidebarData } from "./data";
 
 const AdminClinicPage = () => {
   return (
     <div className={styles.box}>
-      <SideBar sidebarData={sidebarData} styles={sidebarStyles} />
-      <div className={styles.cardcontainer}>
-        {
-          adminClinicData.map((item, index) => {
+      <SideBar sidebarData={sidebarData} styles={styles} />
+      <div className={styles['content-container']}>
+        <div><h1>Trang chủ</h1></div>
+        <div className={styles['box-container']}>
+          {adminClinicData.map((item, index) => {
             return (
-              <div className={styles.content} >
-                <CardGenerator card={item} key={index} styles={styles} />
+              <div>
+                <Box title={item.title} content={item.content} />
               </div>
             )
-          })
-        }
+          })}
+        </div>
+        <div className={styles.chart}></div>
       </div>
     </div>
   )

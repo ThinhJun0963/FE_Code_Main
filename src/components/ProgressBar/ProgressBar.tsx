@@ -1,52 +1,23 @@
-import { ChakraProvider, Step, StepIcon, StepIndicator, StepNumber, StepSeparator, StepStatus, Stepper, defineStyleConfig, extendTheme, useSteps } from '@chakra-ui/react';
-
+import { ChakraProvider, Step, StepIcon, StepIndicator, StepNumber, StepSeparator, StepStatus, Stepper, defineStyleConfig, extendTheme } from '@chakra-ui/react';
 
 const stepperTheme = defineStyleConfig({
     baseStyle: {
-        step: {
-            indicator: {
-                borderRadius: '50%',
-                borderWidth: '2px',
-                borderColor: 'gray.200',
-                bg: 'gray.200',
-            },
-        },
-    },
-    variants: {
-        active: {
-            step: {
-                indicator: {
-                    bg: 'blue.600',
-                    color: 'white',
-                    borderColor: 'blue.600',
-                },
-            },
+        indicator: {
+            borderRadius: 10,
+            boderWidth: 10,
+            bg: 'blue.600'
         },
     },
 });
-
 
 const theme = extendTheme({
     components: {
         Stepper: stepperTheme,
     },
-})
-
-const steps = [
-    {},
-    {},
-    {},
-    {},
-    {}
-]
-
-const { activeStep } = useSteps({
-    index: 1,
-    count: steps.length,
-})
-
+});
 
 const ProgressBar = ({ activeStep }: { activeStep: number }) => {
+    const steps = [{}, {}, {}, {}, {}];
 
     return (
         <ChakraProvider theme={theme}>
@@ -67,5 +38,5 @@ const ProgressBar = ({ activeStep }: { activeStep: number }) => {
         </ChakraProvider>
     );
 }
-export default ProgressBar;
 
+export default ProgressBar;

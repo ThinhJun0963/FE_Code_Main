@@ -1,10 +1,9 @@
-import { useState } from "react"
 import { MdCloudUpload } from "react-icons/md"
 import './CertificationForm.css'
 
 const CertificationForm = () => {
-    const [image, setImage] = useState(null);
-    const [fileName, setFileName] = useState("No selected file");
+    // const [image, setImage] = useState(null);
+    // const [fileName, setFileName] = useState("No selected file");
 
     return (
         <div id="drop-area">
