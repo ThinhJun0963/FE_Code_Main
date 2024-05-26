@@ -1,4 +1,3 @@
-import React from 'react'
 import styles from './ClinicInformation.module.css'
 import SideBar from "../../../../../components/SideBar/SideBar";
 import { sidebarData } from '../../data';
@@ -10,7 +9,7 @@ const ClinicInformation = () => {
             <div className={styles['main-container']}>
                 <div><h1>Trang thông tin phòng khám</h1></div>
                 <div className={styles['content-container']}>
-                    
+
                     <div className={styles['form-container']}>
                         <form className={styles['form']}>
                             <div>

@@ -11,9 +11,10 @@ import ClinicInformation from '../pages/Admin/AdminClinic/pages/ClinicInformatio
 import DentistAccount from '../pages/Admin/AdminClinic/pages/DentistAccount';
 import AppointmentSchedule from '../pages/Admin/AdminClinic/pages/AppointmentSchedule';
 import ServicesInformation from '../pages/Admin/AdminClinic/pages/ServicesInformation';
+import LoginPage from '../pages/Login/LoginPage';
 
 const router = createBrowserRouter([
-  { path: '', element: <HomePage /> },
+  { path: '/', element: <HomePage /> },
   { path: '/booking', element: <BookingPage /> },
   { path: '/detail/:id', element: <div>Detail</div> },
   { path: '/admin', element: < AdminPage /> },
@@ -26,6 +27,8 @@ const router = createBrowserRouter([
   { path: '/for-owner', element: <ClinicRegisterForm /> },
   { path: "/owner", element: <ClinicOwnerPage /> },
   { path: "/profile", element: <UserProfile /> },
+  { path: "/login", element: <LoginPage /> },
+
 ]);
 
 export default router;

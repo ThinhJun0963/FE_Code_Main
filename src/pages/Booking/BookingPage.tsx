@@ -7,6 +7,7 @@ import { useState } from 'react';
 
 const BookingPage = () => {
   const [activeStep, setActiveStep] = useState(0);
+  
 
   return (
     <Box bg="#e1e8f0" minH="100vh">
