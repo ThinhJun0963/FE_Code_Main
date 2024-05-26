@@ -22,7 +22,7 @@ const Header = () => {
               borderColor="#181b26"
               mr={4}
             >
-              <Link href="/">Đăng kí</Link>
+              <Link href="/login">Đăng kí</Link>
             </Button>
             <Button variant="outline" color="#181b26" borderColor="#181b26">
               <Link href="/booking">Đặt lịch ngay</Link>
