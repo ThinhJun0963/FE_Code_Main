@@ -1,4 +1,4 @@
-import { ChakraProvider, Step, StepIcon, StepIndicator, StepNumber, StepSeparator, StepStatus, Stepper, defineStyleConfig, extendTheme, useSteps } from '@chakra-ui/react';
+import { ChakraProvider, Step, StepIcon, StepIndicator, StepNumber, StepSeparator, StepStatus, StepTitle, Stepper, defineStyleConfig, extendTheme, useSteps } from '@chakra-ui/react';
 
 
 const stepperTheme = defineStyleConfig({
@@ -40,13 +40,24 @@ const steps = [
     {}
 ]
 
-const { activeStep } = useSteps({
-    index: 1,
-    count: steps.length,
-})
+const { activeStep } = steps.length;
+
+/// BREAKING CODE PIECE 
+
+
+//! REQUIRE REVIEW ===
+// Không xài được useStep ngoài Functional Component trong React.
+
+//const {acticeStep} = useSteps({
+//     index: 1,
+//     count: steps.length,
+// })
 
 
 const ProgressBar = ({ activeStep }: { activeStep: number }) => {
+
+
+    
 
     return (
         <ChakraProvider theme={theme}>
