@@ -1,4 +1,5 @@
 import services from './data'
+import './ServicesForm.css'
 
 const ServicesForm = () => {
     return (

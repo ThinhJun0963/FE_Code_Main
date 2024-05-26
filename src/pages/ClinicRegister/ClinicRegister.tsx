@@ -1,4 +1,4 @@
-import './ClinicRegister.css';
+import styles from './ClinicRegister.module.css';
 import UseMultipleStepForm from '../../components/UseMultipleStepForm/UseMultipleStepForm';
 import FormGenerator from '../../components/FormGenerator/FormGenerator';
 import ServicesForm from './Forms/ServicesForm';
@@ -17,41 +17,41 @@ const ClinicRegisterForm = () => {
     const { steps, currentStep, step, isFirstStep, isFinalStep, next, back } = UseMultipleStepForm([<FormGenerator inputs={generalContent} />, <ServicesForm />, <CertificationForm />]);
 
     return (
-        <>
-            <Header/>
-            <div className="body">
-                <form className="form-container">
-                    <div className="container">
-                        <div className="step">{currentStep + 1} / {steps.length}</div>
-                        <div className="row">
-                            <div className="col">
-                                {step}
-                                {currentStep === 0 && <div className='row'>
-                                    <div className='col hour'>
-                                        <label htmlFor='open-hour' className="form-label">Giờ mở cửa</label>
-                                        <input id="open-hour" className="form-control" placeholder='7:00'></input>
-                                    </div>
-                                    <div className='col hour'>
-                                        <label htmlFor='close-hour' className="form-label">Giờ đóng cửa</label>
-                                        <input id="close-hour" className="form-control" placeholder='17:00'></input>
-                                    </div>
-                                </div>}
+        <div className={styles.body}>
+            <Header />
+            <div className={styles["form-header"]}>Đăng kí phòng khám</div>
+            <form className={styles["form-container"]}>
+                <div className={styles["container"]}>
+                    <div className={styles["step"]}>{currentStep + 1} / {steps.length}</div>
+                    <div className="row">
+                        <div className="col">
+                            {step}
+                            {currentStep === 0 && <div className='row'>
+                                <div className={`col ${styles.hour}`}>
+                                    <label htmlFor='open-hour' className="form-label">Giờ mở cửa</label>
+                                    <input id="open-hour" className="form-control" placeholder='7:00'></input>
+                                </div>
+                                <div className={`col ${styles.hour}`}>
+                                    <label htmlFor='close-hour' className="form-label">Giờ đóng cửa</label>
+                                    <input id="close-hour" className="form-control" placeholder='17:00'></input>
+                                </div>
+                            </div>}
 
-                            </div>
-                        </div>
-                        <div className="row">
-                            <div className="col" style={{ display: "flex", gap: ".5rem", justifyContent: "flex-end", marginTop: "1rem" }}>
-                                {!isFirstStep && <button type="button" className="btn btn-secondary" onClick={back}>Back</button>}
-                                {!isFinalStep && <button type="button" className="btn btn-primary" onClick={next}>Next</button>}
-                                {isFinalStep && <button type="submit" className="btn btn-primary">Submit</button>}
-                            </div>
                         </div>
                     </div>
-                </form >
-            </div>
-            <Footer/>
-        </>
+                    <div className="row">
+                        <div className="col" style={{ display: "flex", gap: ".5rem", justifyContent: "flex-end", marginTop: "1rem" }}>
+                            {!isFirstStep && <button type="button" className="btn btn-secondary" onClick={back}>Back</button>}
+                            {!isFinalStep && <button type="button" className="btn btn-primary" onClick={next}>Next</button>}
+                            {isFinalStep && <button type="submit" className="btn btn-primary">Submit</button>}
+                        </div>
+                    </div>
+                </div>
+            </form >
+            <Footer />
+        </div>
     )
 }
+
 
 export default ClinicRegisterForm;

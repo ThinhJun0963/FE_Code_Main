@@ -1,10 +1,11 @@
-import { Box, Stack, StackDivider } from "@chakra-ui/react";
+import { Box } from "@chakra-ui/react";
 import Header from "../../components/Header/Header";
 import Hero from "../../components/Hero/Hero";
 import Carousel from "../../components/Carousel/Carousel";
 import FAQ from "../../components/FAQ/Faq";
 import SimpleThreeColumns from "../../components/SimpleThreeColumns/SimpleThreeColumns";
 import Footer from "../../components/Footer/Footer";
+import styles from './HomePage.module.css'
 
 const HomePage = () => {
   return (
@@ -14,10 +15,14 @@ const HomePage = () => {
           <Header />
         </Box>
         <Box>
-          <Hero />
+          <Hero styles={styles} />
         </Box>
         <Box pt={10}>
-          <Carousel />
+          <div className={styles.headerContainer}>
+            <h1 className={styles.heading}>Đặt khám với các phòng khám</h1>
+            <button className={`btn btn-primary ${styles.btn}`}>Xem tất cả</button>
+          </div>
+          <Carousel styles={styles} />
         </Box>
         <Box pt={10}>
           <FAQ />

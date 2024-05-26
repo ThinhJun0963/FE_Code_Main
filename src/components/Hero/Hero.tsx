@@ -1,9 +1,12 @@
-import { Box, Flex, Text, Input, HStack } from "@chakra-ui/react";
+import { Box, Flex, Text} from "@chakra-ui/react";
 import { FaSearch } from "react-icons/fa";
-import "./Hero.css";
 import { useState } from "react";
 
-export default function Hero() {
+interface HeroProps { 
+  styles: { [key: string]: string };
+}
+
+export default function Hero( {styles}: HeroProps) {
   const [inputValue, setInputValue] = useState("");
 
   return (
@@ -27,8 +30,9 @@ export default function Hero() {
               Đặt khám với hơn 100 phòng khám trên SmileCare để có số thứ tự và
               khung giờ khám trước.
             </Text>
-            <div className="input-wrapper">
+            <div className={styles['input-wrapper']}>
               <input
+                className={styles['input']}
                 type="text"
                 placeholder="Tìm kiếm phòng khám"
                 value={inputValue}
