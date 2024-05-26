@@ -1,25 +1,25 @@
-.container {
-    width: 100%;
+.slick-prev:before {
+    top: -10px;
+    position: absolute;
+    font-size: 50px;
+    right: 15px;
+    color: #00558B;
+
 }
 
-.header-container {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    color: black;
+.slick-next:before {
+    top: -10px;
+    position: absolute;
+    font-size: 50px;
+    left: 15px;
+    color: #00558B;
+
 }
 
-.header-container button {
-    background-color: #1975dc;
-    color: white;
-    text-align: center;
-    border: 2px;
-    border-radius: 15px;
-    width: 90px;
-    height: 30px
+/* .slick-next:active {
+    color: #00558B;
 }
 
-.carousel-header h1 {
-    text-align: left;
-    color: black;
-}
+.slick-prev:active {
+    color: #00558B;
+} */

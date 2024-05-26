@@ -42,11 +42,11 @@ const ListHeader = ({ children }: { children: ReactNode }) => {
 export default function Footer() {
   return (
     <Box
-      bg={useColorModeValue("gray.50", "gray.900")}
+      style={{ marginTop: "40px", backgroundColor: " #0b161a" }}
       color={useColorModeValue("gray.700", "gray.200")}
     >
       <Container as={Stack} maxW={"6xl"} py={10}>
-        <SimpleGrid columns={{ base: 1, sm: 2, md: 4 }} spacing={8}>
+        <SimpleGrid style={{display: "flex", justifyContent:"space-evenly"}} spacing={8}>
           <Stack align={"flex-start"}>
             <ListHeader>Về SmileCare</ListHeader>
             <Link href={"#"}>Giới thiệu về SmileCare</Link>

@@ -1,5 +1,4 @@
 import typeOfExamination from './data'
-import './ExaminationType.css'
 
 const ExaminationType = () => {
     return (
