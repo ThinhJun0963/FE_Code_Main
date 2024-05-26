@@ -30,10 +30,10 @@ const Feature = ({ title, text, icon }: FeatureProps) => {
 
 export default function SimpleThreeColumns() {
   return (
-    <Flex justifyContent="center" alignItems="center" pt={20}>
+    <Flex justifyContent="center" alignItems="center" pt={20} style={{ width: "90%", margin: "0 auto", }}>
       <Box p={4} color={"black"} w={1000}>
-        <Box textAlign="center"><h1>Tiện ích</h1></Box>
-        <SimpleGrid columns={{ base: 1, md: 3 }} spacing={10}>
+        <Box textAlign="center" style={{marginBottom: "40px"}}><h1>Tiện ích</h1></Box>
+        <SimpleGrid columns={{ base: 1, md: 3 }} spacing={10} style={{}}>
           <Feature
             icon={<Icon as={FcAssistant} w={10} h={10} />}
             title={'Tư vấn miễn phí'}

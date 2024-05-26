@@ -1,30 +1,24 @@
 import 'bootstrap/dist/css/bootstrap.css';
-import './BookingStep.css';
 import { ChevronDownIcon, ChevronUpIcon } from '@chakra-ui/icons';
-import { useState } from 'react';
-import TimeSlot from './TimeSlot/TimeSlot';
-import Calendar from './Calendar/Calendar';
 import ExaminationType from './ExaminationType/ExaminationType';
+import Calendar from './Calendar/Calendar';
+import TimeSlot from './TimeSlot/TimeSlot';
 
-const BookingStep = () => {
-  
+const BookingStep = ({ activeStep, setActiveStep }: { activeStep: number, setActiveStep: (index: number) => void }) => {
     const data = [
-        { title: '1. Chọn hình thức khám', content: <ExaminationType />},
+        { title: '1. Chọn hình thức khám', content: <ExaminationType /> },
         { title: '2. Chọn ngày', content: <Calendar /> },
         { title: '3. Chọn giờ', content: <TimeSlot /> },
         { title: '4. Xác nhận thông tin', content: '' },
         { title: '5. Thanh toán', content: '' }
     ];
 
-    const [active, setActive] = useState<number | null>(null);
-
     const toggle = (index: number) => {
-        if (active === index) {
-            return setActive(null);
+        if (activeStep === index) {
+            return setActiveStep(-1);
         }
-
-        setActive(index);
-    }
+        setActiveStep(index);
+    };
 
     return (
         <div className="wrapper">
@@ -34,10 +28,10 @@ const BookingStep = () => {
                         <div className="title" onClick={() => toggle(index)}>
                             <h2>{item.title}</h2>
                             <span className="icon">
-                                {active === index ? <ChevronUpIcon boxSize={8} /> : <ChevronDownIcon boxSize={8} />}
+                                {activeStep === index ? <ChevronUpIcon boxSize={8} /> : <ChevronDownIcon boxSize={8} />}
                             </span>
                         </div>
-                        {active === index && <div className='content'>{item.content}</div>}
+                        {activeStep === index && <div className='content'>{item.content}</div>}
                     </div>
                 ))}
             </div>

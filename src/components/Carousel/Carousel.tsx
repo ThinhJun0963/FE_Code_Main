@@ -1,50 +1,40 @@
-import "react-alice-carousel/lib/alice-carousel.css";
-import Card from '../Card/Card';
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import Slider from "react-slick";
+import clinics from './data';
+import CardGenerator from '../Card/CardGenerator';
 import './Carousel.css';
-import Carousel from "react-multi-carousel";
-import 'react-multi-carousel/lib/styles.css';
-import { Link } from "react-router-dom";
 
-const ClinicCarousel = () => {
-
-  const responsive = {
-    desktop: {
-      breakpoint: { max: 3000, min: 1024 },
-      items: 3,
-      slidesToSlide: 3
-    },
-    tablet: {
-      breakpoint: { max: 1024, min: 464 },
-      items: 2,
-      slidesToSlide: 2
-    },
-    mobile: {
-      breakpoint: { max: 464, min: 0 },
-      items: 1,
-      slidesToSlide: 1
-    }
-  };
-
-  const items = [
-    <Link to="/detail/1"><div><Card image='' description='Đặt lịch khám' title='Phòng khám 1' /></div></Link>,
-    <Link to="/detail/2"><div><Card image='' description='Đặt lịch khám' title='Phòng khám 2' /></div></Link>,
-    <Link to="/detail/3"><div><Card image='' description='Đặt lịch khám' title='Phòng khám 3' /></div></Link>,
-    <Link to="/detail/4"><div><Card image='' description='Đặt lịch khám' title='Phòng khám 4' /></div></Link>,
-    <Link to="/detail/5"><div><Card image='' description='Đặt lịch khám' title='Phòng khám 5' /></div></Link>,
-  ];
-
-  return (
-    <div className="container">
-      <div className="header-container">
-        <h1>Đặt lịch khám trực tuyến</h1>
-        <span><button>Xem tất cả</button></span>
-      </div>
-      <div className="carousel-container">
-        <Carousel responsive={responsive}>
-          {items.map((item, index) => <div style={{ margin: '10px' }} key={index}>{item}</div>)}
-        </Carousel>;
-      </div>
-    </div>
-  )
+interface CarouselProps {
+    styles: { [key: string]: string };
 }
-export default ClinicCarousel
+
+
+const settings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 3,
+    slidesToScroll: 3,
+    centerMode: true,
+    centerPadding: "50px",
+
+};
+
+
+const Carousel = ({ styles }: CarouselProps) => {
+    return (
+        <div className={styles['slider-container']}>
+            {/* <div className={styles['slider-title']}></div> */}
+            <Slider {...settings}>
+                {clinics.map((clinic, index) => (
+                    <div key={index} className={styles["slider-card"]}>
+                        <CardGenerator card={clinic} styles={styles} />
+                    </div>
+                ))}
+            </Slider>
+        </div>
+    )
+}
+
+export default Carousel

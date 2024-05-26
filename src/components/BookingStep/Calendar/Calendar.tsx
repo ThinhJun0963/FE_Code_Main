@@ -1,6 +1,4 @@
-import React from 'react'
 import ReactCalendar from 'react-calendar';
-import './Calendar.css'
 
 const Calendar = () => {
     return (
