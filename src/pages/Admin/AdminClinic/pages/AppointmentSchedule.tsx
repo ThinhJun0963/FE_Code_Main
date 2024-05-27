@@ -6,7 +6,7 @@ import { sidebarData } from '../data';
 const AppointmentSchedule = () => {
     return (
         <div className={styles.box}>
-            <SideBar sidebarData={sidebarData} styles={styles} />
+            <SideBar sidebarData={sidebarData}/>
             <div className={styles['content-container']}>
                 <div><h1>Trang thông tin lịch hẹn</h1></div>
 

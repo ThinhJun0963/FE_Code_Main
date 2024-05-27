@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import './SideBar.css';
 
 interface Data { 
     title: string;
@@ -7,17 +8,16 @@ interface Data {
 
 interface SidebarData { 
     sidebarData: Data[];
-    styles: { [key: string]: string };
 }
 
-const SideBar = ({sidebarData, styles} : SidebarData) => {
+const SideBar = ({sidebarData} : SidebarData) => {
 
     return (
-        <div className={styles.sidebar}>
-            <ul className={styles['sidebar-list']}>
+        <div className='sidebar'>
+            <ul className='sidebar-list'>
                 {sidebarData.map((item, index) => {
                     return (
-                        <li className={styles.row} key={index}><Link id={styles.title} to={item.path}>{item.title}</Link></li>
+                        <li className='sidebar-row' key={index}><Link id='title' to={item.path}>{item.title}</Link></li>
                     )
                 })}
             </ul>

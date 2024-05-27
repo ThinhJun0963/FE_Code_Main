@@ -1,4 +1,4 @@
-import { ChakraProvider, Step, StepIcon, StepIndicator, StepNumber, StepSeparator, StepStatus, Stepper, defineStyleConfig, extendTheme, useSteps } from '@chakra-ui/react';
+import { ChakraProvider, Step, StepIcon, StepIndicator, StepNumber, StepSeparator, StepStatus, Stepper, defineStyleConfig, extendTheme } from '@chakra-ui/react';
 
 
 const stepperTheme = defineStyleConfig({

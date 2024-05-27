@@ -1,11 +1,41 @@
 .time-slots-container {
     display: flex;
     flex-wrap: wrap;
+    background-color: #eeeeee;
 }
 
 .time-slot {
-    border: 1px solid black;
+    border: 2px solid  #373a41;
+    background-color: #ffffff;
     border-radius: 5px;
     padding: 5px;
-    margin: 5px;
+    margin: 10px;
 }
+
+
+.morning-time-slots-container {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    font-size: 19px;
+    width: 100%;
+    margin: 10px;
+}
+
+.evening-time-slots-container {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    font-size: 19px;
+    width: 100%;
+    margin: 10px;
+}
+
+.morning-time-slots {
+    display: flex;
+}
+
+.evening-time-slots {
+    display: flex;
+}
+

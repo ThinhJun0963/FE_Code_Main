@@ -8,7 +8,7 @@ import ClinicRegisterForm from '../pages/ClinicRegister/ClinicRegister';
 import UserProfile from '../pages/UserProfile/UserProfile';
 import ClinicOwnerPage from '../pages/ClinicOwnerPage/ClinicOwnerPage';
 import ClinicInformation from '../pages/Admin/AdminClinic/pages/ClinicInformation/ClinicInformation';
-import DentistAccount from '../pages/Admin/AdminClinic/pages/DentistAccount';
+import DentistAccount from '../pages/Admin/AdminClinic/pages/DentistAccount/DentistAccount';
 import AppointmentSchedule from '../pages/Admin/AdminClinic/pages/AppointmentSchedule';
 import ServicesInformation from '../pages/Admin/AdminClinic/pages/ServicesInformation';
 import LoginPage from '../pages/Login/LoginPage';

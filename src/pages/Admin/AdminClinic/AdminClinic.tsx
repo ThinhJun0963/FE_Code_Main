@@ -6,7 +6,7 @@ import { adminClinicData, sidebarData } from "./data";
 const AdminClinicPage = () => {
   return (
     <div className={styles.box}>
-      <SideBar sidebarData={sidebarData} styles={styles} />
+      <SideBar sidebarData={sidebarData} />
       <div className={styles['content-container']}>
         <div><h1>Trang chủ</h1></div>
         <div className={styles['box-container']}>
