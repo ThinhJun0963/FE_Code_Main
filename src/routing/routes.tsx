@@ -12,6 +12,7 @@ import DentistAccount from '../pages/Admin/AdminClinic/pages/DentistAccount/Dent
 import AppointmentSchedule from '../pages/Admin/AdminClinic/pages/AppointmentSchedule';
 import ServicesInformation from '../pages/Admin/AdminClinic/pages/ServicesInformation';
 import LoginPage from '../pages/Login/LoginPage';
+import ClinicDetail from '../pages/ClinicDetail/ClinicDetail';
 
 const router = createBrowserRouter([
   { path: '/', element: <HomePage /> },
@@ -28,6 +29,7 @@ const router = createBrowserRouter([
   { path: "/owner", element: <ClinicOwnerPage /> },
   { path: "/profile", element: <UserProfile /> },
   { path: "/login", element: <LoginPage /> },
+  {path: '/clinic', element: <ClinicDetail details={''} images={[]} rating={0} services={[]}/>}
 
 ]);
 
