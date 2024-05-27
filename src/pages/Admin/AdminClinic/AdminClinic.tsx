@@ -8,7 +8,7 @@ const AdminClinicPage = () => {
     <div className={styles.box}>
       <SideBar sidebarData={sidebarData} />
       <div className={styles['content-container']}>
-        <div><h1>Trang chủ</h1></div>
+        <h1>Trang chủ</h1>
         <div className={styles['box-container']}>
           {adminClinicData.map((item, index) => {
             return (

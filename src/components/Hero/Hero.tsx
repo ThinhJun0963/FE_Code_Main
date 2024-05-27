@@ -1,35 +1,40 @@
-import { Box, Flex, Text} from "@chakra-ui/react";
 import { FaSearch } from "react-icons/fa";
 import { useState } from "react";
 
-interface HeroProps { 
+interface HeroProps {
   styles: { [key: string]: string };
 }
 
-export default function Hero( {styles}: HeroProps) {
+export default function Hero({ styles }: HeroProps) {
   const [inputValue, setInputValue] = useState("");
 
   return (
-    <Box
-      h={"50vh"}
-      backgroundColor={"#1975dc"}
-      justifyContent={"center"} // Add this line
-      alignItems={"center"} // And this line
+    <div
+      style={{
+        height: "50vh",
+        backgroundColor: "#062e74",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center"
+      }}
     >
-      <Box pt={30}>
-        <Flex
-          flexDirection={"column"}
-          justifyContent={"center"}
-          alignItems={"center"}
+      <div style={{ paddingTop: "30px" }}>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            alignItems: "center"
+          }}
         >
-          <Box pt={20}>
-            <Text fontSize={40} fontWeight="bold">
+          <div style={{ paddingTop: "20px" }}>
+            <p style={{ fontSize: "40px", fontWeight: "bold" }}>
               Ứng dụng đặt khám
-            </Text>
-            <Text fontSize={25}>
+            </p>
+            <p style={{ fontSize: "25px" }}>
               Đặt khám với hơn 100 phòng khám trên SmileCare để có số thứ tự và
               khung giờ khám trước.
-            </Text>
+            </p>
             <div className={styles['input-wrapper']}>
               <input
                 className={styles['input']}
@@ -40,9 +45,9 @@ export default function Hero( {styles}: HeroProps) {
               />
               <FaSearch color="black" />
             </div>
-          </Box>
-        </Flex>
-      </Box>
-    </Box>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 }

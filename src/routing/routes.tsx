@@ -14,6 +14,8 @@ import ServicesInformation from '../pages/Admin/AdminClinic/pages/ServicesInform
 import LoginPage from '../pages/Login/LoginPage';
 import UserPayment from '../pages/User/Payment/UserPayment';
 import UserAccount from '../pages/User/Account/UserAccount';
+import ClinicDetail from '../pages/ClinicDetail/ClinicDetail';
+
 
 const router = createBrowserRouter([
   { path: '/', element: <HomePage /> },
@@ -33,6 +35,7 @@ const router = createBrowserRouter([
   { path: "/user/profile", element: <UserProfile /> },
   { path: "/user/account", element: <UserAccount /> },
   { path: "/login", element: <LoginPage /> },
+  {path: '/clinic', element: <ClinicDetail details={''} images={[]} rating={0} services={[]}/>}
 
 ]);
 
