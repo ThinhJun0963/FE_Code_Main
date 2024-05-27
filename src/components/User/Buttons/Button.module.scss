@@ -1,0 +1,25 @@
+.SimpleButton {
+    width: 80%;
+    font-size: 1cqw;
+    padding: 10px 10px;
+    margin: 2em 2em;
+    background-color: rgb(255, 255, 255);
+    color: rgb(32, 184, 255);
+    border: 1px solid rgb(10, 115, 175);
+    cursor: pointer;
+    transition: all 0.25s;
+}
+
+.SimpleButton:hover {
+    background-color: rgb(209, 255, 251);
+    color: rgb(32, 184, 255);
+    border: 1px solid rgb(10, 115, 175);
+    transition: all 0.25s;
+}
+
+.SimpleButton:active {
+    background-color: rgb(85, 195, 240);
+    color: rgb(255, 255, 255);
+    border: 1px solid rgb(68, 180, 240);
+    transition: all 0.25s;
+}
