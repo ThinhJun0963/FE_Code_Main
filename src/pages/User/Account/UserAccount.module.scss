@@ -106,21 +106,61 @@
     
             .FieldName {
                 text-align: left;
+                width:40%;
             }
             
             .FieldValue {
+                width:100%;
                 text-align: right;
             }
 
-            input {
-                text-align: right;
+            fieldset {
+                display: flex;
+                text-align: center;
+                justify-content: space-around;
             }
 
             label {
-                padding: 0 1em;
+                margin: 0 auto;
+                
             }
-        }
+            
+            input {
+                padding: 15px 20px 15px 0;
+                color: inherit;
+                margin: 0;
+                font-size: inherit;
+                height: 1em;
+                line-height: 3em;
+            }
+
+            input::placeholder {
+                color: rgb(160, 160, 160);;
+            }
+
+            .TableRow:hover, .TableRow:has(input:focus), input:focus {
+                background-color: rgb(233, 233, 233);
+                input {
+                    background-color: inherit;
+                }
+                
+            }
+
+            input:enabled {
+                border-bottom: 1px solid black;
+                color: rgb(0,0,0);
+                transition: all 1s ease;
+            }
+
+            input:disabled {
+                border-bottom: 1px solid white;
+                padding-left: 5em;
+                transition: all 1s ease;
+            }
+        }     
     }
+
+        
     
     .Line {
         margin: 2em auto;

@@ -225,7 +225,7 @@ const UserAccount: React.FC = () => {
 
                   </tbody>
                 </table>
-                {!disabled && <SimpleButton buttonType='button' message='Hủy cập nhật' callback={() => {setDisabled((disabled) => ! disabled)}} />}
+                {!disabled && <SimpleButton buttonType='button' message='Hoàn tất' callback={() => {setDisabled((disabled) => ! disabled)}} />}
                 {disabled && <SimpleButton buttonType='button' message='Cập nhật thông tin tài khoản' callback={() => {setDisabled(false)}} />}
               </div>
               <hr className={style.Line} />
