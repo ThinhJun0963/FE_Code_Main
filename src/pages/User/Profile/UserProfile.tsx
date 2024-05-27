@@ -1,45 +1,41 @@
 import './UserProfile.scss'
 import { useNavigate } from 'react-router-dom';
-import ImagePlaceholder from '../../assets/img_placeholder.jpg';
-import Footer from '../../components/Footer/Footer';
-import Header from '../../components/Header/Header';
-
-const UserProfile = (props: any) => {
-
+import ImagePlaceholder from '../../../assets/img_placeholder.jpg';
+import Footer from '../../../components/Footer/Footer';
+import Header from '../../../components/Header/Header';
+import { UserInfo } from '../UserDefinition';
+import SimpleButton from '../../../components/User/Buttons/SimpleButton';
+const UserProfile: React.FC = () => {
   // Dữ liệu người dùng
-  let data = props.data;
-
-  if (props.data == null) {
-    data = {
-      "user_id": "The Null Pointer Exception",
-      "username": "Collin Phan",
-      "name": "Charles Vander Lin",
-      "phone": "0933015921",
-      "gender": "Nam",
-      "bỉthdate": "30-4-1945",
-      "ethnic": "Kinh",
-      "email": "example@gmail.com",
-      "ssc": "03968230692155",
-      "insurance": null
+  const data: UserInfo = {
+      user_id: "The Null Pointer Exception",
+      username: "Collin Phan",
+      name: "Charles Vander Lin",
+      phone: "0933015921",
+      gender: "Nam",
+      birthdate: "30-4-1945",
+      ethnic: "Kinh",
+      email: "example@gmail.com",
+      ssc: "03968230692155",
+      insurance: null,
+      status: {state_number: 1, message: "Đã xác minh"}, 
     }
-  }
 
+  // Navigational
   const navigator = useNavigate();
-  const doNavigate = (dest: any) => {navigator(dest)}
-
+  const doNavigate = (dest: string) => {navigator(dest)}
 
   // Intergrated with current navigation bar and footer
-
   return (
     <>
       <Header />
       <main className='main-content-flex-container'>
         <div className='main-content-left-container'>
           <ul>
-            <li className='profile_nav_link'><p className='profile_nav_text' onClick={() => doNavigate('#')}>Lịch khám</p></li>
-            <li className='profile_nav_link'><p className='profile_nav_text' onClick={() => doNavigate('#')}>Thanh toán</p></li>
+            <li className='profile_nav_link'><p className='profile_nav_text' onClick={() => doNavigate('/user/schedule')}>Lịch khám</p></li>
+            <li className='profile_nav_link'><p className='profile_nav_text' onClick={() => doNavigate('/user/payment')}>Thanh toán</p></li>
             <li className='profile_nav_link active'><p className='profile_nav_text' onClick={() => doNavigate('#')}>Hồ sơ</p></li>
-            <li className='profile_nav_link'><p className='profile_nav_text' onClick={() => doNavigate('#')}>Tài khoản</p></li>
+            <li className='profile_nav_link'><p className='profile_nav_text' onClick={() => doNavigate('/user/account')}>Tài khoản</p></li>
           </ul>
         </div>
 
@@ -49,7 +45,7 @@ const UserProfile = (props: any) => {
 
               <div className='main-content-container-box-row profile-general-align-left'>
                 <span className="user-profile-image-placeholder">
-                  <img src={data.profile_img ?? ImagePlaceholder} alt="lmao"/>
+                  <img src={data.profile_image ?? ImagePlaceholder} alt="lmao"/>
                 </span>
                 <span className='user-profile-general-info'>
                   <h2>{data.username}</h2>
@@ -75,7 +71,7 @@ const UserProfile = (props: any) => {
                     </tr>
                     <tr>
                       <td className='table-field-name'>Ngày sinh</td>
-                      <td className="table-field-value">{data.bỉthdate ?? "--"}</td>
+                      <td className="table-field-value">{data.birthdate ?? "--"}</td>
                     </tr>
                   </tbody>
                 </table>
@@ -104,7 +100,7 @@ const UserProfile = (props: any) => {
                 </table>
               </div>
               <div className='main-content-container-box-row'>
-                <p className='temporary-button'> Chỉnh sửa </p>
+              <SimpleButton buttonType='button' href='/user/account' message='Chỉnh sửa thông tin cá nhân' />
               </div>
             </div>
         </div>
