@@ -1,7 +1,6 @@
 import './UserProfile.scss'
 import { useNavigate } from 'react-router-dom';
 import ImagePlaceholder from '../../../assets/img_placeholder.jpg';
-import Footer from '../../../components/Footer/Footer';
 import Header from '../../../components/Header/Header';
 import { UserInfo } from '../UserDefinition';
 import SimpleButton from '../../../components/User/Buttons/SimpleButton';
@@ -105,7 +104,6 @@ const UserProfile: React.FC = () => {
             </div>
         </div>
       </main>
-      <Footer />
     </>
   )
 }

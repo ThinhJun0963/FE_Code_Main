@@ -1,16 +1,14 @@
-import { Box } from "@chakra-ui/react";
 import Header from "../../components/Header/Header";
 import Hero from "../../components/Hero/Hero";
 import Carousel from "../../components/Carousel/Carousel";
 import FAQ from "../../components/FAQ/Faq";
-import SimpleThreeColumns from "../../components/SimpleThreeColumns/SimpleThreeColumns";
-import Footer from "../../components/Footer/Footer";
 import styles from './HomePage.module.css'
+import PlainFooter from "../../components/Footer/PlainFooter";
 
 const HomePage = () => {
   return (
     <>
-      <Box bg="gray.200" minH="100vh">
+      {/* <Box bg="gray.200" minH="100vh">
         <Box>
           <Header />
         </Box>
@@ -30,8 +28,8 @@ const HomePage = () => {
         <Box pt={10}>
           <SimpleThreeColumns />
         </Box>
-        <Footer />
-      </Box>
+        <PlainFooter />
+      </Box> */}
     </>
   );
 };

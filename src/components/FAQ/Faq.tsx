@@ -1,10 +1,9 @@
-import { Accordion, AccordionItem, AccordionButton, AccordionPanel, AccordionIcon, Box, Flex } from "@chakra-ui/react"
 
 
 function FAQ() {
     return (
         <div style={{ color: "black", width: "90%", margin: "0 auto" }}>
-            <h1 style={{ textAlign: 'center', marginBottom: "40px"}}>Câu hỏi thường gặp</h1>
+            {/* <h1 style={{ textAlign: 'center', marginBottom: "40px"}}>Câu hỏi thường gặp</h1>
             <Flex justifyContent="center" alignItems="center" >
                 <Accordion allowToggle>
                     <AccordionItem style={{ width: "50vw" }}>
@@ -35,7 +34,7 @@ function FAQ() {
                         </AccordionPanel>
                     </AccordionItem>
                 </Accordion>
-            </Flex>
+            </Flex> */}
         </div >
     )
 }

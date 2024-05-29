@@ -2,7 +2,6 @@ import React, { Dispatch, SetStateAction, useEffect, useLayoutEffect, useState }
 import style from './UserAccount.module.scss'
 import ImagePlaceholder from '../../../assets/img_placeholder.jpg'
 import Header from '../../../components/Header/Header'
-import Footer from '../../../components/Footer/Footer'
 import { default_data, Payment, UserInfo } from '../UserDefinition';
 import StatusBadge from '../../../components/User/StatusBadge/StatusBadge';
 import UserProfileNav from '../../../components/User/Layouts/UserProfileNav';
@@ -249,7 +248,6 @@ const UserAccount: React.FC = () => {
           </div>
         </div>
       </main>
-      <Footer />
     </>
   )}
   else {

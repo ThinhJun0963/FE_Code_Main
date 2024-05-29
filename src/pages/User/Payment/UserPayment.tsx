@@ -1,6 +1,5 @@
 import React from 'react'
 import Header from '../../../components/Header/Header'
-import Footer from '../../../components/Footer/Footer'
 
 const UserPayment: React.FC = () => {
   return (
@@ -9,7 +8,6 @@ const UserPayment: React.FC = () => {
         <main>
             
         </main>
-        <Footer />
     </>
   )
 }

@@ -4,7 +4,6 @@ import FormGenerator from '../../components/FormGenerator/FormGenerator';
 import ServicesForm from './Forms/ServicesForm';
 import CertificationForm from './Forms/CertificationForm';
 import Header from '../../components/Header/Header';
-import Footer from '../../components/Footer/Footer';
 
 const ClinicRegisterForm = () => {
     const generalContent = [
@@ -48,7 +47,6 @@ const ClinicRegisterForm = () => {
                     </div>
                 </div>
             </form >
-            <Footer />
         </div>
     )
 }
