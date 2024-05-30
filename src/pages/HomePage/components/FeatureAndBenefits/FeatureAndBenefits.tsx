@@ -30,7 +30,7 @@ const FeaturesAndBenefits = () => {
             <Grid container spacing={3}>
                 {features.map((feature, index) => (
                     <Grid item xs={12} sm={6} md={4} key={index}>
-                        <Box textAlign="center" p={2} sx={{ backgroundColor: '#F1F1F1', height: '100%', borderRadius: '10px' }}>
+                        <Box textAlign="center" p={2} sx={{ backgroundColor: ' #ffffff', height: '100%', borderRadius: '10px' }}>
                             <Box sx={{ fontSize: '50px' }}>
                                 {feature.icon}
                             </Box>

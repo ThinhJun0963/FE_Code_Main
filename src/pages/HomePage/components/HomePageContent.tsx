@@ -30,7 +30,7 @@ const HomePageContent = () => {
                     Đặt khám với hơn 100 phòng khám trên SmileCare để có số thứ tự và
                     khung giờ khám trước.
                 </Typography>
-                <Box sx={{ backgroundColor: '#F1F1F1', width: '100%', borderRadius: '10px', display: 'flex', alignItems: 'center', padding: '10px' }}>
+                <Box sx={{ backgroundColor: ' #ffffff', width: '100%', borderRadius: '10px', display: 'flex', alignItems: 'center', padding: '10px' }}>
                     <InputBase
                         value={searchTerm}
                         onChange={handleSearchChange}

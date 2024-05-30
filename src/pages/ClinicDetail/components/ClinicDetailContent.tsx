@@ -1,15 +1,25 @@
 import React from 'react'
-import { Avatar, Box, Button, Divider, IconButton, InputBase, Typography } from '@mui/material';
-import Breadcrumbs from '../../../components/Breadcrums/Breadcrums';
+import { Avatar, Box, Button, Divider, Link,  Typography, Breadcrumbs } from '@mui/material';
 import ImageList from './ImageList/ImageList';
 import ClinicServices from './ClinicServices/ClinicServices';
 import clinicServices from './data'
 
+function handleClick(event: React.MouseEvent<HTMLDivElement, MouseEvent>) {
+    event.preventDefault();
+    console.info('You clicked a breadcrumb.');
+}
+
 const ClinicDetailContent = () => {
     return (
         <Box sx={{ marginTop: '5%', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+
             <Box sx={{ width: '80%', marginTop: '-3em', textAlign: 'right', color: 'black' }}>
-                <Breadcrumbs />
+                <Breadcrumbs aria-label="breadcrumb">
+                    <Link underline="hover" color="inherit" href="/">
+                        Trang chủ
+                    </Link>
+                    <Typography color="text.primary">Phòng khám</Typography>
+                </Breadcrumbs>
             </Box>
             <Box sx={{
                 width: '80%',
@@ -49,10 +59,9 @@ const ClinicDetailContent = () => {
                 <ImageList />
             </Box>
             <Box sx={{ width: '80%', textAlign: 'right' }}>
-                <Button variant='contained' sx={{ backgroundColor: '#1975dc', color: '#fff', width: '30%', borderRadius: '5px' }}>Đặt lịch ngay</Button>
+                <Button href='/booking' variant='contained' sx={{ backgroundColor: '#1975dc', color: '#fff', width: '30%', borderRadius: '5px' }}>Đặt lịch ngay</Button>
             </Box>
-
-            <Box sx={{ width: '80%', marginTop: '5em' }}>
+            <Box sx={{ width: '80%', marginTop: '5em', marginBottom: '5em', backgroundColor: ' #ffffff', padding: '3em', border: '2px solid #e0e0e0', borderRadius: '1em' }}>
                 <Box sx={{ marginTop: '1em' }}>
                     <Typography variant='h4' sx={{ fontWeight: 'bold' }} >Giới thiệu chi tiết</Typography>
                     <Typography variant='body1' sx={{ marginTop: '1em' }}>

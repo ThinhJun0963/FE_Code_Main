@@ -1,7 +1,7 @@
 import { createBrowserRouter } from 'react-router-dom';
 import HomePage from '../pages/HomePage/HomePage';
 import BookingPage from '../pages/Booking/BookingPage';
-import ClinicRegisterForm from '../pages/ClinicRegister/ClinicRegister';
+import ClinicRegisterForm from '../pages/ClinicRegister/components/ClinicRegisterContent';
 import UserProfile from '../pages/User/Profile/UserProfile';
 import ClinicOwnerPage from '../pages/ClinicOwnerPage/ClinicOwnerPage';
 import LoginPage from '../pages/Login/LoginPage';

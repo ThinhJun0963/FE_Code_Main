@@ -112,15 +112,6 @@ const appointmentRows = [
 ]
 
 
-const FormPaper = styled(Paper)(({ theme }) => ({
-    width: '90%',
-    height: 'auto',
-    margin: '0 auto',
-    border: '1px solid #ddd', // Add border
-    boxShadow: '0 0 10px rgba(0,0,0,0.1)', // Add shadow
-}))
-
-
 // TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = createTheme();
 
@@ -199,18 +190,21 @@ export default function AppointmentSchedule() {
                 >
                     <Toolbar />
                     <Container maxWidth="xl">
-                        <FormPaper>
-                            <Typography variant="h6" component="h4" sx={{ flexGrow: 1, paddingLeft: 7, marginTop: 4 }}>
-                                Thông tin phòng khám
-                            </Typography>
+                        <Paper>
                             <Box sx={{ width: "100%", padding: "50px" }}>
                                 <Grid container spacing={3}>
+                                    <Grid item lg={12}>
+                                        <Typography variant="h6" component="h4">
+                                            Thông tin lịch hẹn khám
+                                        </Typography>
+                                    </Grid>
+
                                     <Grid item lg={12}>
                                         <Table rows={appointmentRows} columns={appointmentColumns} />
                                     </Grid>
                                 </Grid>
                             </Box>
-                        </FormPaper>
+                        </Paper>
                     </Container>
                 </Box>
             </Box>

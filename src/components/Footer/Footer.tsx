@@ -5,7 +5,7 @@ import LinkedInIcon from '@mui/icons-material/LinkedIn';
 
 const Footer = () => {
     return (
-        <Box sx={{ backgroundColor: '#f5f5f5', p: 3 }}>
+        <Box sx={{ backgroundColor: ' #ffffff', p: 3 }}>
             <Grid container spacing={2}>
                 <Grid item xs={12} md={3}>
                     <Typography variant="h6">Kết nối với chúng tôi</Typography>

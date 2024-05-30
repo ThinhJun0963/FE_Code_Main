@@ -91,21 +91,21 @@ const dentistColumns: GridColDef[] = [
     headerName: 'Trạng thái',
     flex: 1,
     renderCell: (params) => (
-      <Button variant="contained" color={params.value === 'active' ? 'success' : 'error'}>
+      <Button variant="contained" color={params.value === 'Hoạt động' ? 'success' : 'error'}>
         {params.value}
       </Button>
     ),
   },]
 
 const dentistRows = [
-  { id: 1, img: '', name: 'Nguyễn Văn A', status: 'active' },
-  { id: 2, img: '', name: 'Nguyễn Văn B', status: 'inactive' },
-  { id: 3, img: '', name: 'Nguyễn Văn C', status: 'inactive' },
-  { id: 4, img: '', name: 'Nguyễn Văn D', status: 'inactive' },
-  { id: 5, img: '', name: 'Nguyễn Văn E', status: 'active' },
-  { id: 6, img: '', name: 'Nguyễn Văn F', status: 'active' },
-  { id: 7, img: '', name: 'Nguyễn Văn G', status: 'inactive' },
-  { id: 8, img: '', name: 'Nguyễn Văn H', status: 'active' },
+  { id: 1, img: '', name: 'Nguyễn Văn A', status: 'Hoạt động' },
+  { id: 2, img: '', name: 'Nguyễn Văn B', status: 'Hoạt động' },
+  { id: 3, img: '', name: 'Nguyễn Văn C', status: 'Hoạt động' },
+  { id: 4, img: '', name: 'Nguyễn Văn D', status: 'Ngừng hoạt động' },
+  { id: 5, img: '', name: 'Nguyễn Văn E', status: 'Hoạt động' },
+  { id: 6, img: '', name: 'Nguyễn Văn F', status: 'Hoạt động' },
+  { id: 7, img: '', name: 'Nguyễn Văn G', status: 'Hoạt động' },
+  { id: 8, img: '', name: 'Nguyễn Văn H', status: 'Ngừng hoạt động' },
 ]
 
 // const filterModel: GridFilterModel = {
@@ -113,14 +113,6 @@ const dentistRows = [
 //     { field: 'Tên', operator: 'contains', value: 'Nguyễn Văn A' }
 //   ],
 // };
-
-const FormPaper = styled(Paper)(({ theme }) => ({
-  width: '100%',
-  height: 'auto',
-  margin: '0 auto',
-  border: '1px solid #ddd', // Add border
-  boxShadow: '0 0 10px rgba(0,0,0,0.1)', // Add shadow
-}))
 
 // TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = createTheme();
@@ -186,31 +178,34 @@ export default function DentistAccounts() {
         </Drawer>
         <Box
           component="main"
-          pt={10}
           sx={{
             backgroundColor: (theme) =>
               theme.palette.mode === 'light'
                 ? theme.palette.grey[100]
                 : theme.palette.grey[900],
-            flexGrow: 1,
             height: '100vh',
-            overflow: 'auto',
+            flexGrow: 1,
           }}
         >
           <Toolbar />
           <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }} >
-            <FormPaper>
-              <Typography variant="h6" component="h4" sx={{ flexGrow: 1, paddingLeft: 7, marginTop: 4 }}>
-                Danh sách nha sĩ
-              </Typography>
+            <Paper>
               <Box sx={{ width: "100%", padding: "50px" }}>
                 <Grid container spacing={3}>
                   <Grid item lg={12}>
+                    <Typography variant="h6" component="h4">
+                      Danh sách nha sĩ
+                    </Typography>
+                  </Grid>
+                  <Grid item lg={12}>
                     <Table rows={dentistRows} columns={dentistColumns} />
+                  </Grid>
+                  <Grid item lg={12} sx={{ display: 'flex', justifyContent: 'flex-end' }}>
+                    <Button variant="contained" color="primary">Thêm nha sĩ</Button>
                   </Grid>
                 </Grid>
               </Box>
-            </FormPaper>
+            </Paper>
             {/* <Copyright sx={{ pt: 4 }} /> */}
           </Container>
         </Box>

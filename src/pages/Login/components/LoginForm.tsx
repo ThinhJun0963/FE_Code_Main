@@ -32,7 +32,7 @@ const LoginForm = () => {
 
 
   return (
-    <Box component="form" onSubmit={handleSubmit} noValidate >
+    <Box component="form" onSubmit={handleSubmit} >
       <Typography component="h1" variant="h5" sx={{ textAlign: 'center' }}>
         Đăng nhập
       </Typography>
