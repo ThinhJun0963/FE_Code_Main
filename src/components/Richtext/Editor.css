@@ -1,0 +1,32 @@
+.editor-container {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    min-height: 400px;
+  }
+  
+  .button-container {
+    margin-top: 10px;
+    text-align: right;
+  }
+  
+  .send-button,
+  .close-button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 8px 20px;
+    margin-left: 10px;
+    cursor: pointer;
+  }
+  
+  .send-button:hover,
+  .close-button:hover {
+    background-color: #0056b3;
+  }
+  
+  .ck-editor__editable_inline {
+    min-height: 400px;
+  }
+  
