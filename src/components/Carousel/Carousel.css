@@ -16,6 +16,11 @@
 
 }
 
+.slick-slide {
+    /* background-color: red; */
+    padding: 10px;
+}
+
 /* .slick-next:active {
     color: #00558B;
 }
@@ -23,3 +28,4 @@
 .slick-prev:active {
     color: #00558B;
 } */
+

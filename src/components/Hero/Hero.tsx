@@ -1,53 +1,31 @@
-import { FaSearch } from "react-icons/fa";
-import { useState } from "react";
+import { Box, Typography, TextField, InputAdornment, styled, InputBase, alpha } from '@mui/material';
+import SearchIcon from '@mui/icons-material/Search';
+import { useState } from 'react';
 
-interface HeroProps {
-  styles: { [key: string]: string };
-}
 
-export default function Hero({ styles }: HeroProps) {
+
+
+export default function Hero() {
   const [inputValue, setInputValue] = useState("");
 
   return (
-    <div
-      style={{
-        height: "50vh",
-        backgroundColor: "#062e74",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center"
-      }}
-    >
-      <div style={{ paddingTop: "30px" }}>
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-            alignItems: "center"
-          }}
-        >
-          <div style={{ paddingTop: "20px" }}>
-            <p style={{ fontSize: "40px", fontWeight: "bold" }}>
-              Ứng dụng đặt khám
-            </p>
-            <p style={{ fontSize: "25px" }}>
-              Đặt khám với hơn 100 phòng khám trên SmileCare để có số thứ tự và
-              khung giờ khám trước.
-            </p>
-            <div className={styles['input-wrapper']}>
-              <input
-                className={styles['input']}
-                type="text"
-                placeholder="Tìm kiếm phòng khám"
-                value={inputValue}
-                onChange={(e) => setInputValue(e.target.value)}
-              />
-              <FaSearch color="black" />
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+    <Box
+    sx={{
+      height: '55vh',
+      backgroundColor: "#7cc9ff",
+      position: 'relative'
+    }}
+  >
+    <Box
+      sx={{
+        position: 'absolute', // Add this
+        top: 0, // Add this
+        left: 0, // Add this
+        width: '100%', // Add this
+        height: '100%', // Add this
+      }}>
+      <img src="../../../public/hero-banner.png" alt="hero-banner" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+    </Box>
+  </Box>
   );
 }

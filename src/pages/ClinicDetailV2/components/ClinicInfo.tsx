@@ -1,7 +1,7 @@
 import React from "react";
 import Avatar from "./Avatar";
 import ContactInfo from "./Contact";
-import Status from "./Status";
+import Status from "../Status";
 
 interface ClinicInfoProps {
   name: string;

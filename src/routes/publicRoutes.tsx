@@ -1,7 +1,6 @@
 import HomePage from '../pages/HomePage/HomePage';
 import BookingPage from '../pages/Booking/BookingPage';
 import ClinicRegisterForm from '../pages/ClinicRegister/ClinicRegister';
-import ClinicOwnerPage from '../pages/ClinicOwnerPage/ClinicOwnerPage';
 import UserPayment from '../pages/User/Payment/UserPayment';
 import UserAccount from '../pages/User/Account/UserAccount';
 import UserProfile from '../pages/User/Profile/UserProfile';
@@ -11,12 +10,14 @@ import AppointmentSchedule from '../pages/Admin/AdminClinicOwner/pages/Appointme
 import ClinicInformation from '../pages/Admin/AdminClinicOwner/pages/ClinicInformation';
 import LoginMUI from '../pages/Login/index';
 import SignUpMUI from '../pages/Login/SignUpMUI';
+import ClinicDetail from '../pages/ClinicDetail/ClinicDetail';
+
 
 export const publicRoutes = [
     { path: '/', element: <HomePage /> },
     { path: '/booking', element: <BookingPage /> },
     { path: '/for-owner', element: <ClinicRegisterForm /> },
-    { path: "/clinic-detail", element: <ClinicOwnerPage /> },
+    { path: "/clinic", element: <ClinicDetail /> },
     { path: "/login", element: < LoginMUI /> },
     { path: "/signup", element: <SignUpMUI /> },
     { path: "/user/payment", element: <UserPayment /> },
