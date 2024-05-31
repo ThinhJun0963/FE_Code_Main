@@ -18,7 +18,6 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ onClose }) => {
       <div className="chat-content">
         {/* Nội dung chat sẽ nằm ở đây */}
         <p>Chào! Làm thế nào tôi có thể giúp bạn?</p>
-        <p>Chúng tôi sẽ trả lời sau giây lát</p>
       </div>
       <div className="chat-footer">
         <input type="text" placeholder="Nhập tin nhắn..." />
