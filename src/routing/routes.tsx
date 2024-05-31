@@ -14,8 +14,7 @@ import AppointmentSchedule from '../pages/Admin/AdminClinicOwner/pages/Appointme
 import ClinicInformation from '../pages/Admin/AdminClinicOwner/pages/ClinicInformation';
 import LoginMUI from '../pages/Login/LoginMUI';
 import PopUp from "../pages/PopUpWindow/PopUpWindow";
-import ClinicDetail from "../pages/ClinicDetail/ClinicDetail";
-import ServicesInformation from "../pages/Admin/AdminClinic/pages/ServicesInformation";
+import ServicesInformation from "../pages/Admin/AdminClinicOwner/pages/ClinicInformation"
         
 const router = createBrowserRouter([
   { path: '/', element: <HomePage /> },
