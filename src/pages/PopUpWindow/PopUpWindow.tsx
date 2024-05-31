@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-import MyModal from "../../components/PopUp/ModalPopUp.tsx";
+import MyModal from "../../components/ModalPopUp/ModalPopUp.tsx";
 import Editor from "../../components/Richtext/Editor.tsx";
-import "./PopUp.css";
 
 const PopUp: React.FC = () => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -29,7 +28,7 @@ const PopUp: React.FC = () => {
   return (
     <div>
       <button className="button" onClick={openModal}>
-        Pop Up Window
+        
       </button>
       <MyModal
         isOpen={modalIsOpen}

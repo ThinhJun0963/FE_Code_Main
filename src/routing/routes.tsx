@@ -13,7 +13,7 @@ import DentistAccounts from '../pages/Admin/AdminClinicOwner/pages/DentistAccoun
 import AppointmentSchedule from '../pages/Admin/AdminClinicOwner/pages/AppointmentSchedule';
 import ClinicInformation from '../pages/Admin/AdminClinicOwner/pages/ClinicInformation';
 import LoginMUI from '../pages/Login/LoginMUI';
-import PopUp from "../pages/PopUpPage/PopUp";
+import PopUp from "../pages/PopUpWindow/PopUpWindow";
 import ClinicDetail from "../pages/ClinicDetail/ClinicDetail";
 import ServicesInformation from "../pages/Admin/AdminClinic/pages/ServicesInformation";
         
