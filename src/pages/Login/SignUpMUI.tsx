@@ -20,15 +20,6 @@ const FormPaper = styled(Paper)(({ theme }) => ({
 
 export default function SignUp() {
 
-    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-        event.preventDefault();
-        const data = new FormData(event.currentTarget);
-        console.log({
-            phoneNumber: data.get('phoneNumber'),
-            password: data.get('password'),
-        });
-    };
-
 
     return (
         <React.Fragment>

@@ -44,11 +44,12 @@ const HomePageContent = () => {
                 </Box>
             </Box>
 
-            <Box sx={{ width: '80%', marginTop: '2em', textAlign: 'right' }}>
-                <Button variant='contained' sx={{ backgroundColor: '#1975dc', color: '#fff', width: 'auto', borderRadius: '5px' }}>Xem tất cả</Button>
+            <Box sx={{ width: '80%', marginTop: '4em', textAlign: 'center' }}>
+                <Typography variant='h3' gutterBottom>Các phòng khám</Typography>
             </Box>
 
-            <Box sx={{ width: '80%', marginTop: '2em', marginBottom: '5em' }}>
+            <Box sx={{ width: '80%', marginTop: '2em', marginBottom: '5em', textAlign: 'right' }}>
+                <Button variant='contained' sx={{ backgroundColor: '#1975dc', color: '#fff', width: 'auto', borderRadius: '5px' }}>Xem tất cả</Button>
                 <Carousel items={clinics} />
             </Box>
 

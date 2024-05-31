@@ -17,8 +17,9 @@ const LoginForm = () => {
         phoneNumber: data.get('phoneNumber'),
         password: data.get('password'),
       } // data sau khi điền vào form
+      console.log( 'payload' ,payload)
 
-      const request = await axios.post(`http://localhost:/user?email=${payload.phoneNumber}&password=${payload.password}`)
+      const request = await axios.post(`http://localhost:3000/user?phoneNumber=${payload.phoneNumber}&password=${payload.password}`)
       if (request.status === 200 && request.data.length) {
         alert('Login success')
         navigate('/') // trở về trang chủ
