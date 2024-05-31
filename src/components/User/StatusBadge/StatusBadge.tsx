@@ -1,6 +1,6 @@
 import React from 'react'
 import style from './Badge.module.scss'
-import { UserStatus } from '../../../pages/User/UserDefinition';
+import { UserStatus } from '../Interfaces/UserDefinition';
 
 
 const predefined = [style.DefaultState, style.InfoState, style.InvalidState, style.WarnState, style.ValidState]

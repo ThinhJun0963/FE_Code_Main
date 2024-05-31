@@ -1,5 +1,5 @@
 import React from 'react'
-import { GenericLink, MenuListProperty } from './ListProperty'
+import { GenericLink, MenuListProperty } from '../../Interfaces/ListProperty'
 import style from './UserProfileNav.module.scss'
 import { useNavigate } from 'react-router-dom'
 
