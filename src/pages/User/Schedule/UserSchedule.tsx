@@ -1,15 +1,10 @@
 import React from 'react'
-import Header from '../../../components/Header/Header'
-import Footer from '../../../components/Footer/Footer'
+import MainScheduleLayout from '../../../components/User/Layouts/ScheduleLayout/MainScheduleLayout/MainScheduleLayout'
 
 const userSchedule: React.FC = () => {
   return (
     <>
-        <Header />
-        <main>
-            
-        </main>
-        <Footer />
+        <MainScheduleLayout />
     </>
   )
 }

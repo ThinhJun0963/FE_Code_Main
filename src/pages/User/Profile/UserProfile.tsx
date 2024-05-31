@@ -1,10 +1,10 @@
 import './UserProfile.scss'
 import { useNavigate } from 'react-router-dom';
 import ImagePlaceholder from '../../../assets/img_placeholder.jpg';
-import Header from '../../../components/Header/Header';
-import { UserInfo } from '../UserDefinition';
-import SimpleButton from '../../../components/User/Buttons/SimpleButton';
+import { UserInfo } from '../../../components/User/Interfaces/UserDefinition';
+import SimpleButton from '../../../components/User/Components/Buttons/SimpleButton';
 const UserProfile: React.FC = () => {
+  
   // Dữ liệu người dùng
   const data: UserInfo = {
       user_id: "The Null Pointer Exception",
@@ -20,11 +20,12 @@ const UserProfile: React.FC = () => {
       status: {state_number: 1, message: "Đã xác minh"}, 
     }
 
+  // TODO: Tạo hàm lấy dữ liệu người dùng từ database.
+
   // Navigational
   const navigator = useNavigate();
   const doNavigate = (dest: string) => {navigator(dest)}
 
-  // Intergrated with current navigation bar and footer
   return (
     <>
       <main className='main-content-flex-container'>

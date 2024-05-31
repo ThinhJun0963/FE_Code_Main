@@ -11,8 +11,8 @@ export interface Payment {
 
 
 export interface UserInfo {
-    user_id: string | null,
-    username: string | null,
+    user_id: string,
+    username: string,
     name?: string | null,
     phone?: string | null,
     gender?: string | null,
@@ -29,8 +29,8 @@ export interface UserInfo {
 
 export const default_data: UserInfo = 
 {
-    "user_id": null,
-    "username": null,
+    "user_id": "0",
+    "username": "--",
     "name": null,
     "phone": null,
     "gender": null,

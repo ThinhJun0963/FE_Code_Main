@@ -1,6 +1,6 @@
 import React from 'react';
 import style from './Button.module.scss';
-import { ButtonProperty } from './ButtonProperty';
+import { ButtonProperty } from '../../Interfaces/ButtonProperty';
 import { useNavigate } from 'react-router-dom';
 
 
