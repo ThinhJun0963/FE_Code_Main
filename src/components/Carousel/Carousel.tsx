@@ -1,39 +1,70 @@
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import Slider from "react-slick";
-import clinics from './data';
-import CardGenerator from '../Card/CardGenerator';
 import './Carousel.css';
+import { Box, CardContent, Card, Typography, Divider, Button } from '@mui/material';
+import Slider from "react-slick";
+import { useNavigate } from "react-router-dom";
 
-interface CarouselProps {
-    styles: { [key: string]: string };
+interface CarouselItem {
+    image: string,
+    title: string,
+    description: string
 }
 
+interface CarouselProps {
+    items: CarouselItem[],
+}
 
 const settings = {
     dots: true,
     infinite: true,
-    speed: 500,
     slidesToShow: 3,
-    slidesToScroll: 3,
+    slidesToScroll: 1,
     centerMode: true,
-    centerPadding: "50px",
-
+    centerPadding: "60px",
 };
 
 
-const Carousel = ({ styles }: CarouselProps) => {
+
+const Carousel = ({ items }: CarouselProps) => {
+    const navigate = useNavigate();
+
+    const handleDetailButtonClick = () => {
+        navigate('/clinic')
+    }
+
+    const handleBookingButtonClick = () => { 
+        navigate('/booking')
+    }
+
     return (
-        <div className={styles['slider-container']}>
-            {/* <div className={styles['slider-title']}></div> */}
-            <Slider {...settings}>
-                {clinics.map((clinic, index) => (
-                    <div key={index} className={styles["slider-card"]}>
-                        <CardGenerator card={clinic} styles={styles} />
-                    </div>
+        <Box
+        >
+            <Slider {...settings} >
+                {items.map((item, index) => (
+                    <Card key={index} sx={{ backgroundColor: '#fff', margin: '1em ', borderRadius: '10px', border: '.5px solid #000' }}>
+                        <CardContent>
+                            <Box>
+                                <img src={item.image} alt={item.title} style={{ width: '100%', height: '250px', objectFit: 'cover', borderRadius: '10px' }} />
+                                <Divider sx={{ backgroundColor: 'black', width: '90%', margin: '1em auto' }} />
+                                <Typography variant="h5" component="div" gutterBottom sx={{ marginTop: '1em', textAlign: 'left' }}>
+                                    {item.title}
+                                </Typography>
+                                <Typography variant="body1" component="div" gutterBottom sx={{ textAlign: 'left' }}>
+                                    Địa chỉ : {item.description}
+                                </Typography>
+                            </Box>
+                            <Box>
+                                <Button variant="outlined" onClick={handleDetailButtonClick} sx={{ borderRadius: '5px', width: '100%', marginTop: '1em' }}>Xem chi tiết</Button>
+                            </Box>
+                            <Box>
+                                <Button variant="contained" onClick={handleBookingButtonClick} sx={{ backgroundColor: '#00aeeb', color: '#fff', borderRadius: '5px', width: '100%', marginTop: '1em' }}>Đặt lịch ngay</Button>
+                            </Box>
+                        </CardContent>
+                    </Card>
                 ))}
             </Slider>
-        </div>
+        </Box>
     )
 }
 

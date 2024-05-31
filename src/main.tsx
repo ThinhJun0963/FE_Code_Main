@@ -1,18 +1,17 @@
 import * as React from 'react'
-import { ChakraProvider } from '@chakra-ui/react'
 import * as ReactDOM from 'react-dom/client'
 import 'bootstrap/dist/css/bootstrap.css'
-import { RouterProvider } from 'react-router-dom'
-import router from './routing/routes'
+import { BrowserRouter } from 'react-router-dom'
 import './index.css'
+import App from './App'
 
 const rootElement = document.getElementById('root')
 if (rootElement) {
   ReactDOM.createRoot(rootElement).render(
-    <React.StrictMode>
-      <ChakraProvider>
-        <RouterProvider router={router}/>
-      </ChakraProvider>
-    </React.StrictMode>
+    <BrowserRouter>
+      <React.StrictMode>
+        <App />
+      </React.StrictMode>
+    </BrowserRouter>
   )
 }

@@ -1,23 +1,22 @@
 import { Link } from "react-router-dom";
-import './SideBar.css';
+import styles from './SideBar.module.css';
 
-interface Data { 
+interface Data {
     title: string;
     path: string;
 }
 
-interface SidebarData { 
+interface SidebarData {
     sidebarData: Data[];
 }
 
-const SideBar = ({sidebarData} : SidebarData) => {
-
+const SideBar = ({ sidebarData }: SidebarData) => {
     return (
-        <div className='sidebar'>
-            <ul className='sidebar-list'>
+        <div className={styles.sidebar}>
+            <ul className={styles['sidebar-list']}>
                 {sidebarData.map((item, index) => {
                     return (
-                        <li className='sidebar-row' key={index}><Link id='title' to={item.path}>{item.title}</Link></li>
+                        <li className={styles['sidebar-item']} key={index}><Link id='title' to={item.path}>{item.title}</Link></li>
                     )
                 })}
             </ul>

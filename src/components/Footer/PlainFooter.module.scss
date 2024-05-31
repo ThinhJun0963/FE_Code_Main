@@ -3,7 +3,9 @@
     font-size: 1.65em;
     display: flex;
     flex-direction: column;
-
+    color: black;
+    list-style: none;
+    
     .MainFooterRow {
         display: flex;
         flex-flow: row;

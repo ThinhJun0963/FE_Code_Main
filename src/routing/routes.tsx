@@ -1,32 +1,30 @@
-import { createBrowserRouter } from "react-router-dom";
-import HomePage from "../pages/HomePage/HomePage"; // Import the HomePage component
-import BookingPage from "../pages/Booking/BookingPage"; // Import the BookingPage component
-import AdminPage from "../pages/Admin/AdminPage";
-import AdminUserPage from "../pages/Admin/AdminUser/AdminUserPage";
-import AdminClinic from "../pages/Admin/AdminClinic/AdminClinic";
-import ClinicRegisterForm from "../pages/ClinicRegister/ClinicRegister";
-import UserProfile from "../pages/User/Profile/UserProfile";
-import ClinicOwnerPage from "../pages/ClinicOwnerPage/ClinicOwnerPage";
-import ClinicInformation from "../pages/Admin/AdminClinic/pages/ClinicInformation/ClinicInformation";
-import DentistAccount from "../pages/Admin/AdminClinic/pages/DentistAccount/DentistAccount";
-import AppointmentSchedule from "../pages/Admin/AdminClinic/pages/AppointmentSchedule";
-import ServicesInformation from "../pages/Admin/AdminClinic/pages/ServicesInformation";
-import LoginPage from "../pages/Login/LoginPage";
-import UserPayment from "../pages/User/Payment/UserPayment";
-import UserAccount from "../pages/User/Account/UserAccount";
-import ClinicDetail from "../pages/ClinicDetail/ClinicDetail";
-import PopUp from "../pages/PopUpPage/PopUp";
 
+import { createBrowserRouter } from 'react-router-dom';
+import HomePage from '../pages/HomePage/HomePage';
+import BookingPage from '../pages/Booking/BookingPage';
+import ClinicRegisterForm from '../pages/ClinicRegister/components/ClinicRegisterContent';
+import UserProfile from '../pages/User/Profile/UserProfile';
+import ClinicOwnerPage from '../pages/ClinicOwnerPage/ClinicOwnerPage';
+import LoginPage from '../pages/Login/LoginPage';
+import UserPayment from '../pages/User/Payment/UserPayment';
+import UserAccount from '../pages/User/Account/UserAccount';
+import AdminClinicPage from '../pages/Admin/AdminClinicOwner/AdminClinicPage';
+import DentistAccounts from '../pages/Admin/AdminClinicOwner/pages/DentistAccounts';
+import AppointmentSchedule from '../pages/Admin/AdminClinicOwner/pages/AppointmentSchedule';
+import ClinicInformation from '../pages/Admin/AdminClinicOwner/pages/ClinicInformation';
+import LoginMUI from '../pages/Login/LoginMUI';
+import PopUp from "../pages/PopUpPage/PopUp";
+import ClinicDetail from "../pages/ClinicDetail/ClinicDetail";
+import ServicesInformation from "../pages/Admin/AdminClinic/pages/ServicesInformation";
+        
 const router = createBrowserRouter([
-  { path: "/", element: <HomePage /> },
-  { path: "/booking", element: <BookingPage /> },
-  { path: "/detail/:id", element: <div>Detail</div> },
-  { path: "/admin", element: <AdminPage /> },
-  { path: "/admin/users", element: <AdminUserPage /> },
-  { path: "/admin/clinic-owner", element: <AdminClinic /> },
-  { path: "/admin/clinic-owner/clinic", element: <ClinicInformation /> },
-  { path: "/admin/clinic-owner/dentist", element: <DentistAccount /> },
-  { path: "/admin/clinic-owner/appointment", element: <AppointmentSchedule /> },
+  { path: '/', element: <HomePage /> },
+  { path: '/booking', element: <BookingPage /> },
+  { path: '/admin/clinic-owner', element: <AdminClinicPage /> },
+  { path: '/admin/clinic-owner/dentist', element: <DentistAccounts /> },
+  { path: '/admin/clinic-owner/appointment', element: <AppointmentSchedule /> },
+  { path: '/admin/clinic-owner/clinic', element: <ClinicInformation /> },
+  { path: '/for-owner', element: <ClinicRegisterForm /> },
   { path: "/admin/clinic-owner/service", element: <ServicesInformation /> },
   { path: "/for-owner", element: <ClinicRegisterForm /> },
   { path: "/owner", element: <ClinicOwnerPage /> },
@@ -34,13 +32,13 @@ const router = createBrowserRouter([
   { path: "/user/payment", element: <UserPayment /> },
   { path: "/user/profile", element: <UserProfile /> },
   { path: "/user/account", element: <UserAccount /> },
-  { path: "/login", element: <LoginPage /> },
-  {
-    path: "/clinic",
-    element: <ClinicDetail details={""} images={[]} rating={0} services={[]} />,
-  },
-
+  { path: "/login", element: <LoginMUI /> },
+  { path: "/login2", element: <LoginPage /> },
   { path: "/popup", element: <PopUp /> },
 ]);
 
 export default router;
+
+
+// { path: '/admin/users', element: <AdminUserPage /> },
+// { path: '/admin', element: < AdminPage /> },

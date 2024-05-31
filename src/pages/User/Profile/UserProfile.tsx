@@ -1,7 +1,6 @@
 import './UserProfile.scss'
 import { useNavigate } from 'react-router-dom';
 import ImagePlaceholder from '../../../assets/img_placeholder.jpg';
-import Footer from '../../../components/Footer/Footer';
 import Header from '../../../components/Header/Header';
 import { UserInfo } from '../UserDefinition';
 import SimpleButton from '../../../components/User/Buttons/SimpleButton';
@@ -28,7 +27,6 @@ const UserProfile: React.FC = () => {
   // Intergrated with current navigation bar and footer
   return (
     <>
-      <Header />
       <main className='main-content-flex-container'>
         <div className='main-content-left-container'>
           <ul>
@@ -105,7 +103,6 @@ const UserProfile: React.FC = () => {
             </div>
         </div>
       </main>
-      <Footer />
     </>
   )
 }

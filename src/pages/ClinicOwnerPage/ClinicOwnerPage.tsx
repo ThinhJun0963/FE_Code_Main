@@ -1,8 +1,7 @@
 // import { Box, Container, Flex, SimpleGrid } from "@chakra-ui/react";
 import Header from "../../components/Header/Header";
-import Footer from "../../components/Footer/Footer";
-import ClinicInfo from "../../components/ClinicOwnerInfo/ClinicInfo";
-import MainContent from "../../components/ClinicOwnerInfo/MainContent";
+import ClinicInfo from "../ClinicDetailV2/components/ClinicInfo";
+import MainContent from "../ClinicDetailV2/MainContent";
 import "./ClinicOwnerPage.css";
 
 const ClinicOwnerPage = () => {
@@ -38,7 +37,6 @@ const ClinicOwnerPage = () => {
         rating={clinic.rating}
         services={clinic.services}
       />
-      <Footer />
     </div>
   );
 };

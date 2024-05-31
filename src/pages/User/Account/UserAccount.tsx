@@ -2,12 +2,12 @@ import React, { Dispatch, SetStateAction, useEffect, useLayoutEffect, useState }
 import style from './UserAccount.module.scss'
 import ImagePlaceholder from '../../../assets/img_placeholder.jpg'
 import Header from '../../../components/Header/Header'
-import Footer from '../../../components/Footer/Footer'
 import { default_data, Payment, UserInfo } from '../UserDefinition';
 import StatusBadge from '../../../components/User/StatusBadge/StatusBadge';
 import UserProfileNav from '../../../components/User/Layouts/UserProfileNav';
 import SimpleButton from '../../../components/User/Buttons/SimpleButton';
 import ChangePassword from '../../../components/User/Layouts/ChangePassword/ChangePassword';
+import Footer from '../../../components/Footer/Footer';
 
 // ==================================
 //
@@ -18,24 +18,24 @@ import ChangePassword from '../../../components/User/Layouts/ChangePassword/Chan
 //# Default data and functions
 
 // Mocking data
-const template_data: UserInfo = 
+const template_data: UserInfo =
 {
-    "user_id": "The Null Pointer Exception",
-    "username": "Collin Phan",
-    "name": "Charles Vander Lin",
-    "phone": "0933015921",
-    "gender": "Nam",
-    "birthdate": "1945-04-30",
-    "ethnic": "Kinh",
-    "email": "example@gmail.com",
-    "ssc": "03968230692155",
-    "insurance": null,
-    "profile_image": null,
-    "status": {state_number: 4, message:"Đã xác minh"},
-    "payment_info": [
-      {creditInfo: "Momo", creditValue: "90341-*****-*****", creditValid: {state_number: 2, message: "Chưa xác minh"}}, 
-      {creditInfo: "VNPay", creditValue: "903-***-***", creditValid: {state_number: 3, message: "Đang xử lí"}},  
-      {creditInfo: "Paypal", creditValue: "*****-*****-*****", creditValid: {state_number: 4, message: "Đã xác minh"}}, ],
+  "user_id": "The Null Pointer Exception",
+  "username": "Collin Phan",
+  "name": "Charles Vander Lin",
+  "phone": "0933015921",
+  "gender": "Nam",
+  "birthdate": "1945-04-30",
+  "ethnic": "Kinh",
+  "email": "example@gmail.com",
+  "ssc": "03968230692155",
+  "insurance": null,
+  "profile_image": null,
+  "status": { state_number: 4, message: "Đã xác minh" },
+  "payment_info": [
+    { creditInfo: "Momo", creditValue: "90341-*****-*****", creditValid: { state_number: 2, message: "Chưa xác minh" } },
+    { creditInfo: "VNPay", creditValue: "903-***-***", creditValid: { state_number: 3, message: "Đang xử lí" } },
+    { creditInfo: "Paypal", creditValue: "*****-*****-*****", creditValid: { state_number: 4, message: "Đã xác minh" } },],
 }
 
 const UserAccount: React.FC = () => {
@@ -55,11 +55,11 @@ const UserAccount: React.FC = () => {
       // And return the fetch result.
       setUserData(template_data);
     }
-    catch(e: unknown){
+    catch (e: unknown) {
       if (typeof e === "string") {
-          console.log(e.toUpperCase())
+        console.log(e.toUpperCase())
       } else if (e instanceof Error) {
-          console.log(e.message)
+        console.log(e.message)
       }
       setUserData(default_data);
     }
@@ -71,14 +71,15 @@ const UserAccount: React.FC = () => {
   //TODO: Tạo NavBar sau khi đăng nhập.
 
   // Tạo hàng
-  const payment_method= (userData.payment_info != null) ? userData.payment_info.map((v: Payment, i: number) => {
+  const payment_method = (userData.payment_info != null) ? userData.payment_info.map((v: Payment, i: number) => {
     return (
       <tr key={i.toString()} className={style.TableRow}>
         <td key={`row_${i}_label`} className={`${style.TableData} ${style.FieldName}`}>{v.creditValue}</td>
         <td key={`row_${i}_value`} className={`${style.TableData} ${style.FieldName}`}>{v.creditInfo ?? "--"}</td>
-        <td key={`row_${i}_status`} className={`${style.TableData} ${style.FieldName}`}>{<StatusBadge  state_number={v.creditValid?.state_number ?? 0} message={v.creditValid?.message ?? "Không xác định"} /> ?? "--"}</td>
+        <td key={`row_${i}_status`} className={`${style.TableData} ${style.FieldName}`}>{<StatusBadge state_number={v.creditValid?.state_number ?? 0} message={v.creditValid?.message ?? "Không xác định"} /> ?? "--"}</td>
       </tr>
-  )}) : null;
+    )
+  }) : null;
 
   // Hàm cập nhật thông tin
   const updateUserData = (event: React.FormEvent<HTMLInputElement>) => {
@@ -86,12 +87,12 @@ const UserAccount: React.FC = () => {
       //@ts-expect-error "It's normal in Javascript and it won't be null you dipshit." - Top 10 last sentences.
       event.currentTarget.value = userData[event.currentTarget.name];
     }
-      setUserData({... userData, [event.currentTarget.name] :event.currentTarget.value})
+    setUserData({ ...userData, [event.currentTarget.name]: event.currentTarget.value })
   };
 
   // Hàm hiện popup thay đổi ảnh
   const changePicture = () => {
-  // [Vẫn đang tìm hiểu] 
+    // [Vẫn đang tìm hiểu] 
   }
 
   // # Rendering settings
@@ -109,99 +110,99 @@ const UserAccount: React.FC = () => {
       {
         linkName: "Lịch khám",
         linkValue: "#",
-      }, 
+      },
       {
         linkName: "Thanh toán",
         linkValue: "/user/payment",
-      }, 
+      },
       {
         linkName: "Hồ sơ",
         linkValue: "/user/profile",
-      }, 
+      },
       {
         linkName: "Tài khoản",
         linkValue: "/user/account"
-      }, 
+      },
     ],
     active: 4
   }
 
   if (userData.status) {
-  return (
-    <>
-      <Header />
-      <main className={style.FlexContainer}>
-        <div className={style.MenuSection}>
-            <UserProfileNav {... default_config}/>
-        </div>
+    return (
+      <>
+        <Header />
+        <main className={style.FlexContainer}>
+          <div className={style.MenuSection}>
+            <UserProfileNav {...default_config} />
+          </div>
 
-        <div className={style.MainSection}>
+          <div className={style.MainSection}>
 
-          <h2 className={style.MediumHeader}>Tài khoản</h2>
+            <h2 className={style.MediumHeader}>Tài khoản</h2>
 
-          <div className={style.InfoBoard}>
+            <div className={style.InfoBoard}>
 
               <div className={style.ProfileInfo}>
 
                 <div className={style.ProfileImagePlaceholder}>
                   <span className={style.ProfileImage}>
-                    <img src={userData.profile_image ?? ImagePlaceholder} onClick={changePicture} alt="lmao"/>
+                    <img src={userData.profile_image ?? ImagePlaceholder} onClick={changePicture} alt="lmao" />
                   </span>
                   <span className={style.ProfileGeneralInfo}>
                     <h2>{userData.username ?? "--"}</h2>
                     <p className={style.PatientCode}>Mã bệnh nhân: {userData.user_id ?? "--"}</p>
-                    <StatusBadge state_number={userData.status?.state_number ?? 0} message={userData.status?.message ?? "Không xác định"}/>
+                    <StatusBadge state_number={userData.status?.state_number ?? 0} message={userData.status?.message ?? "Không xác định"} />
                   </span>
                 </div>
 
-                <h3 className={style.SectionHeader}>Thông tin chung</h3>  
+                <h3 className={style.SectionHeader}>Thông tin chung</h3>
                 <table className={style.InformationTable}>
                   <tbody>
 
                     <tr className={style.TableRow}>
                       <td className={`${style.TableData} ${style.FieldName}`}>Tên đăng nhập</td>
                       <td className={`${style.TableData} ${style.FieldValue}`}>
-                        <input type='text' name='username' placeholder='vd: NguyenQuang6202' disabled={disabled} onBlur={updateUserData} defaultValue={userData.username == null ? "--" : userData.username}/>
+                        <input type='text' name='username' placeholder='vd: NguyenQuang6202' disabled={disabled} onBlur={updateUserData} defaultValue={userData.username == null ? "--" : userData.username} />
                       </td>
                     </tr>
 
                     <tr className={style.TableRow}>
                       <td className={`${style.TableData} ${style.FieldName}`}>Số điện thoại</td>
                       <td className={`${style.TableData} ${style.FieldValue}`}>
-                        <input  type='text' name='phone' placeholder='vd: 090xxxxxxx' disabled={disabled} onBlur={updateUserData} defaultValue={userData.phone == null ? "--" : userData.phone}/>
+                        <input type='text' name='phone' placeholder='vd: 090xxxxxxx' disabled={disabled} onBlur={updateUserData} defaultValue={userData.phone == null ? "--" : userData.phone} />
                       </td>
                     </tr>
                     <tr className={style.TableRow}>
                       <td className={`${style.TableData} ${style.FieldName}`}>Email</td>
                       <td className={`${style.TableData} ${style.FieldValue}`}>
-                        <input type='text' name="email" placeholder='vd: example@gmail.com' disabled={disabled} onBlur={updateUserData} defaultValue={userData.email == null ? "--" : userData.email}/>
+                        <input type='text' name="email" placeholder='vd: example@gmail.com' disabled={disabled} onBlur={updateUserData} defaultValue={userData.email == null ? "--" : userData.email} />
                       </td>
                     </tr>
 
                     <tr className={style.TableRow}>
                       <td className={`${style.TableData} ${style.FieldName}`}>Căn cước công dân</td>
                       <td className={`${style.TableData} ${style.FieldValue}`}>
-                        <input type='text' name="ssc" placeholder='vd: 1043XXXXXXXX' disabled={disabled} onBlur={updateUserData} defaultValue={userData.ssc == null ? "--" : userData.ssc}/>
+                        <input type='text' name="ssc" placeholder='vd: 1043XXXXXXXX' disabled={disabled} onBlur={updateUserData} defaultValue={userData.ssc == null ? "--" : userData.ssc} />
                       </td>
                     </tr>
 
                     <tr className={style.TableRow}>
                       <td className={`${style.TableData} ${style.FieldName}`}>Mã bảo hiểm y tế</td>
                       <td className={`${style.TableData} ${style.FieldValue}`}>
-                        <input type='text' name='insurance' placeholder='vd: AN10XXXXXXXX' disabled={disabled} onBlur={updateUserData} defaultValue={userData.insurance == null ? "--" : userData.insurance}/>
+                        <input type='text' name='insurance' placeholder='vd: AN10XXXXXXXX' disabled={disabled} onBlur={updateUserData} defaultValue={userData.insurance == null ? "--" : userData.insurance} />
                       </td>
                     </tr>
 
                     <tr className={style.TableRow}>
                       <td className={`${style.TableData} ${style.FieldName}`}>Họ và tên</td>
                       <td className={`${style.TableData} ${style.FieldValue}`}>
-                        <input  type='text' name='name' placeholder='vd: Trần Văn A' disabled={disabled} onBlur={updateUserData} defaultValue={userData.name == null ? "--" : userData.name}/></td>
+                        <input type='text' name='name' placeholder='vd: Trần Văn A' disabled={disabled} onBlur={updateUserData} defaultValue={userData.name == null ? "--" : userData.name} /></td>
                     </tr>
 
                     <tr className={style.TableRow}>
                       <td className={`${style.TableData} ${style.FieldName}`}>Ngày sinh</td>
                       <td className={`${style.TableData} ${style.FieldValue}`}>
-                        <input type='date' name='birthdate' placeholder={Date.now().toString()} disabled={disabled} onBlur={updateUserData} defaultValue={userData.birthdate == null ? "": userData.birthdate }/>
+                        <input type='date' name='birthdate' placeholder={Date.now().toString()} disabled={disabled} onBlur={updateUserData} defaultValue={userData.birthdate == null ? "" : userData.birthdate} />
                       </td>
                     </tr>
 
@@ -210,8 +211,8 @@ const UserAccount: React.FC = () => {
                       <td className={`${style.TableData} ${style.FieldValue}`}>
                         <fieldset disabled={disabled}>
                           <label><input type="radio" name='gender' placeholder='Nam' value="Nam" onChange={updateUserData} checked={userData.gender === "Nam"} /> Nam</label>
-                          <label><input type="radio" name='gender' placeholder='Nam' value="Nữ" onChange={updateUserData} checked={userData.gender === "Nữ"}/> Nữ</label>
-                          <label><input type="radio" name='gender' placeholder='Nam' value="" onChange={updateUserData} checked={userData.gender === ""}/> Khác</label>
+                          <label><input type="radio" name='gender' placeholder='Nam' value="Nữ" onChange={updateUserData} checked={userData.gender === "Nữ"} /> Nữ</label>
+                          <label><input type="radio" name='gender' placeholder='Nam' value="" onChange={updateUserData} checked={userData.gender === ""} /> Khác</label>
                         </fieldset>
                       </td>
                     </tr>
@@ -225,17 +226,17 @@ const UserAccount: React.FC = () => {
 
                   </tbody>
                 </table>
-                {!disabled && <SimpleButton buttonType='button' message='Hoàn tất' callback={() => {setDisabled((disabled) => ! disabled)}} />}
-                {disabled && <SimpleButton buttonType='button' message='Cập nhật thông tin tài khoản' callback={() => {setDisabled(false)}} />}
+                {!disabled && <SimpleButton buttonType='button' message='Hoàn tất' callback={() => { setDisabled((disabled) => !disabled) }} />}
+                {disabled && <SimpleButton buttonType='button' message='Cập nhật thông tin tài khoản' callback={() => { setDisabled(false) }} />}
               </div>
               <hr className={style.Line} />
               <div className={style.PaymentInfo}>
                 <table>
                   <thead>
                     <tr>
-                        <td>Số tài khoản</td>
-                        <td>Nhà cung cấp</td>
-                        <td>Tình trạng</td>
+                      <td>Số tài khoản</td>
+                      <td>Nhà cung cấp</td>
+                      <td>Tình trạng</td>
                     </tr>
                   </thead>
                   <tbody>
@@ -245,13 +246,14 @@ const UserAccount: React.FC = () => {
                 <SimpleButton buttonType='button' message='Cập nhật thông tin thanh toán' />
               </div>
               <hr className={style.Line} />
-              <ChangePassword callbacks={() => {}} />
+              <ChangePassword callbacks={() => { }} />
+            </div>
           </div>
-        </div>
-      </main>
-      <Footer />
-    </>
-  )}
+        </main>
+        <Footer />
+      </>
+    )
+  }
   else {
     return null;
   }

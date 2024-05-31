@@ -1,0 +1,28 @@
+{
+  "user": [
+    {
+      "id": 1,
+      "name": "John Doe",
+      "email": "test1@gmail.com",
+      "password": "123456"
+    },
+    {
+      "id": 2,
+      "name": " Truong Bao",
+      "email": "test2@gmail.com",
+      "password": "123456"
+    }
+  ],
+  "products": [
+    {
+      "id": 1,
+      "name": "Iphone 12",
+      "price": 1000
+    },
+    {
+      "id": 2,
+      "name": "Iphone 11",
+      "price": 800
+    }
+  ]
+}
