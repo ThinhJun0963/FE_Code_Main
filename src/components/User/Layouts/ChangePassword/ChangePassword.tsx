@@ -1,12 +1,13 @@
 import React from 'react'
 import style from "./ChangePasssword.module.scss";
-import SimpleButton from '../../Buttons/SimpleButton';
+import SimpleButton from '../../Components/Buttons/SimpleButton';
+import { ChangePasswordProperties } from '../../Interfaces/FormProperty';
 
-interface FormProperties {
-  callbacks: () => void;
-}
 
-const ChangePassword: React.FC<FormProperties> = ({callbacks}: FormProperties) => {
+
+const ChangePassword: React.FC<ChangePasswordProperties> = ({username, callbacks}: ChangePasswordProperties) => {
+
+
   return (
     <div className={style.PasswordForm}>
 
@@ -14,17 +15,19 @@ const ChangePassword: React.FC<FormProperties> = ({callbacks}: FormProperties) =
 
         <form id='passwordChange' className={style.SimpleForm} method='POST' action='#'>
 
-            <label className={`${style.FormRow} ${style.Column}`}>
-              Mật khẩu mới
-              <input id='newPassword' type='password' className={style.InputField}/>
-            </label>
+          <input id='username' type='hidden' name='username' value={username} />
 
-            <label className={`${style.FormRow} ${style.Column}`}>               
-              Nhập lại khẩu mới
-              <input id='newPasswordRetyped' type='password' className={style.InputField}/>
-            </label>
-            
-            <SimpleButton buttonType='submit' form='passwordChange' message="Cập nhật mật khẩu" callback={callbacks}/>
+          <label className={`${style.FormRow} ${style.Column}`}>
+            Mật khẩu mới
+            <input id='newPassword' type='password' name='new_pass' autoComplete='new-password' className={style.InputField}/>
+          </label>
+
+          <label className={`${style.FormRow} ${style.Column}`}>               
+            Nhập lại khẩu mới
+            <input id='newPasswordRetyped' type='password' name='retype' autoComplete='new-password' className={style.InputField}/>
+          </label>
+          
+          <SimpleButton buttonType='submit' form='passwordChange' message="Cập nhật mật khẩu" callback={callbacks}/>
         </form>
     </div>
   )

@@ -1,36 +1,74 @@
 import { Button, Box, Grid, Checkbox, Link, Divider, Typography, TextField } from '@mui/material';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import axios, {AxiosRequestConfig, AxiosResponse} from 'axios';
+import { useEffect } from 'react';
+import { connection_path } from '../../../constants/developments';
 
 const LoginForm = () => {
 
   const navigate = useNavigate();
 
+  //    ===================== Nên đưa ra một thư mục khác ==========================
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    
+    //    Dữ liệu về form
+    const data = new FormData(event.currentTarget);
+    
+    //    Dữ liệu sau khi điền vào form
+    const payload = {
+      username: data.get('phoneNumber'),
+      password: data.get('password'),
+    } 
+
+    //    Chuỗi kết nối tới server backend
+    //!   LƯU Ý: KHÔNG THAY ĐỔI TRỰC TIẾP CHUỖI KẾT NỐI TẠI ĐÂY (Fix cứng)
+    //==  Chỉ thay đổi dữ liệu của "connection_path" trong file src/constants/developments
+    const api_url: string = connection_path.base_url + connection_path.api + connection_path.endpoints.login;
+
+    const configuration: AxiosRequestConfig = { method: "POST",  url: api_url,  data:payload};
+
     try {
-      event.preventDefault();
-
-      const data = new FormData(event.currentTarget);
-
-      const payload = {
-        username: data.get('username'),
-        password: data.get('password'),
-      } // data sau khi điền vào form
-      console.log( 'payload' ,payload)
-
-      const request = await axios.post(``)
-      if (request.status === 200 && request.data.length) {
-        alert('Login success')
-        navigate('/') // trở về trang chủ
-      } else {
-        alert('Username or password is incorrect')
+      const response: AxiosResponse<{jwt: string, error: string, message: string}> = await axios(configuration)
+      
+      if (response.status === 200 && Object.prototype.hasOwnProperty.call(Object.prototype, 'jwt')) {
+        localStorage.setItem("Token", response.data.jwt)
+        //    Thành công thì cho về trang người dùng
+        navigate('/user/profile') 
+      } 
+      else {
+        alert(response.data.message);
       }
-    } catch (error) {
-      alert('Login failed')
+    } 
+    catch (error) {
+      alert('Đăng nhập thất bại, vui lòng thử lại sau.')
     }
+
   };
 
+  //#   Kiểm tra xem người dùng đã login hay chưa (nên có ở các trang / component yêu cầu phải login)
+  useEffect(() => {
+    async() => {
+      const usertoken = localStorage.getItem('Token');
+      if (usertoken != null) {
+        
+        //!   Chưa update server nên hiện tại chưa hỗ trợ kiểm tra login bên phía Backend.
+
+        // Prepare for API fetching
+        //const api_url: string = connection_path.base_url + connection_path.api + connection_path.endpoints.checkAuth;
+        //const configuration: AxiosRequestConfig = { method: "POST",  url: api_url,  data:{token: usertoken}};
+        
+        //const response: AxiosResponse<{result: string}> = await axios(configuration);
+
+        //#   Nếu đã login rồi thì không phải login lại nữa mà về trang chủ.
+        //if (response.data.result === 'valid') {
+          navigate('/user/profile');
+        //}
+      }
+    }
+  }
+); 
 
   return (
     <Box component="form" onSubmit={handleSubmit} >

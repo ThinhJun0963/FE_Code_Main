@@ -1,8 +1,8 @@
 import React from 'react'
-import UserLayout from '../../components/UserLayout'
-import UserProfile from './Profile/UserProfile'
+import UserLayout from '../../../components/UserLayout'
+import UserProfile from '../Profile/UserProfile'
 
-const UserProfileMain = () => {
+const UserProfileMain: React.FC = () => {
     return (
         <UserLayout>
             <UserProfile />

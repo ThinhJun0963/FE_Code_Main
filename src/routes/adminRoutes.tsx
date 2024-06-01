@@ -9,3 +9,5 @@ const adminRoutes = [
     { path: '/admin/clinic-owner/appointment', element: <AppointmentSchedule /> },
     { path: '/admin/clinic-owner/clinic', element: <ClinicInformation /> },
 ]
+
+export default adminRoutes;

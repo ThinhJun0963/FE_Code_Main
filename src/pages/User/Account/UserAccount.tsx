@@ -1,13 +1,11 @@
 import React, { Dispatch, SetStateAction, useEffect, useLayoutEffect, useState } from 'react';
 import style from './UserAccount.module.scss'
 import ImagePlaceholder from '../../../assets/img_placeholder.jpg'
-import Header from '../../../components/Header/Header'
-import { default_data, Payment, UserInfo } from '../UserDefinition';
+import { default_data, Payment, UserInfo } from '../../../components/User/Interfaces/UserDefinition';
 import StatusBadge from '../../../components/User/StatusBadge/StatusBadge';
-import UserProfileNav from '../../../components/User/Layouts/UserProfileNav';
-import SimpleButton from '../../../components/User/Buttons/SimpleButton';
+import UserProfileNav from '../../../components/User/Layouts/ProfileNavigation/UserProfileNav';
+import SimpleButton from '../../../components/User/Components/Buttons/SimpleButton';
 import ChangePassword from '../../../components/User/Layouts/ChangePassword/ChangePassword';
-import Footer from '../../../components/Footer/Footer';
 
 // ==================================
 //
@@ -67,8 +65,6 @@ const UserAccount: React.FC = () => {
 
   // Config cho nút tài khoản
   //const buttonConfig: ButtonProperty = {href:"/", message: "Đăng xuất", buttonType:"button", };
-
-  //TODO: Tạo NavBar sau khi đăng nhập.
 
   // Tạo hàng
   const payment_method = (userData.payment_info != null) ? userData.payment_info.map((v: Payment, i: number) => {
@@ -130,7 +126,6 @@ const UserAccount: React.FC = () => {
   if (userData.status) {
     return (
       <>
-        <Header />
         <main className={style.FlexContainer}>
           <div className={style.MenuSection}>
             <UserProfileNav {...default_config} />
@@ -246,11 +241,10 @@ const UserAccount: React.FC = () => {
                 <SimpleButton buttonType='button' message='Cập nhật thông tin thanh toán' />
               </div>
               <hr className={style.Line} />
-              <ChangePassword callbacks={() => { }} />
+              <ChangePassword username={userData.username} callbacks={() => { }} />
             </div>
           </div>
         </main>
-        <Footer />
       </>
     )
   }
