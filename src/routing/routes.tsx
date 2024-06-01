@@ -1,3 +1,4 @@
+
 import { createBrowserRouter } from 'react-router-dom';
 import HomePage from '../pages/HomePage/HomePage';
 import BookingPage from '../pages/Booking/BookingPage';
@@ -12,17 +13,20 @@ import DentistAccounts from '../pages/Admin/AdminClinicOwner/pages/DentistAccoun
 import AppointmentSchedule from '../pages/Admin/AdminClinicOwner/pages/AppointmentSchedule';
 import ClinicInformation from '../pages/Admin/AdminClinicOwner/pages/ClinicInformation';
 import LoginMUI from '../pages/Login/LoginMUI';
-
-
+import PopUp from "../pages/PopUpWindow/PopUpWindow";
+import ClinicDetail from "../pages/ClinicDetail/ClinicDetail";
+import ServicesInformation from "../pages/Admin/AdminClinic/pages/ServicesInformation";
+        
 const router = createBrowserRouter([
   { path: '/', element: <HomePage /> },
   { path: '/booking', element: <BookingPage /> },
-  { path: '/detail/:id', element: <div>Detail</div> },
   { path: '/admin/clinic-owner', element: <AdminClinicPage /> },
   { path: '/admin/clinic-owner/dentist', element: <DentistAccounts /> },
   { path: '/admin/clinic-owner/appointment', element: <AppointmentSchedule /> },
   { path: '/admin/clinic-owner/clinic', element: <ClinicInformation /> },
   { path: '/for-owner', element: <ClinicRegisterForm /> },
+  { path: "/admin/clinic-owner/service", element: <ServicesInformation /> },
+  { path: "/for-owner", element: <ClinicRegisterForm /> },
   { path: "/owner", element: <ClinicOwnerPage /> },
   { path: "/user/", element: <UserProfile /> },
   { path: "/user/payment", element: <UserPayment /> },
@@ -30,7 +34,7 @@ const router = createBrowserRouter([
   { path: "/user/account", element: <UserAccount /> },
   { path: "/login", element: <LoginMUI /> },
   { path: "/login2", element: <LoginPage /> },
-
+  { path: "/popup", element: <PopUp /> },
 ]);
 
 export default router;

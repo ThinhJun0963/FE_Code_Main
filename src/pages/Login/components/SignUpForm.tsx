@@ -12,20 +12,24 @@ const LoginForm = () => {
             const data = new FormData(event.currentTarget);
 
             const payload = {
-                phoneNumber: data.get('phoneNumber'),
-                name: data.get('name'),
+                username: data.get('username'),
                 password: data.get('password'),
-            } // data sau khi điền vào form
+                email: data.get('email'),
+            };
 
-            const request = await axios.post(`http://localhost:/user`, payload)
-            if (request.status === 200 && request.data.length) {
-                alert('Signup success')
-                navigate('/login') // trở về trang đăng nhập
+            const request = await axios.post(`https://localhost:7163/auth/register`, payload);
+            console.log(request.data); // Log the response data
+            console.log(request.status); // Log the response status
+
+            if (request.status === 200) {
+                alert('Signup success');
+                navigate('/login'); // Redirect to login page
             } else {
-                alert('Signup failed')
+                alert('Signup failed');
             }
         } catch (error) {
-            alert('Signup failed')
+            console.error(error); // Log any error that occurred
+            alert('Signup failed');
         }
     };
 
@@ -41,9 +45,9 @@ const LoginForm = () => {
                         <TextField
                             required
                             fullWidth
-                            id="phoneNumber"
-                            label="Số điện thoại"
-                            name="phoneNumber"
+                            id="username"
+                            label="Tên tài khoản"
+                            name="username"
                             InputLabelProps={{
                                 shrink: true,
                             }}
@@ -53,9 +57,9 @@ const LoginForm = () => {
                         <TextField
                             required
                             fullWidth
-                            id="name"
-                            label="Họ và tên"
-                            name="name"
+                            id="email"
+                            label="Email"
+                            name="email"
                             InputLabelProps={{
                                 shrink: true,
                             }}

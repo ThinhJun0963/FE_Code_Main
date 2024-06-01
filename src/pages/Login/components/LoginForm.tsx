@@ -14,17 +14,17 @@ const LoginForm = () => {
       const data = new FormData(event.currentTarget);
 
       const payload = {
-        phoneNumber: data.get('phoneNumber'),
+        username: data.get('username'),
         password: data.get('password'),
       } // data sau khi điền vào form
       console.log( 'payload' ,payload)
 
-      const request = await axios.post(`http://localhost:3000/user?phoneNumber=${payload.phoneNumber}&password=${payload.password}`)
+      const request = await axios.post(``)
       if (request.status === 200 && request.data.length) {
         alert('Login success')
         navigate('/') // trở về trang chủ
       } else {
-        alert('Email or password is incorrect')
+        alert('Username or password is incorrect')
       }
     } catch (error) {
       alert('Login failed')
@@ -43,9 +43,9 @@ const LoginForm = () => {
             <TextField
               required
               fullWidth
-              id="phoneNumber"
-              label="Số điện thoại"
-              name="phoneNumber"
+              id="username"
+              label="Tên tài khoản"
+              name="username"
               InputLabelProps={{
                 shrink: true,
               }}
