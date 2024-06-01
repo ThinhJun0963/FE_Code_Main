@@ -43,6 +43,7 @@ const LoginForm = () => {
     } 
     catch (error) {
       alert('Đăng nhập thất bại, vui lòng thử lại sau.')
+      console.log(error);
     }
 
   };
