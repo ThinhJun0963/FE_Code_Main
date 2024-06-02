@@ -5,8 +5,10 @@ import clinics from "./data";
 import Accordion from "./Accordion/Accordion";
 import FeaturesAndBenefits from "./FeatureAndBenefits/FeatureAndBenefits";
 import { SetStateAction, useState } from "react";
+import { useNavigate } from 'react-router-dom';
 
 const HomePageContent = () => {
+  const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState("");
 
   const handleSearchChange = (event: {
@@ -17,8 +19,7 @@ const HomePageContent = () => {
 
   const handleSearchSubmit = (event: { preventDefault: () => void }) => {
     event.preventDefault();
-    // Perform the search here
-    console.log(`Searching for "${searchTerm}"`);
+    navigate(`/clinics?search=${searchTerm}`);
   };
 
   return (
@@ -39,37 +40,39 @@ const HomePageContent = () => {
           Đặt khám với hơn 100 phòng khám trên SmileCare để có số thứ tự và
           khung giờ khám trước.
         </Typography>
-        <Box
-          sx={{
-            backgroundColor: " #ffffff",
-            width: "100%",
-            borderRadius: "10px",
-            display: "flex",
-            alignItems: "center",
-            padding: "10px",
-          }}
-        >
-          <InputBase
-            value={searchTerm}
-            onChange={handleSearchChange}
-            placeholder="Search…"
-            inputProps={{ "aria-label": "search" }}
-            sx={{ flex: 1, paddingLeft: "10px" }}
-          />
-          <IconButton
-            type="submit"
-            aria-label="search"
-            onClick={handleSearchSubmit}
-            sx={{ color: "#000" }}
+        <form onSubmit={handleSearchSubmit}>
+          <Box
+            sx={{
+              backgroundColor: " #ffffff",
+              width: "100%",
+              borderRadius: "10px",
+              display: "flex",
+              alignItems: "center",
+              padding: "10px",
+            }}
           >
-            <SearchIcon />
-          </IconButton>
-        </Box>
+            <InputBase
+              value={searchTerm}
+              onChange={handleSearchChange}
+              placeholder="Tìm kiếm theo tên, địa chỉ phòng khám"
+              inputProps={{ "aria-label": "search" }}
+              sx={{ flex: 1, paddingLeft: "10px" }}
+            />
+            <IconButton
+              type="submit"
+              aria-label="search"
+              sx={{ color: "#000" }}
+            >
+              <SearchIcon />
+            </IconButton>
+          </Box>
+        </form>
       </Box>
 
       <Box sx={{ width: "80%", marginTop: "2em", textAlign: "right" }}>
         <Button
           variant="contained"
+          href='/clinics'
           sx={{
             backgroundColor: "#1975dc",
             color: "#fff",

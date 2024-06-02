@@ -3,14 +3,17 @@
     {
       "id": 1,
       "name": "John Doe",
-      "email": "test1@gmail.com",
+      "phoneNumber": "0984929046",
       "password": "123456"
     },
     {
       "id": 2,
       "name": " Truong Bao",
-      "email": "test2@gmail.com",
+      "phoneNumber": "0869255375",
       "password": "123456"
+    },
+    {
+      "id": "b401"
     }
   ],
   "products": [

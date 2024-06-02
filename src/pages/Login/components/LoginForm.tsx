@@ -43,6 +43,7 @@ const LoginForm = () => {
     } 
     catch (error) {
       alert('Đăng nhập thất bại, vui lòng thử lại sau.')
+      console.log(error);
     }
 
   };
@@ -81,9 +82,9 @@ const LoginForm = () => {
             <TextField
               required
               fullWidth
-              id="phoneNumber"
-              label="Số điện thoại"
-              name="phoneNumber"
+              id="username"
+              label="Tên tài khoản"
+              name="username"
               InputLabelProps={{
                 shrink: true,
               }}
