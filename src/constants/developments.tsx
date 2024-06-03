@@ -3,7 +3,7 @@ export const connection_path = {
     api: "/api",
     endpoints: {
         login: "auth/login",
-        user: "user/",
+        user: "user/info",
         clinic: "clinic/",
         checkAuth: "auth/validate",
     }
