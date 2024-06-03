@@ -3,8 +3,12 @@ import { useNavigate } from 'react-router-dom';
 import ImagePlaceholder from '../../../assets/img_placeholder.jpg';
 import { UserInfo } from '../../../components/User/Interfaces/UserDefinition';
 import SimpleButton from '../../../components/User/Components/Buttons/SimpleButton';
+import { googleLogout } from '@react-oauth/google';
 const UserProfile: React.FC = () => {
   
+  // đăng nhập thành công thì không cần thằng google nữa nên sign out luôn.
+  googleLogout()
+
   // Dữ liệu người dùng
   const data: UserInfo = {
       user_id: "The Null Pointer Exception",
@@ -102,6 +106,7 @@ const UserProfile: React.FC = () => {
               <SimpleButton buttonType='button' href='/user/account' message='Chỉnh sửa thông tin cá nhân' />
               </div>
             </div>
+\\
         </div>
       </main>
     </>

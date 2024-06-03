@@ -1,6 +1,7 @@
 import { Button, Box, Grid, Link, Divider, Typography, TextField } from '@mui/material';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { connection_path } from '../../../constants/developments';
 
 const LoginForm = () => {
     const navigate = useNavigate();
@@ -14,10 +15,11 @@ const LoginForm = () => {
             const payload = {
                 username: data.get('username'),
                 password: data.get('password'),
-                email: data.get('email'),
+                email: data.get('email')
             };
 
-            const request = await axios.post(`https://localhost:7163/auth/register`, payload);
+            const url = connection_path.base_url + connection_path.api + connection_path.endpoints.register
+            const request = await axios.post(url, payload);
             console.log(request.data); // Log the response data
             console.log(request.status); // Log the response status
 
