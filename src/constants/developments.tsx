@@ -3,14 +3,15 @@ export const connection_path = {
     api: "/api",
     endpoints: {
         login: "/auth/login",
-        user: "/user/",
+        user: "/user/info",
         clinic: "/clinic/",
         checkAuth: "/auth/validate",
         googeAuth: "/auth/google",
         register: "/user/register"
+
     }
 }
 
 export const google_auth = {
-    client_id:"843209512674-7rck108lbhqbplg9hnc8f6u4s1fbmudu.apps.googleusercontent.com"
+    client_id:"[Your Google Auth ID here]"
 }
