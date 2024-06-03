@@ -80,11 +80,11 @@ const HomePageContent = () => {
             borderRadius: "5px",
           }}
         >
-          Xem tất cả
+          Xem tất cả &gt;&gt;
         </Button>
       </Box>
 
-      <Box sx={{ width: "80%", marginTop: "2em", marginBottom: "5em" }}>
+      <Box sx={{ width: "80%", marginTop: "1em", marginBottom: "5em" }}>
         <Carousel items={clinics} />
       </Box>
 

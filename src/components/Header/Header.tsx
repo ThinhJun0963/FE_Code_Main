@@ -3,7 +3,7 @@ import AdbIcon from '@mui/icons-material/Adb'; // Import the AdbIcon component f
 
 const Header = () => {
   return (
-    <AppBar position="static">
+    <AppBar position="sticky" style={{ top: 0 }}>
       <Box width='100%' sx={{ backgroundColor: 'white' }}>
         <Toolbar disableGutters>
           <Link href="/"><img src="../../../public/Logo.png" alt="Logo" style={{ height: '70px', marginLeft: '20px' }} /></Link>
