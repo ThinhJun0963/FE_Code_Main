@@ -14,4 +14,5 @@ export const publicRoutes = [
     { path: '/clinics', element: <ClinicList /> },
     { path: "/login", element: < LoginMUI /> },
     { path: "/signup", element: <SignUpMUI /> },
+    //{ path: "/login-google", element: <GoogleLogin />}
 ]

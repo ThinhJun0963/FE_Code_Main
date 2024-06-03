@@ -1,9 +1,10 @@
-import { Button, Box, Grid, Checkbox, Link, Divider, Typography, TextField } from '@mui/material';
+import { Button, Box, Grid, Checkbox, Link, Divider, Typography, TextField} from '@mui/material';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import { useNavigate } from 'react-router-dom';
 import axios, {AxiosRequestConfig, AxiosResponse} from 'axios';
 import { useEffect } from 'react';
 import { connection_path } from '../../../constants/developments';
+import { GoogleCredentialResponse, GoogleLogin } from '@react-oauth/google';
 
 const LoginForm = () => {
 
@@ -18,9 +19,11 @@ const LoginForm = () => {
     
     //    Dữ liệu sau khi điền vào form
     const payload = {
-      username: data.get('phoneNumber'),
+      userName: data.get('username'),
       password: data.get('password'),
     } 
+
+    console.log(payload);
 
     //    Chuỗi kết nối tới server backend
     //!   LƯU Ý: KHÔNG THAY ĐỔI TRỰC TIẾP CHUỖI KẾT NỐI TẠI ĐÂY (Fix cứng)
@@ -29,44 +32,58 @@ const LoginForm = () => {
 
     const configuration: AxiosRequestConfig = { method: "POST",  url: api_url,  data:payload};
 
-    try {
-      const response: AxiosResponse<{jwt: string, error: string, message: string}> = await axios(configuration)
-      
-      if (response.status === 200 && Object.prototype.hasOwnProperty.call(Object.prototype, 'jwt')) {
-        localStorage.setItem("Token", response.data.jwt)
-        //    Thành công thì cho về trang người dùng
+    await axios(configuration)
+      .then( response => {
+      if (response.status === 200 && response.data.accessToken !== undefined) {
+        localStorage.setItem("accessToken", response.data.accessToken);
+        localStorage.setItem("refreshToken", response.data.refreshToken);
+        //  Thành công thì cho về trang người dùng
         navigate('/user/profile') 
       } 
       else {
-        alert(response.data.message);
+        alert("Không đăng nhập thành công");
       }
-    } 
-    catch (error) {
+    })
+    .catch (error => {
       alert('Đăng nhập thất bại, vui lòng thử lại sau.')
       console.log(error);
+    })
+  };
+
+  const handleGoogleOnSuccess = async (response: GoogleCredentialResponse) => {
+    const api_url: string = connection_path.base_url + connection_path.api + connection_path.endpoints.googeAuth;
+
+    const configuration: AxiosRequestConfig = { method: "POST",  url: api_url,  data:{googleToken: response.credential}, headers:{"Content-Type":"application/json"}};
+    const axiosResponse: AxiosResponse<{accessToken: string, refreshToken: string, error: string, message: string}> = await axios(configuration);
+    
+    console.log(axiosResponse);
+
+    if (axiosResponse.data.accessToken !== undefined) {
+      localStorage.setItem("accessToken", axiosResponse.data.accessToken);
+      localStorage.setItem("refreshToken", axiosResponse.data.refreshToken);
+      navigate('/user/profile');
     }
 
-  };
+  }
+  const handleGoogleOnFailure = () => {console.log("Error")} 
 
   //#   Kiểm tra xem người dùng đã login hay chưa (nên có ở các trang / component yêu cầu phải login)
   useEffect(() => {
-    async() => {
-      const usertoken = localStorage.getItem('Token');
-      if (usertoken != null) {
-        
-        //!   Chưa update server nên hiện tại chưa hỗ trợ kiểm tra login bên phía Backend.
+    const usertoken = localStorage.getItem('accessToken');
+    if (usertoken != null) {
+      
+      //!   Chưa update server nên hiện tại chưa hỗ trợ kiểm tra login bên phía Backend.
 
-        // Prepare for API fetching
-        //const api_url: string = connection_path.base_url + connection_path.api + connection_path.endpoints.checkAuth;
-        //const configuration: AxiosRequestConfig = { method: "POST",  url: api_url,  data:{token: usertoken}};
-        
-        //const response: AxiosResponse<{result: string}> = await axios(configuration);
+      // Prepare for API fetching
+      //const api_url: string = connection_path.base_url + connection_path.api + connection_path.endpoints.checkAuth;
+      //const configuration: AxiosRequestConfig = { method: "POST",  url: api_url,  data:{token: usertoken}};
+      
+      //const response: AxiosResponse<{result: string}> = await axios(configuration);
 
-        //#   Nếu đã login rồi thì không phải login lại nữa mà về trang chủ.
-        //if (response.data.result === 'valid') {
-          navigate('/user/profile');
-        //}
-      }
+      //#   Nếu đã login rồi thì không phải login lại nữa mà về trang chủ.
+      //if (response.data.result === 'valid') {
+        navigate('/user/profile');
+      //}
     }
   }
 ); 
@@ -114,6 +131,9 @@ const LoginForm = () => {
             <Button type="submit" variant="contained" color="primary" sx={{ width: '100%' }}>Đăng nhập</Button>
           </Grid>
           <Grid item lg={12}>
+            <GoogleLogin onSuccess={handleGoogleOnSuccess} onError={handleGoogleOnFailure}/>
+          </Grid>
+          <Grid item lg={12}>
             <Divider sx={{ backgroundColor: 'black' }} />
           </Grid>
           <Grid item lg={12}>
@@ -123,6 +143,7 @@ const LoginForm = () => {
                 <Link href="/signup" variant="body2" sx={{ fontSize: '17px' }}>
                   Đăng ký ngay
                 </Link>
+                
               </Box>
             </Box>
           </Grid>
