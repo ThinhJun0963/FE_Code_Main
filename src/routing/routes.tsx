@@ -14,7 +14,8 @@ import ClinicInformation from "../pages/Admin/AdminClinicOwner/pages/ClinicInfor
 import LoginMUI from "../pages/Login/LoginMUI";
 import PopUp from "../pages/PopUpWindow/PopUpWindow";
 import ServicesInformation from "../pages/Admin/AdminClinicOwner/pages/ClinicInformation";
-import DentistPage from "../pages/Dentist/DentistPage/DentistPage";
+
+
 const router = createBrowserRouter([
   { path: "/", element: <HomePage /> },
   { path: "/booking", element: <BookingPage /> },
@@ -33,8 +34,7 @@ const router = createBrowserRouter([
   { path: "/login", element: <LoginMUI /> },
   { path: "/login2", element: <LoginPage /> },
   { path: "/popup", element: <PopUp /> },
-  { path: "/popup", element: <PopUp /> },
-  { path: "/dentist", element: <DentistPage /> },
+
 ]);
 
 export default router;
