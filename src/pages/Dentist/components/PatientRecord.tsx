@@ -13,7 +13,7 @@ const PatientRecord: React.FC = () => {
 
   return (
     <div>
-      <h2>Patient Records</h2>
+      <h2>Hồ sơ bệnh nhân</h2>
       <ul>
         {patients.map((patient) => (
           <li key={patient.id}>
