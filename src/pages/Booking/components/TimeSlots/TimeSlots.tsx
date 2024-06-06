@@ -1,22 +1,7 @@
 import { Box, Button, Divider, Typography } from '@mui/material';
 import slots from './data';
-import { SetStateAction, useState } from 'react';
 
-interface TimeSlotsFormProps {
-    setFormData: (value: SetStateAction<{ typeOfBooking: string; date: string; time: string; }>) => void;
-}
-
-const TimeSlots = ({ setFormData }: TimeSlotsFormProps) => {
-    const [slot, setSlot] = useState<string | null>(null);
-
-    const handleSlotClick = (time: string) => {
-        setSlot(time);
-        setFormData(prevState => ({
-            ...prevState,
-            time: time
-        }));
-    }
-
+const TimeSlots = () => {
     const morningSlots = slots.filter(slot => {
         const startTime = slot.split('-')[0];
         const [hour] = startTime.split(':');
@@ -35,10 +20,7 @@ const TimeSlots = ({ setFormData }: TimeSlotsFormProps) => {
                 <Typography variant="h6">Buổi sáng</Typography>
                 <Box sx={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap', gap: 1 }}>
                     {morningSlots.map((time, index) => (
-                        <Button key={index}
-                            variant={slot === time ? 'contained' : 'outlined'}
-                            onClick={() => handleSlotClick(time)}
-                        >
+                        <Button key={index} variant="contained">
                             {time}
                         </Button>
                     ))}
@@ -50,10 +32,7 @@ const TimeSlots = ({ setFormData }: TimeSlotsFormProps) => {
                 <Typography variant="h6">Buổi chiều</Typography>
                 <Box sx={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap', gap: 1 }}>
                     {afternoonSlots.map((time, index) => (
-                        <Button key={index}
-                            variant={slot === time ? 'contained' : 'outlined'}
-                            onClick={() => handleSlotClick(time)}
-                        >
+                        <Button key={index} variant="contained">
                             {time}
                         </Button>
                     ))}
