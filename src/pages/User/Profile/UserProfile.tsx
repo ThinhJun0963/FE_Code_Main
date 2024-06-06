@@ -32,6 +32,7 @@ const UserProfile: React.FC = () => {
 
   return (
     <>
+      <Header />
       <main className='main-content-flex-container'>
         <div className='main-content-left-container'>
           <ul>

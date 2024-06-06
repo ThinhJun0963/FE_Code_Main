@@ -29,12 +29,8 @@ const settings = {
 const Carousel = ({ items }: CarouselProps) => {
     const navigate = useNavigate();
 
-    const handleDetailButtonClick = () => {
+    const handleButtonClick = () => {
         navigate('/clinic')
-    }
-
-    const handleBookingButtonClick = () => { 
-        navigate('/booking')
     }
 
     return (
@@ -55,10 +51,10 @@ const Carousel = ({ items }: CarouselProps) => {
                                 </Typography>
                             </Box>
                             <Box>
-                                <Button variant="outlined" onClick={handleDetailButtonClick} sx={{ borderRadius: '5px', width: '100%', marginTop: '1em' }}>Xem chi tiết</Button>
+                                <Button variant="outlined" onClick={handleButtonClick} sx={{ borderRadius: '5px', width: '100%', marginTop: '1em' }}>Xem chi tiết</Button>
                             </Box>
                             <Box>
-                                <Button variant="contained" onClick={handleBookingButtonClick} sx={{ backgroundColor: '#00aeeb', color: '#fff', borderRadius: '5px', width: '100%', marginTop: '1em' }}>Đặt lịch ngay</Button>
+                                <Button variant="contained" href="/booking" sx={{ backgroundColor: '#00aeeb', color: '#fff', borderRadius: '5px', width: '100%', marginTop: '1em' }}>Đặt lịch ngay</Button>
                             </Box>
                         </CardContent>
                     </Card>
