@@ -1,11 +1,7 @@
 import MaterialIcon from "@mui/icons-material/Icon";
 import PeopleIcon from '@mui/icons-material/People';
-// import DashboardIcon from "@mui/icons-material/Dashboard";
-
-
 import MedicalServicesIcon from '@mui/icons-material/MedicalServices';
 
-// Để quản lí dữ liệu
 export interface Appointment {
     id: number;
     patientName: string;
@@ -35,3 +31,16 @@ export const sidebarData: {
             icon: PeopleIcon
         },
     ]
+
+    export const defaultData: object [] = [
+     {
+            Id: 1,
+            Subject: 'Khám tổng quát',            
+            StartTime: new Date(2024, 5, 7, 7, 30),
+            EndTime: new Date(2024, 5, 7, 8, 0),
+            IsAllDay: false,
+            Description:'Mr.Thinh',
+            Location:"Nha Khoa Tại Nhà"
+        }, 
+    ];
+    
