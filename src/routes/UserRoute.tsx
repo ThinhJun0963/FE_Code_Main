@@ -11,8 +11,8 @@ import ClinicInformation from "../pages/Admin/AdminClinicOwner/pages/ClinicInfor
 import ClinicDetail from "../pages/ClinicDetail/ClinicDetail";
 import ClinicRegister from "../pages/ClinicRegister/ClinicRegister";
 import DentistPage from "../pages/Dentist/DentistPage/DentistPage";
-import AppointmentInfor from "../pages/Dentist/components/AppointmentList";
-import PatientRecord from "../pages/Dentist/components/PatientRecord";
+import DentistSchedulePage from "../pages/Dentist/pages/DentistSchedulePage";
+import PatientRecord from "../pages/Dentist/pages/PatientRecord";
 
 export const UserRoutes = [
   { path: "/", element: <HomePage /> },
@@ -28,6 +28,6 @@ export const UserRoutes = [
   { path: "/admin/clinic-owner/appointment", element: <AppointmentSchedule /> },
   { path: "/admin/clinic-owner/clinic", element: <ClinicInformation /> },
   { path: "/dentist", element: <DentistPage /> },
-  { path: "/dentist/appointmentInfor", element: <AppointmentInfor /> },
+  { path: "/dentist/appointmentInfor", element: <DentistSchedulePage /> },
   { path: "/dentist/patientRecord", element: <PatientRecord /> },
 ];
