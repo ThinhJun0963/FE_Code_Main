@@ -8,7 +8,7 @@ import PatientRecords from "../components/PatientRecords";
 
 const defaultTheme = createTheme();
 
-export default function Dashboard() {
+export default function PatientRecordPage() {
   const [open, setOpen] = React.useState(true);
   const toggleDrawer = () => {
     setOpen(!open);

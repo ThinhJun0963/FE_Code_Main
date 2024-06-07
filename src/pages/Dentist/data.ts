@@ -25,13 +25,13 @@ export const sidebarData: {
     title: string, path: string, icon: typeof MaterialIcon
 }[] = [
         {
-            title: "Các lịch hẹn",
-            path: "/dentist/appointmentInfor",
+            title: "Lịch hẹn trong tuần",
+            path: "/dentist/dentist-schedule",
             icon: MedicalServicesIcon
         },
         {
-            title: "Thông tin bệnh nhân",
-            path: "/dentist/patientRecord",
+            title: "Hồ sơ bệnh nhân",
+            path: "/dentist/patient-record",
             icon: PeopleIcon
         },
     ]

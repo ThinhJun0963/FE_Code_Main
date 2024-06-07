@@ -4,7 +4,7 @@ import CssBaseline from "@mui/material/CssBaseline";
 import Box from "@mui/material/Box";
 import CustomAppBar from "../components/AppBar";
 import CustomDrawer from "../components/Drawer";
-import MainContent from "../components/DentistSchedule";
+import DentistSchedule from "../components/DentistSchedule";
 
 const defaultTheme = createTheme();
 
@@ -20,7 +20,7 @@ export default function DentistSchedulePage() {
         <CssBaseline />
         <CustomAppBar open={open} toggleDrawer={toggleDrawer} />
         <CustomDrawer open={open} toggleDrawer={toggleDrawer} />
-        <MainContent />
+        <DentistSchedule />
       </Box>
     </ThemeProvider>
   );

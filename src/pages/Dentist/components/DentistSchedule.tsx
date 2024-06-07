@@ -16,7 +16,7 @@ const Main = styled(Box)(({ theme }) => ({
   overflow: "auto",
 }));
 
-const MainContent: React.FC = () => (
+const DentistSchedule: React.FC = () => (
   <Main component="main">
     <Toolbar />
     <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
@@ -40,4 +40,4 @@ const MainContent: React.FC = () => (
   </Main>
 );
 
-export default MainContent;
+export default DentistSchedule;
