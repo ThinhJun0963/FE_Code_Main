@@ -33,9 +33,14 @@ const AppBar = styled(MuiAppBar, {
 interface CustomAppBarProps {
   open: boolean;
   toggleDrawer: () => void;
+  title: string;
 }
 
-const CustomAppBar: React.FC<CustomAppBarProps> = ({ open, toggleDrawer }) => (
+const CustomAppBar: React.FC<CustomAppBarProps> = ({
+  open,
+  toggleDrawer,
+  title,
+}) => (
   <AppBar position="absolute" open={open}>
     <Toolbar
       sx={{
@@ -61,7 +66,7 @@ const CustomAppBar: React.FC<CustomAppBarProps> = ({ open, toggleDrawer }) => (
         noWrap
         sx={{ flexGrow: 1 }}
       >
-        Trang chủ
+        {title}
       </Typography>
     </Toolbar>
   </AppBar>

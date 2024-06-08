@@ -4,11 +4,11 @@ import CssBaseline from "@mui/material/CssBaseline";
 import Box from "@mui/material/Box";
 import CustomAppBar from "../components/AppBar";
 import CustomDrawer from "../components/Drawer";
-import DentistSchedule from "../components/DentistSchedule";
+import PatientList from "../components/PatientList";
 
 const defaultTheme = createTheme();
 
-export default function DentistSchedulePage() {
+export default function PatientListPage() {
   const [open, setOpen] = React.useState(true);
   const [title] = useState("Trang lịch hẹn khám");
 
@@ -22,7 +22,7 @@ export default function DentistSchedulePage() {
         <CssBaseline />
         <CustomAppBar open={open} toggleDrawer={toggleDrawer} title={title} />
         <CustomDrawer open={open} toggleDrawer={toggleDrawer} />
-        <DentistSchedule />
+        <PatientList />
       </Box>
     </ThemeProvider>
   );

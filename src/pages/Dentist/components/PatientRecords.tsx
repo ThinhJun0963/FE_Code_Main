@@ -41,7 +41,7 @@ const PatientRecords: React.FC = () => {
               }}
             >
               <div>
-                <h2>Hồ sơ bệnh nhân</h2>
+                <h2>Danh sách các bệnh nhân</h2>
                 <ul>
                   {patients.map((patient) => (
                     <li key={patient.id}>
@@ -57,11 +57,6 @@ const PatientRecords: React.FC = () => {
               </div>
             </Paper>
           </Grid>
-          {/* <Grid item xs={12}>
-            <Paper
-              sx={{ p: 2, display: "flex", flexDirection: "column" }}
-            ></Paper>
-          </Grid> */}
         </Grid>
       </Container>
     </Main>

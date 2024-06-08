@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import Box from "@mui/material/Box";
@@ -10,6 +10,8 @@ const defaultTheme = createTheme();
 
 export default function PatientRecordPage() {
   const [open, setOpen] = React.useState(true);
+  const [title] = useState("Trang lịch hồ sơ bệnh nhân");
+
   const toggleDrawer = () => {
     setOpen(!open);
   };
@@ -18,7 +20,7 @@ export default function PatientRecordPage() {
     <ThemeProvider theme={defaultTheme}>
       <Box sx={{ display: "flex" }}>
         <CssBaseline />
-        <CustomAppBar open={open} toggleDrawer={toggleDrawer} />
+        <CustomAppBar open={open} toggleDrawer={toggleDrawer} title={title} />
         <CustomDrawer open={open} toggleDrawer={toggleDrawer} />
         <PatientRecords />
       </Box>
