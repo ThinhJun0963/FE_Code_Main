@@ -5,6 +5,7 @@ import SignUpMUI from '../pages/Login/SignUpMUI';
 import ClinicDetail from '../pages/ClinicDetail/ClinicDetail';
 import ClinicRegister from '../pages/ClinicRegister/ClinicRegister';
 import ClinicList from '../pages/ClinicList/ClinicList';
+import Chat from '../pages/ChatV1/Chat';
 
 export const publicRoutes = [
     { path: '/', element: <HomePage /> },
@@ -14,5 +15,6 @@ export const publicRoutes = [
     { path: '/clinics', element: <ClinicList /> },
     { path: "/login", element: < LoginMUI /> },
     { path: "/signup", element: <SignUpMUI /> },
+    { path: "/chat", element: <Chat/>}
     //{ path: "/login-google", element: <GoogleLogin />}
 ]

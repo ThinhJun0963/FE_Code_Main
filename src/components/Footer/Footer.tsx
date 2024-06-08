@@ -21,24 +21,24 @@ const Footer = () => {
                 <Grid item xs={12} md={3}>
                     <Typography variant="h6">Giới thiệu</Typography>
                     <ul style={{ listStyle: 'none', padding: 0, lineHeight: 2 }}>
-                        <li><Link style={{textDecoration: 'none'}} href = "none">Về chúng tôi</Link></li>
-                        <li><Link style={{textDecoration: 'none'}} href = "none">Thông tin liên hệ</Link></li>
-                        <li><Link style={{textDecoration: 'none'}} href = "none">Nhân sự & tuyển dụng</Link></li>
+                        <li><Link style={{textDecoration: 'none'}} href = "#">Về chúng tôi</Link></li>
+                        <li><Link style={{textDecoration: 'none'}} href = "#">Thông tin liên hệ</Link></li>
+                        <li><Link style={{textDecoration: 'none'}} href = "#">Nhân sự & tuyển dụng</Link></li>
                     </ul>
                 </Grid>
                 <Grid item xs={12} md={3}>
                     <Typography variant="h6">Dịch vụ</Typography>
                     <ul style={{ listStyle: 'none', padding: 0, lineHeight: 2 }}>
-                        <li><Link style={{textDecoration: 'none'}} href = "none">Đặt khám phòng khám</Link></li>
-                        <li><Link style={{textDecoration: 'none'}} href = "none">Đặt lịch thường niên</Link></li>
-                        <li><Link style={{textDecoration: 'none'}} href = "none">Biểu phí dịch vụ</Link></li>
+                        <li><Link style={{textDecoration: 'none'}} href = "#">Đặt khám phòng khám</Link></li>
+                        <li><Link style={{textDecoration: 'none'}} href = "#">Đặt lịch thường niên</Link></li>
+                        <li><Link style={{textDecoration: 'none'}} href = "#">Biểu phí dịch vụ</Link></li>
                     </ul>
                 </Grid>
                 <Grid item xs={12} md={3}>
                     <Typography variant="h6">Hỗ trợ</Typography>
                     <ul style={{ listStyle: 'none', padding: 0, lineHeight: 2 }}>
-                        <li><Link style={{textDecoration: 'none'}} href = "none">Điều khoản sử dụng</Link></li>
-                        <li><Link style={{textDecoration: 'none'}} href = "none">Chính sách bảo mật</Link></li>
+                        <li><Link style={{textDecoration: 'none'}} href = "#">Điều khoản sử dụng</Link></li>
+                        <li><Link style={{textDecoration: 'none'}} href = "#">Chính sách bảo mật</Link></li>
                     </ul>
                 </Grid>
             </Grid>

@@ -34,7 +34,6 @@ const router = createBrowserRouter([
   { path: "/login", element: <LoginMUI /> },
   { path: "/login2", element: <LoginPage /> },
   { path: "/popup", element: <PopUp /> },
-
 ]);
 
 export default router;
