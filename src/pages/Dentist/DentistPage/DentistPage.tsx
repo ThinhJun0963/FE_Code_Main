@@ -1,11 +1,10 @@
 import React from "react";
-import Dashboard from "../components/Dashboard";
-import "./DentistPage.css";
+import DentistSchedulePage from "../pages/DentistSchedulePage";
 
 const DentistPage: React.FC = () => {
   return (
     <div className="DentistPage">
-      <Dashboard />
+      <DentistSchedulePage />
     </div>
   );
 };

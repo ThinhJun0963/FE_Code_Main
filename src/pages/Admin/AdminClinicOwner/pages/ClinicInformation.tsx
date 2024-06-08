@@ -66,6 +66,14 @@ const Drawer = styled(MuiDrawer, {
   },
 }));
 
+const FormPaper = styled(Paper)(({ theme }) => ({
+    width: '90%',
+    height: 'auto',
+    margin: '0 auto',
+    border: '1px solid #ddd', // Add border
+    boxShadow: '0 0 10px rgba(0,0,0,0.1)', // Add shadow
+  }))
+// TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = createTheme();
 
 export default function ClinicInformation() {
@@ -74,74 +82,87 @@ export default function ClinicInformation() {
     setOpen(!open);
   };
 
-  return (
-    <ThemeProvider theme={defaultTheme}>
-      <Box sx={{ display: "flex" }}>
-        <CssBaseline />
-        <AppBar position="absolute" open={open}>
-          <Toolbar
-            sx={{
-              pr: "24px",
-            }}
-          >
-            <IconButton
-              edge="start"
-              color="inherit"
-              aria-label="open drawer"
-              onClick={toggleDrawer}
-              sx={{
-                marginRight: "36px",
-                ...(open && { display: "none" }),
-              }}
-            >
-              <MenuIcon />
-            </IconButton>
-            <Typography
-              component="h1"
-              variant="h6"
-              color="inherit"
-              noWrap
-              sx={{ flexGrow: 1 }}
-            >
-              Trang lịch thông tin phòng khám
-            </Typography>
-          </Toolbar>
-        </AppBar>
-        <Drawer variant="permanent" open={open}>
-          <Toolbar
-            sx={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "flex-end",
-              px: [1],
-            }}
-          >
-            <IconButton onClick={toggleDrawer}>
-              <ChevronLeftIcon />
-            </IconButton>
-          </Toolbar>
-          <Divider />
-          <List component="nav">{mainListItems}</List>
-        </Drawer>
-        <Box
-          component="main"
-          sx={{
-            backgroundColor: (theme) =>
-              theme.palette.mode === "light"
-                ? theme.palette.grey[100]
-                : theme.palette.grey[900],
-            height: "100vh",
-            flexGrow: 1,
-          }}
-        >
-          <Toolbar />
-          <Container maxWidth="xl">
-            <Paper sx={{ padding: "2em", marginTop: "1em" }}>
-              <Form onSubmit={() => console.log("Hi")} />
-            </Paper>
-          </Container>
-        </Box>
-      </Box>
-    </ThemeProvider>
-  );
+    return (
+        <ThemeProvider theme={defaultTheme}>
+            <Box sx={{ display: 'flex' }}>
+                <CssBaseline />
+                <AppBar position="absolute" open={open}>
+                    <Toolbar
+                        sx={{
+                            pr: '24px', // keep right padding when drawer closed
+                        }}
+                    >
+                        <IconButton
+                            edge="start"
+                            color="inherit"
+                            aria-label="open drawer"
+                            onClick={toggleDrawer}
+                            sx={{
+                                marginRight: '36px',
+                                ...(open && { display: 'none' }),
+                            }}
+                        >
+                            <MenuIcon />
+                        </IconButton>
+                        <Typography
+                            component="h1"
+                            variant="h6"
+                            color="inherit"
+                            noWrap
+                            sx={{ flexGrow: 1 }}
+                        >
+                            Trang lịch thông tin phòng khám
+                        </Typography>
+                    </Toolbar>
+                </AppBar>
+                <Drawer variant="permanent" open={open}>
+                    <Toolbar
+                        sx={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'flex-end',
+                            px: [1],
+                        }}
+                    >
+                        <IconButton onClick={toggleDrawer}>
+                            <ChevronLeftIcon />
+                        </IconButton>
+                    </Toolbar>
+                    <Divider />
+                    <List component="nav">
+                        {mainListItems}
+                    </List>
+                </Drawer>
+                <Box
+                    component="main"
+                    pt={10}
+                    sx={{
+                        backgroundColor: (theme) =>
+                            theme.palette.mode === 'light'
+                                ? theme.palette.grey[100]
+                                : theme.palette.grey[900],
+                        flexGrow: 1,
+                        height: '100vh',
+                        overflow: 'auto',
+                    }}
+                >
+                    <Toolbar />
+                    <Container maxWidth="xl">
+                        <FormPaper>
+                            <Grid container spacing={2}>
+                                <Grid item lg={12}>
+                                    <Typography variant="h6" component="h4" sx={{ flexGrow: 1, paddingLeft: 7, marginTop: 4 }}>
+                                        Thông tin phòng khám
+                                    </Typography>
+                                </Grid>
+                                <Grid item lg={12}>
+                                    <Form onSubmit={() => console.log('Hi')}/>
+                                </Grid>
+                            </Grid>
+                        </FormPaper>
+                    </Container>
+                </Box>
+            </Box>
+        </ThemeProvider>
+    );
 }

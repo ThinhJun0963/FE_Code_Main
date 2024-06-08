@@ -22,52 +22,29 @@ const HomePageContent = () => {
     navigate(`/clinics?search=${searchTerm}`);
   };
 
-  return (
-    <Box
-      sx={{
-        marginTop: "5%",
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
-        alignItems: "center",
-      }}
-    >
-      <Box>
-        <Typography variant="h2" component="div" gutterBottom>
-          Ứng dụng đặt khám
-        </Typography>
-        <Typography variant="h5" component="div" gutterBottom>
-          Đặt khám với hơn 100 phòng khám trên SmileCare để có số thứ tự và
-          khung giờ khám trước.
-        </Typography>
-        <form onSubmit={handleSearchSubmit}>
-          <Box
-            sx={{
-              backgroundColor: " #ffffff",
-              width: "100%",
-              borderRadius: "10px",
-              display: "flex",
-              alignItems: "center",
-              padding: "10px",
-            }}
-          >
-            <InputBase
-              value={searchTerm}
-              onChange={handleSearchChange}
-              placeholder="Tìm kiếm theo tên, địa chỉ phòng khám"
-              inputProps={{ "aria-label": "search" }}
-              sx={{ flex: 1, paddingLeft: "10px" }}
-            />
-            <IconButton
-              type="submit"
-              aria-label="search"
-              sx={{ color: "#000" }}
-            >
-              <SearchIcon />
-            </IconButton>
-          </Box>
-        </form>
-      </Box>
+    return (
+        <Box sx={{ marginTop: '5%', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+            <Box>
+                <Typography variant="h2" component="div" gutterBottom >
+                    Ứng dụng đặt khám
+                </Typography>
+                <Typography variant="h5" component="div" gutterBottom>
+                    Đặt khám với hơn 100 phòng khám trên SmileCare để có số thứ tự và
+                    khung giờ khám trước.
+                </Typography>
+                <Box sx={{ backgroundColor: '#F1F1F1', width: '100%', borderRadius: '10px', display: 'flex', alignItems: 'center', padding: '10px' }}>
+                    <InputBase
+                        value={searchTerm}
+                        onChange={handleSearchChange}
+                        placeholder="Search…"
+                        inputProps={{ 'aria-label': 'search' }}
+                        sx={{ flex: 1, paddingLeft: '10px' }}
+                    />
+                    <IconButton type="submit" aria-label="search" onClick={handleSearchSubmit} sx={{ color: '#000' }}>
+                        <SearchIcon />
+                    </IconButton>
+                </Box>
+            </Box>
 
       <Box sx={{ width: "80%", marginTop: "2em", textAlign: "right" }}>
         <Button

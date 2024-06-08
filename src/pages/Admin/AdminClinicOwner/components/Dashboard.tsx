@@ -22,7 +22,18 @@ import Chart from './Chart';
 import Deposits from './Deposits';
 import Orders from './Orders';
 
-
+// function Copyright(props: any) {
+//   return (
+//     <Typography variant="body2" color="text.secondary" align="center" {...props}>
+//       {'Copyright © '}
+//       <Link color="inherit" href="https://mui.com/">
+//         SmileCare
+//       </Link>{' '}
+//       {new Date().getFullYear()}
+//       {'.'}
+//     </Typography>
+//   );
+// }
 
 const drawerWidth: number = 240;
 
@@ -137,6 +148,8 @@ export default function Dashboard() {
           <Divider />
           <List component="nav">
             {mainListItems}
+            {/* <Divider sx={{ my: 1 }} />
+            {secondaryListItems} */}
           </List>
         </Drawer>
         <Box

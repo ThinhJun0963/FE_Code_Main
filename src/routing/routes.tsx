@@ -37,6 +37,3 @@ const router = createBrowserRouter([
 ]);
 
 export default router;
-
-// { path: '/admin/users', element: <AdminUserPage /> },
-// { path: '/admin', element: < AdminPage /> },
