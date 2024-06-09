@@ -3,7 +3,7 @@ import { styled } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import Toolbar from "@mui/material/Toolbar";
-import Schedule from "./Schedule/Schedule";
+import Schedule from "../Schedule/Schedule";
 const Main = styled(Box)(({ theme }) => ({
   backgroundColor:
     theme.palette.mode === "light"
