@@ -2,7 +2,7 @@ import { Box, Breadcrumbs, Button, Link, TextField, Typography } from '@mui/mate
 import UseMultipleStepForm from '../../../components/UseMultipleStepForm/UseMultipleStepForm';
 import ServicesForm from './ServicesForm';
 import CertificationForm from './CertificationForm';
-import BasicForm from './BasicForm';
+import BasicForm from './BasicForm/BasicForm';
 
 const ClinicRegisterContent = () => {
     const generalContent = [
