@@ -3,6 +3,7 @@ import {
   GridColDef,
   GridFilterModel,
   GridRowsProp,
+  GridRowParams,
 } from "@mui/x-data-grid";
 
 interface TableProps {
@@ -11,9 +12,16 @@ interface TableProps {
   filterModel?: GridFilterModel;
   checkboxSelection?: boolean;
   disableRowSelectionOnClick?: boolean;
+  onRowClick?: (params: GridRowParams) => void;
 }
 
-function Table({ columns, rows, filterModel, ...rest }: TableProps) {
+function Table({
+  columns,
+  rows,
+  filterModel,
+  onRowClick,
+  ...rest
+}: TableProps) {
   return (
     <div style={{ height: "100%", width: "100%" }}>
       <DataGrid
@@ -25,6 +33,7 @@ function Table({ columns, rows, filterModel, ...rest }: TableProps) {
           },
         }}
         filterModel={filterModel}
+        onRowClick={onRowClick}
         {...rest}
       />
     </div>

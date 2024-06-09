@@ -1,5 +1,5 @@
 // Quản lý API - Fake data
-import { Appointment } from '../data';
+import { Appointment } from '../../data';
 
 const appointments: Appointment[] = [
     { id: 1, patientName: "Thinh", date: "15-06-2024", time: "10:00", notes: "Tẩy trắng răng" },

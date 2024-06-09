@@ -4,7 +4,7 @@ import CssBaseline from "@mui/material/CssBaseline";
 import Box from "@mui/material/Box";
 import CustomAppBar from "../components/AppBar";
 import CustomDrawer from "../components/Drawer";
-import DentistSchedule from "../components/DentistSchedule";
+import DentistSchedule from "../components/Dentist/DentistSchedule";
 
 const defaultTheme = createTheme();
 

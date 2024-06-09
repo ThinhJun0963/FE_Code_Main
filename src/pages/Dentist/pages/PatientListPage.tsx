@@ -4,7 +4,7 @@ import CssBaseline from "@mui/material/CssBaseline";
 import Box from "@mui/material/Box";
 import CustomAppBar from "../components/AppBar";
 import CustomDrawer from "../components/Drawer";
-import PatientList from "../components/PatientList";
+import PatientList from "../components/Patient/PatientList";
 
 const defaultTheme = createTheme();
 
