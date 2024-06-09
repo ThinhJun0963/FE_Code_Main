@@ -24,7 +24,7 @@ export const publicRoutes = [
     { path: "/login", element: < LoginMUI /> },
     { path: "/signup", element: <SignUpMUI /> },
 
-    { path: "/chat", element: <Chat/>}
+    { path: "/chat", element: <Chat/>},
     //{ path: "/login-google", element: <GoogleLogin />,
     { path: "/user/payment", element: <UserPayment /> },
     { path: "/user/profile", element: <UserProfile /> },
