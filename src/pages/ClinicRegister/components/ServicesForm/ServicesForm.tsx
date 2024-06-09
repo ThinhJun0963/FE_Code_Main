@@ -1,52 +1,84 @@
-import { Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField } from '@mui/material';
-import { useState } from 'react';
+import { Box, Checkbox, FormControlLabel, Grid, Typography, Button } from '@mui/material';
+import { SetStateAction, useState } from 'react';
+import AddServiceForm from '../AddServiceForm/AddServiceForm';;
 
-interface AddServiceFormProps {
-  onAddService: (service: { id: string; name: string; price: string }) => void;
-  open: boolean;
-  handleClose: () => void;
+interface Service {
+    id: string;
+    name: string;
+    price: string;
 }
 
-const AddServiceForm = ({ onAddService, open, handleClose }: AddServiceFormProps) => {
-  const [serviceName, setServiceName] = useState('');
-  const [servicePrice, setServicePrice] = useState('');
-
-  const handleAdd = () => {
-    const newService = {
-      id: Math.random().toString(36).substr(2, 9),
-      name: serviceName,
-      price: servicePrice
+interface ServiceFormProps {
+    services: Service[];
+    formData: {
+        name: string;
+        address: string;
+        phone: string;
+        email: string;
+        openHour: string;
+        closeHour: string;
+        services: Service[];
+        certifications: string[];
     };
-    onAddService(newService);
-    handleClose();
-  };
-  
+    setFormData: (value: SetStateAction<{
+        name: string;
+        address: string;
+        phone: string;
+        email: string;
+        openHour: string;
+        closeHour: string;
+        services: Service[];
+        certifications: string[];
+    }>) => void;
+}
 
-  return (
-    <Dialog open={open} onClose={handleClose}>
-      <DialogTitle>Thêm dịch vụ</DialogTitle>
-      <DialogContent>
-        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
-          <TextField
-            label="Tên dịch vụ"
-            value={serviceName}
-            onChange={(e) => setServiceName(e.target.value)}
-            fullWidth
-          />
-          <TextField
-            label="Giá"
-            value={servicePrice}
-            onChange={(e) => setServicePrice(e.target.value)}
-            fullWidth
-          />
+function ServicesForm({ services, formData, setFormData }: ServiceFormProps) {
+    const [selectedServices, setSelectedServices] = useState<Service[]>(formData.services);
+    const [open, setOpen] = useState(false);
+
+    const handleChange = (event: React.ChangeEvent<HTMLInputElement>, service: Service) => {
+        let updatedServices;
+        if (event.target.checked) {
+            updatedServices = [...selectedServices, service];
+        } else {
+            updatedServices = selectedServices.filter((selectedService) => selectedService.id !== service.id);
+        }
+        setSelectedServices(updatedServices);
+        setFormData(prevState => ({ ...prevState, services: updatedServices }));
+    };
+
+    const handleAddService = (newService: Service) => {
+        const updatedServices = [...services, newService];
+        setFormData(prevState => ({ ...prevState, services: [...prevState.services, newService] }));
+    };
+
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false);
+
+    return (
+        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, padding: '20px' }}>
+            <Typography variant="h6">Chọn loại dịch vụ</Typography>
+            <Grid container spacing={2}>
+                {services.map((service, index) => (
+                    <Grid item xs={4} key={index}>
+                        <FormControlLabel
+                            control={
+                                <Checkbox
+                                    checked={selectedServices.some(s => s.id === service.id)}
+                                    onChange={(event) => handleChange(event, service)}
+                                />
+                            }
+                            label={service.name}
+                        />
+                    </Grid>
+                ))}
+            </Grid>
+            <Button variant="outlined" color="primary" onClick={handleOpen} sx={{marginTop: '3em'}}>
+                Thêm dịch vụ khác
+            </Button>
+            <AddServiceForm open={open} handleClose={handleClose} onAddService={handleAddService} />
         </Box>
-      </DialogContent>
-      <DialogActions>
-        <Button onClick={handleClose}>Hủy</Button>
-        <Button onClick={handleAdd} color="primary">Thêm</Button>
-      </DialogActions>
-    </Dialog>
-  );
-};
+    );
+}
 
-export default AddServiceForm;
+export default ServicesForm;
