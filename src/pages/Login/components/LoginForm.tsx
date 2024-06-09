@@ -38,7 +38,7 @@ const LoginForm = () => {
         localStorage.setItem("accessToken", response.data.accessToken);
         localStorage.setItem("refreshToken", response.data.refreshToken);
         //  Thành công thì cho về trang người dùng
-        navigate('/user/profile') 
+        navigate('/') 
       } 
       else {
         alert("Không đăng nhập thành công");
