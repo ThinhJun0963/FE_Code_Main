@@ -9,9 +9,15 @@ import Menu from '@mui/material/Menu';
 import { Button, Link } from '@mui/material';
 import axios, { AxiosRequestConfig } from 'axios';
 import { connection_path } from '../../constants/developments';
+import { useNavigate } from 'react-router-dom';
 
 const Header = () => {
-  const [auth, setAuth] = React.useState(true);
+
+  // === Using navigator to redirect user back to homepage after log out ===
+  const navigator = useNavigate();
+  // =======================================================================
+
+  const [auth, setAuth] = React.useState(false);
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 
   const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
@@ -36,6 +42,12 @@ const Header = () => {
         localStorage.removeItem('accessToken');
         localStorage.removeItem('refreshToken');
         setAuth(false); // Update the auth state to false
+
+        // ============ Redirect user to homepage after log out =====================
+        navigator("/");
+        // ==========================================================================
+
+
       } else {
         alert('Logout failed');
       }
@@ -44,6 +56,10 @@ const Header = () => {
       console.error(error);
     }
   };
+
+  // ============================ Proposed changes ==================================
+  React.useLayoutEffect(() => {localStorage.getItem("accessToken") == null ? setAuth(false) : setAuth(true)}, []);
+  // ============================ End of proposal  ===================================
 
   return (
     <AppBar position="sticky" style={{ top: 0 }}>
