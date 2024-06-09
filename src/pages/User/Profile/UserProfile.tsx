@@ -1,38 +1,39 @@
 import './UserProfile.scss'
 import { useNavigate } from 'react-router-dom';
 import ImagePlaceholder from '../../../assets/img_placeholder.jpg';
-import { UserInfo } from '../../../components/User/Interfaces/UserDefinition';
+import { default_data, UserInfo } from '../../../components/User/Interfaces/UserDefinition';
 import SimpleButton from '../../../components/User/Components/Buttons/SimpleButton';
 import { googleLogout } from '@react-oauth/google';
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import axios from 'axios';
+import { connection_path } from '../../../constants/developments';
+
 const UserProfile: React.FC = () => {
   
   // đăng nhập thành công thì không cần thằng google nữa nên sign out luôn.
   googleLogout()
 
   // Dữ liệu người dùng
-  const data: UserInfo = {
-      user_id: "The Null Pointer Exception",
-      username: "Collin Phan",
-      name: "Charles Vander Lin",
-      phone: "0933015921",
-      gender: "Nam",
-      birthdate: "30-4-1945",
-      ethnic: "Kinh",
-      email: "example@gmail.com",
-      ssc: "03968230692155",
-      insurance: null,
-      status: {state_number: 1, message: "Đã xác minh"}, 
-    }
+  const [data, setData]: [UserInfo | null, Dispatch<SetStateAction<UserInfo>>] = useState(default_data);
 
   // TODO: Tạo hàm lấy dữ liệu người dùng từ database.
+  const fetchUserData = () => {
+
+    const url = connection_path.base_url + connection_path.api + connection_path.endpoints.user;
+
+    axios.get(url, {headers: {Authorization: localStorage.getItem("accessToken")}}).then(response => setData(response.data));
+  }
 
   // Navigational
   const navigator = useNavigate();
   const doNavigate = (dest: string) => {navigator(dest)}
 
+  useEffect(() => {
+    fetchUserData();
+  }, []) 
+
   return (
     <>
-      <Header />
       <main className='main-content-flex-container'>
         <div className='main-content-left-container'>
           <ul>
@@ -49,11 +50,11 @@ const UserProfile: React.FC = () => {
 
               <div className='main-content-container-box-row profile-general-align-left'>
                 <span className="user-profile-image-placeholder">
-                  <img src={data.profile_image ?? ImagePlaceholder} alt="lmao"/>
+                  <img src={data.profilePicture ?? ImagePlaceholder} alt="pic"/>
                 </span>
                 <span className='user-profile-general-info'>
                   <h2>{data.username}</h2>
-                  <p>Mã bệnh nhân: {data.user_id}</p>
+                  <p>Mã bệnh nhân: {data.id}</p>
                 </span>
               </div>
 
@@ -63,7 +64,7 @@ const UserProfile: React.FC = () => {
                   <tbody>
                     <tr>
                       <td className='table-field-name'>Họ và tên</td>
-                      <td className="table-field-value">{data.name ?? "--"}</td>
+                      <td className="table-field-value">{data.fullname ?? "--"}</td>
                     </tr>
                     <tr>
                       <td className='table-field-name'>Số điện thoại</td>
@@ -89,14 +90,6 @@ const UserProfile: React.FC = () => {
                       <td className="table-field-value">{data.insurance ?? "--"}</td>
                     </tr>
                     <tr>
-                      <td className='table-field-name'>Dân tộc</td>
-                      <td className="table-field-value">{data.ethnic ?? "--"}</td>
-                    </tr>
-                    <tr>
-                      <td className='table-field-name'>Số CCCD/CMND</td>
-                      <td className="table-field-value">{data.ssc ?? "--"}</td>
-                    </tr>
-                    <tr>
                       <td className='table-field-name'>Email</td>
                       <td className="table-field-value">{data.email ?? "--"}</td>
                     </tr>
@@ -107,7 +100,6 @@ const UserProfile: React.FC = () => {
               <SimpleButton buttonType='button' href='/user/account' message='Chỉnh sửa thông tin cá nhân' />
               </div>
             </div>
-\\
         </div>
       </main>
     </>
