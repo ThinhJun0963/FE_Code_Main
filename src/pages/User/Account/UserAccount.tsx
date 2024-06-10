@@ -1,11 +1,13 @@
 import React, { Dispatch, SetStateAction, useEffect, useLayoutEffect, useState } from 'react';
 import style from './UserAccount.module.scss'
 import ImagePlaceholder from '../../../assets/img_placeholder.jpg'
-import { default_data, Payment, UserInfo } from '../../../components/User/Interfaces/UserDefinition';
+import { default_data, UserInfo } from '../../../components/User/Interfaces/UserDefinition';
 import StatusBadge from '../../../components/User/StatusBadge/StatusBadge';
 import UserProfileNav from '../../../components/User/Layouts/ProfileNavigation/UserProfileNav';
 import SimpleButton from '../../../components/User/Components/Buttons/SimpleButton';
 import ChangePassword from '../../../components/User/Layouts/ChangePassword/ChangePassword';
+import axios from 'axios';
+import { connection_path } from '../../../constants/developments';
 
 // ==================================
 //
@@ -14,27 +16,6 @@ import ChangePassword from '../../../components/User/Layouts/ChangePassword/Chan
 // ==================================
 
 //# Default data and functions
-
-// Mocking data
-const template_data: UserInfo = 
-{
-    "user_id": "The Null Pointer Exception",
-    "username": "Collin Phan",
-    "name": "Charles Vander Lin",
-    "phone": "0933015921",
-    "gender": "Nam",
-    "birthdate": "1945-04-30",
-    "ethnic": "Kinh",
-    "email": "example@gmail.com",
-    "ssc": "03968230692155",
-    "insurance": null,
-    "profile_image": null,
-    "status": {state_number: 4, message:"Đã xác minh"},
-    "payment_info": [
-      {creditInfo: "Momo", creditValue: "90341-*****-*****", creditValid: {state_number: 2, message: "Chưa xác minh"}}, 
-      {creditInfo: "VNPay", creditValue: "903-***-***", creditValid: {state_number: 3, message: "Đang xử lí"}},  
-      {creditInfo: "Paypal", creditValue: "*****-*****-*****", creditValid: {state_number: 4, message: "Đã xác minh"}}, ],
-}
 
 const UserAccount: React.FC = () => {
   // Sử dụng useState để lưu thông tin.
@@ -48,10 +29,13 @@ const UserAccount: React.FC = () => {
   const fetchUserData = () => {
     try {
       // Let's say ... I do some backend fetching here
-      // axios.get(`http://localhost:7163/api/EndPoint`)
 
-      // And return the fetch result.
-      setUserData(template_data);
+      const url = connection_path.base_url + connection_path.api + connection_path.endpoints.user;
+
+      axios.get(url, {headers: {Authorization: localStorage.getItem("accessToken")}}).then( response => {
+        // And return the fetch result.
+        setUserData(response.data);
+      });
     }
     catch(e: unknown){
       if (typeof e === "string") {
@@ -67,14 +51,7 @@ const UserAccount: React.FC = () => {
   //const buttonConfig: ButtonProperty = {href:"/", message: "Đăng xuất", buttonType:"button", };
 
   // Tạo hàng
-  const payment_method= (userData.payment_info != null) ? userData.payment_info.map((v: Payment, i: number) => {
-    return (
-      <tr key={i.toString()} className={style.TableRow}>
-        <td key={`row_${i}_label`} className={`${style.TableData} ${style.FieldName}`}>{v.creditValue}</td>
-        <td key={`row_${i}_value`} className={`${style.TableData} ${style.FieldName}`}>{v.creditInfo ?? "--"}</td>
-        <td key={`row_${i}_status`} className={`${style.TableData} ${style.FieldName}`}>{<StatusBadge  state_number={v.creditValid?.state_number ?? 0} message={v.creditValid?.message ?? "Không xác định"} /> ?? "--"}</td>
-      </tr>
-  )}) : null;
+
 
   // Hàm cập nhật thông tin
   const updateUserData = (event: React.FormEvent<HTMLInputElement>) => {
@@ -122,7 +99,7 @@ const UserAccount: React.FC = () => {
     active: 4
   }
 
-  if (userData.status) {
+  if (userData != null) {
     return (
       <>
         <main className={style.FlexContainer}>
@@ -140,11 +117,11 @@ const UserAccount: React.FC = () => {
 
                 <div className={style.ProfileImagePlaceholder}>
                   <span className={style.ProfileImage}>
-                    <img src={userData.profile_image ?? ImagePlaceholder} onClick={changePicture} alt="lmao"/>
+                    <img src={userData.profilePicture ?? ImagePlaceholder} onClick={changePicture} alt="lmao"/>
                   </span>
                   <span className={style.ProfileGeneralInfo}>
                     <h2>{userData.username ?? "--"}</h2>
-                    <p className={style.PatientCode}>Mã bệnh nhân: {userData.user_id ?? "--"}</p>
+                    <p className={style.PatientCode}>Mã bệnh nhân: {userData.id ?? "--"}</p>
                     <StatusBadge state_number={userData.status?.state_number ?? 0} message={userData.status?.message ?? "Không xác định"}/>
                   </span>
                 </div>
@@ -173,12 +150,6 @@ const UserAccount: React.FC = () => {
                       </td>
                     </tr>
 
-                    <tr className={style.TableRow}>
-                      <td className={`${style.TableData} ${style.FieldName}`}>Căn cước công dân</td>
-                      <td className={`${style.TableData} ${style.FieldValue}`}>
-                        <input type='text' name="ssc" placeholder='vd: 1043XXXXXXXX' disabled={disabled} onBlur={updateUserData} defaultValue={userData.ssc == null ? "--" : userData.ssc}/>
-                      </td>
-                    </tr>
 
                     <tr className={style.TableRow}>
                       <td className={`${style.TableData} ${style.FieldName}`}>Mã bảo hiểm y tế</td>
@@ -190,7 +161,7 @@ const UserAccount: React.FC = () => {
                     <tr className={style.TableRow}>
                       <td className={`${style.TableData} ${style.FieldName}`}>Họ và tên</td>
                       <td className={`${style.TableData} ${style.FieldValue}`}>
-                        <input  type='text' name='name' placeholder='vd: Trần Văn A' disabled={disabled} onBlur={updateUserData} defaultValue={userData.name == null ? "--" : userData.name}/></td>
+                        <input  type='text' name='name' placeholder='vd: Trần Văn A' disabled={disabled} onBlur={updateUserData} defaultValue={userData.fullname == null ? "--" : userData.fullname}/></td>
                     </tr>
 
                     <tr className={style.TableRow}>
@@ -211,34 +182,12 @@ const UserAccount: React.FC = () => {
                       </td>
                     </tr>
 
-                    <tr className={style.TableRow}>
-                      <td className={`${style.TableData} ${style.FieldName}`}>Dân tộc</td>
-                      <td className={`${style.TableData} ${style.FieldValue}`}>
-                        <input type='text' name='ethnic' placeholder='Dân tộc' disabled={disabled} onBlur={updateUserData} defaultValue={userData.ethnic == null ? "--" : userData.ethnic} />
-                      </td>
-                    </tr>
-
                   </tbody>
                 </table>
                 {!disabled && <SimpleButton buttonType='button' message='Hoàn tất' callback={() => {setDisabled((disabled) => ! disabled)}} />}
                 {disabled && <SimpleButton buttonType='button' message='Cập nhật thông tin tài khoản' callback={() => {setDisabled(false)}} />}
               </div>
-              <hr className={style.Line} />
-              <div className={style.PaymentInfo}>
-                <table>
-                  <thead>
-                    <tr>
-                        <td>Số tài khoản</td>
-                        <td>Nhà cung cấp</td>
-                        <td>Tình trạng</td>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {payment_method}
-                  </tbody>
-                </table>
-                <SimpleButton buttonType='button' message='Cập nhật thông tin thanh toán' />
-              </div>
+              
               <hr className={style.Line} />
               <ChangePassword username={userData.username} callbacks={() => { }} />
             </div>
