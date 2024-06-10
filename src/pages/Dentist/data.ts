@@ -1,26 +1,7 @@
 import MaterialIcon from "@mui/icons-material/Icon";
 import PeopleIcon from '@mui/icons-material/People';
 import MedicalServicesIcon from '@mui/icons-material/MedicalServices';
-import Paper from "@mui/material/Paper";
-import { styled } from "@mui/material/styles";
 
-export interface Appointment {
-    id: number;
-    patientName: string;
-    date: string;
-    time: string;
-    notes: string;
-}
-
-export interface Patient {
-  id: number,
-  patientId: string ,
-  patient: string,
-  date: string,
-  slot: string,
-  type: string,
-  status: string,
-}
 
 export const sidebarData: {
     title: string, path: string, icon: typeof MaterialIcon
@@ -58,11 +39,4 @@ export const sidebarData: {
       }, 
     ];
     
-     export const FormPaper = styled(Paper) ({
-        width: "100%",
-        height: "auto",
-        margin: "0 auto",
-        border: "1px solid #ddd",
-        boxShadow: "0 0 10px rgba(0,0,0,0.1)", 
-      });
     
