@@ -15,11 +15,16 @@ registerLicense(
 );
 const container = document.getElementById("root");
 const root = createRoot(container!);
-root.render(<Schedule />);
+
+
+//cái này là gì vậy
+// root.render(<Schedule />);
 
 const rootElement = document.getElementById("root");
 if (rootElement) {
-  ReactDOM.createRoot(rootElement).render(
+  //cái này là gì vậy
+  // ReactDOM.createRoot(rootElement)
+  root.render(
     <BrowserRouter>
       <React.StrictMode>
         <GoogleOAuthProvider clientId={google_auth.client_id}>
@@ -27,5 +32,6 @@ if (rootElement) {
         </GoogleOAuthProvider>
       </React.StrictMode>
     </BrowserRouter>
-  );
+  )
+  //);
 }
