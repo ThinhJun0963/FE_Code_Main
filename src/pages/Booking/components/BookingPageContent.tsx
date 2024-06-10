@@ -9,14 +9,27 @@ import { useEffect, useState } from 'react';
 import BookingStepper from './Stepper/Stepper';
 import ClinicServices from '../components/ServicesForm/ServicesForm';
 import ServicesForm from '../components/ServicesForm/ServicesForm';
+import {TimeSlot as slot} from './TimeSlots/data';
+
+interface bookingInformation {
+    clinic: string,
+    typeOfBooking: string,
+    date: string,
+    time: slot,
+    service: '',
+}
 
 const BookingPageContent = () => {
 
+    // ================= Booking information =============================
     const [formData, setFormData] = useState({
+        clinic: '',
         typeOfBooking: '',
         date: '',
         time: '',
+        service: '',
     })
+    // ===================================================================
 
     const [open, setOpen] = useState(false);
     const [alertMessage, setAlertMessage] = useState('');
@@ -42,7 +55,12 @@ const BookingPageContent = () => {
         }
     }, [formData.typeOfBooking]);
 
-    const { steps, currentStep, step, isFirstStep, isFinalStep, next, back } = UseMultipleStepForm([<TypeOfBookingForm setFormData={setFormData} />, <Calendar setFormData={setFormData} />, <TimeSlot setFormData={setFormData} />, <ConfirmationForm formData={formData} setFormData={setFormData} />, <CheckoutForm />]);
+    // Old Code
+    //const { steps, currentStep, step, isFirstStep, isFinalStep, next, back } = UseMultipleStepForm([<TypeOfBookingForm setFormData={setFormData} />, <Calendar setFormData={setFormData} />, <TimeSlot setFormData={setFormData} />, <ConfirmationForm formData={formData} setFormData={setFormData} />, <CheckoutForm />]);
+
+    // ======== Better passing value and handler to the childrens ============
+    const { steps, currentStep, step, isFirstStep, isFinalStep, next, back } = UseMultipleStepForm([<TypeOfBookingForm formData={formData} setFormData={setFormData} />, <Calendar formData={formData} setFormData={setFormData} />, <TimeSlot formData={formData} setFormData={setFormData} />, <ConfirmationForm formData={formData} setFormData={setFormData} />, <CheckoutForm />]);
+    // =======================================================================
 
     return (
         <Box sx={{ marginTop: '5%', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
@@ -79,11 +97,7 @@ const BookingPageContent = () => {
                                 } else {
                                     next();
                                     if (isFinalStep) {
-                                        setFormData({
-                                            typeOfBooking: '',
-                                            date: '',
-                                            time: '',
-                                        });
+                                        setFormData(formData);
                                     }
                                 }
                             }}

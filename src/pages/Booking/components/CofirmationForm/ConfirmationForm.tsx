@@ -1,10 +1,13 @@
 import { Box, Button, Grid, TextField, Typography } from '@mui/material'
 import React, { useState } from 'react'
+import { TimeSlot } from '../TimeSlots/data';
 
 interface FormData {
-    typeOfBooking: string;
-    date: string;
-    time: string;
+    clinic: string,
+    typeOfBooking: string,
+    date: string,
+    time: TimeSlot,
+    service: string,
   }
   
   interface ConfirmationFormProps {
@@ -48,7 +51,7 @@ const ConfirmationForm = ({ formData, setFormData }: ConfirmationFormProps) => {
                         label="Giờ khám"
                         name="time"
                         placeholder='14:00 - 14:30'
-                        value={formData.time}
+                        value={`${formData.time.start} - ${formData.time.end}`}
                         onChange={handleChange}
                         InputLabelProps={{
                             shrink: true,
@@ -59,13 +62,15 @@ const ConfirmationForm = ({ formData, setFormData }: ConfirmationFormProps) => {
                     <TextField
                         fullWidth
                         id="service"
-                        label="Dịch vu *nếu có"
+                        label="Dịch vu khám (nếu có)"
                         name="typeOfBooking"
                         value={formData.typeOfBooking}
+                        disabled={true}
                         onChange={handleChange}
                         InputLabelProps={{
                             shrink: true,
                         }}
+                        
                     />
                 </Grid>
             </Grid>

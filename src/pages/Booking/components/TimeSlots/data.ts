@@ -1,3 +1,9 @@
+export interface TimeSlot {
+    id: string,
+    start: string,
+    end: string,
+}
+
 const slots = [
     "7:30-8:00",
     "8:00-8:30",
