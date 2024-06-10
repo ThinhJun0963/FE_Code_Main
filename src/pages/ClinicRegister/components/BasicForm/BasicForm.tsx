@@ -13,7 +13,6 @@ interface Service {
     serviceName: string;
 }
 
-
 interface BasicFormProps {
     setFormData: (value: SetStateAction<{
         name: string;
@@ -22,7 +21,7 @@ interface BasicFormProps {
         email: string;
         openHour: string;
         closeHour: string;
-        services: Service[];
+        clinicServices: Service[];
         certifications: string[];
     }>) => void;
 }

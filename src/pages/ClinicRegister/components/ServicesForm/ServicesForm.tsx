@@ -1,49 +1,45 @@
-import { Box, Checkbox, FormControlLabel, Grid, Typography, Button } from '@mui/material';
-import { SetStateAction, useEffect, useState } from 'react';
-import AddServiceForm from '../AddServiceForm/AddServiceForm';
-import { getServiceList } from '../apiServices';
+import { Box, Checkbox, FormControlLabel, FormGroup, Grid, Typography } from '@mui/material';
+import { SetStateAction, useState } from 'react';
 
 interface Service {
     serviceId: string;
     serviceName: string;
 }
 
-interface ServiceFormProps {
-    services: Service[];
+interface ServicesFormProps {
     formData: {
-        name: string;
-        address: string;
-        phone: string;
-        email: string;
-        openHour: string;
-        closeHour: string;
-        services: Service[];
-        certifications: string[];
+        clinicServices: Service[];
     };
-    setFormData: (value: SetStateAction<{
+    services: Service[];
+    setFormData: React.Dispatch<SetStateAction<{
         name: string;
         address: string;
         phone: string;
         email: string;
         openHour: string;
         closeHour: string;
-        services: Service[];
+        clinicServices: Service[];
         certifications: string[];
-    }>) => void;
+    }>>;
 }
 
-function ServicesForm({ services, formData, setFormData }: ServiceFormProps) {
-    const [selectedServices, setSelectedServices] = useState<Service[]>(formData.services);
+function ServicesForm({ services, formData, setFormData }: ServicesFormProps) {
 
-    const handleChange = (event: React.ChangeEvent<HTMLInputElement>, service: Service) => {
-        let updatedServices;
-        if (event.target.checked) {
-            updatedServices = [...selectedServices, service];
+    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const serviceId = event.target.id;
+        const checked = event.target.checked;
+
+        if (checked) {
+            setFormData((prevData) => ({
+                ...prevData,
+                services: [...prevData.clinicServices, services.find(service => service.serviceId === serviceId)!]
+            }));
         } else {
-            updatedServices = selectedServices.filter((selectedService) => selectedService.serviceId !== service.serviceId);
+            setFormData((prevData) => ({
+                ...prevData,
+                services: prevData.clinicServices.filter(service => service.serviceId !== serviceId)
+            }));
         }
-        setSelectedServices(updatedServices);
-        setFormData(prevState => ({ ...prevState, services: updatedServices }));
     };
 
     return (
@@ -56,8 +52,7 @@ function ServicesForm({ services, formData, setFormData }: ServiceFormProps) {
                             control={
                                 <Checkbox
                                     id={`${service.serviceId}`}
-                                    checked={selectedServices.some(s => s.serviceId === service.serviceId)}
-                                    onChange={(event) => handleChange(event, service)}
+                                    onChange={handleChange} 
                                 />
                             }
                             label={service.serviceName}

@@ -3,7 +3,7 @@ import UseMultipleStepForm from '../../../components/UseMultipleStepForm/UseMult
 import ServicesForm from './ServicesForm/ServicesForm';
 import CertificationForm from './CertificationForm/CertificationForm';
 import BasicForm from './BasicForm/BasicForm';
-import { getServiceList } from './apiServices';
+import { getServiceList, registerClinic } from './apiServices';
 import { useEffect, useState } from 'react';
 
 const ClinicRegisterContent = () => {
@@ -13,6 +13,8 @@ const ClinicRegisterContent = () => {
         serviceName: string;
     }
 
+    const [services, setServices] = useState<Service[]>([]);
+
     const [formData, setFormData] = useState<{
         name: string;
         address: string;
@@ -20,7 +22,7 @@ const ClinicRegisterContent = () => {
         email: string;
         openHour: string;
         closeHour: string;
-        services: Service[];
+        clinicServices: Service[];
         certifications: string[];
     }>({
         name: '',
@@ -29,11 +31,9 @@ const ClinicRegisterContent = () => {
         email: '',
         openHour: '',
         closeHour: '',
-        services: [],
+        clinicServices: [],
         certifications: []
     });
-
-    const [services, setServices] = useState<Service[]>([]);
 
     useEffect(() => {
         const fetchServices = async () => {
@@ -43,6 +43,15 @@ const ClinicRegisterContent = () => {
 
         fetchServices();
     }, []);
+
+    const handleSubmit = async () => {
+        try {
+            const response = await registerClinic(formData);
+            console.log('Clinic registration successful:', response);
+        } catch (error) {
+            console.error('Error during clinic registration:', error);
+        }
+    };
 
     const { steps, currentStep, step, isFirstStep, isFinalStep, next, back } =
         UseMultipleStepForm([
@@ -72,7 +81,7 @@ const ClinicRegisterContent = () => {
                     <Box sx={{ position: 'absolute', bottom: '20px', right: '50px', display: 'flex', gap: '.5rem', justifyContent: 'flex-end', marginTop: '1em' }}>
                         {!isFirstStep && <Button variant="contained" onClick={back}>Bước trước</Button>}
                         {!isFinalStep && <Button variant="contained" color="primary" onClick={next}>Bước tiếp</Button>}
-                        {isFinalStep && <Button variant="contained" color="primary" type="submit">Hoàn thành</Button>}
+                        {isFinalStep && <Button variant="contained" color="primary" type="submit" onClick={handleSubmit}>Hoàn thành</Button>}
                     </Box>
                 </Box>
             </Box>

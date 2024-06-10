@@ -1,3 +1,5 @@
+import ClinicRegister from "../pages/ClinicRegister/ClinicRegister"
+
 export const connection_path = {
     // base_url: "https://localhost:5268",
     base_url: "https://localhost:7163",
@@ -11,6 +13,7 @@ export const connection_path = {
         googeAuth: "/auth/google",
         register: "/user/register",
         getAllServices: "/service/get-all",
+        clinicRegister: "/clinic/register",
     }
 }
 
