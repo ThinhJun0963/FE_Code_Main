@@ -1,11 +1,11 @@
 import { Box, Checkbox, FormControlLabel, Grid, Typography, Button } from '@mui/material';
-import { SetStateAction, useState } from 'react';
-import AddServiceForm from '../AddServiceForm/AddServiceForm';;
+import { SetStateAction, useEffect, useState } from 'react';
+import AddServiceForm from '../AddServiceForm/AddServiceForm';
+import { getServiceList } from '../apiServices';
 
 interface Service {
-    id: string;
-    name: string;
-    price: string;
+    serviceId: string;
+    serviceName: string;
 }
 
 interface ServiceFormProps {
@@ -35,18 +35,16 @@ interface ServiceFormProps {
 function ServicesForm({ services, formData, setFormData }: ServiceFormProps) {
     const [selectedServices, setSelectedServices] = useState<Service[]>(formData.services);
 
-
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>, service: Service) => {
         let updatedServices;
         if (event.target.checked) {
             updatedServices = [...selectedServices, service];
         } else {
-            updatedServices = selectedServices.filter((selectedService) => selectedService.id !== service.id);
+            updatedServices = selectedServices.filter((selectedService) => selectedService.serviceId !== service.serviceId);
         }
         setSelectedServices(updatedServices);
         setFormData(prevState => ({ ...prevState, services: updatedServices }));
     };
-
 
     return (
         <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, padding: '20px' }}>
@@ -57,11 +55,12 @@ function ServicesForm({ services, formData, setFormData }: ServiceFormProps) {
                         <FormControlLabel
                             control={
                                 <Checkbox
-                                    checked={selectedServices.some(s => s.id === service.id)}
+                                    id={`${service.serviceId}`}
+                                    checked={selectedServices.some(s => s.serviceId === service.serviceId)}
                                     onChange={(event) => handleChange(event, service)}
                                 />
                             }
-                            label={service.name}
+                            label={service.serviceName}
                         />
                     </Grid>
                 ))}

@@ -23,7 +23,6 @@ const LoginForm = () => {
       password: data.get('password'),
     } 
 
-    console.log(payload);
 
     //    Chuỗi kết nối tới server backend
     //!   LƯU Ý: KHÔNG THAY ĐỔI TRỰC TIẾP CHUỖI KẾT NỐI TẠI ĐÂY (Fix cứng)

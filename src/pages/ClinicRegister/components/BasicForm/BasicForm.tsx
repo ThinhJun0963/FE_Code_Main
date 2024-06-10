@@ -8,6 +8,11 @@ const generalContent = [
     { id: 'email', name:'email',type: 'email', label: 'Email', placeholder: 'Email' }
 ];
 
+interface Service {
+    serviceId: string;
+    serviceName: string;
+}
+
 
 interface BasicFormProps {
     setFormData: (value: SetStateAction<{
@@ -17,7 +22,7 @@ interface BasicFormProps {
         email: string;
         openHour: string;
         closeHour: string;
-        services: { id: string; name: string; price: string }[];
+        services: Service[];
         certifications: string[];
     }>) => void;
 }

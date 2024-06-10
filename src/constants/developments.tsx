@@ -9,8 +9,8 @@ export const connection_path = {
         clinic: "/clinic/",
         checkAuth: "/auth/validate",
         googeAuth: "/auth/google",
-        register: "/user/register"
-
+        register: "/user/register",
+        getAllServices: "/service/get-all",
     }
 }
 
