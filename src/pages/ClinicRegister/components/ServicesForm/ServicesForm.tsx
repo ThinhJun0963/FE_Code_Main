@@ -34,7 +34,7 @@ interface ServiceFormProps {
 
 function ServicesForm({ services, formData, setFormData }: ServiceFormProps) {
     const [selectedServices, setSelectedServices] = useState<Service[]>(formData.services);
-    const [open, setOpen] = useState(false);
+
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>, service: Service) => {
         let updatedServices;
@@ -47,13 +47,6 @@ function ServicesForm({ services, formData, setFormData }: ServiceFormProps) {
         setFormData(prevState => ({ ...prevState, services: updatedServices }));
     };
 
-    const handleAddService = (newService: Service) => {
-        const updatedServices = [...services, newService];
-        setFormData(prevState => ({ ...prevState, services: [...prevState.services, newService] }));
-    };
-
-    const handleOpen = () => setOpen(true);
-    const handleClose = () => setOpen(false);
 
     return (
         <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, padding: '20px' }}>
@@ -73,10 +66,6 @@ function ServicesForm({ services, formData, setFormData }: ServiceFormProps) {
                     </Grid>
                 ))}
             </Grid>
-            <Button variant="outlined" color="primary" onClick={handleOpen} sx={{marginTop: '3em'}}>
-                Thêm dịch vụ khác
-            </Button>
-            <AddServiceForm open={open} handleClose={handleClose} onAddService={handleAddService} />
         </Box>
     );
 }

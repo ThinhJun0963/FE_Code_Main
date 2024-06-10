@@ -19,7 +19,6 @@ const LoginForm = () => {
             };
 
             const url = connection_path.base_url + connection_path.api + connection_path.endpoints.register
-            console.log(url);
             const request = await axios.post(url, payload);
             console.log(request.data); // Log the response data
             console.log(request.status); // Log the response status

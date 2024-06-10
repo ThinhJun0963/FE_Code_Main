@@ -58,52 +58,53 @@ const Header = () => {
   };
 
   // ============================ Proposed changes ==================================
-  React.useLayoutEffect(() => {localStorage.getItem("accessToken") == null ? setAuth(false) : setAuth(true)}, []);
+  React.useLayoutEffect(() => { localStorage.getItem("accessToken") == null ? setAuth(false) : setAuth(true) }, []);
   // ============================ End of proposal  ===================================
 
   return (
     <AppBar position="sticky" style={{ top: 0 }}>
       <Box width='100%' sx={{ backgroundColor: 'white' }}>
         <Toolbar disableGutters>
-          <Link href="/"><img src="../../../public/Logo.png" alt="Logo" style={{ height: '70px', marginLeft: '20px' }} /></Link>
-          <Box sx={{ flexGrow: 1 }}></Box>
-          <Box sx={{ display: 'flex', justifyContent: 'space-evenly', alignItems: 'center', width: '40%' }}>
-            <Button variant="text" href='/for-owner' sx={{ color: ' #00aeeb', fontWeight: 'bold' }}>Dành cho chủ phòng khám</Button>
-            <Button variant='text' sx={{ color: ' #00aeeb', fontWeight: 'bold' }}>Tư vấn trực tuyến</Button>
-            {auth ? (
-              <div>
-                <IconButton
-                  size="large"
-                  aria-label="account of current user"
-                  aria-controls="menu-appbar"
-                  aria-haspopup="true"
-                  onClick={handleMenu}
-                  color="inherit"
-                >
-                  <AccountCircle sx={{ color: 'gray', fontSize: '40px' }} />
-                </IconButton>
-                <Menu
-                  id="menu-appbar"
-                  anchorEl={anchorEl}
-                  anchorOrigin={{
-                    vertical: 'top',
-                    horizontal: 'right',
-                  }}
-                  keepMounted
-                  transformOrigin={{
-                    vertical: 'top',
-                    horizontal: 'right',
-                  }}
-                  open={Boolean(anchorEl)}
-                  onClose={handleClose}
-                >
-                  <MenuItem onClick={handleClose}>Tài khoản</MenuItem>
-                  <MenuItem onClick={() => { handleClose(); handleLogout(); }}>Đăng xuất</MenuItem>
-                </Menu>
-              </div>
-            ) : (
-              <Button href='/login' variant='contained' sx={{ color: 'white', borderRadius: '5px' }}>Đăng nhập</Button>
-            )}
+          <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%', padding: 1 }}>
+            <Link href="/"><img src="../../../public/Logo.png" alt="Logo" style={{ height: '70px', marginLeft: '20px' }} /></Link>
+            <Box sx={{ display: 'flex', gap: 1, paddingRight: 2}}>
+              <Button variant="text" href='/for-owner' sx={{ color: ' #00aeeb', fontWeight: 'bold' }}>Dành cho chủ phòng khám</Button>
+              <Button variant='text' sx={{ color: ' #00aeeb', fontWeight: 'bold' }}>Tư vấn trực tuyến</Button>
+              {auth ? (
+                <div>
+                  <IconButton
+                    size="large"
+                    aria-label="account of current user"
+                    aria-controls="menu-appbar"
+                    aria-haspopup="true"
+                    onClick={handleMenu}
+                    color="inherit"
+                  >
+                    <AccountCircle sx={{ color: 'gray', fontSize: '40px' }} />
+                  </IconButton>
+                  <Menu
+                    id="menu-appbar"
+                    anchorEl={anchorEl}
+                    anchorOrigin={{
+                      vertical: 'top',
+                      horizontal: 'right',
+                    }}
+                    keepMounted
+                    transformOrigin={{
+                      vertical: 'top',
+                      horizontal: 'right',
+                    }}
+                    open={Boolean(anchorEl)}
+                    onClose={handleClose}
+                  >
+                    <MenuItem onClick={handleClose}>Tài khoản</MenuItem>
+                    <MenuItem onClick={() => { handleClose(); handleLogout(); }}>Đăng xuất</MenuItem>
+                  </Menu>
+                </div>
+              ) : (
+                <Button href='/login' variant='contained' sx={{ color: 'white', borderRadius: '5px' }}>Đăng nhập</Button>
+              )}
+            </Box>
           </Box>
         </Toolbar>
       </Box>
