@@ -1,3 +1,6 @@
+import Paper from "@mui/material/Paper";
+import { styled } from "@mui/material/styles";
+
 export interface Patient {
     id: number;
     patientId: string;
@@ -69,3 +72,12 @@ export interface Patient {
     return patient ? patient : null;
   };
   
+
+  
+export const FormPaper = styled(Paper) ({
+  width: "100%",
+  height: "auto",
+  margin: "0 auto",
+  border: "1px solid #ddd",
+  boxShadow: "0 0 10px rgba(0,0,0,0.1)", 
+});
