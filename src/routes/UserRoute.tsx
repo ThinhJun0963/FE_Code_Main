@@ -12,9 +12,9 @@ import ClinicDetail from "../pages/ClinicDetail/ClinicDetail";
 import ClinicRegister from "../pages/ClinicRegister/ClinicRegister";
 import DentistPage from "../pages/Dentist/DentistPage/DentistPage";
 import DentistSchedulePage from "../pages/Dentist/pages/DentistSchedulePage";
-// import PatientRecordPage from "../pages/Dentist/pages/PatientRecordPage";
 import Schedule from "../pages/Dentist/components/Schedule/Schedule";
 import PatientListPage from "../pages/Dentist/pages/PatientListPage";
+import ChatPage from "../pages/Dentist/pages/ChatPage";
 
 export const UserRoutes = [
   { path: "/", element: <HomePage /> },
@@ -32,6 +32,6 @@ export const UserRoutes = [
   { path: "/dentist", element: <DentistPage /> },
   { path: "/dentist/dentist-schedule", element: <DentistSchedulePage /> },
   { path: "/dentist/patient-list", element: <PatientListPage /> },
-  // { path: "/dentist/patient-record", element: <PatientRecordPage /> },
   { path: "/schedule", element: <Schedule /> },
+  { path: "/dentist/chat", element: <ChatPage /> },
 ];

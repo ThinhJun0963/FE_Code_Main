@@ -1,6 +1,6 @@
-import React from "react";
-import { Typography, Button, Box } from "@mui/material";
-import { Patient } from "../../data";
+import React, { useState } from "react";
+import { Typography, Button, Box, Modal, TextField } from "@mui/material";
+import { Patient } from "./patient";
 
 interface PatientDetailProps {
   patient: Patient;
@@ -8,6 +8,20 @@ interface PatientDetailProps {
 }
 
 const PatientDetail: React.FC<PatientDetailProps> = ({ patient, onBack }) => {
+  const [open, setOpen] = useState(false);
+  const [note, setNote] = useState("");
+
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
+  const handleSubmit = () => {
+    console.log("Note:", note);
+    handleClose();
+  };
+
+  // Kiểm tra trạng thái của bệnh nhân để xác định liệu nút "Gửi kết quả" có nên được hiển thị hay không
+  const showSendResultButton = patient.status === "Đã khám";
+
   return (
     <Box
       sx={{
@@ -25,7 +39,7 @@ const PatientDetail: React.FC<PatientDetailProps> = ({ patient, onBack }) => {
       }}
     >
       <Typography variant="h4" sx={{ mb: 3, color: "#333" }}>
-        Hồ sơ khám
+        Hồ sơ bệnh nhân
       </Typography>
       <Box sx={{ mb: 2 }}>
         <Typography variant="body1" sx={{ fontWeight: "bold", color: "#555" }}>
@@ -47,7 +61,24 @@ const PatientDetail: React.FC<PatientDetailProps> = ({ patient, onBack }) => {
           Trạng thái: {patient.status}
         </Typography>
       </Box>
-      <Box sx={{ ml: "auto" }}>
+
+      <Box sx={{ ml: "auto", display: "flex", gap: 1 }}>
+        {showSendResultButton && (
+          <Button
+            variant="contained"
+            onClick={handleOpen}
+            sx={{
+              backgroundColor: "#4caf50",
+              color: "#fff",
+              "&:hover": {
+                backgroundColor: "#66bb6a",
+              },
+            }}
+          >
+            Gửi kết quả
+          </Button>
+        )}
+
         <Button
           variant="contained"
           onClick={onBack}
@@ -62,6 +93,75 @@ const PatientDetail: React.FC<PatientDetailProps> = ({ patient, onBack }) => {
           Quay lại
         </Button>
       </Box>
+      <Modal open={open} onClose={handleClose}>
+        <Box
+          sx={{
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            width: 400,
+            bgcolor: "background.paper",
+            border: "2px solid #000",
+            boxShadow: 24,
+            p: 4,
+          }}
+        >
+          <Typography variant="h6" component="h2">
+            Xác nhận thông tin
+          </Typography>
+          <Box sx={{ mt: 2 }}>
+            <Typography variant="body1">
+              Mã bệnh nhân: {patient.patientId}
+            </Typography>
+            <Typography variant="body1">Tên: {patient.patient}</Typography>
+            <Typography variant="body1">Ngày khám: {patient.date}</Typography>
+            <Typography variant="body1">Ca khám: {patient.slot}</Typography>
+            <Typography variant="body1">
+              Hình thức khám: {patient.type}
+            </Typography>
+            <Typography variant="body1">
+              Trạng thái: {patient.status}
+            </Typography>
+            <TextField
+              label="Ghi chú"
+              multiline
+              rows={4}
+              value={note}
+              onChange={(e) => setNote(e.target.value)}
+              sx={{ mt: 2, width: "100%" }}
+            />
+          </Box>
+          <Box sx={{ mt: 2, display: "flex", justifyContent: "space-between" }}>
+            <Button
+              variant="contained"
+              onClick={handleSubmit}
+              sx={{
+                backgroundColor: "#4caf50",
+                color: "#fff",
+                "&:hover": {
+                  backgroundColor: "#66bb6a",
+                },
+              }}
+            >
+              Gửi
+            </Button>
+            <Button
+              variant="contained"
+              onClick={handleClose}
+              sx={{
+                backgroundColor: "#ff4d4f",
+                color: "#fff",
+                "&:hover": {
+                  backgroundColor: "#ff7875",
+                },
+              }}
+            >
+              Hủy
+            </Button>
+          </Box>
+        </Box>
+      </Modal>
     </Box>
   );
 };

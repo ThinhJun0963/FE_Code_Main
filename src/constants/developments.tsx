@@ -1,7 +1,6 @@
 import ClinicRegister from "../pages/ClinicRegister/ClinicRegister"
 
 export const connection_path = {
-    // base_url: "https://localhost:5268",
     base_url: "https://localhost:7163",
     api: "/api",
     endpoints: {
@@ -14,9 +13,16 @@ export const connection_path = {
         register: "/user/register",
         getAllServices: "/service/get-all",
         clinicRegister: "/clinic/register",
+    },
+
+    booking: {
+        available_date: '/booking/availabe-date',
+        available_slot: '/booking/availabe-slot',
+        check_available: '/booking/available',
+        place_book: '/booking'
     }
 }
 
 export const google_auth = {
-    client_id:"[Your Google Auth ID here]"
+    client_id:"843209512674-7rck108lbhqbplg9hnc8f6u4s1fbmudu.apps.googleusercontent.com"
 }
