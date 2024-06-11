@@ -8,8 +8,6 @@ import { AppBar, Box, Button, Container, Link, Toolbar, Typography } from '@mui/
 
 const Chat = () => {
     return (
-
-
         <div className="background">
             <AppBar position="sticky" style={{ top: 0 }}>
                 <Box width='100%' sx={{ backgroundColor: 'white' }}>
