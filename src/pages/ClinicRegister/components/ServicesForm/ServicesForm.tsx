@@ -1,59 +1,46 @@
-import { Box, Checkbox, FormControlLabel, Grid, Typography, Button } from '@mui/material';
+import { Box, Checkbox, FormControlLabel, FormGroup, Grid, Typography } from '@mui/material';
 import { SetStateAction, useState } from 'react';
-import AddServiceForm from '../AddServiceForm/AddServiceForm';;
 
 interface Service {
-    id: string;
-    name: string;
-    price: string;
+    serviceId: string;
+    serviceName: string;
 }
 
-interface ServiceFormProps {
-    services: Service[];
+interface ServicesFormProps {
     formData: {
-        name: string;
-        address: string;
-        phone: string;
-        email: string;
-        openHour: string;
-        closeHour: string;
-        services: Service[];
-        certifications: string[];
+        clinicServices: Service[];
     };
-    setFormData: (value: SetStateAction<{
+    services: Service[];
+    setFormData: React.Dispatch<SetStateAction<{
         name: string;
         address: string;
         phone: string;
         email: string;
         openHour: string;
         closeHour: string;
-        services: Service[];
+        clinicServices: Service[];
         certifications: string[];
-    }>) => void;
+    }>>;
 }
 
-function ServicesForm({ services, formData, setFormData }: ServiceFormProps) {
-    const [selectedServices, setSelectedServices] = useState<Service[]>(formData.services);
-    const [open, setOpen] = useState(false);
+function ServicesForm({ services, formData, setFormData }: ServicesFormProps) {
 
-    const handleChange = (event: React.ChangeEvent<HTMLInputElement>, service: Service) => {
-        let updatedServices;
-        if (event.target.checked) {
-            updatedServices = [...selectedServices, service];
+    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const serviceId = event.target.id;
+        const checked = event.target.checked;
+
+        if (checked) {
+            setFormData((prevData) => ({
+                ...prevData,
+                services: [...prevData.clinicServices, services.find(service => service.serviceId === serviceId)!]
+            }));
         } else {
-            updatedServices = selectedServices.filter((selectedService) => selectedService.id !== service.id);
+            setFormData((prevData) => ({
+                ...prevData,
+                services: prevData.clinicServices.filter(service => service.serviceId !== serviceId)
+            }));
         }
-        setSelectedServices(updatedServices);
-        setFormData(prevState => ({ ...prevState, services: updatedServices }));
     };
-
-    const handleAddService = (newService: Service) => {
-        const updatedServices = [...services, newService];
-        setFormData(prevState => ({ ...prevState, services: [...prevState.services, newService] }));
-    };
-
-    const handleOpen = () => setOpen(true);
-    const handleClose = () => setOpen(false);
 
     return (
         <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, padding: '20px' }}>
@@ -64,19 +51,15 @@ function ServicesForm({ services, formData, setFormData }: ServiceFormProps) {
                         <FormControlLabel
                             control={
                                 <Checkbox
-                                    checked={selectedServices.some(s => s.id === service.id)}
-                                    onChange={(event) => handleChange(event, service)}
+                                    id={`${service.serviceId}`}
+                                    onChange={handleChange} 
                                 />
                             }
-                            label={service.name}
+                            label={service.serviceName}
                         />
                     </Grid>
                 ))}
             </Grid>
-            <Button variant="outlined" color="primary" onClick={handleOpen} sx={{marginTop: '3em'}}>
-                Thêm dịch vụ khác
-            </Button>
-            <AddServiceForm open={open} handleClose={handleClose} onAddService={handleAddService} />
         </Box>
     );
 }
