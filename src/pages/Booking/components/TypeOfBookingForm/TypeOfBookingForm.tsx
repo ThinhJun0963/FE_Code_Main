@@ -1,22 +1,27 @@
 import { SetStateAction, useState } from 'react';
-import { Box, Button, Paper, Typography } from '@mui/material';
+import { Box, Button, Typography } from '@mui/material';
 import typeOfBooking from './data';
 
+// Changing how booking information is stored
 interface TypeOfBookingFormProps {
-    setFormData: (value: SetStateAction<{ typeOfBooking: string; date: string; time: string; }>) => void;
+    formData: { clinic: string, typeOfBooking: string; date: string; time: string, service: string},
+    setFormData: (value: SetStateAction<{ clinic: string, typeOfBooking: string; date: string; time: string; service: string}>) => void
 }
 
-const TypeOfBookingForm = ({ setFormData } : TypeOfBookingFormProps) => {
-    const [selectedButtonIndex, setSelectedButtonIndex] = useState<null | number>(null);
-
+const TypeOfBookingForm = ({ formData, setFormData } : TypeOfBookingFormProps) => {
+    const [selectedButtonIndex, setSelectedButtonIndex] = useState<null | number>(-1);
+    
     const handleButtonClick = (index: number, type: string) => {
-        setSelectedButtonIndex(index);
-        setFormData(prevState => ({
-            ...prevState,
-            typeOfBooking: type
-        }))
-    };
+        // Debuging purposes
+        console.log('old type: ', formData.typeOfBooking);
+        console.log('new type: ', type);
 
+        setSelectedButtonIndex(index)
+
+        setFormData(prevState => ({ ...prevState, typeOfBooking: type}));
+    };
+    
+    
     return (
         <Box sx={{ display: 'flex', flexDirection: 'column' }}>
             <Typography variant='h4'>Chọn hình thức khám</Typography>
@@ -24,7 +29,7 @@ const TypeOfBookingForm = ({ setFormData } : TypeOfBookingFormProps) => {
                     {typeOfBooking.map((type, index) => (
                         <Button
                             key={index}
-                            variant={selectedButtonIndex === index ? 'contained' : 'outlined'}
+                            variant={selectedButtonIndex === index || type === formData.typeOfBooking ? 'contained' : 'outlined'}
                             sx={{
                                 justifyContent: 'flex-start',
                                 width: '100%',
