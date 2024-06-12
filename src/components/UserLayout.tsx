@@ -10,7 +10,7 @@ const UserLayout: React.FC<UserLayoutProps> = ({ children }) => {
     return (
         <div>
             <Header />
-            <Box sx={{ backgroundColor: '#e1e8f0', height: '100%' }}>
+            <Box sx={{ backgroundColor: ' #ffffff', height: '100%' }}>
                 {children}
             </Box>
             <Footer />

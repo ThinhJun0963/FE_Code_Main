@@ -59,7 +59,11 @@ const BookingPageContent = () => {
     //const { steps, currentStep, step, isFirstStep, isFinalStep, next, back } = UseMultipleStepForm([<TypeOfBookingForm setFormData={setFormData} />, <Calendar setFormData={setFormData} />, <TimeSlot setFormData={setFormData} />, <ConfirmationForm formData={formData} setFormData={setFormData} />, <CheckoutForm />]);
 
     // ======== Better passing value and handler to the childrens ============
-    const { steps, currentStep, step, isFirstStep, isFinalStep, next, back } = UseMultipleStepForm([<TypeOfBookingForm formData={formData} setFormData={setFormData} />, <Calendar formData={formData} setFormData={setFormData} />, <TimeSlot formData={formData} setFormData={setFormData} />, <ConfirmationForm formData={formData} setFormData={setFormData} />, <CheckoutForm />]);
+    const { steps, currentStep, step, isFirstStep, isFinalStep, next, back } = UseMultipleStepForm([<TypeOfBookingForm formData={formData} setFormData={setFormData} />,
+        <Calendar formData={formData} setFormData={setFormData} />,
+        <TimeSlot formData={formData} setFormData={setFormData} />,
+        <ConfirmationForm formData={formData} setFormData={setFormData} />,
+        <CheckoutForm />]);
     // =======================================================================
 
     return (

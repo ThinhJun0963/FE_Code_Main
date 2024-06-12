@@ -23,20 +23,13 @@ const HomePageContent = () => {
   };
 
     return (
-        <Box sx={{ marginTop: '5%', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
-            <Box>
-                <Typography variant="h2" component="div" gutterBottom >
-                    Ứng dụng đặt khám
-                </Typography>
-                <Typography variant="h5" component="div" gutterBottom>
-                    Đặt khám với hơn 100 phòng khám trên SmileCare để có số thứ tự và
-                    khung giờ khám trước.
-                </Typography>
-                <Box sx={{ backgroundColor: '#F1F1F1', width: '100%', borderRadius: '10px', display: 'flex', alignItems: 'center', padding: '10px' }}>
+        <Box sx={{ marginTop: '5%', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', position: 'relative' }}>
+            <Box sx={{position: 'absolute', right: '125px', top: 0, marginTop: '-250px', width:'50%'}}>
+                <Box sx={{ backgroundColor: ' #ffffff', width: '100%', borderRadius: '10px', display: 'flex', alignItems: 'center', padding: '10px' }}>
                     <InputBase
                         value={searchTerm}
                         onChange={handleSearchChange}
-                        placeholder="Search…"
+                        placeholder="Tìm kiếm phòng khám"
                         inputProps={{ 'aria-label': 'search' }}
                         sx={{ flex: 1, paddingLeft: '10px' }}
                     />

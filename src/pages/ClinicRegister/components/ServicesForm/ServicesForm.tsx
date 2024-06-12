@@ -24,22 +24,17 @@ interface ServicesFormProps {
 }
 
 function ServicesForm({ services, formData, setFormData }: ServicesFormProps) {
+    const [selectedServices, setSelectedServices] = useState<Service[]>(formData.clinicServices);
 
-    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const serviceId = event.target.id;
-        const checked = event.target.checked;
-
-        if (checked) {
-            setFormData((prevData) => ({
-                ...prevData,
-                services: [...prevData.clinicServices, services.find(service => service.serviceId === serviceId)!]
-            }));
+    const handleChange = (event: React.ChangeEvent<HTMLInputElement>, service: Service) => {
+        let updatedServices;
+        if (event.target.checked) {
+            updatedServices = [...selectedServices, service];
         } else {
-            setFormData((prevData) => ({
-                ...prevData,
-                services: prevData.clinicServices.filter(service => service.serviceId !== serviceId)
-            }));
+            updatedServices = selectedServices.filter((selectedService) => selectedService.serviceId !== service.serviceId);
         }
+        setSelectedServices(updatedServices);
+        setFormData(prevState => ({ ...prevState, clinicServices: updatedServices }));
     };
 
     return (
@@ -52,7 +47,8 @@ function ServicesForm({ services, formData, setFormData }: ServicesFormProps) {
                             control={
                                 <Checkbox
                                     id={`${service.serviceId}`}
-                                    onChange={handleChange} 
+                                    checked={selectedServices.some((selectedService) => selectedService.serviceId === service.serviceId)}
+                                    onChange={(event) => handleChange(event, service)}
                                 />
                             }
                             label={service.serviceName}
