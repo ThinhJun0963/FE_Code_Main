@@ -1,7 +1,6 @@
 const typeOfBookingData = [
     'Khám tổng quát',
-    'Khám theo dịch vụ',
-    'Khám định kì'
+    'Khám theo dịch vụ'
 ]
 
 export default typeOfBookingData;
