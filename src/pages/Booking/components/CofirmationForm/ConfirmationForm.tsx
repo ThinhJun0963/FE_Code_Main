@@ -74,7 +74,6 @@ const ConfirmationForm = ({ formData, setFormData }: ConfirmationFormProps) => {
                         InputLabelProps={{
                             shrink: true,
                         }}
-                        
                     />
                 </Grid>
             </Grid>

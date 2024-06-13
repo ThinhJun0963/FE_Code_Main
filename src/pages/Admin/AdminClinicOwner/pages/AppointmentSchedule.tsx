@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { styled, createTheme, ThemeProvider } from '@mui/material/styles';
+import { styled } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import MuiDrawer from '@mui/material/Drawer';
 import Box from '@mui/material/Box';
@@ -104,26 +104,27 @@ const appointmentColumns: GridColDef[] = [
 ];
 
 const appointmentRows = [
-    { id: 1, customerId: '5', dentist: 'Nguyễn Văn B', date: "26/05/2024", slot: '11:30-12:00', type: 'Khám tổng quát', status: 'Hoàn thành' },
-    { id: 2, customerId: '3', dentist: 'Nguyễn Văn B', date: "30/05/2024", slot: '8:30-9:00', type: 'Khám tổng quát', status: 'Đang diễn ra' },
-    { id: 3, customerId: '2', dentist: 'Nguyễn Văn C', date: "15/04/2024", slot: '9:00-9:30', type: 'Khám theo dịch vụ', status: 'Hoàn thành' },
-    { id: 4, customerId: '5', dentist: 'Nguyễn Văn E', date: "26/06/2024", slot: '14:30-15:00', type: 'Khám định kì', status: 'Sắp diễn ra' },
-    { id: 5, customerId: '2', dentist: 'Nguyễn Văn E', date: "23/05/2024", slot: '15:30-16:00', type: 'Khám tổng quát', status: 'Hoàn thành' },
+    { id: 1, customerId: '1', dentist: 'Nguyễn Văn A', date: "26/05/2024", slot: '11:30-12:00', type: 'Khám tổng quát', status: 'Hoàn thành' },
+    { id: 2, customerId: '2', dentist: 'Nguyễn Văn B', date: "30/05/2024", slot: '8:30-9:00', type: 'Khám tổng quát', status: 'Đang diễn ra' },
+    { id: 3, customerId: '3', dentist: 'Nguyễn Văn C', date: "15/04/2024", slot: '9:00-9:30', type: 'Khám theo dịch vụ', status: 'Hoàn thành' },
+    { id: 4, customerId: '4', dentist: 'Nguyễn Văn D', date: "26/06/2024", slot: '14:30-15:00', type: 'Khám định kì', status: 'Sắp diễn ra' },
+    { id: 5, customerId: '5', dentist: 'Nguyễn Văn E', date: "23/05/2024", slot: '15:30-16:00', type: 'Khám tổng quát', status: 'Hoàn thành' },
+    { id: 6, customerId: '6', dentist: 'Nguyễn Văn F', date: "26/05/2024", slot: '11:30-12:00', type: 'Khám tổng quát', status: 'Hoàn thành' },
+    { id: 7, customerId: '7', dentist: 'Nguyễn Văn G', date: "30/05/2024", slot: '8:30-9:00', type: 'Khám tổng quát', status: 'Đang diễn ra' },
+    { id: 8, customerId: '8', dentist: 'Nguyễn Văn H', date: "15/04/2024", slot: '9:00-9:30', type: 'Khám theo dịch vụ', status: 'Hoàn thành' },
+    { id: 9, customerId: '9', dentist: 'Nguyễn Văn I', date: "26/06/2024", slot: '14:30-15:00', type: 'Khám định kì', status: 'Sắp diễn ra' },
+    { id: 10, customerId: '10', dentist: 'Nguyễn Văn J', date: "23/05/2024", slot: '15:30-16:00', type: 'Khám tổng quát', status: 'Hoàn thành' },
+    { id: 11, customerId: '11', dentist: 'Nguyễn Văn A', date: "26/05/2024", slot: '11:30-12:00', type: 'Khám tổng quát', status: 'Hoàn thành' },
+    { id: 12, customerId: '12', dentist: 'Nguyễn Văn B', date: "30/05/2024", slot: '8:30-9:00', type: 'Khám tổng quát', status: 'Đang diễn ra' },
+    { id: 13, customerId: '13', dentist: 'Nguyễn Văn C', date: "15/04/2024", slot: '9:00-9:30', type: 'Khám theo dịch vụ', status: 'Hoàn thành' },
+    { id: 14, customerId: '14', dentist: 'Nguyễn Văn D', date: "26/06/2024", slot: '14:30-15:00', type: 'Khám định kì', status: 'Sắp diễn ra' },
+    { id: 15, customerId: '15', dentist: 'Nguyễn Văn E', date: "23/05/2024", slot: '15:30-16:00', type: 'Khám tổng quát', status: 'Hoàn thành' },
+    { id: 16, customerId: '16', dentist: 'Nguyễn Văn F', date: "26/05/2024", slot: '11:30-12:00', type: 'Khám tổng quát', status: 'Hoàn thành' },
+    { id: 17, customerId: '17', dentist: 'Nguyễn Văn G', date: "30/05/2024", slot: '8:30-9:00', type: 'Khám tổng quát', status: 'Đang diễn ra' },
+    { id: 18, customerId: '18', dentist: 'Nguyễn Văn H', date: "15/04/2024", slot: '9:00-9:30', type: 'Khám theo dịch vụ', status: 'Hoàn thành' },
+    { id: 19, customerId: '19', dentist: 'Nguyễn Văn I', date: "26/06/2024", slot: '14:30-15:00', type: 'Khám định kì', status: 'Sắp diễn ra' },
+    { id: 20, customerId: '20', dentist: 'Nguyễn Văn J', date: "23/05/2024", slot: '15:30-16:00', type: 'Khám tổng quát', status: 'Hoàn thành' },
 ]
-
-
-const FormPaper = styled(Paper)(({ theme }) => ({
-    width: '90%',
-    height: 'auto',
-    margin: '0 auto',
-    border: '1px solid #ddd', // Add border
-    boxShadow: '0 0 10px rgba(0,0,0,0.1)', // Add shadow
-}))
-
-
-// TODO remove, this demo shouldn't need to reset the theme.
-const defaultTheme = createTheme();
-
 
 export default function AppointmentSchedule() {
     const [open, setOpen] = React.useState(true);
@@ -132,88 +133,94 @@ export default function AppointmentSchedule() {
     };
 
     return (
-        <ThemeProvider theme={defaultTheme}>
-            <Box sx={{ display: 'flex' }}>
-                <CssBaseline />
-                <AppBar position="absolute" open={open}>
-                    <Toolbar
-                        sx={{
-                            pr: '24px', // keep right padding when drawer closed
-                        }}
-                    >
-                        <IconButton
-                            edge="start"
-                            color="inherit"
-                            aria-label="open drawer"
-                            onClick={toggleDrawer}
-                            sx={{
-                                marginRight: '36px',
-                                ...(open && { display: 'none' }),
-                            }}
-                        >
-                            <MenuIcon />
-                        </IconButton>
-                        <Typography
-                            component="h1"
-                            variant="h6"
-                            color="inherit"
-                            noWrap
-                            sx={{ flexGrow: 1 }}
-                        >
-                            Trang lịch hẹn khám
-                        </Typography>
-                    </Toolbar>
-                </AppBar>
-                <Drawer variant="permanent" open={open}>
-                    <Toolbar
-                        sx={{
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'flex-end',
-                            px: [1],
-                        }}
-                    >
-                        <IconButton onClick={toggleDrawer}>
-                            <ChevronLeftIcon />
-                        </IconButton>
-                    </Toolbar>
-                    <Divider />
-                    <List component="nav">
-                        {mainListItems}
-                        {/* <Divider sx={{ my: 1 }} />
-                        {secondaryListItems} */}
-                    </List>
-                </Drawer>
-                <Box
-                    component="main"
-                    pt={10}
+        <Box sx={{ display: 'flex' }}>
+            <CssBaseline />
+            <AppBar position="absolute" open={open}>
+                <Toolbar
                     sx={{
-                        backgroundColor: (theme) =>
-                            theme.palette.mode === 'light'
-                                ? theme.palette.grey[100]
-                                : theme.palette.grey[900],
-                        flexGrow: 1,
-                        height: '100vh',
-                        overflow: 'auto',
+                        pr: '24px', // keep right padding when drawer closed
                     }}
                 >
-                    <Toolbar />
-                    <Container maxWidth="xl">
-                        <FormPaper>
-                            <Typography variant="h6" component="h4" sx={{ flexGrow: 1, paddingLeft: 7, marginTop: 4 }}>
-                                Thông tin phòng khám
-                            </Typography>
-                            <Box sx={{ width: "100%", padding: "50px" }}>
-                                <Grid container spacing={3}>
-                                    <Grid item lg={12}>
-                                        <Table rows={appointmentRows} columns={appointmentColumns} />
-                                    </Grid>
-                                </Grid>
-                            </Box>
-                        </FormPaper>
-                    </Container>
+                    <IconButton
+                        edge="start"
+                        color="inherit"
+                        aria-label="open drawer"
+                        onClick={toggleDrawer}
+                        sx={{
+                            marginRight: '36px',
+                            ...(open && { display: 'none' }),
+                        }}
+                    >
+                        <MenuIcon />
+                    </IconButton>
+                    <Typography
+                        component="h1"
+                        variant="h6"
+                        color="inherit"
+                        noWrap
+                        sx={{ flexGrow: 1 }}
+                    >
+                        Trang lịch hẹn khám
+                    </Typography>
+                </Toolbar>
+            </AppBar>
+            <Drawer variant="permanent" open={open}>
+                <Toolbar
+                    sx={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'flex-end',
+                        px: [1],
+                    }}
+                >
+                    <IconButton onClick={toggleDrawer}>
+                        <ChevronLeftIcon />
+                    </IconButton>
+                </Toolbar>
+                <Divider />
+                <List component="nav">
+                    {mainListItems}
+                </List>
+            </Drawer>
+            <Box
+                component="main"
+                sx={{
+                    backgroundColor: (theme) =>
+                        theme.palette.mode === 'light'
+                            ? theme.palette.grey[100]
+                            : theme.palette.grey[900],
+                    flexGrow: 1,
+                    height: '100vh',
+                    marginTop: 8
+                }}
+            >
+                <Box sx={{ height: '100%', backgroundColor: '#ffffff' }}>
+                    <Grid container spacing={3}>
+                        <Grid item lg={12}>
+                            <Paper
+                                sx={{
+                                    p: 2,
+                                    display: 'flex',
+                                    flexDirection: 'column',
+                                    gap: 2,
+                                    margin: '20px auto 0 auto',
+                                    width: '95%',
+                                    boxShadow: 3,
+                                    border: '1px solid #ddd',
+                                    backgroundColor: '#ffffff',
+                                    borderRadius: 2,
+                                    alignItems: 'flex-start'
+                                }}
+                            >
+                                <Typography variant="h6" component="h4">
+                                    Các lịch hẹn
+                                </Typography>
+                                <Table rows={appointmentRows} columns={appointmentColumns} />
+                            </Paper>
+                        </Grid>
+                    </Grid>
                 </Box>
             </Box>
-        </ThemeProvider>
+        </Box>
     );
 }

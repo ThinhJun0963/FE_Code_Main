@@ -1,8 +1,9 @@
-import { Box, Breadcrumbs, Button, Link, Typography } from '@mui/material';
+import { Box, Breadcrumbs, Button, Divider, Link, Typography } from '@mui/material';
 import UseMultipleStepForm from '../../../components/UseMultipleStepForm/UseMultipleStepForm';
 import ServicesForm from './ServicesForm/ServicesForm';
 import CertificationForm from './CertificationForm/CertificationForm';
 import BasicForm from './BasicForm/BasicForm';
+import RegistingStepper from './Stepper/Stepper';
 import { getServiceList, registerClinic } from './apiServices';
 import { useEffect, useState } from 'react';
 
@@ -60,13 +61,13 @@ const ClinicRegisterContent = () => {
             <CertificationForm />
         ]);
 
-    useEffect(() => {
-        console.log(formData);
-    }, [formData]);
+    // useEffect(() => {
+    //     console.log(formData);
+    // }, [formData]);
 
     return (
-        <Box sx={{ marginTop: '5%', display: 'flex', height: 'auto', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
-            <Box sx={{ width: '80%', marginTop: '-3em', textAlign: 'right', color: 'black' }}>
+        <Box sx={{ paddingTop: '5em', paddingBottom: '5em', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+            <Box sx={{ width: '90%', textAlign: 'right', color: 'black' }}>
                 <Breadcrumbs aria-label="breadcrumb">
                     <Link underline="hover" color="inherit" href="/">
                         Trang chủ
@@ -75,14 +76,26 @@ const ClinicRegisterContent = () => {
                 </Breadcrumbs>
             </Box>
 
-            <Box sx={{ position: 'relative', height: '65vh', width: '900px', fontFamily: 'Arial, Helvetica, sans-serif', color: 'black', backgroundColor: '#ffffff', margin: '40px auto 40px auto', borderRadius: '20px', border: '2px solid #e0e0e0' }}>
-                <Box sx={{ width: '100%', height: '100%', margin: '0 auto', padding: '50px' }}>
+            <Divider sx={{ backgroundColor: 'black', width: '90%', margin: '1em auto' }} />
+
+            <Box sx={{ width: '90%' }}>
+                <Typography variant="h4" gutterBottom>
+                    Trang đăng ký phòng khám
+                </Typography>
+            </Box>
+
+            <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, width: '900px', height: '600px',margin: '40px auto 40px auto' }}>
+                
+                <RegistingStepper activeStep={currentStep} />
+
+                <Box sx={{ width: '100%', height: '100%', margin: '0 auto', padding: '50px', borderRadius: '20px', border: '2px solid #e0e0e0',  fontFamily: 'Arial, Helvetica, sans-serif', color: 'black', backgroundColor: '#ffffff' }}>
                     {step}
-                    <Box sx={{ position: 'absolute', bottom: '20px', right: '50px', display: 'flex', gap: '.5rem', justifyContent: 'flex-end', marginTop: '1em' }}>
-                        {!isFirstStep && <Button variant="contained" onClick={back}>Bước trước</Button>}
-                        {!isFinalStep && <Button variant="contained" color="primary" onClick={next}>Bước tiếp</Button>}
-                        {isFinalStep && <Button variant="contained" color="primary" type="submit" onClick={handleSubmit}>Hoàn thành</Button>}
-                    </Box>
+                </Box>
+
+                <Box sx={{ display: 'flex', gap: '.5rem', justifyContent: 'flex-end', marginTop: '1em' }}>
+                    {!isFirstStep && <Button variant="contained" onClick={back}>Bước trước</Button>}
+                    {!isFinalStep && <Button variant="contained" color="primary" onClick={next}>Bước tiếp</Button>}
+                    {isFinalStep && <Button variant="contained" color="primary" type="submit" onClick={handleSubmit}>Hoàn thành</Button>}
                 </Box>
             </Box>
         </Box>

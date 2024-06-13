@@ -1,12 +1,11 @@
 import { Box, Button, Typography } from '@mui/material';
-import slots, { TimeSlot } from './data';
+import { TimeSlot } from './data';
 import { SetStateAction, useState } from 'react';
 import { connection_path } from '../../../../constants/developments';
 import axios from 'axios';
 
 //========================== Mock data ========================
 const mockTimeSlots: Array<TimeSlot> = [
-    {id: '19', start: '13:00', end: '13:30'},
     { id: '1', start: '6:30', end: '7:00' },
     { id: '2', start: '7:00', end: '7:30' },
     { id: '3', start: '7:30', end: '8:00' },

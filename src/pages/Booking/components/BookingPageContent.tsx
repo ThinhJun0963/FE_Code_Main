@@ -5,14 +5,14 @@ import Calendar from './Calendar/Calendar';
 import TimeSlots from '../components/TimeSlots/TimeSlots';
 import ConfirmationForm from './CofirmationForm/ConfirmationForm';
 import CheckoutForm from './CheckoutForm/CheckoutForm';
-import { useEffect, useState } from 'react';
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import BookingStepper from './Stepper/Stepper';
 import ClinicServices from '../components/ServicesForm/ServicesForm';
 import ServicesForm from '../components/ServicesForm/ServicesForm';
 import { TimeSlot } from './TimeSlots/data';
 import RepeatForm from './RepeatForm/RepeatForm';
 
-interface bookingInformation {
+interface BookingInformation {
     clinic: string,
     typeOfBooking: string,
     date: string,
@@ -25,12 +25,17 @@ interface bookingInformation {
     service: string,
 }
 
-
+interface PaymentInformation {
+    paymentMethod: string,
+    amount: string,
+    orderID: string,
+    orderDetail: string,
+}
 
 const BookingPageContent = () => {
 
     // ================= Booking information =============================
-    const [formData, setFormData] = useState<bookingInformation>({
+    const [formData, setFormData]: [BookingInformation, Dispatch<SetStateAction<BookingInformation>>] = useState({
         clinic: '',
         typeOfBooking: '',
         date: '',
@@ -38,8 +43,15 @@ const BookingPageContent = () => {
         //--------------------------
         is_repeated: 0,
         //--------------------------
-        time: { id: '', start: '', end: ''}  ,
+        time: { id: '', start: '', end: '' },
         service: '',
+    });
+
+    const [paymentData, setPaymentData]: [PaymentInformation, Dispatch<SetStateAction<PaymentInformation>>] = useState({
+        paymentMethod: '',
+        amount: '',
+        orderID: '',
+        orderDetail: '',
     })
     // ================================================================
 
@@ -84,12 +96,21 @@ const BookingPageContent = () => {
       
     }, [formData.typeOfBooking]);
 
-    // For testing purposes
-    //--------------------------------------------------------------------------------
-    useEffect(() => {
-        console.log(formData);
-    }, [formData])
-    //--------------------------------------------------------------------------------
+    const handleSubmit = () => {
+        // Handle submission logic here
+        console.log(formData); // Contains booking information
+        console.log(paymentData); // Contains payment information
+        const payload = {
+            ...formData,
+            paymentMethod: paymentData.paymentMethod,
+            amount: paymentData.amount,
+            orderID: paymentData.orderID,
+            orderDetail: paymentData.orderDetail
+        };
+    
+        console.log('Payload to be sent:', payload);
+    };
+
 
     // Old Code
     //const { steps, currentStep, step, isFirstStep, isFinalStep, next, back } = UseMultipleStepForm([<TypeOfBookingForm setFormData={setFormData} />, <Calendar setFormData={setFormData} />, <TimeSlot setFormData={setFormData} />, <ConfirmationForm formData={formData} setFormData={setFormData} />, <CheckoutForm />]);
@@ -99,12 +120,12 @@ const BookingPageContent = () => {
     <Calendar formData={formData} setFormData={setFormData} openRepeatDialog={handleRepeatDialogOpen}/>,
     <TimeSlots formData={formData} setFormData={setFormData} />,
     <ConfirmationForm formData={formData} setFormData={setFormData} />,
-    <CheckoutForm />]);
+    <CheckoutForm paymentData={paymentData} setPaymentData={setPaymentData}/>]);
     // =======================================================================
 
     return (
         <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', paddingTop: '5em', paddingBottom: '5em' }}>
-            <Box sx={{ width: '80%', textAlign: 'right', color: 'black' }}>
+            <Box sx={{ width: '90%', textAlign: 'right', color: 'black' }}>
                 <Breadcrumbs>
                     <Link underline="hover" color="inherit" href="/">
                         Trang chủ
@@ -139,7 +160,7 @@ const BookingPageContent = () => {
                                     } else {
                                         next();
                                         if (isFinalStep) {
-                                            setFormData(formData);
+                                            
                                         }
                                     }
                                 }}
@@ -147,7 +168,7 @@ const BookingPageContent = () => {
                                 Bước tiếp
                             </Button>
                         }
-                        {isFinalStep && <Button variant="contained" color="primary" type="submit">Xác nhận</Button>}
+                        {isFinalStep && <Button variant="contained" color="primary" type="submit" onClick={handleSubmit}>Xác nhận</Button>}
                     </Box>
                     <Dialog open={open} onClose={handleClose}>
                         <DialogTitle>{alertMessage}</DialogTitle>

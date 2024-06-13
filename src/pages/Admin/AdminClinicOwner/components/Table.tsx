@@ -5,13 +5,11 @@ import Button from '@mui/material/Button';
 interface TableProps {
     columns: GridColDef[];
     rows: GridRowsProp;
-    filterModel?: GridFilterModel;
-    checkboxSelection?: boolean;
-    disableRowSelectionOnClick?: boolean;
+    // filterModel?: GridFilterModel;
 }
 
 
-function Table({ columns, rows, filterModel, ...rest }: TableProps) {
+function Table({ columns, rows }: TableProps) {
     return (
         <div style={{ height: '100%', width: '100%' }}>
             <DataGrid
@@ -19,11 +17,22 @@ function Table({ columns, rows, filterModel, ...rest }: TableProps) {
                 columns={columns}
                 initialState={{
                     pagination: {
-                        paginationModel: { page: 0, pageSize: 5 },
+                        paginationModel: { page: 0, pageSize: 10 },
                     },
                 }}
-                filterModel={filterModel}
-                {...rest}
+                // filterModel={filterModel}
+                disableColumnFilter  
+                disableColumnMenu   
+                localeText={{ footerRowSelected: () => void('') }} 
+                pagination
+                sx={{
+                    '& .MuiDataGrid-cell:focus, & .MuiDataGrid-row:focus, & .MuiDataGrid-colCell:focus': {
+                        outline: 'none !important',
+                    },
+                   '& .MuiDataGrid-columnHeader:focus': {
+                        outline: 'none !important',
+                    },
+                }}
             />
         </div>
     )
