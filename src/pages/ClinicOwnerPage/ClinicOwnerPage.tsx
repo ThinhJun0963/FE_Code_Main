@@ -1,5 +1,5 @@
 // import { Box, Container, Flex, SimpleGrid } from "@chakra-ui/react";
-import Header from "../../components/Header/Header";
+import Header from '../../components/Header/Header.1';
 import ClinicInfo from "../ClinicDetailV2/components/ClinicInfo";
 import MainContent from "../ClinicDetailV2/MainContent";
 import "./ClinicOwnerPage.css";

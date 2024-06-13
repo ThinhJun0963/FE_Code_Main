@@ -71,7 +71,7 @@ const Header = () => {
               <Button variant="text" href='/for-owner' sx={{ color: ' #00aeeb', fontWeight: 'bold' }}>Dành cho chủ phòng khám</Button>
               <Button variant='text' sx={{ color: ' #00aeeb', fontWeight: 'bold' }}>Tư vấn trực tuyến</Button>
               {auth ? (
-                <div>
+                <Box>
                   <IconButton
                     size="large"
                     aria-label="account of current user"
@@ -94,13 +94,20 @@ const Header = () => {
                       vertical: 'top',
                       horizontal: 'right',
                     }}
+                    PaperProps={{
+                      sx: {
+                        width: 150,
+                        marginLeft: 2,
+                        marginTop: 5
+                      }
+                    }}
                     open={Boolean(anchorEl)}
                     onClose={handleClose}
                   >
                     <MenuItem onClick={handleClose}>Tài khoản</MenuItem>
                     <MenuItem onClick={() => { handleClose(); handleLogout(); }}>Đăng xuất</MenuItem>
                   </Menu>
-                </div>
+                </Box>
               ) : (
                 <Button href='/login' variant='contained' sx={{ color: 'white', borderRadius: '5px' }}>Đăng nhập</Button>
               )}

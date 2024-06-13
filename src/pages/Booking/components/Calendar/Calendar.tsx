@@ -3,20 +3,22 @@ import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin, { DateClickArg } from '@fullcalendar/interaction';
 import viLocale from '@fullcalendar/core/locales/vi';
-import { Box } from '@mui/material';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCircle } from '@fortawesome/free-solid-svg-icons';
+import { Accordion, Box, Typography } from '@mui/material';
 import './Calendar.css';
 import { connection_path } from '../../../../constants/developments';
 import axios from 'axios';
 import { TimeSlot } from '../TimeSlots/data';
 
-interface CalendarFormProps 
-{
-  formData: { clinic: string, typeOfBooking: string; date: string; time: TimeSlot; dentist: string, service: string},
-  setFormData: (value: SetStateAction<{ clinic: string, typeOfBooking: string; date: string; time: TimeSlot; dentist: string}>) => void
+interface CalendarFormProps {
+  formData: { clinic: string, typeOfBooking: string; date: string; time: TimeSlot; is_repeated: number; dentist: string, service: string },
+  setFormData: (value: SetStateAction<{ clinic: string, typeOfBooking: string; date: string; time: TimeSlot; is_repeated: number; dentist: string, service: string }>) => void
+  openRepeatDialog: () => void;
 }
 
-export default function BasicDateCalendar({ formData, setFormData }: CalendarFormProps) {
-  
+export default function BasicDateCalendar({ formData, setFormData, openRepeatDialog }: CalendarFormProps) {
+
   const today = new Date();
 
   const events = [
@@ -32,8 +34,8 @@ export default function BasicDateCalendar({ formData, setFormData }: CalendarFor
 
     {
       allDay: true,
-      start: '2024-06-11',
-      end: '2024-06-11',
+      start: '2024-06-14',
+      end: '2024-06-14',
       backgroundColor: "#EA1700",
       display: "background",
       opacity: 0,
@@ -43,21 +45,54 @@ export default function BasicDateCalendar({ formData, setFormData }: CalendarFor
   ];
 
   const handleDateClick = (event: DateClickArg) => {
-    
+
     // Debuging purposes
     console.log('old date:', formData.date);
     console.log('new date: ', event.dateStr);
 
     let is_available = true;
 
-    events.forEach((value, ) => {if (value.start == event.dateStr) {is_available = false}});
-    
+    events.forEach((value,) => { if (value.start == event.dateStr) { is_available = false } });
+
     // Actual Form data setting.
     if (is_available) {
-      setFormData(prevState => ({ ...prevState, date: event.dateStr}));
+      setFormData(prevState => ({ ...prevState, date: event.dateStr }));
+      openRepeatDialog();
     }
-    
+
   };
+
+
+  //Custom title for the calendar
+  //-----------------------------------------------------------------------------------
+  const formatDateTitle = (dateInfo: { start: Date }) => {
+    const monthNames = [
+      "Tháng 1", "Tháng 2", "Tháng 3", "Tháng 4", "Tháng 5", "Tháng 6",
+      "Tháng 7", "Tháng 8", "Tháng 9", "Tháng 10", "Tháng 11", "Tháng 12"
+    ];
+    const monthName = monthNames[dateInfo.start.getMonth()];
+    return `${monthName} năm ${dateInfo.start.getFullYear()}`;
+  };
+
+  const updateTitle = (dateInfo: { start: Date }) => {
+    const titleElement = document.querySelector('.fc-toolbar-title');
+    if (titleElement) {
+      titleElement.textContent = formatDateTitle(dateInfo);
+    }
+  };
+
+  useEffect(() => {
+    const calendarApi = (document.querySelector('.fc') as any)?.__fullCalendar;
+    if (calendarApi) {
+      const currentDate = calendarApi.getCurrentData().viewTitle;
+      updateTitle({ start: new Date(currentDate) });
+    }
+  }, []);
+
+  const handleDatesSet = (dateInfo: { start: Date }) => {
+    updateTitle(dateInfo);
+  };
+  //-----------------------------------------------------------------------------------
 
   // =============================== fetching available dates  ===============================
   // useEffect( () => {
@@ -90,6 +125,7 @@ export default function BasicDateCalendar({ formData, setFormData }: CalendarFor
           center: '',
           right: 'prev next'
         }}
+        datesSet={handleDatesSet}
         fixedWeekCount={false}
         showNonCurrentDates={false}
         dateClick={(event) => handleDateClick(event)}
@@ -98,6 +134,22 @@ export default function BasicDateCalendar({ formData, setFormData }: CalendarFor
         }}
         events={events}
       />
+      <Box sx={{ display: 'flex', alignItems: 'center', gap: 5, marginTop: '15px' }}>
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+          <FontAwesomeIcon icon={faCircle} style={{ color: "#dbeaff", fontSize: "18px" }} />
+          <Typography variant="body2" sx={{ color: "#000000", fontSize: '18px' }}>Hôm nay</Typography>
+        </Box>
+
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+          <FontAwesomeIcon icon={faCircle} style={{ color: "#bbfbc7", fontSize: "18px", padding: 0 }} />
+          <Typography variant="body2" sx={{ color: "#000000", fontSize: '18px' }}>Ngày đang chọn</Typography>
+        </Box>
+
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+          <FontAwesomeIcon icon={faCircle} style={{ color: "#EA1700", fontSize: "18px", padding: 0 }} />
+          <Typography variant='body2' sx={{ color: "#000000", fontSize: '18px' }}>Ngày đã đầy lịch</Typography>
+        </Box>
+      </Box>
     </Box>
   );
 }

@@ -38,7 +38,7 @@ const Carousel = ({ items }: CarouselProps) => {
         >
             <Slider {...settings} >
                 {items.map((item, index) => (
-                    <Card key={index} sx={{ backgroundColor: '#fff', margin: '1em ', borderRadius: '10px', border: '.5px solid #000' }}>
+                    <Card key={index} sx={{ backgroundColor: '#fff', margin: '1em ', height: '550px',borderRadius: '10px', border: '.5px solid #000' }}>
                         <CardContent>
                             <Box>
                                 <img src={item.image} alt={item.title} style={{ width: '100%', height: '250px', objectFit: 'cover', borderRadius: '10px' }} />

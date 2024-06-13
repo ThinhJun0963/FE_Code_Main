@@ -1,32 +1,32 @@
 import { Box, Button, Typography } from '@mui/material';
-import slots, { TimeSlot } from './data';
+import { TimeSlot } from './data';
 import { SetStateAction, useState } from 'react';
 import { connection_path } from '../../../../constants/developments';
 import axios from 'axios';
 
 //========================== Mock data ========================
 const mockTimeSlots: Array<TimeSlot> = [
-    {id: '1', start: '6:30', end: '7:00'},
-    {id: '2', start: '7:00', end: '7:30'},
-    {id: '3', start: '7:30', end: '8:00'},
-    {id: '4', start: '8:00', end: '8:00'},
-    {id: '8', start: '11:30', end: '12:00'},
-    {id: '12', start: '12:30', end: '13:00'},
-    {id: '19', start: '13:00', end: '13:30'},
+    { id: '1', start: '6:30', end: '7:00' },
+    { id: '2', start: '7:00', end: '7:30' },
+    { id: '3', start: '7:30', end: '8:00' },
+    { id: '4', start: '8:00', end: '8:00' },
+    { id: '8', start: '11:30', end: '12:00' },
+    { id: '12', start: '12:30', end: '13:00' },
+    { id: '19', start: '13:00', end: '13:30' },
 ]
 //=============================================================
 
 
 
 interface TimeSlotsFormProps {
-    formData: { clinic: string, typeOfBooking: string; date: string; time: TimeSlot; dentist: string},
-    setFormData: (value: SetStateAction<{ clinic: string, typeOfBooking: string; date: string; time: TimeSlot; dentist: string}>) => void
+    formData: { clinic: string, typeOfBooking: string; date: string; is_repeated: number; time: TimeSlot; dentist: string, service: string },
+    setFormData: (value: SetStateAction<{ clinic: string, typeOfBooking: string; date: string; is_repeated: number; time: TimeSlot; dentist: string, service: string }>) => void
 }
 
-const TimeSlots = ({formData, setFormData }: TimeSlotsFormProps) => {
+const TimeSlots = ({ formData, setFormData }: TimeSlotsFormProps) => {
 
 
-    const [slot, setSlot] = useState<TimeSlot| null>(formData.time);
+    const [slot, setSlot] = useState<TimeSlot | null>(formData.time);
 
     const handleSlotClick = (time: TimeSlot) => {
         // Debuging purposes

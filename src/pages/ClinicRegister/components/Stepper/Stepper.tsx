@@ -1,7 +1,7 @@
 import { Stepper, Step, StepLabel, Typography } from '@mui/material';
 import React, { useState } from 'react';
 
-const steps = ['Thông tin cơ bản', 'Các dịch vụ của phòng khám', 'Các giấy chứng nhận cần thiết','Xác nhận thông tin'];
+const steps = ['Thông tin cơ bản', 'Các dịch vụ của phòng khám', 'Các giấy chứng nhận cần thiết'];
 
 interface RegistingStepperProps { 
   activeStep: number;

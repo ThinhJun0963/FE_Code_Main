@@ -1,51 +1,18 @@
 import { Box, Button, FormControl, Grid, InputLabel, MenuItem, Select, SelectChangeEvent, TextField, Typography } from '@mui/material'
-import React, { useState } from 'react'
+import React, { SetStateAction, useEffect, useState } from 'react'
+import { TimeSlot } from '../TimeSlots/data';
+import VNPayFields from './VNPayField';
 
-const VNPayFields = ({ amount, handleAmountChange, orderID }: { amount: string, handleAmountChange: (event: React.ChangeEvent<HTMLInputElement>) => void, orderID: string }) => (
-    <>
-        <TextField
-            fullWidth
-            id="amount"
-            label="Giá trị"
-            value={amount}
-            onChange={handleAmountChange}
-            InputLabelProps={{
-                shrink: true,
-            }}
-            sx={{ marginBottom: '20px', marginTop: '20px' }}
-        />
-        <TextField
-            fullWidth
-            id="orderID"
-            label="Mã đơn hàng"
-            value={orderID}
-            InputProps={{
-                readOnly: true,
-            }}
-            InputLabelProps={{
-                shrink: true,
-            }}
-            sx={{ marginBottom: '20px' }}
-        />
-        <TextField
-            fullWidth
-            id="orderInfo"
-            label="Thông tin đơn hàng"
-            value={`Thanh toán ${orderID}`}
-            InputProps={{
-                readOnly: true,
-            }}
-            InputLabelProps={{
-                shrink: true,
-            }}
-        />
-    </>
-);
+interface CheckoutFormProps {
+    paymentData: { paymentMethod: string, amount: string, orderID: string, orderDetail: string },
+    setPaymentData: (value: SetStateAction<{ paymentMethod: string, amount: string, orderID: string, orderDetail: string }>) => void;
+}
 
-const CheckoutForm = () => {
+const CheckoutForm = ({ paymentData, setPaymentData }: CheckoutFormProps) => {
     const [paymentMethod, setPaymentMethod] = useState<string>('');
     const [amount, setAmount] = useState<string>('');
     const [orderID, setOrderID] = useState<string>('');
+    const [orderDetail, setOrderDetail] = useState<string>('Thanh toán dịch vụ khám bệnh');
 
     const handlePaymentMethodChange = (event: SelectChangeEvent<string>) => {
         const { value } = event.target;
@@ -53,23 +20,32 @@ const CheckoutForm = () => {
         if (value === 'VNPay') {
             const newOrderID = Math.floor(Math.random() * 1000000).toString();
             setOrderID(newOrderID);
+            setPaymentData(prev => ({
+                ...prev,
+                paymentMethod: value,
+                orderID: newOrderID, 
+                orderDetail: 'Thanh toán dịch vụ khám bệnh'
+            }));
         } else {
             setOrderID('');
+            setPaymentData(prev => ({
+                ...prev,
+                paymentMethod: value,
+                orderID: '', 
+            }));
         }
     };
 
     const handleAmountChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setAmount(event.target.value);
-    };
-
-    const handleSubmit = (event: React.FormEvent) => {
-        event.preventDefault();
-        // Perform validation and submission logic here
-        console.log('Form submitted', { paymentMethod, amount, orderID });
+        setPaymentData(prev => ({
+            ...prev,
+            amount: event.target.value
+        }));
     };
 
     return (
-        <Box component='form' sx={{ marginLeft: '1em', marginRight: '1em' }} onSubmit={handleSubmit}>
+        <Box sx={{ marginLeft: '1em', marginRight: '1em' }}>
             <Typography variant='h4' sx={{ marginBottom: '20px' }}>Chọn hình thức thanh toán</Typography>
             <Box sx={{ width: '100%' }}>
                 <Grid container spacing={5}>
@@ -89,16 +65,19 @@ const CheckoutForm = () => {
                         </FormControl>
                         {paymentMethod === 'VNPay' && (
                             <VNPayFields
+                                paymentData={paymentData}
+                                setPaymentData={setPaymentData}
                                 amount={amount}
-                                handleAmountChange={handleAmountChange}
                                 orderID={orderID}
+                                orderDetail={orderDetail}
+                                handleAmountChange={handleAmountChange}
                             />
                         )}
                     </Grid>
                 </Grid>
             </Box>
-
         </Box>
+
     )
 }
 export default CheckoutForm

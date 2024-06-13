@@ -1,18 +1,22 @@
 import { Box, Button, Grid, TextField, Typography } from '@mui/material'
-import React, { useState } from 'react'
+import React, { SetStateAction, useState } from 'react'
 import { TimeSlot } from '../TimeSlots/data';
 
 interface FormData {
     clinic: string,
     typeOfBooking: string,
     date: string,
+    dentist: string,
+    //----------------------------------
+    is_repeated: number,
+    //----------------------------------
     time: TimeSlot,
     service: string,
   }
   
   interface ConfirmationFormProps {
     formData: FormData;
-    setFormData: React.Dispatch<React.SetStateAction<FormData>>;
+    setFormData: (value: SetStateAction<FormData>) => void;  
   }
   
 const ConfirmationForm = ({ formData, setFormData }: ConfirmationFormProps) => {
@@ -70,7 +74,6 @@ const ConfirmationForm = ({ formData, setFormData }: ConfirmationFormProps) => {
                         InputLabelProps={{
                             shrink: true,
                         }}
-                        
                     />
                 </Grid>
             </Grid>

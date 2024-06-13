@@ -22,31 +22,27 @@ const HomePageContent = () => {
     navigate(`/clinics?search=${searchTerm}`);
   };
 
-    return (
-        <Box sx={{ marginTop: '5%', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
-            <Box>
-                <Typography variant="h2" component="div" gutterBottom >
-                    Ứng dụng đặt khám
-                </Typography>
-                <Typography variant="h5" component="div" gutterBottom>
-                    Đặt khám với hơn 100 phòng khám trên SmileCare để có số thứ tự và
-                    khung giờ khám trước.
-                </Typography>
-                <Box sx={{ backgroundColor: '#F1F1F1', width: '100%', borderRadius: '10px', display: 'flex', alignItems: 'center', padding: '10px' }}>
-                    <InputBase
-                        value={searchTerm}
-                        onChange={handleSearchChange}
-                        placeholder="Search…"
-                        inputProps={{ 'aria-label': 'search' }}
-                        sx={{ flex: 1, paddingLeft: '10px' }}
-                    />
-                    <IconButton type="submit" aria-label="search" onClick={handleSearchSubmit} sx={{ color: '#000' }}>
-                        <SearchIcon />
-                    </IconButton>
-                </Box>
-            </Box>
+  return (
+    <Box sx={{ marginTop: '5%', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', position: 'relative' }}>
+      <Box sx={{ position: 'absolute', right: '125px', top: 0, marginTop: '-250px', width: '50%' }}>
+        <Box sx={{ backgroundColor: ' #ffffff', width: '100%', borderRadius: '10px', display: 'flex', alignItems: 'center', padding: '10px' }}>
+          <InputBase
+            value={searchTerm}
+            onChange={handleSearchChange}
+            placeholder="Tìm kiếm phòng khám"
+            inputProps={{ 'aria-label': 'search' }}
+            sx={{ flex: 1, paddingLeft: '10px' }}
+          />
+          <IconButton type="submit" aria-label="search" onClick={handleSearchSubmit} sx={{ color: '#000' }}>
+            <SearchIcon />
+          </IconButton>
+        </Box>
+      </Box>
 
-      <Box sx={{ width: "80%", marginTop: "2em", textAlign: "right" }}>
+      <Box sx={{ width: "70%", marginTop: "1em", textAlign: "right", display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+      <Typography variant="h3" component="div" gutterBottom sx={{}}>
+          Các phòng khám nổi bật
+        </Typography>
         <Button
           variant="contained"
           href='/clinics'
@@ -61,21 +57,21 @@ const HomePageContent = () => {
         </Button>
       </Box>
 
-      <Box sx={{ width: "80%", marginTop: "1em", marginBottom: "5em" }}>
+      <Box sx={{ width: "70%", marginTop: "1em", marginBottom: "5em" }}>
         <Carousel items={clinics} />
       </Box>
 
-      <Box sx={{ width: "80%", marginTop: "2em", textAlign: "center" }}>
+      <Box sx={{ width: "70%", marginTop: "2em", textAlign: "center" }}>
         <Typography variant="h3" component="div" gutterBottom>
           Câu hỏi thường gặp
         </Typography>
       </Box>
 
-      <Box sx={{ width: "50%", marginTop: "2em", marginBottom: "5em" }}>
+      <Box sx={{ width: "70%", marginTop: "2em", marginBottom: "5em" }}>
         <Accordion />
       </Box>
 
-      <Box sx={{ width: "80%", marginTop: "2em", marginBottom: "5em" }}>
+      <Box sx={{ width: "70%", marginTop: "2em", marginBottom: "5em" }}>
         <FeaturesAndBenefits />
       </Box>
     </Box>

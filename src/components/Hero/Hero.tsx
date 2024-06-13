@@ -11,7 +11,7 @@ export default function Hero() {
   return (
     <Box
     sx={{
-      height: '55vh',
+      height: '85vh',
       backgroundColor: "#7cc9ff",
       position: 'relative'
     }}
