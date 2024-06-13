@@ -6,6 +6,7 @@ import Slider from "react-slick";
 import { useNavigate } from "react-router-dom";
 
 interface CarouselItem {
+    id: number,
     image: string,
     title: string,
     description: string
@@ -24,44 +25,39 @@ const settings = {
     centerPadding: "60px",
 };
 
-
-
 const Carousel = ({ items }: CarouselProps) => {
     const navigate = useNavigate();
 
-    const handleButtonClick = () => {
-        navigate('/clinic')
+    const handleButtonClick = (id: number) => {
+        navigate(`/clinic/${id}`)
     }
 
     return (
-        <Box
-        >
-            <Slider {...settings} >
-                {items.map((item, index) => (
-                    <Card key={index} sx={{ backgroundColor: '#fff', margin: '1em ', height: '550px',borderRadius: '10px', border: '.5px solid #000' }}>
-                        <CardContent>
-                            <Box>
-                                <img src={item.image} alt={item.title} style={{ width: '100%', height: '250px', objectFit: 'cover', borderRadius: '10px' }} />
-                                <Divider sx={{ backgroundColor: 'black', width: '90%', margin: '1em auto' }} />
-                                <Typography variant="h5" component="div" gutterBottom sx={{ marginTop: '1em', textAlign: 'left' }}>
+        <Slider {...settings} >
+            {items.map((item, index) => (
+                <Card key={index} sx={{ backgroundColor: '#fff', margin: '1em', borderRadius: '10px', border: '.5px solid #000', height: '450px' }}>
+                    <CardContent sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', height: '100%' }}>
+                        <Box>
+                            <img src={item.image} alt={item.title} style={{ width: '100%', height: '130px', objectFit: 'cover', borderTopLeftRadius: '10px', borderTopRightRadius: '10px' }} />
+                            <Divider sx={{ backgroundColor: 'black', width: '90%', margin: '1em auto' }} />
+                            <Box sx={{  minHeight: '80px' }}>
+                                <Typography variant="h5" component="div" sx={{ textAlign: 'left', marginBottom: '0.5em' }}>
                                     {item.title}
                                 </Typography>
-                                <Typography variant="body1" component="div" gutterBottom sx={{ textAlign: 'left' }}>
+                                <Typography variant="body1" component="div" sx={{ textAlign: 'left', maxHeight: '80px', overflow: 'hidden', textOverflow: 'ellipsis', display: '-webkit-box', '-webkit-line-clamp': 3, '-webkit-box-orient': 'vertical' }}>
                                     Địa chỉ : {item.description}
                                 </Typography>
                             </Box>
-                            <Box>
-                                <Button variant="outlined" onClick={handleButtonClick} sx={{ borderRadius: '5px', width: '100%', marginTop: '1em' }}>Xem chi tiết</Button>
-                            </Box>
-                            <Box>
-                                <Button variant="contained" href="/booking" sx={{ backgroundColor: '#00aeeb', color: '#fff', borderRadius: '5px', width: '100%', marginTop: '1em' }}>Đặt lịch ngay</Button>
-                            </Box>
-                        </CardContent>
-                    </Card>
-                ))}
-            </Slider>
-        </Box>
+                        </Box>
+                        <Box sx={{ display: 'flex', flexDirection: 'column', gap: '1em' }}>
+                            <Button variant="outlined" onClick={() => handleButtonClick(item.id)} sx={{ borderRadius: '5px', width: '100%' }}>Xem chi tiết</Button>
+                            <Button variant="contained" href="/booking" sx={{ backgroundColor: '#00aeeb', color: '#fff', borderRadius: '5px', width: '100%' }}>Đặt lịch ngay</Button>
+                        </Box>
+                    </CardContent>
+                </Card>
+            ))}
+        </Slider>
     )
 }
 
-export default Carousel
+export default Carousel;

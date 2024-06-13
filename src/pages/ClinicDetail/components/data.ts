@@ -1,7 +1,8 @@
-interface Clinic {
+export interface Clinic {
     clinic_id: number;
-    logo: '';
-    images: '';
+    logo: string;
+    images: string[];
+    imageToShow: string;
     name: string;
     address: string;
     phone: string;
@@ -18,7 +19,7 @@ interface clinicService {
 }
 
 
-const clinicServices: clinicService[] = [
+export const clinicServices: clinicService[] = [
     { serviceId: '1', serviceName: "Răng sứ thẩm mỹ" },
     { serviceId: '2', serviceName: "Cấy ghép Implant" },
     { serviceId: '3', serviceName: "Niềng răng trong suốt" },
@@ -32,8 +33,14 @@ const clinicServices: clinicService[] = [
 const clinicData: Clinic[] = [
     {
         clinic_id: 1,
-        logo: '', // Replace with actual image path
-        images: '', // Replace with actual image path
+        logo: '../../../public/asia-logo.png',
+        images: [
+            '../../../../public/asia-dental-clinic.jpg',
+            '../../../../public/asia-pic1.png',
+            '../../../../public/asia-pic2.png',
+            '../../../../public/asia-pic3.png',
+        ],
+        imageToShow: '../../../public/asia-dental-clinic.jpg',
         name: 'Phòng khám nha khoa Asia',
         address: '105/10 Nguyễn Thị Tú, Phường Bình Hưng Hòa B, Quận Bình Tân, TP. Hồ Chí Minh',
         phone: '0123456789',
@@ -63,8 +70,9 @@ const clinicData: Clinic[] = [
     },
     {
         clinic_id: 2,
-        logo: '', // Replace with actual image path
-        images: '', // Replace with actual image path
+        logo: '',
+        images: [],
+        imageToShow: '../../../public/saigon-dental-clinic.jpg',
         name: 'Phòng khám nha khoa Sài Gòn',
         address: '50 Nguyễn Văn Trỗi, Phường 15, Quận Phú Nhuận, TP. Hồ Chí Minh',
         phone: '0938765432',
@@ -87,8 +95,14 @@ const clinicData: Clinic[] = [
     },
     {
         clinic_id: 3,
-        logo: '', // Replace with actual image path
-        images: '', // Replace with actual image path
+        logo: '../../../../public/vietphap-logo.png',
+        images: [
+            '../../../../public/vietphap-pic-1.png',
+            '../../../../public/vietphap-pic-2.png',
+            '../../../../public/vietphap-pic-3.png',
+            '../../../../public/vietphap-pic-4.png'
+        ],
+        imageToShow: '../../../public/vietphap-dental-clinic.jpg',
         name: 'Phòng khám nha khoa Việt Pháp',
         address: '100 Hai Bà Trưng, Phường Bến Nghé, Quận 1, TP. Hồ Chí Minh',
         phone: '0901234567',
@@ -110,8 +124,104 @@ const clinicData: Clinic[] = [
             { serviceId: '6', serviceName: "Điều trị bệnh lý nha chu" },
             { serviceId: '7', serviceName: "Nhổ răng khôn không đau" }
         ]
-    }
+    },
+    {
+        clinic_id: 4,
+        logo: '',
+        images: [],
+        imageToShow: '../../../public/kim-dental-clinic.jpg',
+        name: 'Phòng khám nha khoa Kim',
+        address: '270 Quang Trung, P.10, Q.Gò Vấp, TP.HCM',
+        phone: '0123456789',
+        email: 'example@email.com',
+        open_hour: '8h00',
+        close_hour: '20h00',
+        description: `Mô tả nội dung cho phòng khám nha khoa Kim.`,
+        services: [
+            // Điền thông tin dịch vụ cho phòng khám này
+        ],
+    },
+    {
+        clinic_id: 5,
+        logo: '',
+        images: [],
+        imageToShow: '../../../public/paris-dental-clinic.jpg',
+        name: 'Phòng khám nha khoa Paris',
+        address: '357 Phan Xích Long, P.1, Q.Phú Nhuận, TP.HCM',
+        phone: '0123456789',
+        email: 'example@email.com',
+        open_hour: '8h00',
+        close_hour: '20h00',
+        description: `Mô tả nội dung cho phòng khám nha khoa Paris.`,
+        services: [
+            // Điền thông tin dịch vụ cho phòng khám này
+        ],
+    },
+    {
+        clinic_id: 6,
+        logo: '',
+        images: [],
+        imageToShow: '../../../public/tam-anh-dental-clinic.jpg',
+        name: 'Phòng khám nha khoa Tâm Anh',
+        address: '46A Võ Văn Ngân, P.Trường Thọ, TP.Thủ Đức',
+        phone: '0123456789',
+        email: 'example@email.com',
+        open_hour: '8h00',
+        close_hour: '20h00',
+        description: `Mô tả nội dung cho phòng khám nha khoa Tâm Anh.`,
+        services: [
+            // Điền thông tin dịch vụ cho phòng khám này
+        ],
+    },
+    {
+        clinic_id: 7,
+        logo: '',
+        images: [],
+        imageToShow: '../../../public/hoa-dental-clinic.jpg',
+        name: 'Phòng khám nha khoa Bác sĩ Hóa',
+        address: '03 Trần Não, P.An Khánh, Q.2, TP.Thủ Đức',
+        phone: '0123456789',
+        email: 'example@email.com',
+        open_hour: '8h00',
+        close_hour: '20h00',
+        description: `Mô tả nội dung cho phòng khám nha khoa Bác sĩ Hóa.`,
+        services: [
+            // Điền thông tin dịch vụ cho phòng khám này
+        ],
+    },
+    {
+        clinic_id: 8,
+        logo: '',
+        images: [],
+        imageToShow: '../../../public/rang-xinh-dental-clinic.jpg',
+        name: 'Phòng khám nha khoa Răng xinh',
+        address: '369A Nguyễn Ảnh Thủ, P.Trung Mỹ Tây, Q.12, TP.HCM',
+        phone: '0123456789',
+        email: 'example@email.com',
+        open_hour: '8h00',
+        close_hour: '20h00',
+        description: `Mô tả nội dung cho phòng khám nha khoa Răng xinh.`,
+        services: [
+            // Điền thông tin dịch vụ cho phòng khám này
+        ],
+    },
+    {
+        clinic_id: 9,
+        logo: '',
+        images: [],
+        imageToShow: '../../../public/tan-mai-dental-clinic.jpg',
+        name: 'Phòng khám nha khoa Tân Mai',
+        address: '285 Cách Mạng Tháng Tám, P.12, Q.10, TP.HCM',
+        phone: '0123456789',
+        email: 'example@email.com',
+        open_hour: '8h00',
+        close_hour: '20h00',
+        description: `Mô tả nội dung cho phòng khám nha khoa Tân Mai.`,
+        services: [
+            // Điền thông tin dịch vụ cho phòng khám này
+        ],
+    },
+
 ];
 
-
-export default clinicServices;
+export default clinicData;

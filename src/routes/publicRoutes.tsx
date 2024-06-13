@@ -17,9 +17,9 @@ import Chat from '../pages/ChatV1/Chat';
 
 export const publicRoutes = [
     { path: '/', element: <HomePage /> },
-    { path: '/booking', element: <BookingPage /> },
+    { path: '/booking/:clinicId', element: <BookingPage /> },
     { path: '/for-owner', element: <ClinicRegisterForm /> },
-    { path: "/clinic", element: <ClinicDetail /> },
+    { path: "/clinic/:id", element: <ClinicDetail /> },
     { path: '/clinics', element: <ClinicList /> },
     { path: "/login", element: < LoginMUI /> },
     { path: "/signup", element: <SignUpMUI /> },

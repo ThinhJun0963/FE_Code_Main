@@ -2,50 +2,26 @@ import React from 'react';
 import { Avatar, Box, Breadcrumbs, Button, Divider, Link, Typography } from '@mui/material';
 import ImageList from './ImageList/ImageList';
 import ClinicServices from './ClinicServices/ClinicServices';
-import clinicServices from './data';
-
-
-const clinic = {
-    clinic_id: 1,
-    logo: '', 
-    images: [
-    '../../asia-pic1.png',
-    '../../asia-pic2.png',
-    '../../asia-pic3.png',
-    ], 
-    name: 'Phòng khám nha khoa Asia',
-    address: '105/10 Nguyễn Thị Tú, Phường Bình Hưng Hòa B, Quận Bình Tân, TP. Hồ Chí Minh',
-    phone: '0123456789',
-    email: 'example@email.com',
-    open_hour: '8h00',
-    close_hour: '20h00',
-    description: `Nha khoa Asia được thành lập ngày 03 tháng 01 năm 2010,
-        hiện tại đang là một trong những nha khoa quốc tế lớn hàng đầu tại khu vực TP. Hồ Chí Minh.
-        Thấu hiểu tầm quan trọng của việc chăm sóc răng miệng,
-        nha khoa Asia mang trong mình sứ mệnh NÂNG CAO CHẤT LƯỢNG NỤ CƯỜI VIỆT",
-        trong suốt hơn 1 thập kỷ Nha khoa Asia đã không ngừng nỗ lực mang đến trên
-        2000 nụ cười hoàn hảo cho người Việt với chất lượng chuyên môn quốc tế.
-        Để hiện thực hóa tiêu chí “Nha khoa chất lượng quốc tế”, nha khoa Asia hiện đang sở hữu cở vật chất hiện đại,
-        được trang công nghệ chuẩn đoán, điều trị hàng đầu hiện nay như máy CT Cone beam, Scan Itero 5D,
-        máy nhổ răng bằng sóng siêu âm Piezotome … và đáp ứng đầy đủ các tiêu chí: Đội ngũ bác sĩ nhiều kinh nghiệm,
-        tay nghề cao - Thiết bị máy móc hiện đại - Hệ thống được thanh trùng`,
-    services: [
-        { serviceId: '1', serviceName: "Răng sứ thẩm mỹ" },
-        { serviceId: '2', serviceName: "Cấy ghép Implant" },
-        { serviceId: '3', serviceName: "Niềng răng trong suốt" },
-        { serviceId: '4', serviceName: "Tẩy trắng răng bằng laser" },
-        { serviceId: '5', serviceName: "Điều trị nha chu chuyên sâu" },
-        { serviceId: '6', serviceName: "Phẫu thuật nha chu" },
-        { serviceId: '7', serviceName: "Phẫu thuật chỉnh nha" },
-        { serviceId: '8', serviceName: "Bọc răng toàn sứ cao cấp" },
-    ],
-
-}
-
+import clinicData, { Clinic } from './data';
+import { useParams } from 'react-router-dom';
 
 
 
 const ClinicDetailContent = () => {
+    const { id } = useParams<{ id: string }>();
+
+    const clinicId = id;
+
+    const clinic: Clinic | undefined = clinicId ? clinicData.find(c => c.clinic_id === parseInt(clinicId)) : undefined;
+
+    if (!clinic) {
+        return (
+            <Typography variant="h4" sx={{ paddingTop: '5em', paddingBottom: '5em' }}>
+                Phòng khám không tồn tại
+            </Typography>
+        );
+    }
+
     const logoSrc = clinic.logo || '../../../../public/placeholder.png';
     const images = clinic.images.length ? clinic.images : ['../../../../placeholder.png'];
 
@@ -67,7 +43,6 @@ const ClinicDetailContent = () => {
                 display: 'flex',
                 alignItems: 'flex-start',
                 padding: '1em',
-                // border: '3px solid black',
                 width: '90%',
             }}>
                 <Avatar
@@ -107,7 +82,7 @@ const ClinicDetailContent = () => {
                 <ImageList images={images} />
             </Box>
             <Box sx={{ width: '80%', textAlign: 'right' }}>
-                <Button variant='contained' sx={{ backgroundColor: '#1975dc', color: '#fff', width: '30%', borderRadius: '5px' }}>Đặt lịch ngay</Button>
+                <Button variant='contained' href={`/booking/${clinicId}`} sx={{ backgroundColor: '#1975dc', color: '#fff', width: '30%', borderRadius: '5px'}}>Đặt lịch ngay</Button>
             </Box>
 
             <Box sx={{ width: '80%', marginTop: '5em' }}>
