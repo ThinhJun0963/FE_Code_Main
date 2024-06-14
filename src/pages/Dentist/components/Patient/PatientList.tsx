@@ -5,8 +5,7 @@ import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
-import { Button } from "@mui/material";
-import { FormPaper } from "./patient";
+import { Button, Paper } from "@mui/material";
 import { getPatients, getPatientById } from "./patient";
 import { Patient } from "./patient";
 import Table from "../Table";
@@ -20,6 +19,14 @@ const PatientRecords: React.FC = () => {
   useEffect(() => {
     getPatients().then((data) => setPatients(data));
   }, []);
+
+  const FormPaper = styled(Paper)({
+    width: "100%",
+    height: "auto",
+    margin: "0 auto",
+    border: "1px solid #ddd",
+    boxShadow: "0 0 10px rgba(0,0,0,0.1)",
+  });
 
   const Main = styled(Box)(({ theme }) => ({
     backgroundColor:
