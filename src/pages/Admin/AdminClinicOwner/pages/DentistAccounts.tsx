@@ -18,19 +18,6 @@ import Table from "../components/Table";
 import { GridColDef } from "@mui/x-data-grid";
 import { Button, Paper } from "@mui/material";
 
-// function Copyright(props: any) {
-//   return (
-//     <Typography variant="body2" color="text.secondary" align="center" {...props}>
-//       {'Copyright © '}
-//       <Link color="inherit" href="https://mui.com/">
-//         SmileCare
-//       </Link>{' '}
-//       {new Date().getFullYear()}
-//       {'.'}
-//     </Typography>
-//   );
-// }
-
 const drawerWidth: number = 240;
 
 interface AppBarProps extends MuiAppBarProps {
