@@ -5,10 +5,10 @@ import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import MedicalServicesIcon from '@mui/icons-material/MedicalServices';
 
 
-// export type AdminClinicData = {
-//     title: string;
-//     content: string;
-// }[];
+export type AdminClinicData = {
+    title: string;
+    content: string;
+}[];
 
 export const adminClinicData = [
     { title: "Số lịch hẹn tháng này", content: "" },
