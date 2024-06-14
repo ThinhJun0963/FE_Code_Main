@@ -11,6 +11,7 @@ import ClinicServices from '../components/ServicesForm/ServicesForm';
 import ServicesForm from '../components/ServicesForm/ServicesForm';
 import { TimeSlot } from './TimeSlots/data';
 import RepeatForm from './RepeatForm/RepeatForm';
+import { useParams } from 'react-router-dom';
 
 interface BookingInformation {
     clinic: string,
@@ -34,9 +35,12 @@ interface PaymentInformation {
 
 const BookingPageContent = () => {
 
+    const { clinicId } = useParams<{ clinicId: string }>();
+
+    console.log('clinicId:', clinicId);
     // ================= Booking information =============================
     const [formData, setFormData]: [BookingInformation, Dispatch<SetStateAction<BookingInformation>>] = useState({
-        clinic: '',
+        clinic: clinicId || '',
         typeOfBooking: '',
         date: '',
         dentist: '',

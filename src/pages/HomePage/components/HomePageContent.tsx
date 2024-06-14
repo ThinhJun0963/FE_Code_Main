@@ -1,11 +1,31 @@
 import { SearchIcon } from "@chakra-ui/icons";
 import { Box, Button, IconButton, InputBase, Typography } from "@mui/material";
 import Carousel from "../../../components/Carousel/Carousel";
-import clinics from "./data";
+import clinics from "../../ClinicDetail/components/data";
 import Accordion from "./Accordion/Accordion";
 import FeaturesAndBenefits from "./FeatureAndBenefits/FeatureAndBenefits";
 import { SetStateAction, useState } from "react";
 import { useNavigate } from 'react-router-dom';
+
+interface clinicService {
+  serviceId: string;
+  serviceName: string;
+}
+
+interface Clinic {
+  clinic_id: number;
+  logo: '';
+  images: [];
+  imageToShow: string;
+  name: string;
+  address: string;
+  phone: string;
+  email: string;
+  open_hour: string;
+  close_hour: string;
+  description: string;
+  services: clinicService[];
+}
 
 const HomePageContent = () => {
   const navigate = useNavigate();
@@ -16,15 +36,23 @@ const HomePageContent = () => {
   }) => {
     setSearchTerm(event.target.value);
   };
+  
 
   const handleSearchSubmit = (event: { preventDefault: () => void }) => {
     event.preventDefault();
     navigate(`/clinics?search=${searchTerm}`);
   };
 
+  const transformedClinics = clinics.map(clinic => ({
+    id: clinic.clinic_id, 
+    image: clinic.imageToShow,
+    title: clinic.name,
+    description: clinic.address
+}));
+
   return (
-    <Box sx={{ marginTop: '5%', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', position: 'relative' }}>
-      <Box sx={{ position: 'absolute', right: '125px', top: 0, marginTop: '-250px', width: '50%' }}>
+    <Box sx={{ marginTop: '1%', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', position: 'relative' }}>
+      <Box sx={{ position: 'absolute', right: '125px', top: 0, marginTop: '-150px', width: '50%' }}>
         <Box sx={{ backgroundColor: ' #ffffff', width: '100%', borderRadius: '10px', display: 'flex', alignItems: 'center', padding: '10px' }}>
           <InputBase
             value={searchTerm}
@@ -57,8 +85,8 @@ const HomePageContent = () => {
         </Button>
       </Box>
 
-      <Box sx={{ width: "70%", marginTop: "1em", marginBottom: "5em" }}>
-        <Carousel items={clinics} />
+      <Box sx={{ width: "70%", marginTop: ".25em", marginBottom: "5em" }}>
+        <Carousel items={transformedClinics} />
       </Box>
 
       <Box sx={{ width: "70%", marginTop: "2em", textAlign: "center" }}>

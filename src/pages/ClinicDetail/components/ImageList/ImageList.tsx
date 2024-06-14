@@ -1,12 +1,13 @@
-import * as React from 'react';
 import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
 import { Box } from '@mui/material';
 import Slider from 'react-slick';
 
+interface ImageListProps {
+    images: string[];
+}
 
-
-export default function StandardImageList() {
+export default function StandardImageList({ images }: ImageListProps) {
     const settings = {
         dots: false,
         infinite: true,
@@ -18,28 +19,31 @@ export default function StandardImageList() {
         autoplaySpeed: 2000,
     };
 
+
     return (
         <Box style={{ display: 'flex' }}>
-            <Box style={{ width: "50%", height: '40%'}}>
-                <Slider {...settings}>
-                    {itemCarousel.map((item) => (
-                        <Box key={item.img}>
+            {images.length > 1 && (
+                <Box style={{ width: "50%", height: '40%' }}>
+                    <Slider {...settings}>
+                        {images.map((img, index) => (
+                            <Box key={index}>
+                                <img
+                                    src={img}
+                                    alt='carousel pic'
+                                    style={{ width: '100%', height: '350px', objectFit: 'cover', borderRadius: '10px' }}
+                                />
+                            </Box>
+                        ))}
+                    </Slider>
+                </Box>
+            )}
+            <Box style={{ width: images.length > 0 ? '60%' : '100%', height: "60%", marginLeft: images.length > 0 ? '1em' : 0 }}>
+                <ImageList sx={{ width: "100%", height: "100%", overflow: 'hidden', paddingTop: '1em' }} cols={3} rowHeight={164}>
+                    {images.map((img, index) => (
+                        <ImageListItem key={index} sx={{ borderRadius: '10px' }}>
                             <img
-                                src={`${item.img}`}
-                                alt={item.title}
-                                style={{ width: '100%', height: '350px', objectFit: 'cover', borderRadius: '10px'}}
-                            />
-                        </Box>
-                    ))}
-                </Slider>
-            </Box>
-            <Box style={{ width: '60%', height: "60%",  marginLeft: '1em' }}>
-                <ImageList sx={{ width: "100%", height: "100%", overflow: 'hidden', paddingTop: '1em'}} cols={3} rowHeight={164}>
-                    {itemData.map((item) => (
-                        <ImageListItem key={item.img} sx={{ borderRadius: '10px' }}>
-                            <img
-                                src={`${item.img}`}
-                                alt={item.title}
+                                src={img}
+                                alt='grid pic'
                                 loading="lazy"
                                 style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '10px' }}
                             />
@@ -50,39 +54,3 @@ export default function StandardImageList() {
         </Box>
     );
 }
-
-const itemCarousel = [
-    {
-        img: '../../asia-pic1.png',
-        title: 'asia-pic1',
-    },
-    {
-        img: '../../asia-pic2.png',
-        title: 'asia-pic2',
-    },
-    {
-        img: '../../asia-pic3.png',
-        title: 'asia-pic3',
-    },
-
-];
-
-const itemData = [
-    {
-        img: '../../../asia-dental-clinic.jpg',
-        title: 'asia-dental-clinic',
-    },
-    {
-        img: '../../asia-pic1.png',
-        title: 'asia-pic1',
-    },
-    {
-        img: '../../asia-pic2.png',
-        title: 'asia-pic2',
-    },
-    {
-        img: '../../asia-pic3.png',
-        title: 'asia-pic3',
-    },
-
-];

@@ -1,6 +1,3 @@
-import ProgressBar from '../../components/ProgressBar/ProgressBar'
-import Header from '../../components/Header/Header.1';
-import BookingStep from '../../components/BookingStep/BookingStep';
 import './BookingPage.css'
 import { useState } from 'react';
 import UserLayout from '../../components/UserLayout';
