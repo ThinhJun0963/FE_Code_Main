@@ -6,11 +6,17 @@ import { SearchIcon } from '@chakra-ui/icons';
 
 const clinicPerPage = 7;
 
-type Clinic = {
+interface clinicsToDisplay  {
     image: string;
     title: string;
     description: string;
 };
+
+const clinicsToDisplay  = clinicsData.map(clinic => ({
+    image: clinic.image,
+    title: clinic.title,
+    description: clinic.description
+}))
 
 const PaginatedClinicList = () => {
 
