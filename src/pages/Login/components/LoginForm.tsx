@@ -27,7 +27,7 @@ const LoginForm = () => {
     //    Chuỗi kết nối tới server backend
     //!   LƯU Ý: KHÔNG THAY ĐỔI TRỰC TIẾP CHUỖI KẾT NỐI TẠI ĐÂY (Fix cứng)
     //==  Chỉ thay đổi dữ liệu của "connection_path" trong file src/constants/developments
-    const api_url: string = connection_path.base_url + connection_path.api + connection_path.endpoints.login;
+    const api_url: string = connection_path.base_url + connection_path.auth.login;
 
     const configuration: AxiosRequestConfig = { method: "POST",  url: api_url,  data:payload};
 
@@ -50,7 +50,7 @@ const LoginForm = () => {
   };
 
   const handleGoogleOnSuccess = async (response: GoogleCredentialResponse) => {
-    const api_url: string = connection_path.base_url + connection_path.api + connection_path.endpoints.googeAuth;
+    const api_url: string = connection_path.base_url + connection_path.auth.googleAuth;
 
     const configuration: AxiosRequestConfig = { method: "POST",  url: api_url,  data:{googleToken: response.credential}, headers:{"Content-Type":"application/json"}};
     const axiosResponse: AxiosResponse<{accessToken: string, refreshToken: string, error: string, message: string}> = await axios(configuration);
