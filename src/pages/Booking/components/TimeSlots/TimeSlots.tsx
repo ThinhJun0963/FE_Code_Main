@@ -34,7 +34,7 @@ const TimeSlots = ({ formData, setFormData }: TimeSlotsFormProps) => {
         console.log('new time: ', time);
 
         setSlot(time);
-
+        //useEffect(() => {})
         setFormData(prevState => ({
             ...prevState,
             time: time

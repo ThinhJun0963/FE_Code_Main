@@ -1,4 +1,6 @@
-const clinicServices: string[] = [
+import { clinicService } from '../../../../utils/interfaces/interfaces';
+
+const serviceNames = [
     "Răng sứ thẩm mỹ",
     "Cấy ghép Implant",
     "Niềng răng trong suốt",
@@ -20,5 +22,10 @@ const clinicServices: string[] = [
     "Điều trị răng bị gãy",
     "Điều trị răng bị mất",
 ];
+
+const clinicServices: clinicService[] = serviceNames.map((serviceName, index) => ({
+    serviceId: `service${index + 1}`,
+    serviceName,
+}));
 
 export default clinicServices;

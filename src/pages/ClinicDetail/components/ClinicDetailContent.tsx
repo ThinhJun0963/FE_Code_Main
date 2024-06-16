@@ -2,7 +2,7 @@ import React from 'react';
 import { Avatar, Box, Breadcrumbs, Button, Divider, Link, Typography } from '@mui/material';
 import ImageList from './ImageList/ImageList';
 import ClinicServices from './ClinicServices/ClinicServices';
-import clinicData, { Clinic } from './data';
+import clinicData, { Clinic } from '../../../utils/mockData';
 import { useParams } from 'react-router-dom';
 
 
@@ -43,7 +43,7 @@ const ClinicDetailContent = () => {
                 display: 'flex',
                 alignItems: 'flex-start',
                 padding: '1em',
-                width: '90%',
+                width: '80%',
             }}>
                 <Avatar
                     variant="square"

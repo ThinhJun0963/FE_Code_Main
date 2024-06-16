@@ -11,6 +11,8 @@ import axios, { AxiosRequestConfig } from 'axios';
 import { connection_path } from '../../constants/developments';
 import { useNavigate } from 'react-router-dom';
 
+import { handleLogout } from '../../utils/api/AuthenticateUtils';
+
 const Header = () => {
 
   // === Using navigator to redirect user back to homepage after log out ===
@@ -28,34 +30,34 @@ const Header = () => {
     setAnchorEl(null);
   };
 
-  const handleLogout = async () => {
-    const api_url: string = connection_path.base_url + connection_path.api + connection_path.endpoints.logout;
+  // const handleLogout = async () => {
+  //   const api_url: string = connection_path.base_url + connection_path.api + connection_path.endpoints.logout;
 
-    const configuration: AxiosRequestConfig = {
-      method: 'POST', url: api_url
-    };
+  //   const configuration: AxiosRequestConfig = {
+  //     method: 'POST', url: api_url
+  //   };
 
-    try {
-      const response = await axios(configuration);
-      if (response.status === 200) {
-        // Handle successful logout (e.g., clear tokens, redirect to login page)
-        localStorage.removeItem('accessToken');
-        localStorage.removeItem('refreshToken');
-        setAuth(false); // Update the auth state to false
+  //   try {
+  //     const response = await axios(configuration);
+  //     if (response.status === 200) {
+  //       // Handle successful logout (e.g., clear tokens, redirect to login page)
+  //       localStorage.removeItem('accessToken');
+  //       localStorage.removeItem('refreshToken');
+  //       setAuth(false); // Update the auth state to false
 
-        // ============ Redirect user to homepage after log out =====================
-        navigator("/");
-        // ==========================================================================
+  //       // ============ Redirect user to homepage after log out =====================
+  //       navigator("/");
+  //       // ==========================================================================
 
 
-      } else {
-        alert('Logout failed');
-      }
-    } catch (error) {
-      alert('Logout failed, please try again later.');
-      console.error(error);
-    }
-  };
+  //     } else {
+  //       alert('Logout failed');
+  //     }
+  //   } catch (error) {
+  //     alert('Logout failed, please try again later.');
+  //     console.error(error);
+  //   }
+  // };
 
   // ============================ Proposed changes ==================================
   React.useLayoutEffect(() => { localStorage.getItem("accessToken") == null ? setAuth(false) : setAuth(true) }, []);
@@ -105,7 +107,7 @@ const Header = () => {
                     onClose={handleClose}
                   >
                     <MenuItem onClick={handleClose}>Tài khoản</MenuItem>
-                    <MenuItem onClick={() => { handleClose(); handleLogout(); }}>Đăng xuất</MenuItem>
+                    <MenuItem onClick={() => { handleClose(); handleLogout(setAuth, navigator); }}>Đăng xuất</MenuItem>
                   </Menu>
                 </Box>
               ) : (

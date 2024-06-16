@@ -3,7 +3,7 @@
     position: absolute;
     font-size: 50px;
     right: 15px;
-    color: #00558B;
+    color:  #3f9dfd;
 
 }
 
@@ -12,7 +12,7 @@
     position: absolute;
     font-size: 50px;
     left: 15px;
-    color: #00558B;
+    color:  #3f9dfd;
 
 }
 
@@ -21,11 +21,8 @@
     padding: 10px;
 }
 
-/* .slick-next:active {
-    color: #00558B;
+.slick-prev:hover:before,
+.slick-next:hover:before {
+    color: #0066cc;
 }
-
-.slick-prev:active {
-    color: #00558B;
-} */
 

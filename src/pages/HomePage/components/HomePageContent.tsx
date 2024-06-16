@@ -1,10 +1,10 @@
 import { SearchIcon } from "@chakra-ui/icons";
 import { Box, Button, IconButton, InputBase, Typography } from "@mui/material";
 import Carousel from "../../../components/Carousel/Carousel";
-import clinics from "../../ClinicDetail/components/data";
+import clinics from "../../../utils/mockData";
 import Accordion from "./Accordion/Accordion";
 import FeaturesAndBenefits from "./FeatureAndBenefits/FeatureAndBenefits";
-import { SetStateAction, useState } from "react";
+import React, { SetStateAction, useState } from "react";
 import { useNavigate } from 'react-router-dom';
 
 interface clinicService {
@@ -43,6 +43,12 @@ const HomePageContent = () => {
     navigate(`/clinics?search=${searchTerm}`);
   };
 
+  const handleKeyPress = (event: React.KeyboardEvent) => { 
+    if (event.key === 'Enter') {
+      navigate(`/clinics?search=${searchTerm}`);
+    }
+  }
+
   const transformedClinics = clinics.map(clinic => ({
     id: clinic.clinic_id, 
     image: clinic.imageToShow,
@@ -57,6 +63,9 @@ const HomePageContent = () => {
           <InputBase
             value={searchTerm}
             onChange={handleSearchChange}
+            //--------------------------------------
+            onKeyPress={handleKeyPress}
+            //--------------------------------------
             placeholder="Tìm kiếm phòng khám"
             inputProps={{ 'aria-label': 'search' }}
             sx={{ flex: 1, paddingLeft: '10px' }}

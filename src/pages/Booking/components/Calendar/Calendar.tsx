@@ -51,7 +51,7 @@ export default function BasicDateCalendar({ formData, setFormData, openRepeatDia
     console.log('new date: ', event.dateStr);
 
     let is_available = true;
-
+    //useEffect fetch data 
     events.forEach((value,) => { if (value.start == event.dateStr) { is_available = false } });
 
     // Actual Form data setting.
