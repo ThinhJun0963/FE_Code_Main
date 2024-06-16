@@ -1,12 +1,6 @@
-import { Box, Typography, TextField, InputAdornment, styled, InputBase, alpha } from '@mui/material';
-import SearchIcon from '@mui/icons-material/Search';
-import { useState } from 'react';
-
-
-
+import { Box } from '@mui/material';
 
 export default function Hero() {
-  const [inputValue, setInputValue] = useState("");
 
   return (
     <Box

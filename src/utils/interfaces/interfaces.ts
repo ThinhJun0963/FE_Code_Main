@@ -4,10 +4,12 @@ import { SetStateAction, useState } from "react";
 
 //-------------------------------
 //Trang ClinicDetail
-interface clinicService {
+export interface clinicService {
     serviceId: string;
     serviceName: string;
-  }
+    // price: number;
+    // description: string;
+}
 
 interface Clinic {
     clinic_id: number;

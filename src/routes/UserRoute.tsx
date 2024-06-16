@@ -15,6 +15,7 @@ import DentistSchedulePage from "../pages/Dentist/pages/DentistSchedulePage";
 import Schedule from "../pages/Dentist/components/Schedule/Schedule";
 import PatientListPage from "../pages/Dentist/pages/PatientListPage";
 import ChatPage from "../pages/Dentist/pages/ChatPage";
+import ErrorPage from "../pages/ErrorPage/ErrorPage";
 
 export const UserRoutes = [
   { path: "/", element: <HomePage /> },
@@ -34,4 +35,5 @@ export const UserRoutes = [
   { path: "/dentist/patient-list", element: <PatientListPage /> },
   { path: "/schedule", element: <Schedule /> },
   { path: "/dentist/chat", element: <ChatPage /> },
+  { path: "/error", element: <ErrorPage /> }
 ];

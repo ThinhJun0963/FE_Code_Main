@@ -7,7 +7,6 @@ import ConfirmationForm from './CofirmationForm/ConfirmationForm';
 import CheckoutForm from './CheckoutForm/CheckoutForm';
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import BookingStepper from './Stepper/Stepper';
-import ClinicServices from '../components/ServicesForm/ServicesForm';
 import ServicesForm from '../components/ServicesForm/ServicesForm';
 import { TimeSlot } from './TimeSlots/data';
 import RepeatForm from './RepeatForm/RepeatForm';
@@ -18,9 +17,7 @@ interface BookingInformation {
     typeOfBooking: string,
     date: string,
     dentist: string,
-    //----------------------------------
     is_repeated: number,
-    //----------------------------------
     time: TimeSlot,
     // service: '',
     service: string,
@@ -64,17 +61,15 @@ const BookingPageContent = () => {
     const [serviceDialogOpen, setServiceDialogOpen] = useState(false);
     const [repeatDiaglogOpen, setRepeatDialogOpen] = useState(false);
 
-    
-
-    const handleRepeatDialogClose = () => { 
+    const handleRepeatDialogClose = () => {
         setRepeatDialogOpen(false);
     }
 
-    const handleRepeatDialogOpen = () => { 
+    const handleRepeatDialogOpen = () => {
         setRepeatDialogOpen(true);
     }
 
-    const handleRepeatSelected = (is_repeated: number) => { 
+    const handleRepeatSelected = (is_repeated: number) => {
         setFormData(prevState => ({ ...prevState, is_repeated: is_repeated }));
         handleRepeatDialogClose();
     }
@@ -97,7 +92,7 @@ const BookingPageContent = () => {
         if (formData.typeOfBooking === 'Khám theo dịch vụ') {
             setServiceDialogOpen(true);
         }
-      
+
     }, [formData.typeOfBooking]);
 
     const handleSubmit = () => {
@@ -111,7 +106,7 @@ const BookingPageContent = () => {
             orderID: paymentData.orderID,
             orderDetail: paymentData.orderDetail
         };
-    
+
         console.log('Payload to be sent:', payload);
     };
 
@@ -120,15 +115,16 @@ const BookingPageContent = () => {
     //const { steps, currentStep, step, isFirstStep, isFinalStep, next, back } = UseMultipleStepForm([<TypeOfBookingForm setFormData={setFormData} />, <Calendar setFormData={setFormData} />, <TimeSlot setFormData={setFormData} />, <ConfirmationForm formData={formData} setFormData={setFormData} />, <CheckoutForm />]);
 
     // ======== Better passing value and handler to the childrens ============
-    const { steps, currentStep, step, isFirstStep, isFinalStep, next, back } = UseMultipleStepForm([<TypeOfBookingForm formData={formData} setFormData={setFormData} />,
-    <Calendar formData={formData} setFormData={setFormData} openRepeatDialog={handleRepeatDialogOpen}/>,
-    <TimeSlots formData={formData} setFormData={setFormData} />,
-    <ConfirmationForm formData={formData} setFormData={setFormData} />,
-    <CheckoutForm paymentData={paymentData} setPaymentData={setPaymentData}/>]);
+    const { steps, currentStep, step, isFirstStep, isFinalStep, next, back } = UseMultipleStepForm([
+        <TypeOfBookingForm formData={formData} setFormData={setFormData} />,
+        <Calendar formData={formData} setFormData={setFormData} openRepeatDialog={handleRepeatDialogOpen} />,
+        <TimeSlots formData={formData} setFormData={setFormData} />,
+        <ConfirmationForm formData={formData} setFormData={setFormData} />,
+        <CheckoutForm paymentData={paymentData} setPaymentData={setPaymentData} />]);
     // =======================================================================
 
     return (
-        <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', paddingTop: '5em', paddingBottom: '5em' }}>
+        <Box component="form" sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', paddingTop: '5em', paddingBottom: '5em' }}>
             <Box sx={{ width: '90%', textAlign: 'right', color: 'black' }}>
                 <Breadcrumbs>
                     <Link underline="hover" color="inherit" href="/">
@@ -163,9 +159,7 @@ const BookingPageContent = () => {
                                         setOpen(true);
                                     } else {
                                         next();
-                                        if (isFinalStep) {
-                                            
-                                        }
+
                                     }
                                 }}
                             >
@@ -194,7 +188,7 @@ const BookingPageContent = () => {
                         maxWidth="md"
                         sx={{ overflow: 'hidden', width: '20%', margin: '0 auto' }}
                     >
-                        <RepeatForm onRepeatSelected={handleRepeatSelected}/>
+                        <RepeatForm onRepeatSelected={handleRepeatSelected} />
                     </Dialog>
                 </Box>
             </Box>
