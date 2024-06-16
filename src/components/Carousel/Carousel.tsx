@@ -28,8 +28,12 @@ const settings = {
 const Carousel = ({ items }: CarouselProps) => {
     const navigate = useNavigate();
 
-    const handleButtonClick = (id: number) => {
+    const handleDetailButtonClick = (id: number) => {
         navigate(`/clinic/${id}`)
+    }
+
+    const handleBookingButtonClick = (id: number) => {
+        navigate(`/booking/${id}`)
     }
 
     return (
@@ -50,8 +54,8 @@ const Carousel = ({ items }: CarouselProps) => {
                             </Box>
                         </Box>
                         <Box sx={{ display: 'flex', flexDirection: 'column', gap: '1em' }}>
-                            <Button variant="outlined" onClick={() => handleButtonClick(item.id)} sx={{ borderRadius: '5px', width: '100%' }}>Xem chi tiết</Button>
-                            <Button variant="contained" href="/booking" sx={{ backgroundColor: '#00aeeb', color: '#fff', borderRadius: '5px', width: '100%' }}>Đặt lịch ngay</Button>
+                            <Button variant="outlined" onClick={() => handleDetailButtonClick(item.id)} sx={{ borderRadius: '5px', width: '100%' }}>Xem chi tiết</Button>
+                            <Button variant="contained" onClick={() => handleBookingButtonClick(item.id)}  sx={{ backgroundColor: '#00aeeb', color: '#fff', borderRadius: '5px', width: '100%' }}>Đặt lịch ngay</Button>
                         </Box>
                     </CardContent>
                 </Card>
