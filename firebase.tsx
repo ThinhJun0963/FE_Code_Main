@@ -6,12 +6,12 @@ import {getStorage, ref} from 'firebase/storage'
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyAfXzonvAnbxxnsv1MMColm4_9n-lVEQjs",
-  authDomain: "dentalclinicbooking-e8ec9.firebaseapp.com",
-  projectId: "dentalclinicbooking-e8ec9",
-  storageBucket: "dentalclinicbooking-e8ec9.appspot.com",
-  messagingSenderId: "764721719991",
-  appId: "1:764721719991:web:4ec2197b643798ee9cfb32"
+  apiKey: import.meta.env.VITE_API_KEY,
+  authDomain: import.meta.env.VITE_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_PROJECTID,
+  storageBucket: import.meta.env.VITE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_MESSAGING_SENDERID,
+  appId: import.meta.env.VITE_MESSAGING_APPID
 };
 
 // Initialize Firebase
