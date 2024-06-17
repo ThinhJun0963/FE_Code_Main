@@ -1,6 +1,5 @@
 export const connection_path = {
-  base_url: "https://localhost:7163",
-  api: "/api",
+  base_url: "https://localhost:7163/api",
   endpoints: {
     login: "/auth/login",
     logout: "/auth/logout",
@@ -19,7 +18,6 @@ export const connection_path = {
     check_available: "/booking/available",
     place_book: "/booking",
   },
-
 };
 
 export const google_auth = {
