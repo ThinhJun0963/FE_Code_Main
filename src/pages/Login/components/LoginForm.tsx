@@ -1,21 +1,28 @@
-import { Button, Box, Grid, Checkbox, Link, Divider, Typography, TextField } from '@mui/material';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import { useNavigate } from 'react-router-dom';
-import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
-import { useEffect } from 'react';
-import { connection_path } from '../../../constants/developments';
-import { GoogleCredentialResponse, GoogleLogin } from '@react-oauth/google';
-import * as React from 'react';
-import { InputAdornment, IconButton } from '@mui/material';
-import Visibility from '@mui/icons-material/Visibility';
-import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import {
+  Button,
+  Box,
+  Grid,
+  Checkbox,
+  Link,
+  Divider,
+  Typography,
+  TextField,
+} from "@mui/material";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import { useNavigate } from "react-router-dom";
+import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
+import { useEffect } from "react";
+import { connection_path } from "../../../constants/developments";
+import { GoogleCredentialResponse, GoogleLogin } from "@react-oauth/google";
+import * as React from "react";
+import { InputAdornment, IconButton } from "@mui/material";
+import Visibility from "@mui/icons-material/Visibility";
+import VisibilityOff from "@mui/icons-material/VisibilityOff";
 
-
-import { handleLogin } from '../../../utils/api/AuthenticateUtils';
+import { handleLogin } from "../../../utils/api/AuthenticateUtils";
 
 const LoginForm = () => {
-
-  const navigator = useNavigate();
+  const navigate = useNavigate();
 
   //    ===================== Nên đưa ra một thư mục khác ==========================
 
@@ -27,35 +34,41 @@ const LoginForm = () => {
 
     //    Dữ liệu sau khi điền vào form
     const payload = {
-      userName: data.get('username'),
-      password: data.get('password'),
-    }
-
+      userName: data.get("username"),
+      password: data.get("password"),
+    };
 
     //    Chuỗi kết nối tới server backend
     //!   LƯU Ý: KHÔNG THAY ĐỔI TRỰC TIẾP CHUỖI KẾT NỐI TẠI ĐÂY (Fix cứng)
     //==  Chỉ thay đổi dữ liệu của "connection_path" trong file src/constants/developments
 
-    const api_url: string = connection_path.base_url + connection_path.auth.login;
+    const api_url: string =
+      connection_path.base_url + connection_path.auth.login;
 
-    const configuration: AxiosRequestConfig = { method: "POST", url: api_url, data: payload };
+    const configuration: AxiosRequestConfig = {
+      method: "POST",
+      url: api_url,
+      data: payload,
+    };
 
     await axios(configuration)
-      .then(response => {
-        if (response.status === 200 && response.data.accessToken !== undefined) {
+      .then((response) => {
+        if (
+          response.status === 200 &&
+          response.data.accessToken !== undefined
+        ) {
           localStorage.setItem("accessToken", response.data.accessToken);
           localStorage.setItem("refreshToken", response.data.refreshToken);
           //  Thành công thì cho về trang người dùng
-          navigate('/')
-        }
-        else {
+          navigate("/");
+        } else {
           alert("Không đăng nhập thành công");
         }
       })
-      .catch(error => {
-        alert('Đăng nhập thất bại, vui lòng thử lại sau.')
+      .catch((error) => {
+        alert("Đăng nhập thất bại, vui lòng thử lại sau.");
         console.log(error);
-      })
+      });
   };
 
   // const handleLogin = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -68,8 +81,7 @@ const LoginForm = () => {
   //   const payload = {
   //     userName: data.get('username'),
   //     password: data.get('password'),
-  //   } 
-
+  //   }
 
   //   //    Chuỗi kết nối tới server backend
   //   //!   LƯU Ý: KHÔNG THAY ĐỔI TRỰC TIẾP CHUỖI KẾT NỐI TẠI ĐÂY (Fix cứng)
@@ -84,8 +96,8 @@ const LoginForm = () => {
   //       localStorage.setItem("accessToken", response.data.accessToken);
   //       localStorage.setItem("refreshToken", response.data.refreshToken);
   //       //  Thành công thì cho về trang người dùng
-  //       navigate('/') 
-  //     } 
+  //       navigate('/')
+  //     }
   //     else {
   //       alert("Không đăng nhập thành công");
   //     }
@@ -96,33 +108,38 @@ const LoginForm = () => {
   //   })
   // };
 
-
   const handleGoogleOnSuccess = async (response: GoogleCredentialResponse) => {
-    const api_url: string = connection_path.base_url + connection_path.auth.googleAuth;
-
-    const configuration: AxiosRequestConfig = { method: "POST", url: api_url, data: { googleToken: response.credential }, headers: { "Content-Type": "application/json" } };
-    const axiosResponse: AxiosResponse<{ accessToken: string, refreshToken: string, error: string, message: string }> = await axios(configuration);
-
-
-    const configuration: AxiosRequestConfig = { method: "POST", url: api_url, data: { googleToken: response.credential }, headers: { "Content-Type": "application/json" } };
-    const axiosResponse: AxiosResponse<{ accessToken: string, refreshToken: string, error: string, message: string }> = await axios(configuration);
+    const api_url: string =
+      connection_path.base_url + connection_path.auth.googleAuth;
+    const configuration: AxiosRequestConfig = {
+      method: "POST",
+      url: api_url,
+      data: { googleToken: response.credential },
+      headers: { "Content-Type": "application/json" },
+    };
+    const axiosResponse: AxiosResponse<{
+      accessToken: string;
+      refreshToken: string;
+      error: string;
+      message: string;
+    }> = await axios(configuration);
 
     console.log(axiosResponse);
 
     if (axiosResponse.data.accessToken !== undefined) {
       localStorage.setItem("accessToken", axiosResponse.data.accessToken);
       localStorage.setItem("refreshToken", axiosResponse.data.refreshToken);
-      navigator('/user/profile');
+      navigate("/user/profile");
     }
-
-  }
-  const handleGoogleOnFailure = () => { console.log("Error") }
+  };
+  const handleGoogleOnFailure = () => {
+    console.log("Error");
+  };
 
   //#   Kiểm tra xem người dùng đã login hay chưa (nên có ở các trang / component yêu cầu phải login)
   useEffect(() => {
     const usertoken = localStorage.getItem("accessToken");
     if (usertoken != null) {
-
       //!   Chưa update server nên hiện tại chưa hỗ trợ kiểm tra login bên phía Backend.
 
       // Prepare for API fetching
@@ -134,31 +151,31 @@ const LoginForm = () => {
       //#   Nếu đã login rồi thì không phải login lại nữa mà về trang chủ.
       //if (response.data.result === 'valid') {
 
-      navigate('/user/profile');
+      navigate("/user/profile");
       //}
     }
-  }
-  );
+  });
 
   //add eye icon into the password field
   const [showPassword, setShowPassword] = React.useState(false);
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
-  const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
+  const handleMouseDownPassword = (
+    event: React.MouseEvent<HTMLButtonElement>
+  ) => {
     event.preventDefault();
   };
 
-      navigator('/user/profile');
-      //}
-    }
-  }
-  );
-
+  navigate("/user/profile");
 
   return (
-    <Box component="form" onSubmit={event => handleLogin(event, navigator)} noValidate >
-      <Typography component="h1" variant="h5" sx={{ textAlign: 'center' }}>
+    <Box
+      component="form"
+      onSubmit={(event) => handleLogin(event, navigate)}
+      noValidate
+    >
+      <Typography component="h1" variant="h5" sx={{ textAlign: "center" }}>
         Đăng nhập
       </Typography>
       <Box sx={{ width: "45%", margin: "0 auto", padding: "50px" }}>
@@ -170,7 +187,6 @@ const LoginForm = () => {
               id="username"
               label="Tên tài khoản"
               name="username"
-              
             />
           </Grid>
           <Grid item lg={12}>
@@ -181,7 +197,7 @@ const LoginForm = () => {
               label="Mật khẩu"
               type={showPassword ? "text" : "password"}
               id="password"
-              autoComplete='off'
+              autoComplete="off"
               InputProps={{
                 endAdornment: (
                   <InputAdornment position="end">
@@ -228,7 +244,10 @@ const LoginForm = () => {
             </Button>
           </Grid>
           <Grid item lg={12}>
-            <GoogleLogin onSuccess={handleGoogleOnSuccess} onError={handleGoogleOnFailure} />
+            <GoogleLogin
+              onSuccess={handleGoogleOnSuccess}
+              onError={handleGoogleOnFailure}
+            />
           </Grid>
           <Grid item lg={12}>
             <Divider sx={{ backgroundColor: "black" }} />
