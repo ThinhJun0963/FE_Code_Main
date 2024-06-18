@@ -1,15 +1,16 @@
 import React, { useState } from 'react';
-import clinicServices from './data';
+import { clinicServices } from '../../../../utils/mockData';
 import { Box, Button, Typography, Grid } from '@mui/material';
+import { clinicService } from '../../../../utils/interfaces/interfaces';
 
 interface ServicesFormProps {
-    onServiceSelected: (service: string) => void;
+    onServiceSelected: (service: clinicService) => void;
 }
 
 const ServicesForm: React.FC<ServicesFormProps> = ({ onServiceSelected }) => {
-    const [selectedService, setSelectedService] = useState<string | null>(null);
+    const [selectedService, setSelectedService] = useState<clinicService>();
 
-    const handleServiceClick = (service: string) => {
+    const handleServiceClick = (service: clinicService) => {
         setSelectedService(service);
         onServiceSelected(service);
     }
@@ -25,7 +26,7 @@ const ServicesForm: React.FC<ServicesFormProps> = ({ onServiceSelected }) => {
                             onClick={() => handleServiceClick(service)}
                             sx={{ whiteSpace: 'nowrap', width: '250px' }}
                         >
-                            {service}
+                            {service.serviceName}
                         </Button>
                     </Grid>
                 ))}

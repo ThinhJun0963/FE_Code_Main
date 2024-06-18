@@ -19,7 +19,9 @@ export const connection_path = {
         available_date: '/booking/availabe-date',
         available_slot: '/booking/availabe-slot',
         check_available: '/booking/available',
-        place_book: '/booking'
+        place_book: '/booking/general-book',
+        get_booking: '/booking/schedule/staff',
+        get_cus_booking: '/booking/schedule/customer'
     }
 }
 

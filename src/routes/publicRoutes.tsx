@@ -14,6 +14,7 @@ import ClinicDetail from '../pages/ClinicDetail/ClinicDetail';
 import ClinicList from '../pages/ClinicList/ClinicList';
 import Chat from '../pages/ChatV1/Chat';
 import ErrorPage from '../pages/ErrorPage/ErrorPage';
+import SuccessPage from '../pages/SuccessPage/SuccessPage';
 
 
 export const publicRoutes = [
@@ -25,6 +26,7 @@ export const publicRoutes = [
     { path: "/login", element: < LoginMUI /> },
     { path: "/signup", element: <SignUpMUI /> },
     { path: "/error404", element: <ErrorPage /> },
+    {path: "/success", element: <SuccessPage />},
     { path: "/chat", element: <Chat /> },
     //{ path: "/login-google", element: <GoogleLogin />,
     { path: "/user/payment", element: <UserPayment /> },

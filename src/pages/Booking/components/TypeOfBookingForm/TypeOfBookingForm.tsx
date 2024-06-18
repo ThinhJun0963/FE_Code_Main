@@ -2,11 +2,15 @@ import { SetStateAction, useState } from 'react';
 import { Box, Button, Typography } from '@mui/material';
 import typeOfBooking from './data';
 import { TimeSlot } from '../TimeSlots/data';
+import { BookingInformation, SetBookingInformation } from '../../../../utils/interfaces/interfaces';
 
 // Changing how booking information is stored
 interface TypeOfBookingFormProps {
-    formData: { clinic: string, typeOfBooking: string; dentist: string; date: string; is_repeated: number; time: TimeSlot, service: string },
-    setFormData: (value: SetStateAction<{ clinic: string, typeOfBooking: string; dentist: string; date: string; is_repeated: number; time: TimeSlot; service: string }>) => void
+    // formData: { clinic: string, typeOfBooking: string; dentist: string; date: string; is_repeated: number; time: TimeSlot, service: string },
+    // setFormData: (value: SetStateAction<{ clinic: string, typeOfBooking: string; dentist: string; date: string; is_repeated: number; time: TimeSlot; service: string }>) => void
+    formData: BookingInformation,
+    setFormData: SetBookingInformation
+
 }
 
 const TypeOfBookingForm = ({ formData, setFormData }: TypeOfBookingFormProps) => {

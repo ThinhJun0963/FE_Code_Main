@@ -8,39 +8,23 @@ import CheckoutForm from './CheckoutForm/CheckoutForm';
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import BookingStepper from './Stepper/Stepper';
 import ServicesForm from '../components/ServicesForm/ServicesForm';
-import { TimeSlot } from './TimeSlots/data';
 import RepeatForm from './RepeatForm/RepeatForm';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
+import { BookingInformation, SetBookingInformation, PaymentInformation, BookingRegistrationModel, clinicService } from '../../../utils/interfaces/interfaces';
+import { handleBookingRegister } from '../../../utils/api/BookingRegister';
 
-interface BookingInformation {
-    clinic: string,
-    typeOfBooking: string,
-    date: string,
-    dentist: string,
-    is_repeated: number,
-    time: TimeSlot,
-    // service: '',
-    service: string,
-}
-
-interface PaymentInformation {
-    paymentMethod: string,
-    amount: string,
-    orderID: string,
-    orderDetail: string,
-}
 
 const BookingPageContent = () => {
 
     const { clinicId } = useParams<{ clinicId: string }>();
+    const navigator = useNavigate();
 
-    console.log('clinicId:', clinicId);
     // ================= Booking information =============================
-    const [formData, setFormData]: [BookingInformation, Dispatch<SetStateAction<BookingInformation>>] = useState({
+    const [formData, setFormData]: [BookingInformation, SetBookingInformation] = useState({
         clinic: clinicId || '',
         typeOfBooking: '',
         date: '',
-        dentist: '',
+        dentist: '2',
         //--------------------------
         is_repeated: 0,
         //--------------------------
@@ -82,33 +66,35 @@ const BookingPageContent = () => {
         setServiceDialogOpen(false);
     };
 
-    const handleServiceSelected = (service: string) => {
-        setFormData(prevState => ({ ...prevState, typeOfBooking: service }));
+    const handleServiceSelected = (service: clinicService) => {
+        setFormData(prevState => ({ ...prevState, typeOfBooking: service.serviceName }));
         handleServiceDialogClose();
         next();
     }
 
-    useEffect(() => {
-        if (formData.typeOfBooking === 'Khám theo dịch vụ') {
-            setServiceDialogOpen(true);
-        }
+    // useEffect(() => {
+    //     if (formData.typeOfBooking === 'Khám theo dịch vụ') {
+    //         setServiceDialogOpen(true);
+    //     }
 
-    }, [formData.typeOfBooking]);
+    // }, [formData.typeOfBooking]);
 
-    const handleSubmit = () => {
-        // Handle submission logic here
-        console.log(formData); // Contains booking information
-        console.log(paymentData); // Contains payment information
-        const payload = {
-            ...formData,
-            paymentMethod: paymentData.paymentMethod,
-            amount: paymentData.amount,
-            orderID: paymentData.orderID,
-            orderDetail: paymentData.orderDetail
-        };
 
-        console.log('Payload to be sent:', payload);
+    console.log('formDataDate:', formData.date);
+    console.log('formDataClinic', formData.clinic);
+    console.log('formDataRepeatCount', formData.is_repeated);
+
+    const payload: BookingRegistrationModel = {
+        TimeSlotId: "feb80d31-e4b5-4ec0-9733-799976b318d0",
+        AppointmentDate: formData.date,
+        CustomerId: 1,
+        DentistId: 2,
+        ClinicId: parseInt(formData.clinic),
+        ServiceId: null,
+        RepeatCount: formData.is_repeated ? 1 : 0, // Convert boolean to 0/1
+        IsRecurring: true
     };
+
 
 
     // Old Code
@@ -123,8 +109,12 @@ const BookingPageContent = () => {
         <CheckoutForm paymentData={paymentData} setPaymentData={setPaymentData} />]);
     // =======================================================================
 
+    if (isFinalStep) {
+        console.log('Payload to be sent:', payload);
+    }
+
     return (
-        <Box component="form" sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', paddingTop: '5em', paddingBottom: '5em' }}>
+        <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', paddingTop: '5em', paddingBottom: '5em' }}>
             <Box sx={{ width: '90%', textAlign: 'right', color: 'black' }}>
                 <Breadcrumbs>
                     <Link underline="hover" color="inherit" href="/">
@@ -136,6 +126,7 @@ const BookingPageContent = () => {
             <Divider sx={{ backgroundColor: 'black', width: '90%', margin: '1em auto' }} />
             <Box sx={{ marginTop: '50px' }}>
                 <BookingStepper activeStep={currentStep} />
+                {/* <Box component="form" sx={{ position: 'relative', height: 'auto', width: '900px', padding: '30px', fontFamily: 'Arial, Helvetica, sans-serif', color: 'black', backgroundColor: '#ffffff', margin: '40px auto 40px auto', borderRadius: '20px', border: '2px solid #e0e0e0' }}> */}
                 <Box sx={{ position: 'relative', height: 'auto', width: '900px', padding: '30px', fontFamily: 'Arial, Helvetica, sans-serif', color: 'black', backgroundColor: '#ffffff', margin: '40px auto 40px auto', borderRadius: '20px', border: '2px solid #e0e0e0' }}>
                     <Box sx={{ width: '100%', height: '100%', margin: '0 auto', padding: '50px' }}>
                         {step}
@@ -166,7 +157,7 @@ const BookingPageContent = () => {
                                 Bước tiếp
                             </Button>
                         }
-                        {isFinalStep && <Button variant="contained" color="primary" type="submit" onClick={handleSubmit}>Xác nhận</Button>}
+                        {isFinalStep && <Button variant="contained" color="primary" type="submit" onClick={() => handleBookingRegister(payload, navigator)}>Xác nhận</Button>}
                     </Box>
                     <Dialog open={open} onClose={handleClose}>
                         <DialogTitle>{alertMessage}</DialogTitle>
