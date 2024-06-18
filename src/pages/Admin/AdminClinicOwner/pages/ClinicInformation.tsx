@@ -1,6 +1,5 @@
 import * as React from "react";
-import { styled, createTheme, ThemeProvider } from "@mui/material/styles";
-import CssBaseline from "@mui/material/CssBaseline";
+import { styled } from "@mui/material/styles";
 import MuiDrawer from "@mui/material/Drawer";
 import Box from "@mui/material/Box";
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from "@mui/material/AppBar";
@@ -12,8 +11,7 @@ import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import { mainListItems } from "../components/listItems";
-import { Grid, Paper, Stack } from "@mui/material";
-
+import { Grid, Paper } from "@mui/material";
 
 const drawerWidth: number = 240;
 
@@ -65,7 +63,6 @@ const Drawer = styled(MuiDrawer, {
   },
 }));
 
-
 export default function ClinicInformation() {
   const [open, setOpen] = React.useState(true);
   const toggleDrawer = () => {
@@ -73,11 +70,11 @@ export default function ClinicInformation() {
   };
 
   return (
-    <Box sx={{ display: 'flex' }}>
+    <Box sx={{ display: "flex" }}>
       <AppBar position="absolute" open={open}>
         <Toolbar
           sx={{
-            pr: '24px', // keep right padding when drawer closed
+            pr: "24px", // keep right padding when drawer closed
           }}
         >
           <IconButton
@@ -86,8 +83,8 @@ export default function ClinicInformation() {
             aria-label="open drawer"
             onClick={toggleDrawer}
             sx={{
-              marginRight: '36px',
-              ...(open && { display: 'none' }),
+              marginRight: "36px",
+              ...(open && { display: "none" }),
             }}
           >
             <MenuIcon />
@@ -106,9 +103,9 @@ export default function ClinicInformation() {
       <Drawer variant="permanent" open={open}>
         <Toolbar
           sx={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'flex-end',
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "flex-end",
             px: [1],
           }}
         >
@@ -117,47 +114,43 @@ export default function ClinicInformation() {
           </IconButton>
         </Toolbar>
         <Divider />
-        <List>
-          {mainListItems}
-        </List>
+        <List>{mainListItems}</List>
       </Drawer>
       <Box
         sx={{
           backgroundColor: (theme) =>
-            theme.palette.mode === 'light'
+            theme.palette.mode === "light"
               ? theme.palette.grey[100]
               : theme.palette.grey[900],
           flexGrow: 1,
-          height: '100vh',
+          height: "100vh",
           marginTop: 8,
         }}
       >
-        <Box sx={{ height: '100%', backgroundColor: '#ffffff' }}>
+        <Box sx={{ height: "100%", backgroundColor: "#ffffff" }}>
           <Grid container spacing={2}>
             <Grid item lg={12}>
               <Paper
                 sx={{
                   p: 2,
-                  display: 'flex',
-                  flexDirection: 'column',
+                  display: "flex",
+                  flexDirection: "column",
                   gap: 2,
-                  margin: '20px auto 0 auto',
-                  width: '95%',
+                  margin: "20px auto 0 auto",
+                  width: "95%",
                   boxShadow: 3,
-                  border: '1px solid #ddd',
-                  backgroundColor: '#ffffff',
+                  border: "1px solid #ddd",
+                  backgroundColor: "#ffffff",
                   borderRadius: 2,
-                  alignItems: 'flex-start'
+                  alignItems: "flex-start",
                 }}
               >
                 <Typography variant="h6" component="h4">
                   Thông tin phòng khám
                 </Typography>
-                
               </Paper>
             </Grid>
           </Grid>
-
         </Box>
       </Box>
     </Box>

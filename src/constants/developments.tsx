@@ -1,17 +1,23 @@
-import ClinicRegister from "../pages/ClinicRegister/ClinicRegister"
-
 export const connection_path = {
-    base_url: "https://localhost:7163",
-    api: "/api",
+    base_url: "https://localhost:7163/api",
     endpoints: {
+
+    },
+
+    auth: {
         login: "/auth/login",
         logout: "/auth/logout",
-        user: "/user/info",
-        clinic: "/clinic/",
         checkAuth: "/auth/validate",
-        googeAuth: "/auth/google",
+        googleAuth: "/auth/google",
+    },
+
+    user: {
+        user: "/user/info",
         register: "/user/register",
-        getAllServices: "/service/get-all",
+    },
+
+    clinic: {
+        clinic: "/clinic/",
         clinicRegister: "/clinic/register",
     },
 
@@ -22,9 +28,25 @@ export const connection_path = {
         place_book: '/booking/general-book',
         get_booking: '/booking/schedule/staff',
         get_cus_booking: '/booking/schedule/customer'
-    }
+    },
+    service: {
+        getAllServices: "/service/get-all",
+    },
+
+    admin_clinic_owner: {
+        homepage: "/admin/clinic-owner",
+        clinic: "/admin/clinic-owner/clinic",
+        dentist: "/admin/clinic-owner/dentist",
+        appointment: "/admin/clinic-owner/appointment",
+      },
+    
+      dentist: {
+        schedule: "/dentist/dentist-schedule",
+        patient_list: "/dentist/patient-list",
+        chat: "/dentist/chat",
+      },
 }
 
 export const google_auth = {
-    client_id:"843209512674-7rck108lbhqbplg9hnc8f6u4s1fbmudu.apps.googleusercontent.com"
+    client_id: "843209512674-7rck108lbhqbplg9hnc8f6u4s1fbmudu.apps.googleusercontent.com"
 }
