@@ -5,6 +5,13 @@ import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 import { useEffect } from 'react';
 import { connection_path } from '../../../constants/developments';
 import { GoogleCredentialResponse, GoogleLogin } from '@react-oauth/google';
+
+import * as React from 'react';
+import { InputAdornment, IconButton } from '@mui/material';
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
+
+
 import { handleLogin } from '../../../utils/api/AuthenticateUtils';
 
 const LoginForm = () => {
@@ -12,6 +19,45 @@ const LoginForm = () => {
   const navigator = useNavigate();
 
   //    ===================== Nên đưa ra một thư mục khác ==========================
+
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    //    Dữ liệu về form
+    const data = new FormData(event.currentTarget);
+
+    //    Dữ liệu sau khi điền vào form
+    const payload = {
+      userName: data.get('username'),
+      password: data.get('password'),
+    }
+
+
+    //    Chuỗi kết nối tới server backend
+    //!   LƯU Ý: KHÔNG THAY ĐỔI TRỰC TIẾP CHUỖI KẾT NỐI TẠI ĐÂY (Fix cứng)
+    //==  Chỉ thay đổi dữ liệu của "connection_path" trong file src/constants/developments
+    const api_url: string = connection_path.base_url + connection_path.auth.login;
+
+    const configuration: AxiosRequestConfig = { method: "POST", url: api_url, data: payload };
+
+    await axios(configuration)
+      .then(response => {
+        if (response.status === 200 && response.data.accessToken !== undefined) {
+          localStorage.setItem("accessToken", response.data.accessToken);
+          localStorage.setItem("refreshToken", response.data.refreshToken);
+          //  Thành công thì cho về trang người dùng
+          navigate('/')
+        }
+        else {
+          alert("Không đăng nhập thành công");
+        }
+      })
+      .catch(error => {
+        alert('Đăng nhập thất bại, vui lòng thử lại sau.')
+        console.log(error);
+      })
+  };
+
   // const handleLogin = async (event: React.FormEvent<HTMLFormElement>) => {
   //   event.preventDefault();
 
@@ -50,11 +96,17 @@ const LoginForm = () => {
   //   })
   // };
 
+
   const handleGoogleOnSuccess = async (response: GoogleCredentialResponse) => {
-    const api_url: string = connection_path.base_url + connection_path.api + connection_path.endpoints.googeAuth;
+    const api_url: string = connection_path.base_url + connection_path.auth.googleAuth;
 
     const configuration: AxiosRequestConfig = { method: "POST", url: api_url, data: { googleToken: response.credential }, headers: { "Content-Type": "application/json" } };
     const axiosResponse: AxiosResponse<{ accessToken: string, refreshToken: string, error: string, message: string }> = await axios(configuration);
+
+
+    const configuration: AxiosRequestConfig = { method: "POST", url: api_url, data: { googleToken: response.credential }, headers: { "Content-Type": "application/json" } };
+    const axiosResponse: AxiosResponse<{ accessToken: string, refreshToken: string, error: string, message: string }> = await axios(configuration);
+
 
     console.log(axiosResponse);
 
@@ -82,11 +134,28 @@ const LoginForm = () => {
 
       //#   Nếu đã login rồi thì không phải login lại nữa mà về trang chủ.
       //if (response.data.result === 'valid') {
+
+      navigate('/user/profile');
+      //}
+    }
+  }
+  );
+
+  //add eye icon into the password field
+  const [showPassword, setShowPassword] = React.useState(false);
+
+  const handleClickShowPassword = () => setShowPassword((show) => !show);
+
+  const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+  };
+
       navigator('/user/profile');
       //}
     }
   }
   );
+
 
   return (
     <Box component="form" onSubmit={event => handleLogin(event, navigator)} noValidate >
@@ -102,20 +171,31 @@ const LoginForm = () => {
               id="username"
               label="Tên tài khoản"
               name="username"
-              InputLabelProps={{
-                shrink: true,
-              }}
+              
             />
           </Grid>
           <Grid item lg={12}>
             <TextField
               required
               fullWidth
-              id="password"
-              label="Mật khẩu"
               name="password"
-              InputLabelProps={{
-                shrink: true,
+              label="Mật khẩu"
+              type={showPassword ? "text" : "password"}
+              id="password"
+              autoComplete='off'
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <IconButton
+                      aria-label="toggle password visibility"
+                      onClick={handleClickShowPassword}
+                      onMouseDown={handleMouseDownPassword}
+                      edge="end"
+                    >
+                      {showPassword ? <VisibilityOff /> : <Visibility />}
+                    </IconButton>
+                  </InputAdornment>
+                ),
               }}
             />
           </Grid>
