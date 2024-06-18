@@ -11,7 +11,9 @@ export interface clinicService {
     // description: string;
 }
 
-interface Clinic {
+
+
+export interface Clinic {
     clinic_id: number;
     logo: string;
     images: string[];
@@ -25,19 +27,25 @@ interface Clinic {
     description: string;
     services: clinicService[];
 }
-
-interface TimeSlot {
-    id: string,
-    start: string,
-    end: string,
-}
-
 //-------------------------------
 
 
 //-------------------------------
 //Trang Booking
-interface BookingInformation {
+export interface BookingRegistrationModel {
+    TimeSlotId: string,
+    AppointmentDate: string,
+    CustomerId: number,
+    DentistId: number,
+    ClinicId: number,
+    ServiceId: string | null,
+    RepeatCount: number,
+    IsRecurring: boolean,
+    // PaymentInformation: PaymentInformation
+}
+
+
+export interface BookingInformation {
     clinic: string,
     typeOfBooking: string,
     date: string,
@@ -50,14 +58,68 @@ interface BookingInformation {
     service: string,
 }
 
-interface PaymentInformation {
+export interface BookingInformationToSend {
+    TimeSlotId: string,
+    AppointmentDate: string,
+    CustomerId: number,
+    DentistId: number,
+    ClinicId: number,
+    ServiceId: string | null,
+    RepeatCount: number,
+    IsRecurring: boolean,
+}
+
+interface BookingInformationToDisplay {
+    StartTime: string, // Thời gian bắt đầu
+    EndTime: string,// Thời gian kết thúc
+    //Hai cái dưới chắc đi chung với nhau
+    //---------------------
+    AppointmentDate: string,// Ngày đặt
+    DateOfWeek: number, // Thứ trong tuần
+    //---------------------
+    ClinicName: string,// Tên phòng khám
+    //-------------------
+    CustomerName: string,// Thông tin cá nhân của khách hàng
+    CustomerPhone: string,
+    CustomerEmail: string,
+    //-------------------
+}
+
+export interface SetBookingInformation {
+    (value: SetStateAction<BookingInformation>): void;
+}
+
+export interface TimeSlot {
+    id: string,
+    start: string,
+    end: string,
+}
+
+interface ScheduledSlotsToDisplay {
+    Date: string, // Để hiện bên trang lịch nếu đã đặt hay full
+    StartTime: string, // Thời gian bắt đầu
+    EndTime: string, // Thời gian kết thúc
+    ClinicId: number, // Để biết của phòng khám nào
+    IsFull: boolean, // Để biết đầy hay không
+}
+
+interface ScheduledSlotsToSend {
+    Date: string, // Ngày trả về backend
+    ClinicId: number, // Clinic ID trả về backend
+    DateOfWeek: number, // Ngày trong tuần trả về backend
+    SlotId: string, // Slot ID trong bảng slot trả về backend
+}
+
+
+
+export interface PaymentInformation {
     paymentMethod: string,
     amount: string,
     orderID: string,
     orderDetail: string,
 }
 
-interface CheckoutFormProps {
+export interface CheckoutFormProps {
     paymentData: {
         paymentMethod: string,
         amount: string,

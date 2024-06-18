@@ -4,13 +4,6 @@ export const connection_path = {
 
     },
 
-    booking: {
-        available_date: '/booking/available-date',
-        available_slot: '/booking/available-slot',
-        check_available: '/booking/available',
-        place_book: '/booking'
-    },
-
     auth: {
         login: "/auth/login",
         logout: "/auth/logout",
@@ -28,6 +21,14 @@ export const connection_path = {
         clinicRegister: "/clinic/register",
     },
 
+    booking: {
+        available_date: '/booking/availabe-date',
+        available_slot: '/booking/availabe-slot',
+        check_available: '/booking/available',
+        place_book: '/booking/general-book',
+        get_booking: '/booking/schedule/staff',
+        get_cus_booking: '/booking/schedule/customer'
+    },
     service: {
         getAllServices: "/service/get-all",
     },
@@ -44,8 +45,6 @@ export const connection_path = {
         patient_list: "/dentist/patient-list",
         chat: "/dentist/chat",
       },
-
-    
 }
 
 export const google_auth = {

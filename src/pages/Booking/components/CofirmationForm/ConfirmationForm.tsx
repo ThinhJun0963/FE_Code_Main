@@ -1,39 +1,28 @@
 import { Box, Button, Grid, TextField, Typography } from '@mui/material'
 import React, { SetStateAction, useState } from 'react'
 import { TimeSlot } from '../TimeSlots/data';
+import { BookingInformation, SetBookingInformation } from '../../../../utils/interfaces/interfaces';
 
-interface FormData {
-    clinic: string,
-    typeOfBooking: string,
-    date: string,
-    dentist: string,
-    //----------------------------------
-    is_repeated: number,
-    //----------------------------------
-    time: TimeSlot,
-    service: string,
-  }
-  
-  interface ConfirmationFormProps {
-    formData: FormData;
-    setFormData: (value: SetStateAction<FormData>) => void;  
-  }
-  
+interface ConfirmationFormProps {
+    formData: BookingInformation;
+    setFormData: SetBookingInformation;
+}
+
 const ConfirmationForm = ({ formData, setFormData }: ConfirmationFormProps) => {
     const [isClicked, setIsClicked] = useState(false)
-  
+
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setFormData({
             ...formData,
             [event.target.name]: event.target.value
         });
     };
-  
+
     return (
         <Box component='form' sx={{ marginLeft: '10px', marginRight: '10px', padding: '10px' }}>
             <Typography variant='h4' sx={{ marginBottom: '20px' }}>Xác nhận thông tin</Typography>
             <Grid container spacing={5}>
-  
+
                 <Grid item lg={12}>
                     <TextField
                         fullWidth

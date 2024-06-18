@@ -5,6 +5,15 @@ import {getStorage, ref} from 'firebase/storage'
 // https://firebase.google.com/docs/web/setup#available-libraries
 
 // Your web app's Firebase configuration
+// const firebaseConfig = {
+//   apiKey: "[API Key here]",
+//   authDomain: "[Auth domain here]",
+//   projectId: "[Project ID here]",
+//   storageBucket: "[Bucket ID here]",
+//   messagingSenderId: "[Sender ID here]",
+//   appId: "[Your App ID here]"
+// };
+
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_API_KEY,
   authDomain: import.meta.env.VITE_AUTH_DOMAIN,

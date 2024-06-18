@@ -52,30 +52,41 @@ export const handleLogin = async (event: React.FormEvent<HTMLFormElement>, navig
 
 export const handleLogout = async (setAuth: React.Dispatch<React.SetStateAction<boolean>>, navigate: (path: string) => void) => {
     const api_url: string = connection_path.base_url + connection_path.api + connection_path.endpoints.logout;
+    const accessToken = localStorage.getItem('accessToken');
+    var refreshToken = localStorage.getItem('refreshToken');
 
-    console.log(api_url);
+    if (!accessToken) {
+        console.error('Access token not found in localStorage');
+        return;
+    }
+
     const configuration: AxiosRequestConfig = {
         method: 'POST',
         url: api_url,
+        headers: {
+            'Authorization': `Bearer ${accessToken}`
+        }
     };
 
     try {
         const response = await axios(configuration);
+        console.log("Response:", response);
+        
         if (response.status === 200) {
+            console.log("Logout successful");
             // Handle successful logout (e.g., clear tokens, redirect to login page)
             localStorage.removeItem('accessToken');
             localStorage.removeItem('refreshToken');
             setAuth(false); // Update the auth state to false
 
-            // ============ Redirect user to homepage after log out =====================
+            // Redirect user to homepage after logout
             navigate("/");
-            // ==========================================================================
-
         } else {
+            console.error('Logout failed with status:', response.status);
             alert('Logout failed');
         }
     } catch (error) {
+        console.error('Logout error:', error);
         alert('Logout failed, please try again later.');
-        console.error(error);
     }
 };

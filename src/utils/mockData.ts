@@ -1,22 +1,4 @@
-export interface Clinic {
-    clinic_id: number;
-    logo: string;
-    images: string[];
-    imageToShow: string;
-    name: string;
-    address: string;
-    phone: string;
-    email: string;
-    open_hour: string;
-    close_hour: string;
-    description: string;
-    services: clinicService[];
-}
-
-interface clinicService {
-    serviceId: string;
-    serviceName: string;
-}
+import { TimeSlot, Clinic, clinicService } from './interfaces/interfaces';
 
 
 export const clinicServices: clinicService[] = [
@@ -29,6 +11,42 @@ export const clinicServices: clinicService[] = [
     { serviceId: '7', serviceName: "Phẫu thuật chỉnh nha" },
     { serviceId: '8', serviceName: "Bọc răng toàn sứ cao cấp" },
 ];
+
+
+// const serviceNames = [
+//     "Răng sứ thẩm mỹ",
+//     "Cấy ghép Implant",
+//     "Niềng răng trong suốt",
+//     "Tẩy trắng răng bằng laser",
+//     "Điều trị nha chu chuyên sâu",
+//     "Phẫu thuật nha chu",
+//     "Phẫu thuật chỉnh nha",
+//     "Bọc răng toàn sứ cao cấp",
+//     "Điều trị răng ố vàng",
+//     "Điều trị viêm lợi",
+//     "Điều trị viêm nha chu",
+//     "Điều trị sâu răng",
+//     "Điều trị răng khôn mọc lệch",
+//     "Điều trị chảy máu lợi",
+//     "Điều trị hôi miệng",
+//     "Điều trị răng mục",
+//     "Điều trị răng cắn không đều",
+//     "Điều trị răng mọc sai lệch",
+//     "Điều trị răng bị gãy",
+//     "Điều trị răng bị mất",
+// ];
+
+
+export const mockTimeSlots: Array<TimeSlot> = [
+    { id: '1', start: '6:30', end: '7:00' },
+    { id: '2', start: '7:00', end: '7:30' },
+    { id: '3', start: '7:30', end: '8:00' },
+    { id: '4', start: '8:00', end: '8:00' },
+    { id: '8', start: '11:30', end: '12:00' },
+    { id: '12', start: '12:30', end: '13:00' },
+    { id: '19', start: '13:00', end: '13:30' },
+]
+//===
 
 const clinicData: Clinic[] = [
     {

@@ -7,13 +7,15 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircle } from '@fortawesome/free-solid-svg-icons';
 import { Accordion, Box, Typography } from '@mui/material';
 import './Calendar.css';
-import { connection_path } from '../../../../constants/developments';
-import axios from 'axios';
 import { TimeSlot } from '../TimeSlots/data';
+import { BookingInformation, SetBookingInformation } from '../../../../utils/interfaces/interfaces';
 
 interface CalendarFormProps {
-  formData: { clinic: string, typeOfBooking: string; date: string; time: TimeSlot; is_repeated: number; dentist: string, service: string },
-  setFormData: (value: SetStateAction<{ clinic: string, typeOfBooking: string; date: string; time: TimeSlot; is_repeated: number; dentist: string, service: string }>) => void
+  // formData: { clinic: string, typeOfBooking: string; date: string; time: TimeSlot; is_repeated: number; dentist: string, service: string },
+  // setFormData: (value: SetStateAction<{ clinic: string, typeOfBooking: string; date: string; time: TimeSlot; is_repeated: number; dentist: string, service: string }>) => void
+
+  formData: BookingInformation,
+  setFormData: SetBookingInformation,
   openRepeatDialog: () => void;
 }
 
@@ -51,7 +53,7 @@ export default function BasicDateCalendar({ formData, setFormData, openRepeatDia
     console.log('new date: ', event.dateStr);
 
     let is_available = true;
-    //useEffect fetch data 
+    //useEffect fetch data
     events.forEach((value,) => { if (value.start == event.dateStr) { is_available = false } });
 
     // Actual Form data setting.
@@ -103,7 +105,7 @@ export default function BasicDateCalendar({ formData, setFormData, openRepeatDia
   //   .then(response => {
   //     response.data.map((days, index) => {
   //       events.push({allDay: true, start: days.date, end: days.date, backgroundColor: "#EA1700", display: "background", opacity: 0, type: "2"})
-  //     }); 
+  //     });
   //   })
   //   .catch((error) => {
   //     // Do some error catching here
@@ -153,3 +155,4 @@ export default function BasicDateCalendar({ formData, setFormData, openRepeatDia
     </Box>
   );
 }
+
