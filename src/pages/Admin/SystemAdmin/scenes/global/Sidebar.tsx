@@ -42,6 +42,7 @@ const Item: React.FC<ItemProps> = ({ title, to, icon }) => {
 
 interface SidebarProps {
   isSidebar: boolean;
+  setCurrentScene: React.Dispatch<React.SetStateAction<string>>;
 }
 
 const CustomSidebar: React.FC<SidebarProps> = () => {

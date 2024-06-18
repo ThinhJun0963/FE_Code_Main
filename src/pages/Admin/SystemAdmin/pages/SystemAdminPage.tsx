@@ -1,4 +1,4 @@
-import { useState, FC } from "react";
+import { useState, FC, ReactElement } from "react";
 import Topbar from "../scenes/global/Topbar";
 import Sidebar from "../scenes/global/Sidebar";
 import Dashboard from "../scenes/dashboard";
@@ -14,37 +14,45 @@ import Geography from "../scenes/geography";
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import { ColorModeContext, useMode } from "../theme";
 import Calendar from "../scenes/calendar/calendar";
-import { Route, Routes } from "react-router-dom";
+import "./SystemAdminPage.css";
+
+interface Scene {
+  [key: string]: ReactElement;
+}
 
 const App: FC = () => {
   const [theme, colorMode] = useMode();
   const [isSidebar, setIsSidebar] = useState(true);
+  const [currentScene, setCurrentScene] = useState("dashboard");
+
+  const scenes: Scene = {
+    dashboard: <Dashboard />,
+    team: <Team />,
+    contacts: <Contacts />,
+    invoices: <Invoices />,
+    form: <Form />,
+    calendar: <Calendar />,
+    FAQ: <FAQ />,
+    bar: <Bar />,
+    pie: <Pie />,
+    line: <Line />,
+    geography: <Geography />,
+  };
 
   return (
     <ColorModeContext.Provider value={colorMode}>
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <div className="app">
-          <Sidebar isSidebar={isSidebar} />
+          <Sidebar isSidebar={isSidebar} setCurrentScene={setCurrentScene} />
           <main className="content">
             <Topbar setIsSidebar={setIsSidebar} />
-            <Routes>
-              <Route path="/" element={<Dashboard />} />
-              <Route path="/team" element={<Team />} />
-              <Route path="/contacts" element={<Contacts />} />
-              <Route path="/invoices" element={<Invoices />} />
-              <Route path="/form" element={<Form />} />
-              <Route path="/bar" element={<Bar />} />
-              <Route path="/pie" element={<Pie />} />
-              <Route path="/line" element={<Line />} />
-              <Route path="/faq" element={<FAQ />} />
-              <Route path="/calendar" element={<Calendar />} />
-              <Route path="/geography" element={<Geography />} />
-            </Routes>
+            {scenes[currentScene]}
           </main>
         </div>
       </ThemeProvider>
     </ColorModeContext.Provider>
   );
 };
+
 export default App;
