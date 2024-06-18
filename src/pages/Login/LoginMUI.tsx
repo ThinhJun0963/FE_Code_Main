@@ -7,14 +7,14 @@ import { Paper } from '@mui/material';
 import LoginForm from './components/LoginForm';
 
 
-const FormPaper = styled(Paper)(({ theme }) => ({
+const FormPaper = styled(Paper) ({
     width: '70%',
     height: 'auto',
     margin: '0 auto',
     // border: '4px solid black', 
     boxShadow: '0 0 10px rgba(0,0,0,0.1)',
 
-}))
+})
 
 
 

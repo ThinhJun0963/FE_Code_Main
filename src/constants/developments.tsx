@@ -1,4 +1,3 @@
-
 export const connection_path = {
     base_url: "https://localhost:7163/api",
     endpoints: {
