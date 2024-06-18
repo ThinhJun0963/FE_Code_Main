@@ -48,7 +48,7 @@ const Carousel = ({ items }: CarouselProps) => {
                                 <Typography variant="h5" component="div" sx={{ textAlign: 'left', marginBottom: '0.5em' }}>
                                     {item.title}
                                 </Typography>
-                                <Typography variant="body1" component="div" sx={{ textAlign: 'left', maxHeight: '80px', overflow: 'hidden', textOverflow: 'ellipsis', display: '-webkit-box', '-webkit-line-clamp': 3, '-webkit-box-orient': 'vertical' }}>
+                                <Typography variant="body1" component="div" sx={{ textAlign: 'left', maxHeight: '80px', overflow: 'hidden' }}>
                                     Địa chỉ : {item.description}
                                 </Typography>
                             </Box>

@@ -1,10 +1,6 @@
 import axios, {  AxiosRequestConfig, AxiosResponse } from 'axios';
-import { connection_path } from '../../../constants/developments';
-
-interface Service {
-    serviceId: string;
-    serviceName: string;
-}
+import { connection_path } from '../../constants/developments';
+import { databaseService } from '../interfaces/interfaces';
 
 interface FormData {
     name: string;
@@ -13,11 +9,11 @@ interface FormData {
     email: string;
     openHour: string;
     closeHour: string;
-    clinicServices: Service[];
+    clinicServices: databaseService[];
     certifications: string[];
 }
 
-export const getServiceList = async (): Promise<Service[]> => {
+export const getServiceList = async (): Promise<databaseService[]> => {
     const api_url: string = connection_path.base_url + connection_path.api + connection_path.endpoints.get_all_service;
 
     const configuration: AxiosRequestConfig = { method: "GET", url: api_url };
@@ -25,7 +21,7 @@ export const getServiceList = async (): Promise<Service[]> => {
     try {
         const response = await axios(configuration);
         if (response.status === 200) {
-            const services = response.data.map((service: Service) => ({
+            const services = response.data.map((service: databaseService) => ({
                 serviceId: service.serviceId,
                 serviceName: service.serviceName
             }));

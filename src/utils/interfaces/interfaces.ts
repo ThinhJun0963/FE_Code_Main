@@ -11,7 +11,10 @@ export interface clinicService {
     // description: string;
 }
 
-
+export interface databaseService {
+    serviceId: string;
+    serviceName: string;
+}
 
 export interface Clinic {
     clinic_id: number;
@@ -140,6 +143,29 @@ export interface CheckoutFormProps {
 interface ImageListProps {
     images: string[];
 }
+//-------------------------
+
+
+//-------------------------
+//Trang clinic register
+
+interface Service {
+    serviceId: string;
+    serviceName: string;
+}
+
+interface FormData {
+    name: string;
+    address: string;
+    phone: string;
+    email: string;
+    openHour: string;
+    closeHour: string;
+    clinicServices: Service[];
+    certifications: string[];
+}
+
+
 //-------------------------
 
 //-------------------------------------------------

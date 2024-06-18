@@ -11,7 +11,7 @@ export const connection_path = {
         checkAuth: "/auth/validate",
         googeAuth: "/auth/google",
         register: "/user/register",
-        getAllServices: "/service/get-all",
+        get_all_service: "/service/get-all",
         clinicRegister: "/clinic/register",
     },
 
