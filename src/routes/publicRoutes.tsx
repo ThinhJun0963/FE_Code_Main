@@ -13,6 +13,7 @@ import SignUpMUI from '../pages/Login/SignUpMUI';
 import ClinicDetail from '../pages/ClinicDetail/ClinicDetail';
 import ClinicList from '../pages/ClinicList/ClinicList';
 import Chat from '../pages/ChatV1/Chat';
+import ErrorPage from '../pages/ErrorPage/ErrorPage';
 
 
 export const publicRoutes = [
@@ -23,8 +24,8 @@ export const publicRoutes = [
     { path: '/clinics', element: <ClinicList /> },
     { path: "/login", element: < LoginMUI /> },
     { path: "/signup", element: <SignUpMUI /> },
-
-    { path: "/chat", element: <Chat/>},
+    { path: "/error404", element: <ErrorPage /> },
+    { path: "/chat", element: <Chat /> },
     //{ path: "/login-google", element: <GoogleLogin />,
     { path: "/user/payment", element: <UserPayment /> },
     { path: "/user/profile", element: <UserProfile /> },

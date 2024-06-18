@@ -2,7 +2,7 @@ import { Route, Routes } from 'react-router-dom';
 import { publicRoutes,  } from './routes';
 import adminRoutes from './routes/adminRoutes';
 import { UserRoutes } from './routes/UserRoute';
-import { TestRoutes } from './routes/TestRoutes';
+// import { TestRoutes } from './routes/TestRoutes';
 
 function App() {
   return (
@@ -20,9 +20,9 @@ function App() {
           <Route key={`public_${index}`} path={route.path} element={route.element} />
         ))}
 
-        {TestRoutes.map((route, index) => (
+        {/* {TestRoutes.map((route, index) => (
           <Route key={`public_${index}`} path={route.path} element={route.element} />
-        ))}
+        ))} */}
       </Routes>
     </>
   )

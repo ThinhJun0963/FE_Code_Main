@@ -25,4 +25,4 @@ dist-ssr
 *.sw?
 
 # Firebase config file
-firebase.ts
+.env

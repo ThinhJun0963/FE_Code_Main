@@ -30,7 +30,7 @@ const UserAccount: React.FC = () => {
     try {
       // Let's say ... I do some backend fetching here
 
-      const url = connection_path.base_url + connection_path.api + connection_path.endpoints.user;
+      const url = connection_path.base_url + connection_path.user.user;
 
       axios.get(url, {headers: {Authorization: localStorage.getItem("accessToken")}}).then( response => {
         // And return the fetch result.
