@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Box, Typography, Stack, CircularProgress, Alert, Button, Link, Dialog, DialogContentText, DialogTitle, DialogContent, DialogActions } from '@mui/material';
 import { MdClose, MdCloudUpload } from "react-icons/md";
 import styles from './CertificationForm.module.css';
-import storage, { imageStorage } from '../../../../../firebase';
+import { storage } from '../../../../../firebase';
 import { v4 } from 'uuid';
 import { getDownloadURL, listAll, ref, uploadBytes, UploadResult } from 'firebase/storage';
 
