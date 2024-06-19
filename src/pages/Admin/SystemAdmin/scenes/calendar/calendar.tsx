@@ -1,5 +1,6 @@
-import { useState } from "react";
-import FullCalendar, { formatDate } from "@fullcalendar/react";
+import { useState, FC } from "react";
+import FullCalendar from "@fullcalendar/react";
+import { formatDate, EventClickArg, DateSelectArg } from "@fullcalendar/core";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
@@ -15,19 +16,27 @@ import {
 import Header from "../../components/Header";
 import { tokens } from "../../theme";
 
-const Calendar = () => {
+interface Event {
+  id: string;
+  title: string;
+  start: string;
+  end: string;
+  allDay: boolean;
+}
+
+const Calendar: FC = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
-  const [currentEvents, setCurrentEvents] = useState([]);
+  const [currentEvents, setCurrentEvents] = useState<Event[]>([]);
 
-  const handleDateClick = (selected) => {
+  const handleDateClick = (selected: DateSelectArg) => {
     const title = prompt("Please enter a new title for your event");
     const calendarApi = selected.view.calendar;
     calendarApi.unselect();
 
     if (title) {
       calendarApi.addEvent({
-        id: `${selected.dateStr}-${title}`,
+        id: `${selected.startStr}-${title}`,
         title,
         start: selected.startStr,
         end: selected.endStr,
@@ -36,7 +45,7 @@ const Calendar = () => {
     }
   };
 
-  const handleEventClick = (selected) => {
+  const handleEventClick = (selected: EventClickArg) => {
     if (
       window.confirm(
         `Are you sure you want to delete the event '${selected.event.title}'`
@@ -54,7 +63,7 @@ const Calendar = () => {
         {/* CALENDAR SIDEBAR */}
         <Box
           flex="1 1 20%"
-          backgroundColor={colors.primary[400]}
+          bgcolor={colors.primary[400]}
           p="15px"
           borderRadius="4px"
         >
@@ -108,7 +117,15 @@ const Calendar = () => {
             dayMaxEvents={true}
             select={handleDateClick}
             eventClick={handleEventClick}
-            eventsSet={(events) => setCurrentEvents(events)}
+            eventsSet={(events) =>
+              setCurrentEvents(
+                events.map((event) => ({
+                  ...event,
+                  start: event.start ? event.start.toISOString() : "",
+                  end: event.end ? event.end.toISOString() : "",
+                }))
+              )
+            }
             initialEvents={[
               {
                 id: "12315",

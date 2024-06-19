@@ -1,17 +1,25 @@
-import { Button, Box, Grid, Checkbox, Link, Divider, Typography, TextField } from '@mui/material';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import { useNavigate } from 'react-router-dom';
-import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
-import { useEffect } from 'react';
-import { connection_path } from '../../../constants/developments';
-import { GoogleCredentialResponse, GoogleLogin } from '@react-oauth/google';
-import * as React from 'react';
-import { InputAdornment, IconButton } from '@mui/material';
-import Visibility from '@mui/icons-material/Visibility';
-import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import {
+  Button,
+  Box,
+  Grid,
+  Checkbox,
+  Link,
+  Divider,
+  Typography,
+  TextField,
+} from "@mui/material";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import { useNavigate } from "react-router-dom";
+import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
+import { useEffect } from "react";
+import { connection_path } from "../../../constants/developments";
+import { GoogleCredentialResponse, GoogleLogin } from "@react-oauth/google";
+import * as React from "react";
+import { InputAdornment, IconButton } from "@mui/material";
+import Visibility from "@mui/icons-material/Visibility";
+import VisibilityOff from "@mui/icons-material/VisibilityOff";
 
-
-import { handleLogin } from '../../../utils/api/AuthenticateUtils';
+import { handleLogin } from "../../../utils/api/AuthenticateUtils";
 
 const LoginForm = () => {
   const navigate = useNavigate();
