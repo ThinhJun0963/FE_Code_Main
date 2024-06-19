@@ -5,10 +5,11 @@ import interactionPlugin, { DateClickArg } from '@fullcalendar/interaction';
 import viLocale from '@fullcalendar/core/locales/vi';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircle } from '@fortawesome/free-solid-svg-icons';
-import { Accordion, Box, Typography } from '@mui/material';
-import './Calendar.css';
-import { TimeSlot } from '../TimeSlots/data';
-import { BookingInformation, SetBookingInformation } from '../../../../utils/interfaces/interfaces';
+import { Accordion, Box, Checkbox, Dialog, DialogContent, FormControlLabel, Typography } from '@mui/material';
+import styles from './Calendar.module.css';
+import './Calendar.css'
+import TimeSlots from '../TimeSlots/TimeSlots';
+import { BookingInformation, SetBookingInformation, TimeSlot } from '../../../../utils/interfaces/interfaces';
 
 interface CalendarFormProps {
   // formData: { clinic: string, typeOfBooking: string; date: string; time: TimeSlot; is_repeated: number; dentist: string, service: string },
@@ -16,10 +17,13 @@ interface CalendarFormProps {
 
   formData: BookingInformation,
   setFormData: SetBookingInformation,
-  openRepeatDialog: () => void;
+  onStepComplete: () => void
 }
 
-export default function BasicDateCalendar({ formData, setFormData, openRepeatDialog }: CalendarFormProps) {
+export default function BasicDateCalendar({ formData, setFormData, onStepComplete }: CalendarFormProps) {
+  const [selectedDate, setSelectedDate] = useState<string | null>(null);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [isRecurring, setIsRecurring] = useState(false);
 
   const today = new Date();
 
@@ -59,11 +63,25 @@ export default function BasicDateCalendar({ formData, setFormData, openRepeatDia
     // Actual Form data setting.
     if (is_available) {
       setFormData(prevState => ({ ...prevState, date: event.dateStr }));
-      openRepeatDialog();
+      setSelectedDate(event.dateStr);
+      setIsDialogOpen(true);
     }
-
+    console.log('new date:', formData.date);
   };
 
+  const handleCloseDialog = () => {
+    setIsDialogOpen(false);
+  };
+
+  const handleSlotSelected = (selectedSlot: TimeSlot) => {
+    setFormData(prevState => ({ ...prevState, time: selectedSlot }));
+    onStepComplete();
+  };
+
+  const handleIsRecurringChange = () => {
+    setIsRecurring(!isRecurring);
+    setFormData(prevState => ({ ...prevState, is_repeated: isRecurring ? 0 : 1 }));
+  };
 
   //Custom title for the calendar
   //-----------------------------------------------------------------------------------
@@ -96,63 +114,118 @@ export default function BasicDateCalendar({ formData, setFormData, openRepeatDia
   };
   //-----------------------------------------------------------------------------------
 
-  // =============================== fetching available dates  ===============================
+  // =============================== fetching available dates  ===============================
   // useEffect( () => {
-  //   // Get data about available dates.
-  //   const params = {clinic: formData.clinic, size: 31, start: today};
-  //   const url = connection_path.base_url + connection_path.api + connection_path.booking.available_date
-  //   axios.get(url, {params})
-  //   .then(response => {
-  //     response.data.map((days, index) => {
-  //       events.push({allDay: true, start: days.date, end: days.date, backgroundColor: "#EA1700", display: "background", opacity: 0, type: "2"})
-  //     });
-  //   })
-  //   .catch((error) => {
-  //     // Do some error catching here
-  //   })
+  //   // Get data about available dates.
+  //   const params = {clinic: formData.clinic, size: 31, start: today};
+  //   const url = connection_path.base_url + connection_path.api + connection_path.booking.available_date
+  //   axios.get(url, {params})
+  //   .then(response => {
+  //     response.data.map((days, index) => {
+  //       events.push({allDay: true, start: days.date, end: days.date, backgroundColor: "#EA1700", display: "background", opacity: 0, type: "2"})
+  //     });
+  //   })
+  //   .catch((error) => {
+  //     // Do some error catching here
+  //   })
   // });
   // =========================================================================================
 
 
 
   return (
-    <Box sx={{ margin: 'auto' }}>
-      <FullCalendar
-        plugins={[dayGridPlugin, interactionPlugin]}
-        initialView="dayGridMonth"
-        viewClassNames="custom-calendar"
-        locale={viLocale}
-        headerToolbar={{
-          left: 'title',
-          center: '',
-          right: 'prev next'
-        }}
-        datesSet={handleDatesSet}
-        fixedWeekCount={false}
-        showNonCurrentDates={false}
-        dateClick={(event) => handleDateClick(event)}
-        validRange={{
-          start: today.toISOString().split('T')[0]
-        }}
-        events={events}
-      />
-      <Box sx={{ display: 'flex', alignItems: 'center', gap: 5, marginTop: '15px' }}>
-        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-          <FontAwesomeIcon icon={faCircle} style={{ color: "#dbeaff", fontSize: "18px" }} />
-          <Typography variant="body2" sx={{ color: "#000000", fontSize: '18px' }}>Hôm nay</Typography>
+    <Box className={styles.container}>
+      <Box className={styles.headerBox}>
+        <Box className={styles.header}>Chọn ngày khám</Box>
+      </Box>
+      <Box className={styles.calendarContainer}>
+        <FullCalendar
+          plugins={[dayGridPlugin, interactionPlugin]}
+          contentHeight="auto"
+          initialView="dayGridMonth"
+          viewClassNames="custom-calendar"
+          locale={viLocale}
+          datesSet={handleDatesSet}
+          headerToolbar={{
+            left: 'prev',
+            center: 'title',
+            right: 'next'
+          }}
+          fixedWeekCount={false}
+          showNonCurrentDates={false}
+          dateClick={(event) => handleDateClick(event)}
+          validRange={{
+            start: today.toISOString().split('T')[0]
+          }}
+          events={events}
+        />
+      </Box>
+      <Box className={styles.legendContainer}>
+        <Box className={styles.legendItem}>
+          <FontAwesomeIcon icon={faCircle} className={styles.legendIcon} style={{ color: "#dbeaff" }} />
+          <Typography variant="body2" className={styles.legendText}>Hôm nay</Typography>
         </Box>
 
-        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-          <FontAwesomeIcon icon={faCircle} style={{ color: "#bbfbc7", fontSize: "18px", padding: 0 }} />
-          <Typography variant="body2" sx={{ color: "#000000", fontSize: '18px' }}>Ngày đang chọn</Typography>
+        <Box className={styles.legendItem}>
+          <FontAwesomeIcon icon={faCircle} className={styles.legendIcon} style={{ color: "#bbfbc7" }} />
+          <Typography variant="body2" className={styles.legendText}>Ngày đang chọn</Typography>
         </Box>
 
-        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-          <FontAwesomeIcon icon={faCircle} style={{ color: "#EA1700", fontSize: "18px", padding: 0 }} />
-          <Typography variant='body2' sx={{ color: "#000000", fontSize: '18px' }}>Ngày đã đầy lịch</Typography>
+        <Box className={styles.legendItem}>
+          <FontAwesomeIcon icon={faCircle} className={styles.legendIcon} style={{ color: "#EA1700" }} />
+          <Typography variant="body2" className={styles.legendText}>Ngày đã đầy lịch</Typography>
         </Box>
       </Box>
+
+      <Box className={styles.checkboxContainer}>
+        <FormControlLabel
+          control={
+            <Checkbox
+              checked={isRecurring}
+              onChange={handleIsRecurringChange}
+            />
+          }
+          label="Định kì"
+        />
+        <FormControlLabel
+          control={
+            <Checkbox
+              checked={!isRecurring}
+              onChange={handleIsRecurringChange}
+            />
+          }
+          label="Không định kì"
+        />
+      </Box>
+
+      <Dialog
+        open={isDialogOpen}
+        onClose={handleCloseDialog}
+        className={styles.timeSlotContainer}
+        PaperProps={{
+          sx: {
+            border: '2px solid #e0e4e5',
+            borderRadius: '30px',
+            width: '550px',
+            height: 'auto',
+            padding: '2px',
+          },
+        }}
+      >
+        {selectedDate && (
+          <DialogContent className={styles.timeSlot}>
+            <TimeSlots
+              formData={formData}
+              setFormData={setFormData}
+              onClose={handleCloseDialog}
+              onSlotSelect={handleSlotSelected}
+            />
+          </DialogContent>
+        )}
+      </Dialog>
     </Box>
   );
 }
+
+
 

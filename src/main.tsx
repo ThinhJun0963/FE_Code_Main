@@ -17,13 +17,9 @@ const container = document.getElementById("root");
 const root = createRoot(container!);
 
 
-//cái này là gì vậy
-// root.render(<Schedule />);
 
 const rootElement = document.getElementById("root");
 if (rootElement) {
-  //cái này là gì vậy
-  // ReactDOM.createRoot(rootElement)
   root.render(
     <BrowserRouter>
       <React.StrictMode>
@@ -33,5 +29,4 @@ if (rootElement) {
       </React.StrictMode>
     </BrowserRouter>
   )
-  //);
 }

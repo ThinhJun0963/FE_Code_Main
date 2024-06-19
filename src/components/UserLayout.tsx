@@ -8,13 +8,14 @@ interface UserLayoutProps {
 
 const UserLayout: React.FC<UserLayoutProps> = ({ children }) => {
     return (
-        <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
+        <>
             <Header />
-            <Box sx={{ backgroundColor: '#ffffff', flex: '1' }}>
+            <Box sx={{ backgroundColor: '#ffffff', height: '100vh', overflowY: 'auto' }}>
                 {children}
             </Box>
             <Footer />
-        </Box>
+
+        </>
     );
 }
 
