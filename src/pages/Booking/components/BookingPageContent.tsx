@@ -104,25 +104,26 @@ const BookingPageContent = () => {
                 </Breadcrumbs>
             </Box>
             <Box className={styles.contentBox}>
-                <Box className={styles.content}>
-                    {currentStep !== 2 && <Box className={styles.informationTab}>
-                        <Box className={styles.heading}>
-                            Thông tin đặt khám
-                        </Box>
-                        <Box className={styles.informationTabContent}>
-                            <Box>Phòng khám: {formData.clinic}</Box>
-                            <Box>Hình thức khám: {formData.typeOfBooking}</Box>
-                            <Box>Ngày khám: {formData.date}</Box>
-                            <Box>Slot: {formData.time.start} - {formData.time.end}</Box>
-                            <Box>Dịch vụ: </Box>
-                            <Box>Lặp lại: {formData.is_repeated ? 'Có' : 'Không'}</Box>
-                        </Box>
-                    </Box>}
+                <Box className={`${styles.content} ${currentStep === 2 ? styles.step2 : ''}`}>
+                    {currentStep !== 2 &&
+                        <Box className={styles.informationTab}>
+                            <Box className={styles.heading}>
+                                Thông tin đặt khám
+                            </Box>
+                            <Box className={styles.informationTabContent}>
+                                <Box>Phòng khám: {formData.clinic}</Box>
+                                <Box>Hình thức khám: {formData.typeOfBooking}</Box>
+                                <Box>Ngày khám: {formData.date}</Box>
+                                <Box>Slot: {formData.time.start} - {formData.time.end}</Box>
+                                <Box>Dịch vụ: </Box>
+                                <Box>Lặp lại: {formData.is_repeated ? 'Có' : 'Không'}</Box>
+                            </Box>
+                        </Box>}
                     <Box className={styles.formContainer}>
                         {step}
                     </Box>
                 </Box>
-                <Box className={styles.buttonContainer}>
+                <Box className={`${styles.buttonContainer} ${currentStep === 2 ? styles.step2 : ''}`}>
                     {!isFirstStep && (
                         <Button variant="text" className={styles.backButton} onClick={handleBack}>
                             <ArrowBack />

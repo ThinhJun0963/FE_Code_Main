@@ -6,6 +6,7 @@ import Accordion from "./Accordion/Accordion";
 import FeaturesAndBenefits from "./FeatureAndBenefits/FeatureAndBenefits";
 import React, { SetStateAction, useState } from "react";
 import { useNavigate } from 'react-router-dom';
+import Hero from "../../../components/Hero/Hero";
 
 interface clinicService {
   serviceId: string;
@@ -36,82 +37,86 @@ const HomePageContent = () => {
   }) => {
     setSearchTerm(event.target.value);
   };
-  
+
 
   const handleSearchSubmit = (event: { preventDefault: () => void }) => {
     event.preventDefault();
     navigate(`/clinics?search=${searchTerm}`);
   };
 
-  const handleKeyPress = (event: React.KeyboardEvent) => { 
+  const handleKeyPress = (event: React.KeyboardEvent) => {
     if (event.key === 'Enter') {
       navigate(`/clinics?search=${searchTerm}`);
     }
   }
 
   const transformedClinics = clinics.map(clinic => ({
-    id: clinic.clinic_id, 
+    id: clinic.clinic_id,
     image: clinic.imageToShow,
     title: clinic.name,
     description: clinic.address
-}));
+  }));
 
   return (
-    <Box sx={{ marginTop: '1%', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', position: 'relative' }}>
-      <Box sx={{ position: 'absolute', right: '125px', top: 0, marginTop: '-150px', width: '50%' }}>
-        <Box sx={{ backgroundColor: ' #ffffff', width: '100%', borderRadius: '10px', display: 'flex', alignItems: 'center', padding: '10px' }}>
-          <InputBase
-            value={searchTerm}
-            onChange={handleSearchChange}
-            //--------------------------------------
-            onKeyPress={handleKeyPress}
-            //--------------------------------------
-            placeholder="Tìm kiếm phòng khám"
-            inputProps={{ 'aria-label': 'search' }}
-            sx={{ flex: 1, paddingLeft: '10px' }}
-          />
-          <IconButton type="submit" aria-label="search" onClick={handleSearchSubmit} sx={{ color: '#000' }}>
-            <SearchIcon />
-          </IconButton>
+    <>
+      <Hero />
+      <Box sx={{ marginTop: '1%', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', position: 'relative', width: '100%', height: '100%' }}>
+
+        <Box sx={{ position: 'absolute', right: '125px', top: 0, marginTop: '-150px', width: '50%' }}>
+          <Box sx={{ backgroundColor: ' #ffffff', width: '100%', borderRadius: '10px', display: 'flex', alignItems: 'center', padding: '10px' }}>
+            <InputBase
+              value={searchTerm}
+              onChange={handleSearchChange}
+              //--------------------------------------
+              onKeyPress={handleKeyPress}
+              //--------------------------------------
+              placeholder="Tìm kiếm phòng khám"
+              inputProps={{ 'aria-label': 'search' }}
+              sx={{ flex: 1, paddingLeft: '10px' }}
+            />
+            <IconButton type="submit" aria-label="search" onClick={handleSearchSubmit} sx={{ color: '#000' }}>
+              <SearchIcon />
+            </IconButton>
+          </Box>
+        </Box>
+
+        <Box sx={{ width: "70%", height: '100%', marginTop: "1em", textAlign: "right", display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <Typography variant="h3" component="div" gutterBottom sx={{}}>
+            Các phòng khám nổi bật
+          </Typography>
+          <Button
+            variant="contained"
+            href='/clinics'
+            sx={{
+              backgroundColor: "#1975dc",
+              color: "#fff",
+              width: "auto",
+              borderRadius: "5px",
+            }}
+          >
+            Xem tất cả &gt;&gt;
+          </Button>
+        </Box>
+
+        <Box sx={{ width: "70%", marginTop: ".25em", marginBottom: "5em" }}>
+          <Carousel items={transformedClinics} />
+        </Box>
+
+        <Box sx={{ width: "70%", marginTop: "2em", textAlign: "center" }}>
+          <Typography variant="h3" component="div" gutterBottom>
+            Câu hỏi thường gặp
+          </Typography>
+        </Box>
+
+        <Box sx={{ width: "70%", marginTop: "2em", marginBottom: "5em" }}>
+          <Accordion />
+        </Box>
+
+        <Box sx={{ width: "70%", marginTop: "2em", marginBottom: "5em" }}>
+          <FeaturesAndBenefits />
         </Box>
       </Box>
-
-      <Box sx={{ width: "70%", marginTop: "1em", textAlign: "right", display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-      <Typography variant="h3" component="div" gutterBottom sx={{}}>
-          Các phòng khám nổi bật
-        </Typography>
-        <Button
-          variant="contained"
-          href='/clinics'
-          sx={{
-            backgroundColor: "#1975dc",
-            color: "#fff",
-            width: "auto",
-            borderRadius: "5px",
-          }}
-        >
-          Xem tất cả &gt;&gt;
-        </Button>
-      </Box>
-
-      <Box sx={{ width: "70%", marginTop: ".25em", marginBottom: "5em" }}>
-        <Carousel items={transformedClinics} />
-      </Box>
-
-      <Box sx={{ width: "70%", marginTop: "2em", textAlign: "center" }}>
-        <Typography variant="h3" component="div" gutterBottom>
-          Câu hỏi thường gặp
-        </Typography>
-      </Box>
-
-      <Box sx={{ width: "70%", marginTop: "2em", marginBottom: "5em" }}>
-        <Accordion />
-      </Box>
-
-      <Box sx={{ width: "70%", marginTop: "2em", marginBottom: "5em" }}>
-        <FeaturesAndBenefits />
-      </Box>
-    </Box>
+    </>
   );
 };
 

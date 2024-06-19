@@ -10,11 +10,10 @@ const UserLayout: React.FC<UserLayoutProps> = ({ children }) => {
     return (
         <>
             <Header />
-            <Box sx={{ backgroundColor: '#ffffff', height: '100vh', overflowY: 'auto' }}>
+            <Box sx={{ backgroundColor: '#ffffff', overflowY: 'auto'}}>
                 {children}
             </Box>
             <Footer />
-
         </>
     );
 }

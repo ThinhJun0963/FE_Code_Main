@@ -63,23 +63,16 @@ const ClinicRegisterContent = () => {
 
     return (
         <Box className={styles.container}>
-            <Box className={styles.breadcrumbs}>
-                <Breadcrumbs aria-label="breadcrumb">
-                    <Link underline="hover" color="inherit" href="/">
+            <Box className={styles.breadcrumbsContainer}>
+                <Breadcrumbs separator={<Typography sx={{ color: '#FFFFFF', mx: 1, fontWeight: 'bold' }}>/</Typography>}>
+                    <Link underline="hover" href="/" sx={{ fontSize: 22, color: ' #F8F8F8' }}>
                         Trang chủ
                     </Link>
-                    <Typography color="text.primary">Phòng khám</Typography>
+                    <Box sx={{ fontSize: 24, color: ' #F8F8F8' }}>Đăng ký phòng khám</Box>
                 </Breadcrumbs>
             </Box>
 
-            <Divider className={styles.divider} />
-
-            <Box className={styles.title}>
-                <Typography variant="h4" gutterBottom>
-                    Trang đăng ký phòng khám
-                </Typography>
-            </Box>
-            <RegistingStepper activeStep={currentStep} />
+            {/* <RegistingStepper activeStep={currentStep} /> */}
 
             <Box className={styles.content}>
                 <Box className={styles.stepper}>

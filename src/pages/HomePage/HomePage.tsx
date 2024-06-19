@@ -5,7 +5,6 @@ import HomePageContent from "./components/HomePageContent";
 const HomePage = () => {
   return (
     <UserLayout>
-      <Hero />
       <HomePageContent />
     </UserLayout>
   );

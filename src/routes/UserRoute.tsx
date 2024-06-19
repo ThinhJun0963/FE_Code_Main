@@ -31,11 +31,13 @@ import Invoices from "../pages/Admin/SystemAdmin/scenes/invoices";
 import Line from "../pages/Admin/SystemAdmin/scenes/line";
 import Pie from "../pages/Admin/SystemAdmin/scenes/pie";
 import Team from "../pages/Admin/SystemAdmin/scenes/team";
+import ForOwner from "../pages/ForOwner/ForOwner";
 
 export const UserRoutes = [
   { path: "/", element: <HomePage /> },
   { path: "/booking", element: <BookingPage /> },
-  { path: "/for-owner", element: <ClinicRegister /> },
+  { path: '/for-owner', element: <ForOwner /> },
+  { path: '/for-owner/clinic-register', element: <ClinicRegister /> },
   { path: "/clinic", element: <ClinicDetail /> },
   { path: "/user/", element: <UserScheduleMain /> },
   { path: "/user/payment", element: <UserPaymentMain /> },
