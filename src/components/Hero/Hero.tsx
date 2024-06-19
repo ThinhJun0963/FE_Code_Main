@@ -18,7 +18,7 @@ export default function Hero() {
         width: '100%', 
         height: '100%', 
       }}>
-      <img src="../../../public/hero-banner.png" alt="hero-banner" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+      <img src="../../../public/banner/hero-banner.png" alt="hero-banner" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
     </Box>
   </Box>
   );

@@ -24,13 +24,13 @@ const features = [
 const FeaturesAndBenefits = () => {
     return (
         <Container>
-            <Typography variant="h3" gutterBottom align="center" sx={{ color: '#000' }}>
+            <Box sx={{ textAlign: 'center', fontSize: '38px', fontWeight: 700 }}>
                 Các tiện ích
-            </Typography>
+            </Box>
             <Grid container spacing={3}>
                 {features.map((feature, index) => (
                     <Grid item xs={12} sm={6} md={4} key={index}>
-                        <Box textAlign="center" p={2} sx={{ backgroundColor: '#FAFAFA', height: '100%', borderRadius: '10px' }}>
+                        <Box textAlign="center" p={2} sx={{ backgroundColor: '#ffffff', height: '100%', borderRadius: '10px' }}>
                             <Box sx={{ fontSize: '50px' }}>
                                 {feature.icon}
                             </Box>

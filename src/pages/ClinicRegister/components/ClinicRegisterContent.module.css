@@ -3,6 +3,7 @@
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
+    width: 100%;
     height: 100vh;
 }
 
@@ -14,13 +15,6 @@
     justify-content: flex-start;
     align-items: center;
     background-image: linear-gradient(to left, #657bd1, #049fbb);
-}
-
-
-.divider {
-    background-color: black;
-    width: 90%;
-    margin: 0 auto;
 }
 
 .title {
@@ -36,7 +30,8 @@
     gap: 2rem;
     width: 100%;
     max-width: 900px;
-    min-height: 600px; /* Ensure a minimum height to prevent content from collapsing */
+    min-height: 600px;
+    /* Ensure a minimum height to prevent content from collapsing */
     margin: 15px auto 50px;
     padding: 50px;
     border-radius: 20px;
@@ -59,4 +54,3 @@
     position: absolute;
     bottom: 100px;
 }
-

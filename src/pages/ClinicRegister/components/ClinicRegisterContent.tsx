@@ -72,8 +72,6 @@ const ClinicRegisterContent = () => {
                 </Breadcrumbs>
             </Box>
 
-            {/* <RegistingStepper activeStep={currentStep} /> */}
-
             <Box className={styles.content}>
                 <Box className={styles.stepper}>
                     {step}

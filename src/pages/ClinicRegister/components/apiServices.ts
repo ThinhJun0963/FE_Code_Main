@@ -1,4 +1,4 @@
-import axios, {  AxiosRequestConfig, AxiosResponse } from 'axios';
+import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 import { connection_path } from '../../../constants/developments';
 
 interface Service {
@@ -18,7 +18,7 @@ interface FormData {
 }
 
 export const getServiceList = async (): Promise<Service[]> => {
-    const api_url: string = connection_path.base_url + connection_path.api + connection_path.endpoints.get_all_service;
+    const api_url: string = connection_path.base_url + connection_path.service.getAllServices;
 
     const configuration: AxiosRequestConfig = { method: "GET", url: api_url };
 
@@ -41,7 +41,7 @@ export const getServiceList = async (): Promise<Service[]> => {
 }
 
 export const registerClinic = async (formData: FormData) => {
-    const api_url: string = connection_path.base_url + connection_path.api + connection_path.endpoints.clinicRegister;
+    const api_url: string = connection_path.base_url + connection_path.user.clinicRegister;
 
     console.log('Registering clinic:', formData);
     const accessToken = localStorage.getItem('accessToken');
