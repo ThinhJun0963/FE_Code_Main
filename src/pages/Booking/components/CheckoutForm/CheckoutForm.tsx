@@ -1,7 +1,6 @@
-import { Box, Button, FormControl, Grid, InputLabel, MenuItem, Select, SelectChangeEvent, TextField, Typography } from '@mui/material'
+import { Box, Button, Checkbox, FormControl, FormControlLabel, FormHelperText, FormLabel, Grid, InputLabel, MenuItem, Select, SelectChangeEvent, TextField, Typography } from '@mui/material'
 import React, { SetStateAction, useEffect, useState } from 'react'
-import { TimeSlot } from '../TimeSlots/data';
-import VNPayFields from './VNPayField';
+import styles from './CheckoutForm.module.css'
 
 interface CheckoutFormProps {
     paymentData: { paymentMethod: string, amount: string, orderID: string, orderDetail: string },
@@ -23,7 +22,7 @@ const CheckoutForm = ({ paymentData, setPaymentData }: CheckoutFormProps) => {
             setPaymentData(prev => ({
                 ...prev,
                 paymentMethod: value,
-                orderID: newOrderID, 
+                orderID: newOrderID,
                 orderDetail: 'Thanh toán dịch vụ khám bệnh'
             }));
         } else {
@@ -31,7 +30,7 @@ const CheckoutForm = ({ paymentData, setPaymentData }: CheckoutFormProps) => {
             setPaymentData(prev => ({
                 ...prev,
                 paymentMethod: value,
-                orderID: '', 
+                orderID: '',
             }));
         }
     };
@@ -45,36 +44,74 @@ const CheckoutForm = ({ paymentData, setPaymentData }: CheckoutFormProps) => {
     };
 
     return (
-        <Box sx={{ marginLeft: '1em', marginRight: '1em' }}>
-            <Typography variant='h4' sx={{ marginBottom: '20px' }}>Chọn hình thức thanh toán</Typography>
-            <Box sx={{ width: '100%' }}>
-                <Grid container spacing={5}>
-                    <Grid item lg={12}>
-                        <FormControl fullWidth variant="outlined">
-                            <InputLabel id="payment-method-label">Hình thức thanh toán</InputLabel>
-                            <Select
-                                labelId="payment-method-label"
-                                id="paymentMethod"
-                                value={paymentMethod}
-                                onChange={handlePaymentMethodChange}
-                                label="Hình thức thanh toán"
-                            >
-                                <MenuItem value={'VNPay'}>VN Pay</MenuItem>
-                                <MenuItem value={'Other'}>Hình thức khác</MenuItem>
-                            </Select>
-                        </FormControl>
-                        {paymentMethod === 'VNPay' && (
-                            <VNPayFields
-                                paymentData={paymentData}
-                                setPaymentData={setPaymentData}
-                                amount={amount}
-                                orderID={orderID}
-                                orderDetail={orderDetail}
-                                handleAmountChange={handleAmountChange}
-                            />
-                        )}
-                    </Grid>
-                </Grid>
+        <Box className={styles.checkoutContainer}>
+            <Box className={styles.heading}>
+                Chọn hình thức thanh toán
+            </Box>
+
+            <Box sx={{ width: '100%' }} className={styles.content}>
+                <Box className={styles.checkoutContent}> {/* Added flex container */}
+                    <FormControl className={styles.paymentMethod}>
+                        <FormLabel sx={{ fontSize: '25px' }}>Hình thức thanh toán</FormLabel>
+                        <FormControlLabel
+                            sx={{
+                                fontSize: '1.2rem',
+                                '& .MuiSvgIcon-root': {
+                                    fontSize: 32,
+                                },
+                            }}
+                            control={<Checkbox
+                                sx={{
+                                    '&.Mui-checked': {
+                                        color: '#249dec',
+                                    },
+                                    '& svg': {
+                                        fontSize: 24,
+                                    }
+                                }}
+                                checked={paymentMethod === 'VNPay'} onChange={handlePaymentMethodChange} value="VNPay" />}
+                            label="VN Pay"
+                        />
+                        <FormControlLabel
+                            sx={{
+                                fontSize: '1.2rem',
+                                '& .MuiSvgIcon-root': {
+                                    fontSize: 32,
+                                },
+                            }}
+                            control={<Checkbox
+                                sx={{
+                                    '&.Mui-checked': {
+                                        color: '#249dec',
+                                    },
+                                    '& svg': {
+                                        fontSize: 24,
+                                    }
+                                }}
+                                checked={paymentMethod === 'Other'} onChange={handlePaymentMethodChange} value="Other" />}
+                            label="Hình thức khác"
+                        />
+                        {!setPaymentMethod && <FormHelperText error>Vui lòng chọn phương thức thanh toán</FormHelperText>}
+                    </FormControl>
+
+                    <Box className={styles.paymentInfoBox}>
+                        <Box className={styles.paymentInfoItem}>
+                            <span className={styles.paymentInfoLabel}>Tổng tiền dịch vụ:</span>
+                        </Box>
+                        <Box className={styles.paymentInfoItem}>
+                            <span className={styles.paymentInfoLabel}>Tổng tiền khám:</span>
+                        </Box>
+                        <Box className={styles.paymentInfoItem}>
+                            <span className={styles.paymentInfoLabel}>Phí tiện ích + Phí TGTT:</span>
+                            <span>13.200 VNĐ</span>
+                        </Box>
+                        <Box className={styles.paymentInfoItem}>
+                            <span className={styles.paymentInfoLabel}>TỔNG CỘNG:</span>
+                            <span>13.200 VNĐ</span>
+                        </Box>
+                    </Box>
+
+                </Box>
             </Box>
         </Box>
 

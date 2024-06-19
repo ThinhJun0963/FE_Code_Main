@@ -1,46 +1,35 @@
 import { SetStateAction, useState } from 'react';
 import { Box, Button, Typography } from '@mui/material';
 import typeOfBooking from './data';
-import { TimeSlot } from '../TimeSlots/data';
 import { BookingInformation, SetBookingInformation } from '../../../../utils/interfaces/interfaces';
+import styles from './TypeOfBookingForm.module.css';
 
-// Changing how booking information is stored
 interface TypeOfBookingFormProps {
-    // formData: { clinic: string, typeOfBooking: string; dentist: string; date: string; is_repeated: number; time: TimeSlot, service: string },
-    // setFormData: (value: SetStateAction<{ clinic: string, typeOfBooking: string; dentist: string; date: string; is_repeated: number; time: TimeSlot; service: string }>) => void
-    formData: BookingInformation,
-    setFormData: SetBookingInformation
-
+    formData: BookingInformation;
+    setFormData: SetBookingInformation;
+    onStepComplete: () => void;
 }
 
-const TypeOfBookingForm = ({ formData, setFormData }: TypeOfBookingFormProps) => {
+const TypeOfBookingForm = ({ formData, setFormData, onStepComplete }: TypeOfBookingFormProps) => {
     const [selectedButtonIndex, setSelectedButtonIndex] = useState<null | number>(-1);
 
     const handleButtonClick = (index: number, type: string) => {
-        // Debuging purposes
-        console.log('old type: ', formData.typeOfBooking);
-        console.log('new type: ', type);
-
-        setSelectedButtonIndex(index)
-
+        setSelectedButtonIndex(index);
         setFormData(prevState => ({ ...prevState, typeOfBooking: type }));
+        onStepComplete(); 
     };
 
-
     return (
-        <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-            <Typography variant='h4'>Chọn hình thức khám</Typography>
-            <Box sx={{ display: 'flex', flexDirection: 'column', marginTop: '20px' }}>
+        <Box className={styles.container}>
+            <Box className={styles.headingBox}>
+                <Box className={styles.heading}>Chọn hình thức khám</Box>
+            </Box>
+            <Box className={styles.buttonContainer}>
                 {typeOfBooking.map((type, index) => (
                     <Button
                         key={index}
                         variant={selectedButtonIndex === index || type === formData.typeOfBooking ? 'contained' : 'outlined'}
-                        sx={{
-                            justifyContent: 'flex-start',
-                            width: '100%',
-                            textAlign: 'left',
-                            margin: '0.5em',
-                        }}
+                        className={styles.button}
                         onClick={() => handleButtonClick(index, type)}
                     >
                         {type}

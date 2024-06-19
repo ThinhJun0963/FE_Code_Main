@@ -15,18 +15,20 @@ import ClinicList from '../pages/ClinicList/ClinicList';
 import Chat from '../pages/ChatV1/Chat';
 import ErrorPage from '../pages/ErrorPage/ErrorPage';
 import SuccessPage from '../pages/SuccessPage/SuccessPage';
+import ForOwner from '../pages/ForOwner/ForOwner';
 
 
 export const publicRoutes = [
     { path: '/', element: <HomePage /> },
     { path: '/booking/:clinicId', element: <BookingPage /> },
-    { path: '/for-owner', element: <ClinicRegisterForm /> },
+    { path: '/for-owner', element: <ForOwner /> },
+    { path: '/for-owner/clinic-register', element: <ClinicRegisterForm /> },
     { path: "/clinic/:id", element: <ClinicDetail /> },
     { path: '/clinics', element: <ClinicList /> },
     { path: "/login", element: < LoginMUI /> },
     { path: "/signup", element: <SignUpMUI /> },
     { path: "/error404", element: <ErrorPage /> },
-    {path: "/success", element: <SuccessPage />},
+    { path: "/success", element: <SuccessPage /> },
     { path: "/chat", element: <Chat /> },
     //{ path: "/login-google", element: <GoogleLogin />,
     { path: "/user/payment", element: <UserPayment /> },

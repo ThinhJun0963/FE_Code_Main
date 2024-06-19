@@ -1,0 +1,64 @@
+.container {}
+
+.calendarContainer {
+    padding-top: 20px;
+}
+
+
+.legendContainer {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 15px;
+    padding: 10px;
+}
+
+.checkboxContainer {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 5px;
+    padding: 10px;
+}
+
+.headerBox {
+    width: 100%;
+    background-color: #1da1f3;
+    border-radius: 0;
+}
+
+.header {
+    font-size: 24px;
+    color: white;
+    font-weight: 650;
+    padding: 14px;
+}
+
+.legendItem {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.legendIcon {
+    /* The icon in the legend item */
+    font-size: 18px;
+}
+
+.legendText {
+    /* The text in the legend item */
+    font-size: 18px;
+    color: #000000;
+    /* Or your preferred text color */
+}
+
+.timeSlotContainer {
+    padding: 100px;
+}
+
+
+
+.timeSlot {
+    border: 3px solid #1da1f3;
+    border-radius: 30px;
+}

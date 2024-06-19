@@ -14,10 +14,7 @@ export const connection_path = {
     user: {
         user: "/user/info",
         register: "/user/register",
-    },
-
-    clinic: {
-        clinic: "/clinic/",
+        get_all_service: "/service/get-all",
         clinicRegister: "/clinic/register",
     },
 

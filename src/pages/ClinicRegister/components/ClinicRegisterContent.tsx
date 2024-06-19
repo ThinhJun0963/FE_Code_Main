@@ -1,3 +1,4 @@
+import React, { useEffect, useState } from 'react';
 import { Box, Breadcrumbs, Button, Divider, Link, Typography } from '@mui/material';
 import UseMultipleStepForm from '../../../components/UseMultipleStepForm/UseMultipleStepForm';
 import ServicesForm from './ServicesForm/ServicesForm';
@@ -5,10 +6,9 @@ import CertificationForm from './CertificationForm/CertificationForm';
 import BasicForm from './BasicForm/BasicForm';
 import RegistingStepper from './Stepper/Stepper';
 import { getServiceList, registerClinic } from './apiServices';
-import { useEffect, useState } from 'react';
+import styles from './ClinicRegisterContent.module.css'; // Import the CSS module
 
 const ClinicRegisterContent = () => {
-
     interface Service {
         serviceId: string;
         serviceName: string;
@@ -61,38 +61,23 @@ const ClinicRegisterContent = () => {
             <CertificationForm />
         ]);
 
-    // useEffect(() => {
-    //     console.log(formData);
-    // }, [formData]);
-
     return (
-        <Box sx={{ paddingTop: '5em', paddingBottom: '5em', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
-            <Box sx={{ width: '90%', textAlign: 'right', color: 'black' }}>
-                <Breadcrumbs aria-label="breadcrumb">
-                    <Link underline="hover" color="inherit" href="/">
+        <Box className={styles.container}>
+            <Box className={styles.breadcrumbsContainer}>
+                <Breadcrumbs separator={<Typography sx={{ color: '#FFFFFF', mx: 1, fontWeight: 'bold' }}>/</Typography>}>
+                    <Link underline="hover" href="/" sx={{ fontSize: 22, color: ' #F8F8F8' }}>
                         Trang chủ
                     </Link>
-                    <Typography color="text.primary">Phòng khám</Typography>
+                    <Box sx={{ fontSize: 24, color: ' #F8F8F8' }}>Đăng ký phòng khám</Box>
                 </Breadcrumbs>
             </Box>
 
-            <Divider sx={{ backgroundColor: 'black', width: '90%', margin: '1em auto' }} />
-
-            <Box sx={{ width: '90%' }}>
-                <Typography variant="h4" gutterBottom>
-                    Trang đăng ký phòng khám
-                </Typography>
-            </Box>
-
-            <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, width: '900px', height: '600px',margin: '40px auto 40px auto' }}>
-                
-                <RegistingStepper activeStep={currentStep} />
-
-                <Box sx={{ width: '100%', height: '100%', margin: '0 auto', padding: '50px', borderRadius: '20px', border: '2px solid #e0e0e0',  fontFamily: 'Arial, Helvetica, sans-serif', color: 'black', backgroundColor: '#ffffff' }}>
+            <Box className={styles.content}>
+                <Box className={styles.stepper}>
                     {step}
                 </Box>
 
-                <Box sx={{ display: 'flex', gap: '.5rem', justifyContent: 'flex-end', marginTop: '1em' }}>
+                <Box className={styles.actions}>
                     {!isFirstStep && <Button variant="contained" onClick={back}>Bước trước</Button>}
                     {!isFinalStep && <Button variant="contained" color="primary" onClick={next}>Bước tiếp</Button>}
                     {isFinalStep && <Button variant="contained" color="primary" type="submit" onClick={handleSubmit}>Hoàn thành</Button>}

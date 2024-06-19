@@ -10,6 +10,8 @@ import { createRoot } from "react-dom/client";
 const container = document.getElementById("root");
 const root = createRoot(container!);
 
+
+
 const rootElement = document.getElementById("root");
 if (rootElement) {
   root.render(
@@ -20,6 +22,5 @@ if (rootElement) {
         </GoogleOAuthProvider>
       </React.StrictMode>
     </BrowserRouter>
-  );
-  //);
+  )
 }

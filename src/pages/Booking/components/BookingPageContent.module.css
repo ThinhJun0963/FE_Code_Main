@@ -1,0 +1,159 @@
+/* BookingPageContent.module.css */
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+    height: 100vh;
+}
+
+.breadcrumbsContainer {
+    width: 100%;
+    height: 20%;
+    display: flex;
+    padding-left: 10%;
+    justify-content: flex-start;
+    align-items: center;
+    background-image: linear-gradient(to left, #657bd1, #049fbb);
+}
+
+
+.contentBox {
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+    min-width: 50%;
+    gap: 5px;
+    margin-top: 70px;
+}
+
+.content {
+    display: flex;
+    width: 100%;
+    margin: 0 auto;
+    gap: 60px;
+    align-items: flex-start;
+}
+
+.content.step2 {
+    display: flex;
+    justify-content: center;
+    width: 60%;
+    margin: 0 auto;
+}
+
+.formContainer {
+    height: fit-content;
+    width: 60%;
+    max-width: 100%;
+    font-family: Arial, Helvetica, sans-serif;
+    color: black;
+    background-color: #ffffff;
+    border-radius: 20px;
+    overflow: hidden;
+    border: 2px solid #e0e4e5;
+}
+
+.informationTab {
+    width: 40%;
+    border: 2px solid #e0e4e5;
+    border-radius: 8px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.heading {
+    width: 100%;
+    background-color: #1da1f3;
+    color: white;
+    font-weight: 700;
+    padding: 14px;
+    font-size: 20px;
+    border-radius: 8px 8px 0 0;
+}
+
+.informationTabContent {
+    padding: 20px;
+    font-size: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.informationTabContent>div>span:first-child {
+    font-weight: bold;
+    min-width: 120px;
+    color: #555;
+}
+
+
+.informationTabContent>div:last-child {
+    margin-bottom: 10px;
+}
+
+.buttonContainer {
+    display: flex;
+    justify-content: flex-end;
+    margin: 0 auto;
+    padding-top: 10px;
+    margin-bottom: 30px;
+    width: 100%;
+}
+
+.buttonContainer.step2 {
+    width: 37%;
+    display: flex;
+    justify-content: flex-end;
+    margin: 0 auto;
+    padding-top: 10px;
+    margin-bottom: 30px;
+}
+
+.backButton {
+    background-color: transparent;
+    border: none;
+    box-shadow: none;
+    text-decoration: underline;
+    color: #007bff;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    margin-right: 8px;
+}
+
+.nextButton {
+    background-color: transparent;
+    border: none;
+    box-shadow: none;
+    text-decoration: underline;
+    color: #007bff;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    margin-right: 8px;
+}
+
+.backButton .MuiSvgIcon-root {
+    padding-right: 10px;
+}
+
+
+.dialog {
+    overflow: hidden;
+}
+
+.repeatDialog {
+    overflow: hidden;
+    width: 20%;
+    margin: 0 auto;
+}
+
+.breadcrumbsContainer .MuiBreadcrumbs-root a {
+    color: #F8F8F8;
+}
+
+.breadcrumbsContainer .MuiBreadcrumbs-separator {
+    color: #FFFFFF;
+    margin: 0 8px;
+    font-weight: bold;
+}

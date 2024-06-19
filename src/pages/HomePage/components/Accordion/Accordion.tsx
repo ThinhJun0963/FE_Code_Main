@@ -9,7 +9,7 @@ import { Box, Divider } from '@mui/material';
 export default function AccordionUsage() {
     return (
         <Box>
-            <Accordion sx={{ backgroundColor: '#FAFAFA', marginTop: '10px' }}>
+            <Accordion sx={{ backgroundColor: '#ffffff', marginTop: '10px' }}>
                 <AccordionSummary
                     expandIcon={<ExpandMoreIcon />}
                     aria-controls="panel1-content"
@@ -22,7 +22,7 @@ export default function AccordionUsage() {
                     Không, dịch vụ đăng ký khám online hoàn toàn miễn phí. Bạn chỉ cần chọn thời gian và bác sĩ phù hợp để đặt lịch hẹn một cách tiện lợi.
                 </AccordionDetails>
             </Accordion>
-            <Accordion sx={{ backgroundColor: '#FAFAFA', marginTop: '10px' }}>
+            <Accordion sx={{ backgroundColor: '#ffffff', marginTop: '10px' }}>
                 <AccordionSummary
                     expandIcon={<ExpandMoreIcon />}
                     aria-controls="panel2-content"
@@ -35,7 +35,7 @@ export default function AccordionUsage() {
                     Sử dụng ứng dụng đăng ký khám bệnh mang lại nhiều lợi ích như: tiết kiệm thời gian, dễ dàng chọn lựa bác sĩ và thời gian khám phù hợp, nhận nhắc nhở lịch hẹn, và truy cập thông tin khám chữa bệnh một cách thuận tiện.
                 </AccordionDetails>
             </Accordion>
-            <Accordion sx={{ backgroundColor: '#FAFAFA', marginTop: '10px' }}>
+            <Accordion sx={{ backgroundColor: '#ffffff', marginTop: '10px' }}>
                 <AccordionSummary
                     expandIcon={<ExpandMoreIcon />}
                     aria-controls="panel3-content"
@@ -48,7 +48,7 @@ export default function AccordionUsage() {
                     Để đặt lịch hẹn khám bệnh qua ứng dụng, bạn chỉ cần chọn mục "Đặt lịch hẹn", sau đó chọn bác sĩ và thời gian phù hợp. Cuối cùng, nhấn "Xác nhận" để hoàn tất việc đặt lịch.
                 </AccordionDetails>
             </Accordion>
-            <Accordion sx={{ backgroundColor: '#FAFAFA', marginTop: '10px' }}>
+            <Accordion sx={{ backgroundColor: '#ffffff', marginTop: '10px' }}>
                 <AccordionSummary
                     expandIcon={<ExpandMoreIcon />}
                     aria-controls="panel3-content"

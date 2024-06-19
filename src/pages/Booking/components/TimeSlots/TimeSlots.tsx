@@ -1,4 +1,4 @@
-import { Box, Button, Typography } from '@mui/material';
+import { Box, Button, Divider, Typography } from '@mui/material';
 import { useState } from 'react';
 import { BookingInformation, SetBookingInformation, TimeSlot } from '../../../../utils/interfaces/interfaces';
 
@@ -8,40 +8,23 @@ import { mockTimeSlots } from '../../../../utils/mockData';
 
 
 interface TimeSlotsFormProps {
-    // formData: { clinic: string, typeOfBooking: string; date: string; is_repeated: number; time: TimeSlot; dentist: string, service: string },
-    // setFormData: (value: SetStateAction<{ clinic: string, typeOfBooking: string; date: string; is_repeated: number; time: TimeSlot; dentist: string, service: string }>) => void
-    formData: BookingInformation,
-    setFormData: SetBookingInformation
+    formData: BookingInformation;
+    setFormData: SetBookingInformation;
+    onSlotSelect: (time: TimeSlot) => void; // Callback for slot selection
+    onClose: () => void;
 }
 
-const TimeSlots = ({ formData, setFormData }: TimeSlotsFormProps) => {
+const TimeSlots = ({ formData, setFormData, onClose, onSlotSelect }: TimeSlotsFormProps) => {
 
-
-    const [slot, setSlot] = useState<TimeSlot | null>(formData.time);
 
     const handleSlotClick = (time: TimeSlot) => {
         // Debuging purposes
         console.log('old date:', formData.time);
         console.log('new time: ', time);
-
-        setSlot(time);
-        //useEffect(() => {})
-        setFormData(prevState => ({
-            ...prevState,
-            time: time
-        }));
+        setFormData(prevState => ({ ...prevState, time }));
+        onSlotSelect(time); 
+        onClose();
     }
-
-    /*const morningSlots = slots.filter(slot => {
-        const startTime = slot.split('-')[0];
-        const [hour] = startTime.split(':');
-        return parseInt(hour, 10) < 12;
-    });
-    const afternoonSlots = slots.filter(slot => {
-        const startTime = slot.split('-')[0];
-        const [hour] = startTime.split(':');
-        return parseInt(hour, 10) >= 12;
-    });*/
 
     // =============================== Proposed solution ======================================
     const morningSlots: Array<TimeSlot> = mockTimeSlots.filter(slot => {
@@ -77,31 +60,31 @@ const TimeSlots = ({ formData, setFormData }: TimeSlotsFormProps) => {
 
     return (
         <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
-            <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
-                <Typography variant="h6">Buổi sáng</Typography>
-                <Box sx={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap', gap: 1 }}>
-                    {morningSlots.map((time, index) => (
-                        <Button key={index}
-                            variant={slot?.id === time.id ? 'contained' : 'outlined'}
-                            onClick={() => handleSlotClick(time)}
-                        >
-                            {time.start} - {time.end}
-                        </Button>
-                    ))}
-                </Box>
+            <Typography variant="h6">Buổi sáng</Typography>
+            <Divider sx={{ backgroundColor: 'black', width: '95%', margin: '2px auto' }} />
+            <Box sx={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap', gap: 1 }}>
+                {morningSlots.map((time, index) => (
+                    <Button key={index}
+                        variant={formData.time.id === time.id ? 'contained' : 'outlined'}
+                        onClick={() => handleSlotClick(time)}
+                    >
+                        {time.start} - {time.end}
+                    </Button>
+                ))}
+            </Box>
 
 
-                <Typography variant="h6">Buổi chiều</Typography>
-                <Box sx={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap', gap: 1 }}>
-                    {afternoonSlots.map((time, index) => (
-                        <Button key={index}
-                            variant={slot?.id === time.id ? 'contained' : 'outlined'}
-                            onClick={() => handleSlotClick(time)}
-                        >
-                            {time.start} - {time.end}
-                        </Button>
-                    ))}
-                </Box>
+            <Typography variant="h6">Buổi chiều</Typography>
+            <Divider sx={{ backgroundColor: 'black', width: '95%', margin: '2px auto' }} />
+            <Box sx={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap', gap: 1 }}>
+                {afternoonSlots.map((time, index) => (
+                    <Button key={index}
+                        variant={formData.time.id === time.id ? 'contained' : 'outlined'}
+                        onClick={() => handleSlotClick(time)}
+                    >
+                        {time.start} - {time.end}
+                    </Button>
+                ))}
             </Box>
         </Box>
     )
