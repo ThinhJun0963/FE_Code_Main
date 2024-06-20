@@ -1,0 +1,25 @@
+.formPaper {
+    width: 70%;
+    height: auto;
+    margin: 0 auto;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+
+.container {
+    width: 100vw;
+    height: 100vh;
+}
+
+
+.gridContainer {
+    width: 100%;
+}
+
+
+.signupGrid {
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}

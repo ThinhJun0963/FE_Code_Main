@@ -1,13 +1,4 @@
-import {
-  Button,
-  Box,
-  Grid,
-  Checkbox,
-  Link,
-  Divider,
-  Typography,
-  TextField,
-} from "@mui/material";
+import { Button, Box, Checkbox, Link, Divider, Typography, TextField, } from "@mui/material";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import { useNavigate } from "react-router-dom";
 import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
@@ -18,11 +9,17 @@ import * as React from "react";
 import { InputAdornment, IconButton } from "@mui/material";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
+import styles from "./LoginForm.module.css";
 
 import { handleLogin } from "../../../utils/api/AuthenticateUtils";
+import { ArrowBack } from "@mui/icons-material";
 
 const LoginForm = () => {
   const navigate = useNavigate();
+
+  const handleBack = () => { 
+    navigate(-1);
+  }
 
   //    ===================== Nên đưa ra một thư mục khác ==========================
 
@@ -119,6 +116,8 @@ const LoginForm = () => {
     }
   });
 
+
+  
   //add eye icon into the password field
   const [showPassword, setShowPassword] = React.useState(false);
 
@@ -130,112 +129,96 @@ const LoginForm = () => {
     event.preventDefault();
   };
 
-  navigate("/user/profile");
 
   return (
     <Box
       component="form"
       onSubmit={(event) => handleLogin(event, navigate)}
       noValidate
+      className={styles.form}
     >
-      <Typography component="h1" variant="h5" sx={{ textAlign: "center" }}>
-        Đăng nhập
-      </Typography>
-      <Box sx={{ width: "45%", margin: "0 auto", padding: "50px" }}>
-        <Grid container spacing={5}>
-          <Grid item lg={12}>
-            <TextField
-              required
-              fullWidth
-              id="username"
-              label="Tên tài khoản"
-              name="username"
-            />
-          </Grid>
-          <Grid item lg={12}>
-            <TextField
-              required
-              fullWidth
-              name="password"
-              label="Mật khẩu"
-              type={showPassword ? "text" : "password"}
-              id="password"
-              autoComplete="off"
-              InputProps={{
-                endAdornment: (
-                  <InputAdornment position="end">
-                    <IconButton
-                      aria-label="toggle password visibility"
-                      onClick={handleClickShowPassword}
-                      onMouseDown={handleMouseDownPassword}
-                      edge="end"
-                    >
-                      {showPassword ? <VisibilityOff /> : <Visibility />}
-                    </IconButton>
-                  </InputAdornment>
-                ),
-              }}
-            />
-          </Grid>
-          <Grid item lg={12}>
-            <Box
-              sx={{
-                width: "100%",
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center",
-                padding: "0 5px 0 5px",
-              }}
-            >
-              <FormControlLabel
-                control={<Checkbox />}
-                label="Ghi nhớ mật khẩu"
-              />
-              <Link href="#" variant="body2" sx={{ fontSize: "17px" }}>
-                Quên mật khẩu?
-              </Link>
-            </Box>
-          </Grid>
-          <Grid item lg={12}>
-            <Button
-              type="submit"
-              variant="contained"
-              color="primary"
-              onClick={() => handleSubmit}
-              sx={{ width: "100%" }}
-            >
-              Đăng nhập
-            </Button>
-          </Grid>
-          <Grid item lg={12}>
-            <GoogleLogin
-              onSuccess={handleGoogleOnSuccess}
-              onError={handleGoogleOnFailure}
-            />
-          </Grid>
-          <Grid item lg={12}>
-            <Divider sx={{ backgroundColor: "black" }} />
-          </Grid>
-          <Grid item lg={12}>
-            <Box
-              sx={{
-                width: "100%",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            >
-              Bạn chưa có tài khoản?
-              <Box ml={1}>
-                <Link href="/signup" variant="body2" sx={{ fontSize: "17px" }}>
-                  Đăng ký ngay
-                </Link>
-              </Box>
-            </Box>
-          </Grid>
-        </Grid>
+      <Box className={styles.buttonBox}>
+        <button type="button" className={styles.backButton} onClick={handleBack}>
+          <ArrowBack />
+        </button>
       </Box>
-    </Box>
+      <Box className={styles.centerText} >
+        Đăng nhập
+      </Box>
+      <Box className={styles.formContainer}>
+        <TextField
+          className={styles.input}
+          required
+          fullWidth
+          id="username"
+          label="Tên tài khoản"
+          name="username"
+        />
+
+        <TextField
+          required
+          className={styles.input}
+          fullWidth
+          name="password"
+          label="Mật khẩu"
+          type={showPassword ? "text" : "password"}
+          id="password"
+          autoComplete="off"
+          InputProps={{
+            endAdornment: (
+              <InputAdornment position="end">
+                <IconButton
+                  aria-label="toggle password visibility"
+                  onClick={handleClickShowPassword}
+                  onMouseDown={handleMouseDownPassword}
+                  edge="end"
+                >
+                  {showPassword ? <VisibilityOff /> : <Visibility />}
+                </IconButton>
+              </InputAdornment>
+            ),
+          }}
+        />
+
+        <Box className={styles.passwordBox}>
+          <FormControlLabel
+            control={<Checkbox />}
+            label="Ghi nhớ mật khẩu"
+          />
+          <Link href="#" variant="body2" sx={{ fontSize: "17px" }}>
+            Quên mật khẩu?
+          </Link>
+        </Box>
+
+        <Button
+          type="submit"
+          variant="contained"
+          color="primary"
+          onClick={() => handleSubmit}
+          sx={{ width: "100%" }}
+        >
+          Đăng nhập
+        </Button>
+        <Box sx={{ textAlign: 'center' }}>Hoặc đăng nhập bằng tài khoản khác</Box>
+        <Divider sx={{ backgroundColor: "black" }} />
+        <Box sx={{ margin: '0 auto' }}>
+          <GoogleLogin
+            onSuccess={handleGoogleOnSuccess}
+            onError={handleGoogleOnFailure}
+            data-width="100%"
+          />
+        </Box>
+        <Divider sx={{ backgroundColor: "black" }} />
+        <Box className={styles.loginLinkContainer}>
+          <Box>
+            Bạn chưa có tài khoản?
+          </Box>
+          <Link href="/signup" variant="body2" sx={{ fontSize: "17px" }}>
+            Đăng ký ngay
+          </Link>
+        </Box>
+      </Box>
+    </Box >
   );
 };
 

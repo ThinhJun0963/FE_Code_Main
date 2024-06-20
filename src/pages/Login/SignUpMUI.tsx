@@ -1,43 +1,23 @@
-import * as React from "react";
+import React from "react";
 import CssBaseline from "@mui/material/CssBaseline";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
-import { styled } from "@mui/material/styles";
 import { Paper } from "@mui/material";
 import SignUpForm from "./components/SignUpForm";
-
-const FormPaper = styled(Paper)({
-  width: "70%",
-  height: "auto",
-  margin: "0 auto",
-  // border: '4px solid black',
-  boxShadow: "0 0 10px rgba(0,0,0,0.1)",
-});
+import styles from "./SignUpMUI.module.css"; 
 
 export default function SignUp() {
   return (
-    <React.Fragment>
-      <CssBaseline />
-      <Box sx={{ width: "100vw", height: "100vh" }}>
-        <FormPaper sx={{ width: "100%", height: "100%", paddingTop: "100px" }}>
-          <Grid container sx={{ width: "100%" }}>
-            <Grid
-              item
-              lg={12}
-              sx={{
-                height: "auto",
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "center",
-              }}
-            >
-              <Box>
-                <SignUpForm />
-              </Box>
-            </Grid>
+    <Box className={styles.container}>
+      <Paper className={styles.formPaper}>
+        <Grid container className={styles.gridContainer}>
+          <Grid item lg={12} className={styles.signupGrid}>
+            <Box>
+              <SignUpForm />
+            </Box>
           </Grid>
-        </FormPaper>
-      </Box>
-    </React.Fragment>
+        </Grid>
+      </Paper>
+    </Box>
   );
 }
