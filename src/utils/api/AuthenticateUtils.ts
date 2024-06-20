@@ -18,7 +18,7 @@ export const handleLogin = async (event: React.FormEvent<HTMLFormElement>, navig
     //    Chuỗi kết nối tới server backend
     //!   LƯU Ý: KHÔNG THAY ĐỔI TRỰC TIẾP CHUỖI KẾT NỐI TẠI ĐÂY (Fix cứng)
     //==  Chỉ thay đổi dữ liệu của "connection_path" trong file src/constants/developments
-    const api_url: string = connection_path.base_url + connection_path.api + connection_path.endpoints.login;
+    const api_url: string = connection_path.base_url  + connection_path.auth.login;
 
     const configuration: AxiosRequestConfig = {
         method: "POST",
@@ -51,7 +51,7 @@ export const handleLogin = async (event: React.FormEvent<HTMLFormElement>, navig
 };
 
 export const handleLogout = async (setAuth: React.Dispatch<React.SetStateAction<boolean>>, navigate: (path: string) => void) => {
-    const api_url: string = connection_path.base_url + connection_path.api + connection_path.endpoints.logout;
+    const api_url: string = connection_path.base_url  + connection_path.auth.logout;
     const accessToken = localStorage.getItem('accessToken');
     var refreshToken = localStorage.getItem('refreshToken');
 

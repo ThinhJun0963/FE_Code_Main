@@ -142,7 +142,7 @@ const ForOwnerContent: React.FC = () => {
                         Tìm kiếm giải pháp quản lí thông minh ?
                     </Box>
                     <Button href="/for-owner/clinic-register" variant="contained" sx={{ backgroundColor: '#00bfa5', color: 'white', fontSize: '20px', padding: '10px 20px' }}>
-                        Dăng kí ngay
+                        Đăng kí ngay
                     </Button>
                 </Box>
             </Box >

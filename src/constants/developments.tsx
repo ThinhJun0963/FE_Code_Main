@@ -15,7 +15,7 @@ export const connection_path = {
         user: "/user/info",
         register: "/user/register",
         get_all_service: "/service/get-all",
-        clinicRegister: "/clinic/register",
+        clinic_register: "/clinic/register",
     },
 
     booking: {
@@ -27,7 +27,7 @@ export const connection_path = {
         get_cus_booking: '/booking/schedule/customer'
     },
     service: {
-        getAllServices: "/service/get-all",
+        get_all_service: "/service/get-all",
     },
 
     admin_clinic_owner: {
