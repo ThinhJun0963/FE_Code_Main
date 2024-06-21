@@ -39,3 +39,11 @@ export const default_data: UserInfo =
     "status": null,
     "payment_info": [{creditInfo: null, creditValue: null, creditValid: null}],
 }
+
+export interface UserRegistrationModel {
+    username?: string;
+    password?: string;
+    email?: string;
+    clinicOwner?: boolean;
+    clinic?: number | null;
+ }

@@ -1,0 +1,42 @@
+.footerContainer {
+    background-color: #f9fafe;
+}
+
+.footerGrid {
+    padding: 1rem 3rem;
+}
+
+.footerColumn {
+    text-align: left;
+}
+
+.footerColumn ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    line-height: 2;
+}
+
+.footerColumn a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.footerColumn a:hover {
+    text-decoration: underline;
+}
+
+.copyrightSection {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+    color:  #e7ffff;
+}
+
+.miscBox{
+    width: 100%;
+    padding: 15px;
+    background-image: linear-gradient(to left, #657bd1, #049fbb);
+}

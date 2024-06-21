@@ -4,9 +4,10 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import { Link } from "react-router-dom";
 import { sidebarData } from "../../data";
+import { Box } from "@mui/material";
 
 export const mainListItems = (
-  <React.Fragment>
+  <Box>
     {sidebarData.map((item, index) => (
       <ListItemButton component={Link} to={item.path} key={index}>
         <ListItemIcon>
@@ -15,31 +16,6 @@ export const mainListItems = (
         <ListItemText primary={item.title} />
       </ListItemButton>
     ))}
-  </React.Fragment>
+  </Box>
 );
 
-// export const secondaryListItems = (
-//     <React.Fragment>
-//         <ListSubheader component="div" inset>
-//             Báo cáo thu nhập
-//         </ListSubheader>
-//         <ListItemButton>
-//             <ListItemIcon>
-//                 <AssignmentIcon />
-//             </ListItemIcon>
-//             <ListItemText primary="Tháng này" />
-//         </ListItemButton>
-//         <ListItemButton>
-//             <ListItemIcon>
-//                 <AssignmentIcon />
-//             </ListItemIcon>
-//             <ListItemText primary="Khóa trước" />
-//         </ListItemButton>
-//         <ListItemButton>
-//             <ListItemIcon>
-//                 <AssignmentIcon />
-//             </ListItemIcon>
-//             <ListItemText primary="Cả năm" />
-//         </ListItemButton>
-//     </React.Fragment>
-// );

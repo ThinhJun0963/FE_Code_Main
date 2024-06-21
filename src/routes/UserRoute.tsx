@@ -19,19 +19,12 @@ import ChatPage from "../pages/Dentist/pages/ChatPage";
 
 import ErrorPage from "../pages/ErrorPage/ErrorPage";
 
-import SystemAdminPage from "../pages/Admin/SystemAdmin/pages/SystemAdminPage";
-import Bar from "../pages/Admin/SystemAdmin/scenes/bar/index";
-import Calendar from "../pages/Admin/SystemAdmin/scenes/calendar/calendar";
-import Contacts from "../pages/Admin/SystemAdmin/scenes/contacts";
-import Dashboard from "../pages/Admin/SystemAdmin/scenes/dashboard";
-import FAQ from "../pages/Admin/SystemAdmin/scenes/faq";
-import Form from "../pages/Admin/SystemAdmin/scenes/form";
-import Geography from "../pages/Admin/SystemAdmin/scenes/geography";
-import Invoices from "../pages/Admin/SystemAdmin/scenes/invoices";
-import Line from "../pages/Admin/SystemAdmin/scenes/line";
-import Pie from "../pages/Admin/SystemAdmin/scenes/pie";
-import Team from "../pages/Admin/SystemAdmin/scenes/team";
 import ForOwner from "../pages/ForOwner/ForOwner";
+import AdminSystemPage from "../pages/Admin/AdminSystem/AdminSystemPage";
+import ClinicManagement from "../pages/Admin/AdminSystem/pages/ClinicManagement";
+import UserManagement from "../pages/Admin/AdminSystem/pages/UserManagement";
+import ClinicSystemDetail from "../pages/Admin/AdminSystem/pages/ClinicSystemDetail";
+import UserDetail from "../pages/Admin/AdminSystem/pages/UserDetail";
 
 export const UserRoutes = [
   { path: "/", element: <HomePage /> },
@@ -53,16 +46,21 @@ export const UserRoutes = [
   { path: "/schedule", element: <Schedule /> },
   { path: "/dentist/chat", element: <ChatPage /> },
   { path: "/error", element: <ErrorPage /> },
-  { path: "/system-admin", element: <SystemAdminPage /> },
-  { path: "/system-admin/bar", element: <Bar /> },
-  { path: "/system-admin/calendar", element: <Calendar /> },
-  { path: "/system-admin/contacts", element: <Contacts /> },
-  { path: "/system-admin/dashboard", element: <Dashboard /> },
-  { path: "/system-admin/faq", element: <FAQ /> },
-  { path: "/system-admin/form", element: <Form /> },
-  { path: "/system-admin/geography", element: <Geography /> },
-  { path: "/system-admin/invoices", element: <Invoices /> },
-  { path: "/system-admin/line", element: <Line /> },
-  { path: "/system-admin/pie", element: <Pie /> },
-  { path: "/system-admin/team", element: <Team /> },
+  { path: '/system-admin', element: <AdminSystemPage /> },
+  { path: '/system-admin/clinic', element: <ClinicManagement /> },
+  { path: '/system-admin/clinic/:clinicId', element: <ClinicSystemDetail /> },
+  { path: '/system-admin/user', element: <UserManagement /> },
+  { path: "/system-admin/user/:userId", element: <UserDetail /> },
+  // { path: "/system-admin", element: <SystemAdminPage /> },
+  // { path: "/system-admin/bar", element: <Bar /> },
+  // { path: "/system-admin/calendar", element: <Calendar /> },
+  // { path: "/system-admin/contacts", element: <Contacts /> },
+  // { path: "/system-admin/dashboard", element: <Dashboard /> },
+  // { path: "/system-admin/faq", element: <FAQ /> },
+  // { path: "/system-admin/form", element: <Form /> },
+  // { path: "/system-admin/geography", element: <Geography /> },
+  // { path: "/system-admin/invoices", element: <Invoices /> },
+  // { path: "/system-admin/line", element: <Line /> },
+  // { path: "/system-admin/pie", element: <Pie /> },
+  // { path: "/system-admin/team", element: <Team /> },
 ];

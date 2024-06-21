@@ -11,9 +11,14 @@ export const connection_path = {
         googleAuth: "/auth/google",
     },
 
+    
     user: {
-        user: "/user/info",
+        // user: "/user/info",
+        user: "/user",
         register: "/user/register",
+        add_user: "/user/register/customer",
+        activate_user: "/user/activate/:id",
+        inactivate_user: "/user/inactivate/:id",
         get_all_service: "/service/get-all",
         clinic_register: "/clinic/register",
     },
