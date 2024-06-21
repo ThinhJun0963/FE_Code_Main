@@ -3,9 +3,28 @@
     border: 1px solid #ccc;
     border-radius: 8px;
     width: 100%;
-    max-width: 600px; /* Adjust max-width as needed */
     margin: 0 auto;
 }
+
+.headingBox {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 0 0 30px 0;
+}
+
+.heading {
+    font-size: 38px;
+    font-weight: 700;
+    text-align: left;
+}
+
+.subHeading {
+    font-size: 30px;
+    font-weight: 500;
+    text-align: left;
+}
+
 
 .upload {
     display: flex;
@@ -14,14 +33,15 @@
     justify-content: center;
     gap: 1rem;
     width: 100%;
-    height: 300px; /* Set a fixed height for drop zone */
+    height: 300px;
     border: 2px dashed #ccc;
     cursor: pointer;
     transition: border-color 0.3s ease-in-out;
 }
 
 .upload.dragging {
-    border-color: #2196f3; /* Adjust color for dragging state */
+    border-color: #2196f3;
+    /* Adjust color for dragging state */
 }
 
 .uploadedFile {
@@ -54,4 +74,3 @@
     width: 20px;
     height: 20px;
 }
-

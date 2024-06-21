@@ -1,5 +1,5 @@
 import { TimeSlot, Clinic, clinicService } from './interfaces/interfaces';
-
+import { Service } from './interfaces/ClinicRegister/Clinic';
 
 export const clinicServices: clinicService[] = [
     { serviceId: '1', serviceName: "Răng sứ thẩm mỹ" },
@@ -11,31 +11,6 @@ export const clinicServices: clinicService[] = [
     { serviceId: '7', serviceName: "Phẫu thuật chỉnh nha" },
     { serviceId: '8', serviceName: "Bọc răng toàn sứ cao cấp" },
 ];
-
-
-// const serviceNames = [
-//     "Răng sứ thẩm mỹ",
-//     "Cấy ghép Implant",
-//     "Niềng răng trong suốt",
-//     "Tẩy trắng răng bằng laser",
-//     "Điều trị nha chu chuyên sâu",
-//     "Phẫu thuật nha chu",
-//     "Phẫu thuật chỉnh nha",
-//     "Bọc răng toàn sứ cao cấp",
-//     "Điều trị răng ố vàng",
-//     "Điều trị viêm lợi",
-//     "Điều trị viêm nha chu",
-//     "Điều trị sâu răng",
-//     "Điều trị răng khôn mọc lệch",
-//     "Điều trị chảy máu lợi",
-//     "Điều trị hôi miệng",
-//     "Điều trị răng mục",
-//     "Điều trị răng cắn không đều",
-//     "Điều trị răng mọc sai lệch",
-//     "Điều trị răng bị gãy",
-//     "Điều trị răng bị mất",
-// ];
-
 
 export const mockTimeSlots: Array<TimeSlot> = [
     { id: '1', start: '6:30', end: '7:00' },
@@ -243,3 +218,26 @@ const clinicData: Clinic[] = [
 ];
 
 export default clinicData;
+
+
+export const servicesData: Service[] = [
+    { serviceId: 19, serviceName: 'Bọc răng toàn sứ cao cấp' },
+    { serviceId: 1, serviceName: 'Cạo vôi răng' },
+    { serviceId: 2, serviceName: 'Cầu răng' },
+    { serviceId: 3, serviceName: 'Cấy ghép implant' },
+    { serviceId: 4, serviceName: 'Chỉnh nha' },
+    { serviceId: 5, serviceName: 'Chữa sâu răng' },
+    { serviceId: 6, serviceName: 'Chữa viêm nướu' },
+    { serviceId: 16, serviceName: 'Điều trị nha chu chuyên sâu' },
+    { serviceId: 7, serviceName: 'Điều trị tủy răng' },
+    { serviceId: 8, serviceName: 'Khám răng tổng quát' },
+    { serviceId: 9, serviceName: 'Làm răng sứ' },
+    { serviceId: 10, serviceName: 'Nhổ răng' },
+    { serviceId: 14, serviceName: 'Niềng răng trong suốt' },
+    { serviceId: 18, serviceName: 'Phẫu thuật chỉnh nha' },
+    { serviceId: 17, serviceName: 'Phẫu thuật nha chu' },
+    { serviceId: 13, serviceName: 'Răng sứ thẩm mỹ' },
+    { serviceId: 11, serviceName: 'Tẩy trắng răng' },
+    { serviceId: 15, serviceName: 'Tẩy trắng răng bằng laser' },
+    { serviceId: 12, serviceName: 'Trám răng' }
+];

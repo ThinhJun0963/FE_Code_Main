@@ -5,7 +5,7 @@ import axios from "axios";
 
 
 export const handleBookingRegister = async (payload: BookingRegistrationModel, navigate: (path: string, state?: any) => void) => {
-    const api_url: string = connection_path.base_url + connection_path.api + connection_path.booking.place_book;
+    const api_url: string = connection_path.base_url + connection_path.booking.place_book;
 
     const configuration = {
         method: "POST",
@@ -33,7 +33,7 @@ export const handleBookingRegister = async (payload: BookingRegistrationModel, n
 };
 
 export const handleBookingSuccess = async () => { 
-    const api_url: string = connection_path.base_url + connection_path.api + connection_path.booking.get_cus_booking;
+    const api_url: string = connection_path.base_url + connection_path.booking.get_cus_booking;
     const accessToken = localStorage.getItem('accessToken');
 
     const configuration = {

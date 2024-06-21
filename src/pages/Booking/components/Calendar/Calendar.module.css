@@ -1,7 +1,6 @@
 .container {}
 
 .calendarContainer {
-    padding-top: 20px;
 }
 
 
@@ -52,9 +51,6 @@
     /* Or your preferred text color */
 }
 
-.timeSlotContainer {
-    padding: 100px;
-}
 
 
 

@@ -1,29 +1,16 @@
 import { Box, Checkbox, FormControlLabel, FormGroup, Grid, Typography } from '@mui/material';
-import { SetStateAction, useState } from 'react';
-
-interface Service {
-    serviceId: string;
-    serviceName: string;
-}
+import { SetStateAction, useEffect, useState } from 'react';
+import { Service, Clinic, setClinic } from '../../../../utils/interfaces/ClinicRegister/Clinic';
+import styles from './ServicesForm.module.css';
 
 interface ServicesFormProps {
-    formData: {
-        clinicServices: Service[];
-    };
+    formData: Clinic;
+    setFormData: setClinic;
     services: Service[];
-    setFormData: React.Dispatch<SetStateAction<{
-        name: string;
-        address: string;
-        phone: string;
-        email: string;
-        openHour: string;
-        closeHour: string;
-        clinicServices: Service[];
-        certifications: string[];
-    }>>;
+    onStepComplete: () => void;
 }
 
-function ServicesForm({ services, formData, setFormData }: ServicesFormProps) {
+function ServicesForm({ formData, setFormData, services, onStepComplete }: ServicesFormProps) {
     const [selectedServices, setSelectedServices] = useState<Service[]>(formData.clinicServices);
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>, service: Service) => {
@@ -37,12 +24,22 @@ function ServicesForm({ services, formData, setFormData }: ServicesFormProps) {
         setFormData(prevState => ({ ...prevState, clinicServices: updatedServices }));
     };
 
+    useEffect(() => {
+        if (selectedServices.length === 7) {
+            onStepComplete();
+        }
+    }, [selectedServices, onStepComplete]);
+
+
     return (
-        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, padding: '20px' }}>
-            <Typography variant="h6">Chọn loại dịch vụ</Typography>
-            <Grid container spacing={2}>
+        <Box className={styles.container}>
+            <Box className={styles.headingBox}>
+                <Box className={styles.heading}>Chọn loại dịch vụ</Box>
+                <Box className={styles.subHeading}>Chọn 7 loại dịch vụ căn bản</Box>
+            </Box>
+            <Box className={styles.gridContainer}> {/* Use Box with grid styles */}
                 {services.map((service, index) => (
-                    <Grid item xs={4} key={index}>
+                    <Box key={index} className={styles.gridItem}> {/* Apply grid item styles */}
                         <FormControlLabel
                             control={
                                 <Checkbox
@@ -53,9 +50,9 @@ function ServicesForm({ services, formData, setFormData }: ServicesFormProps) {
                             }
                             label={service.serviceName}
                         />
-                    </Grid>
+                    </Box>
                 ))}
-            </Grid>
+            </Box>
         </Box>
     );
 }

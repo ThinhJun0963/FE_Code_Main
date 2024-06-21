@@ -5,7 +5,7 @@
     justify-content: flex-start;
     align-items: center;
     width: 100%;
-    height: 100vh;
+    height: 100%;
 }
 
 .breadcrumbsContainer {
@@ -45,6 +45,8 @@
 
 .formContainer {
     height: fit-content;
+    display: flex;
+    flex-direction: column;
     width: 60%;
     max-width: 100%;
     font-family: Arial, Helvetica, sans-serif;
@@ -146,14 +148,4 @@
     overflow: hidden;
     width: 20%;
     margin: 0 auto;
-}
-
-.breadcrumbsContainer .MuiBreadcrumbs-root a {
-    color: #F8F8F8;
-}
-
-.breadcrumbsContainer .MuiBreadcrumbs-separator {
-    color: #FFFFFF;
-    margin: 0 8px;
-    font-weight: bold;
 }
