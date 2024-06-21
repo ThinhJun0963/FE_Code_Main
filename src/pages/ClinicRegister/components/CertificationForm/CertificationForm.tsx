@@ -93,7 +93,7 @@ const CertificationForm = ({ formData, setFormData }: CertificationFormProps) =>
           });
     
           const urls = await Promise.all(uploadPromises);
-    
+          console.log(urls);
           // Update local state for immediate display
           setUploadedUrls(urls); // Update uploadedUrls state
     

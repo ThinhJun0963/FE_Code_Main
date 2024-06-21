@@ -8,7 +8,7 @@
 }
 
 .backgroundImageBox {
-    background-image: url('../../../../public/icon/simple-bg4.svg');
+    background-image: url('/icon/simple-bg4.svg');
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;

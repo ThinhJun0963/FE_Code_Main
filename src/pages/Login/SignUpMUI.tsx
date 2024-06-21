@@ -9,7 +9,7 @@ import styles from "./SignUpMUI.module.css";
 export default function SignUp() {
   return (
     <Box className={styles.container}>
-      <Paper className={styles.formPaper}>
+      {/* <Paper className={styles.formPaper}> */}
         <Grid container className={styles.gridContainer}>
           <Grid item lg={12} className={styles.signupGrid}>
             <Box>
@@ -17,7 +17,11 @@ export default function SignUp() {
             </Box>
           </Grid>
         </Grid>
-      </Paper>
+      {/* </Paper> */}
+      <Box className={styles.backgroundImageBox}></Box>
+
     </Box>
+
+    
   );
 }

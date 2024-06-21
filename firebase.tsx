@@ -15,12 +15,12 @@ import {getStorage, ref} from 'firebase/storage'
 // };
 
 const firebaseConfig = {
-  apiKey: "[API Key here]",
-  authDomain: "[Auth domain here]",
-  projectId: "[Project ID here]",
-  storageBucket: "[Bucket ID here]",
-  messagingSenderId: "[Sender ID here]",
-  appId: "[Your App ID here]"
+  apiKey: "",
+  authDomain: "",
+  projectId: "",
+  storageBucket: "",
+  messagingSenderId: "",
+  appId: ""
 };
 
 // Initialize Firebase
