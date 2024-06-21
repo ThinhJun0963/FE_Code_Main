@@ -89,11 +89,11 @@ const LoginForm = () => {
     if (axiosResponse.data.accessToken !== undefined) {
       localStorage.setItem("accessToken", axiosResponse.data.accessToken);
       localStorage.setItem("refreshToken", axiosResponse.data.refreshToken);
-      navigate("/user/profile");
+      navigate("/");
     }
   };
   const handleGoogleOnFailure = () => {
-    console.log("Error");
+    navigate("/error404")
   };
 
   //#   Kiểm tra xem người dùng đã login hay chưa (nên có ở các trang / component yêu cầu phải login)

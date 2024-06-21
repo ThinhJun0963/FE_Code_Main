@@ -64,14 +64,17 @@ const Header = () => {
   // ============================ End of proposal  ===================================
 
   return (
-    <AppBar position="sticky" style={{ top: 0 }}>
+    <AppBar position="sticky">
       <Box width='100%' sx={{ backgroundColor: 'white' }}>
-        <Toolbar disableGutters>
-          <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%', padding: 1 }}>
-            <Link href="/"><img src="../../../public/Logo.png" alt="Logo" style={{ height: '70px', marginLeft: '20px' }} /></Link>
-            <Box sx={{ display: 'flex', gap: 1, paddingRight: 2}}>
-              <Button variant="text" href='/for-owner' sx={{ color: ' #00aeeb', fontWeight: 'bold' }}>Dành cho chủ phòng khám</Button>
+        <Toolbar>
+          <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%' }}>
+            <Link href="/"><img src="../../../public/Logo.png" alt="Logo" style={{ height: '70px' }} /></Link>
+            <Box sx={{ display: 'flex', gap: .5 }}>
               <Button variant='text' sx={{ color: ' #00aeeb', fontWeight: 'bold' }}>Tư vấn trực tuyến</Button>
+              <Button variant='text' sx={{ color: ' #00aeeb', fontWeight: 'bold' }}>Quy trình</Button>
+              <Button variant="text" href='/for-owner' sx={{ color: ' #00aeeb', fontWeight: 'bold' }}>Dành cho chủ phòng khám</Button>
+            </Box>
+            <Box>
               {auth ? (
                 <Box>
                   <IconButton

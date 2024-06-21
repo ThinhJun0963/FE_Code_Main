@@ -1,0 +1,10 @@
+.logoBox {
+    width: 10%;
+    height: 10%;
+}
+
+.logoBox img {
+    object-fit: contain;
+    width: 100%;
+    height: 100%;
+}
