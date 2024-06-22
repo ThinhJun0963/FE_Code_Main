@@ -20,21 +20,21 @@ const CertificationForm = ({ formData, setFormData }: CertificationFormProps) =>
     const [uploading, setUploading] = useState(false); // State to track upload progress
     const [openDialog, setOpenDialog] = useState(false); // State to control the visibility of the dialog
     const [dialogMessage, setDialogMessage] = useState(""); // State to store the dialog message
-    const [uploadedUrls, setUploadedUrls] = useState<string[]>([]); 
+    const [uploadedUrls, setUploadedUrls] = useState<string[]>([]);
 
     const uploadImage = (file: File): Promise<string> => {
         if (file == null) return Promise.reject("No file");
 
-        const imageRef = ref(storage, `pictures/${v4()}`); 
+        const imageRef = ref(storage, `pictures/${v4()}`);
 
         return uploadBytes(imageRef, file)
             .then((result: UploadResult) => {
                 const downloadURL = getDownloadURL(result.ref);
-                return downloadURL; 
+                return downloadURL;
             })
             .catch((reason) => {
                 console.error("Error uploading image:", reason);
-                throw reason; 
+                throw reason;
             });
     };
 
@@ -81,39 +81,40 @@ const CertificationForm = ({ formData, setFormData }: CertificationFormProps) =>
 
     const handleUpload = async () => {
         if (uploadedFiles.length === 0) return;
-    
+
         setUploading(true);
+
         setUploadError(false);
         setUploadSuccess(false);
-    
+
         try {
-          const uploadPromises = uploadedFiles.map(async ({ file }) => {
-            const imageUrl = await uploadImage(file);
-            return imageUrl;
-          });
-    
-          const urls = await Promise.all(uploadPromises);
-          console.log(urls);
-          // Update local state for immediate display
-          setUploadedUrls(urls); // Update uploadedUrls state
-    
-          // Update formData 
-          setFormData((prevData) => ({
-            ...prevData,
-            clinicMedia: urls,
-          }));
-    
-          setDialogMessage("Đăng ảnh thành công");
-          setUploadSuccess(true);
+            const uploadPromises = uploadedFiles.map(async ({ file }) => {
+                const imageUrl = await uploadImage(file);
+                return imageUrl;
+            });
+
+            const urls = await Promise.all(uploadPromises);
+
+            // Update local state for immediate display
+            setUploadedUrls(urls); // Update uploadedUrls state
+
+            // Update formData 
+            setFormData((prevData) => ({
+                ...prevData,
+                clinicMedia: urls,
+            }));
+            setUploadedFiles([]);
+            setDialogMessage("Đăng ảnh thành công");
+            setUploadSuccess(true);
         } catch (error) {
-          setDialogMessage("Đăng ảnh thất bại");
-          setUploadError(true);
-          console.error("Error uploading files", error);
+            setDialogMessage("Đăng ảnh thất bại");
+            setUploadError(true);
+            console.error("Error uploading files", error);
         } finally {
-          setUploading(false);
-          setOpenDialog(true);
+            setUploading(false);
+            setOpenDialog(true);
         }
-      };
+    };
 
     const handleDeleteFile = (index: number) => {
         const updatedFiles = [...uploadedFiles];
@@ -125,6 +126,11 @@ const CertificationForm = ({ formData, setFormData }: CertificationFormProps) =>
         setOpenDialog(false);
     };
 
+    useEffect(() => {
+        if (uploadSuccess) {
+            setUploadedFiles([]);
+        }
+    }, [uploadSuccess]);
 
     return (
         <Box>
@@ -156,7 +162,10 @@ const CertificationForm = ({ formData, setFormData }: CertificationFormProps) =>
                                 </Box>
                             </Typography>
                         ) : (
-                            <Button onClick={handleUpload} variant="contained" color="primary" disabled={uploading}>
+                            <Button onClick={(event) => {
+                                event.stopPropagation(); 
+                                handleUpload();
+                            }} variant="contained" color="primary" disabled={uploading}>
                                 {uploading ? 'Đang tải...' : 'Đăng ảnh'}
                             </Button>
                         )}
@@ -166,6 +175,7 @@ const CertificationForm = ({ formData, setFormData }: CertificationFormProps) =>
                             accept="image/png, image/gif, image/jpeg"
                             multiple
                             hidden
+                            disabled={uploading}
                             onChange={handleFileChange}
                         />
                     </Stack>

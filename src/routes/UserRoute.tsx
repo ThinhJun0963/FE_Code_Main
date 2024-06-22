@@ -26,12 +26,17 @@ import UserManagement from "../pages/Admin/AdminSystem/pages/UserManagement";
 import ClinicSystemDetail from "../pages/Admin/AdminSystem/pages/ClinicSystemDetail";
 import UserDetail from "../pages/Admin/AdminSystem/pages/UserDetail";
 
+//------------------- User V2 -------------------
+import UserProfilePage from "../pages/UserV2/UserProfilePage";
+//------------------- User V2 -------------------
+
 export const UserRoutes = [
   { path: "/", element: <HomePage /> },
   { path: "/booking", element: <BookingPage /> },
   { path: '/for-owner', element: <ForOwner /> },
   { path: '/for-owner/clinic-register', element: <ClinicRegister /> },
   { path: "/clinic", element: <ClinicDetail /> },
+  { path: "/userV2", element: <UserProfilePage /> },
   { path: "/user/", element: <UserScheduleMain /> },
   { path: "/user/payment", element: <UserPaymentMain /> },
   { path: "/user/profile", element: <UserProfileMain /> },
@@ -51,16 +56,4 @@ export const UserRoutes = [
   { path: '/system-admin/clinic/:clinicId', element: <ClinicSystemDetail /> },
   { path: '/system-admin/user', element: <UserManagement /> },
   { path: "/system-admin/user/:userId", element: <UserDetail /> },
-  // { path: "/system-admin", element: <SystemAdminPage /> },
-  // { path: "/system-admin/bar", element: <Bar /> },
-  // { path: "/system-admin/calendar", element: <Calendar /> },
-  // { path: "/system-admin/contacts", element: <Contacts /> },
-  // { path: "/system-admin/dashboard", element: <Dashboard /> },
-  // { path: "/system-admin/faq", element: <FAQ /> },
-  // { path: "/system-admin/form", element: <Form /> },
-  // { path: "/system-admin/geography", element: <Geography /> },
-  // { path: "/system-admin/invoices", element: <Invoices /> },
-  // { path: "/system-admin/line", element: <Line /> },
-  // { path: "/system-admin/pie", element: <Pie /> },
-  // { path: "/system-admin/team", element: <Team /> },
 ];
