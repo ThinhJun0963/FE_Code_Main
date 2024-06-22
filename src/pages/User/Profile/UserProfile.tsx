@@ -40,6 +40,7 @@ const UserProfile: React.FC = () => {
     }
   };
 
+  
   const uploadImage = async (file: File | null) => {
     if (file) {
       try {

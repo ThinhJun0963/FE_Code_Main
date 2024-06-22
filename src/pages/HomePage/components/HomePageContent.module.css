@@ -7,12 +7,13 @@
     width: 100%;
     height: 100%;
     background: linear-gradient(to left, #e3f2fd, #f8fbff);
+    padding: 90px;
 }
 
 .bookingButtonHero {
     position: absolute;
-    left: -470px;
-    top: -170px;
+    left: -525px;
+    top: -250px;
     width: 20%;
     background-color: #007bff !important;
     color: white !important;
