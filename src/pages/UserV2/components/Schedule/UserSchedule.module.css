@@ -1,0 +1,8 @@
+.mainContentRightContainer {
+    display: flex;
+    flex-basis: 1;
+    flex-direction: column;
+    font-family: Inter;
+    width: 70%;
+    padding-top: 3em;
+}

@@ -1,0 +1,213 @@
+.mainContentRightContainer {
+    display: flex;
+    flex-basis: 1;
+    flex-direction: column;
+    font-family: Inter;
+    width: 70%;
+    padding-top: 3em;
+}
+
+.SectionHeader {
+    font-size: 2em;
+    padding: 0.5em;
+}
+
+.MainSection {
+    display: flex;
+    flex-direction: column;
+    flex-basis: 1;
+    font-family: Inter;
+    width: 100%;
+
+    >.MediumHeader {
+        font-family: Inter;
+        width: 100%;
+        padding: 0 0 0.35em 0;
+        margin: 0;
+        font-size: 3em;
+        text-align: left;
+    }
+
+    >.InfoBoard {
+        display: flex;
+        width: 80%;
+        padding: 5em;
+        flex-direction: column;
+        justify-content: space-around;
+        background-color: rgb(255, 255, 255);
+        border: 1px solid rgb(180, 180, 180);
+        border-radius: 1em;
+    }
+
+    >.ContainerBox {
+        width: 70%;
+        padding: 2em 0.5em;
+        background-color: rgb(255, 255, 255);
+        border: 1px solid rgb(204, 204, 204);
+        border-radius: 2% 2%;
+    }
+
+
+
+    .ProfileImagePlaceholder {
+        padding: 2em 0em;
+        display: flex;
+        text-align: left;
+        justify-content: space-evenly;
+
+        >.ProfileImage {
+            margin-right: 10px;
+
+            >img {
+                height: 15em;
+                border-radius: 250px;
+            }
+        }
+
+        >.ProfileGeneralInfo {
+            width: 60%;
+
+            h2 {
+                padding: 0.5em 0 0.5cqw 0;
+                font-size: 2cqw;
+                font-weight: bolder;
+
+                text-align: left;
+            }
+
+            p.PatientCode {
+                font-size: 1cqw;
+                color: rgb(105, 105, 105);
+            }
+        }
+    }
+
+    .ProfileInfo {
+        >.InformationTable {
+            width: 100%;
+            font-size: 1.5em;
+            color: rgb(105, 105, 105);
+
+            .TableRow,
+            .TableData {
+                padding: 0.5em 1em;
+                width: 50%;
+            }
+
+            .FieldName {
+                text-align: left;
+                width: 40%;
+            }
+
+            .FieldValue {
+                width: 100%;
+                text-align: right;
+            }
+
+            fieldset {
+                display: flex;
+                text-align: center;
+                justify-content: space-around;
+            }
+
+            label {
+                margin: 0 auto;
+            }
+
+            input {
+                padding: 15px 20px 15px 0;
+                color: inherit;
+                margin: 0;
+              
+                font-size: inherit;
+                height: 1em;
+                line-height: 3em;
+            }
+
+            input::placeholder {
+                color: rgb(160, 160, 160);
+            }
+
+            .TableRow:hover,
+            .TableRow:has(input:focus),
+            input:focus {
+                background-color: rgb(233, 233, 233);
+
+                input {
+                    background-color: inherit;
+                }
+
+            }
+
+            input:enabled {
+                border-bottom: 1px solid black;
+                color: rgb(0, 0, 0);
+                transition: all 1s ease;
+            }
+
+            input:disabled {
+                border-bottom: 1px solid white;
+                padding-left: 5em;
+                transition: all 1s ease;
+            }
+        }
+    }
+
+
+
+    .Line {
+        margin: 2em auto;
+        width: 90%;
+        border: 1px solid rgb(0, 0, 0);
+    }
+
+    .PaymentInfo {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+
+        >table {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            font-size: 1em;
+            color: rgb(105, 105, 105);
+
+            thead {
+                width: 100%;
+                color: rgb(0, 0, 0);
+                font-weight: bolder;
+
+            }
+
+            tr {
+                padding: 1em 1em;
+                display: flex;
+                text-align: center;
+                justify-content: space-around;
+            }
+
+            td {
+                width: 100%;
+                text-align: center;
+                align-self: center;
+            }
+
+            p {
+                display: block;
+                margin: 0 auto;
+                width: 50%
+            }
+
+            ;
+        }
+
+        button {
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+    }
+
+
+}
