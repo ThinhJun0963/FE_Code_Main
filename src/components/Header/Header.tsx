@@ -68,7 +68,7 @@ const Header = () => {
       <Box width='100%' sx={{ backgroundColor: 'white' }}>
         <Toolbar>
           <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%' }}>
-            <Link href="/"><img src="../../../public/Logo.png" alt="Logo" style={{ height: '70px' }} /></Link>
+            <Link href="/"><img src="/Logo.png" alt="Logo" style={{ height: '70px' }} /></Link>
             <Box sx={{ display: 'flex', gap: .5 }}>
               <Button variant='text' sx={{ color: ' #00aeeb', fontWeight: 'bold' }}>Tư vấn trực tuyến</Button>
               <Button variant='text' sx={{ color: ' #00aeeb', fontWeight: 'bold' }}>Quy trình</Button>

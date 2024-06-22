@@ -135,7 +135,7 @@ const LoginForm = () => {
       component="form"
       onSubmit={(event) => handleLogin(event, navigate)}
       noValidate
-      className={styles.form}
+      // className={styles.form}
     >
       <Box className={styles.buttonBox}>
         <button type="button" className={styles.backButton} onClick={handleBack}>
