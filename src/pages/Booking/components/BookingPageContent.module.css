@@ -10,7 +10,7 @@
 
 .breadcrumbsContainer {
     width: 100%;
-    height: 20%;
+    height: 30%;
     display: flex;
     padding-left: 10%;
     justify-content: flex-start;
@@ -24,16 +24,16 @@
     flex-direction: column;
     width: 90%;
     min-width: 50%;
+    margin: 0 auto;
     gap: 5px;
     margin-top: 70px;
 }
 
 .content {
     display: flex;
-    width: 100%;
-    margin: 0 auto;
     gap: 60px;
     align-items: flex-start;
+    justify-content: center;
 }
 
 .content.step2 {
@@ -58,7 +58,7 @@
 }
 
 .informationTab {
-    width: 40%;
+    width: 20%;
     border: 2px solid #e0e4e5;
     border-radius: 8px;
     box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
@@ -99,7 +99,7 @@
     margin: 0 auto;
     padding-top: 10px;
     margin-bottom: 30px;
-    width: 100%;
+    width: 85%;
 }
 
 .buttonContainer.step2 {

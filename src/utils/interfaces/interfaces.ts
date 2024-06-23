@@ -44,7 +44,6 @@ export interface BookingRegistrationModel {
     ServiceId: string | null,
     RepeatCount: number,
     IsRecurring: boolean,
-    // PaymentInformation: PaymentInformation
 }
 
 
@@ -58,7 +57,8 @@ export interface BookingInformation {
     //----------------------------------
     time: TimeSlot,
     // service: '',
-    service: string,
+    serviceId: string,
+    serviceName: string,
 }
 
 export interface BookingInformationToSend {

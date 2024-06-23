@@ -1,7 +1,7 @@
 import { SearchIcon } from "@chakra-ui/icons";
 import { Box, Button, IconButton, InputBase, Typography } from "@mui/material";
 import Carousel from "../../../components/Carousel/Carousel";
-import clinics from "../../../utils/mockData";
+import { clinicData } from "../../../utils/mockData";
 import Accordion from "./Accordion/Accordion";
 import FeaturesAndBenefits from "./FeatureAndBenefits/FeatureAndBenefits";
 import { useNavigate } from 'react-router-dom';
@@ -15,7 +15,7 @@ const HomePageContent = () => {
     navigate('/clinics');
   };
 
-  const transformedClinics = clinics.map(clinic => ({
+  const transformedClinics = clinicData.map(clinic => ({
     id: clinic.clinic_id,
     image: clinic.imageToShow,
     title: clinic.name,

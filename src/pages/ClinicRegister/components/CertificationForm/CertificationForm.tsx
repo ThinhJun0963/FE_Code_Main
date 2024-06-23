@@ -7,37 +7,29 @@ import { v4 } from 'uuid';
 import { getDownloadURL, listAll, ref, uploadBytes, UploadResult } from 'firebase/storage';
 import { Clinic, setClinic } from '../../../../utils/interfaces/ClinicRegister/Clinic'
 
+import { uploadClinicImages } from '../../../../utils/UploadFireBase'
+
 interface CertificationFormProps {
     formData: Clinic;
     setFormData: setClinic;
 }
 
 const CertificationForm = ({ formData, setFormData }: CertificationFormProps) => {
+
+    //----------------------------------State variables----------------------------------
     const [uploadedFiles, setUploadedFiles] = useState<{ file: File; imageUrl: string }[]>([]);
     const [uploadSuccess, setUploadSuccess] = useState(false); // State to track upload success
     const [uploadError, setUploadError] = useState(false); // State to track upload error
     const [dragging, setDragging] = useState(false); // State to track drag over zone
+    const [progress, setProgress] = useState(0); //For circular progress bar
     const [uploading, setUploading] = useState(false); // State to track upload progress
     const [openDialog, setOpenDialog] = useState(false); // State to control the visibility of the dialog
     const [dialogMessage, setDialogMessage] = useState(""); // State to store the dialog message
     const [uploadedUrls, setUploadedUrls] = useState<string[]>([]);
+    //----------------------------------State variables----------------------------------
 
-    const uploadImage = (file: File): Promise<string> => {
-        if (file == null) return Promise.reject("No file");
 
-        const imageRef = ref(storage, `pictures/${v4()}`);
-
-        return uploadBytes(imageRef, file)
-            .then((result: UploadResult) => {
-                const downloadURL = getDownloadURL(result.ref);
-                return downloadURL;
-            })
-            .catch((reason) => {
-                console.error("Error uploading image:", reason);
-                throw reason;
-            });
-    };
-
+    //----------------------------------Action handlers----------------------------------
     const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         if (event.target.files) {
             const filesArray = Array.from(event.target.files); // Convert FileList to Array
@@ -69,36 +61,69 @@ const CertificationForm = ({ formData, setFormData }: CertificationFormProps) =>
         setDragging(false);
 
         const files = event.dataTransfer.files;
-        if (files.length > 0) {
-            const newFile = files[0];
-            const imageUrl = URL.createObjectURL(newFile);
+        const newFiles = Array.from(files); // Convert FileList to array
 
-            setUploadedFiles((prevFiles) => [...prevFiles, { file: newFile, imageUrl }]);
-            setUploadSuccess(false);
-            setUploadError(false);
+        if (newFiles.length > 0) {
+            const uploadPromises = newFiles.map(async (file) => {
+                const imageUrl = URL.createObjectURL(file);
+                return { file, imageUrl };
+            });
+
+            Promise.all(uploadPromises)
+                .then((fileObjects) => {
+                    setUploadedFiles((prevFiles) => [...prevFiles, ...fileObjects]);
+                    setUploadSuccess(false);
+                    setUploadError(false);
+                })
+                .catch((error) => {
+                    console.error('Error uploading files:', error);
+                    setUploadError(true);
+                });
         }
     };
 
+
+    const handleDeleteFile = (index: number) => {
+        const updatedFiles = [...uploadedFiles];
+        updatedFiles.splice(index, 1);
+        setUploadedFiles(updatedFiles);
+    };
+
+    const handleCloseDialog = () => {
+        setOpenDialog(false);
+    };
+    //----------------------------------Action handlers----------------------------------
+
+    // Upload files to Firebase Storage
+    //--------------------------------------------------------------------
     const handleUpload = async () => {
         if (uploadedFiles.length === 0) return;
 
         setUploading(true);
+
+        const uploadInterval = setInterval(() => {
+            setProgress(prevProgress => (prevProgress >= 100 ? 100 : prevProgress + 10));
+        }, 500);
+        setTimeout(() => {
+            clearInterval(uploadInterval);
+            setUploading(false);
+        }, 5000);
+
 
         setUploadError(false);
         setUploadSuccess(false);
 
         try {
             const uploadPromises = uploadedFiles.map(async ({ file }) => {
-                const imageUrl = await uploadImage(file);
+                //clinic id is hardcoded for now
+                const imageUrl = await uploadClinicImages(file);
                 return imageUrl;
             });
 
             const urls = await Promise.all(uploadPromises);
 
-            // Update local state for immediate display
-            setUploadedUrls(urls); // Update uploadedUrls state
+            setUploadedUrls(urls);
 
-            // Update formData 
             setFormData((prevData) => ({
                 ...prevData,
                 clinicMedia: urls,
@@ -115,17 +140,9 @@ const CertificationForm = ({ formData, setFormData }: CertificationFormProps) =>
             setOpenDialog(true);
         }
     };
+    //--------------------------------------------------------------------
 
-    const handleDeleteFile = (index: number) => {
-        const updatedFiles = [...uploadedFiles];
-        updatedFiles.splice(index, 1);
-        setUploadedFiles(updatedFiles);
-    };
-
-    const handleCloseDialog = () => {
-        setOpenDialog(false);
-    };
-
+    // Reset uploaded files when upload is successful
     useEffect(() => {
         if (uploadSuccess) {
             setUploadedFiles([]);
@@ -163,7 +180,7 @@ const CertificationForm = ({ formData, setFormData }: CertificationFormProps) =>
                             </Typography>
                         ) : (
                             <Button onClick={(event) => {
-                                event.stopPropagation(); 
+                                event.stopPropagation();
                                 handleUpload();
                             }} variant="contained" color="primary" disabled={uploading}>
                                 {uploading ? 'Đang tải...' : 'Đăng ảnh'}
@@ -187,7 +204,7 @@ const CertificationForm = ({ formData, setFormData }: CertificationFormProps) =>
                                 {file.file.name}
                             </Typography>
                             <Box className={styles.uploadProgress}>
-                                {uploading && <CircularProgress variant="determinate" value={50} />}
+                                {uploading && <CircularProgress variant="determinate" value={progress} />}
                                 <Button
                                     className={styles.delBtn}
                                     onClick={() => handleDeleteFile(index)}

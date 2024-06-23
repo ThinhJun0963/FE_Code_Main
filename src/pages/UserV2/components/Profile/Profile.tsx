@@ -1,7 +1,8 @@
-import React, { Dispatch, SetStateAction, useState } from 'react'
+import React, { Dispatch, SetStateAction, useEffect, useState } from 'react'
 import styles from './Profile.module.css'
 import SimpleButton from '../../../../components/User/Components/Buttons/SimpleButton';
 import { default_data, UserInfo } from '../../../../components/User/Interfaces/UserDefinition';
+import { getUserData } from '../../../../utils/api/UserAccountUtils';
 
 
 const Profile = () => {
@@ -26,6 +27,21 @@ const Profile = () => {
             });
         }
     };
+
+    //-------------------Fetching data from database-------------------
+
+    const fetchUserData = async () => {
+        try {
+            const usersData = await getUserData(5);
+            setData(usersData);
+        } catch (error) {
+            console.error('Error fetching users:', error);
+        }
+    }
+
+    useEffect(() => {
+        fetchUserData();
+    }, []);
 
     return (
         <div className={styles.mainContentRightContainer}>

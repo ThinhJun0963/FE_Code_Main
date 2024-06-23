@@ -13,7 +13,6 @@ export const connection_path = {
 
     
     user: {
-        // user: "/user/info",
         user: "/user",
         register: "/user/register",
         add_user: "/user/register/customer",
@@ -27,7 +26,7 @@ export const connection_path = {
         available_date: '/booking/availabe-date',
         available_slot: '/booking/availabe-slot',
         check_available: '/booking/available',
-        place_book: '/booking/general-book',
+        place_book: '/booking/customer/book',
         get_booking: '/booking/schedule/staff',
         get_cus_booking: '/booking/schedule/customer'
     },

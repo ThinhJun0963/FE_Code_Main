@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom';
-import clinicsData from '../../../utils/mockData'
+import { clinicData } from '../../../utils/mockData'
+import { Clinic } from '../../../utils/interfaces/interfaces'
 import { Box, Pagination, Divider, Typography, Paper, TextField, IconButton } from '@mui/material';
 import { SearchIcon } from '@chakra-ui/icons';
 import styles from './PaginatedClinicList.module.css';
@@ -29,7 +30,7 @@ const PaginatedClinicList = () => {
     const queryParams = new URLSearchParams(location.search);
     const searchTermParams = queryParams.get('search');
 
-    const clinicsList = clinicsData.map(clinic => ({
+    const clinicsList = clinicData.map(clinic => ({
         id: clinic.clinic_id,
         image: clinic.imageToShow,
         title: clinic.name,
@@ -69,13 +70,13 @@ const PaginatedClinicList = () => {
                     placeholder='Tìm kiếm theo tên, địa chỉ phòng khám'
                     onChange={(e) => setSearchTerm(e.target.value)}
                     sx={{ margin: '0 auto' }}
-                    className={styles.searchBar} 
+                    className={styles.searchBar}
                 />
                 <IconButton
                     type="submit"
                     aria-label="search"
                     sx={{ color: "#000", position: 'absolute', right: '15px', top: '0', bottom: '0', margin: 'auto' }}
-                    className={styles.searchIconButton} 
+                    className={styles.searchIconButton}
                 >
                     <SearchIcon />
                 </IconButton>

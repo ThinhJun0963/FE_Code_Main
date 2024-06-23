@@ -1,0 +1,9 @@
+.customModal {
+    top: 100px;
+}
+
+.formGroup {
+    display: flex;
+    padding: 10px;
+    justify-content: space-between;
+}

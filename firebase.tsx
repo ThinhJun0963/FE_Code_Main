@@ -15,15 +15,15 @@ import { getStorage, ref } from 'firebase/storage'
 // };
 
 const firebaseConfig = {
-  apiKey: "AIzaSyAfXzonvAnbxxnsv1MMColm4_9n-lVEQjs",
-  authDomain: "dentalclinicbooking-e8ec9.firebaseapp.com",
-  projectId: "dentalclinicbooking-e8ec9",
-  storageBucket: "dentalclinicbooking-e8ec9.appspot.com",
-  messagingSenderId: "764721719991",
-  appId: "1:764721719991:web:4ec2197b643798ee9cfb32"
+  apiKey: "[API Key here]",
+  authDomain: "[Auth domain here]",
+  projectId: "[Project ID here]",
+  storageBucket: "[Bucket ID here]",
+  messagingSenderId: "[Sender ID here]",
+  appId: "[Your App ID here]"
 };
 
 // Initialize Firebase
-const app = initializeApp(firebaseConfig);
+export const app = initializeApp(firebaseConfig);
 
 export const storage = getStorage(app);

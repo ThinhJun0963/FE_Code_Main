@@ -2,14 +2,18 @@ import { TimeSlot, Clinic, clinicService } from './interfaces/interfaces';
 import { Service } from './interfaces/ClinicRegister/Clinic';
 
 export const clinicServices: clinicService[] = [
-    { serviceId: '1', serviceName: "Răng sứ thẩm mỹ" },
-    { serviceId: '2', serviceName: "Cấy ghép Implant" },
-    { serviceId: '3', serviceName: "Niềng răng trong suốt" },
-    { serviceId: '4', serviceName: "Tẩy trắng răng bằng laser" },
-    { serviceId: '5', serviceName: "Điều trị nha chu chuyên sâu" },
-    { serviceId: '6', serviceName: "Phẫu thuật nha chu" },
-    { serviceId: '7', serviceName: "Phẫu thuật chỉnh nha" },
-    { serviceId: '8', serviceName: "Bọc răng toàn sứ cao cấp" },
+    { serviceId: '1', serviceName: "Khám tổng quát" },
+    { serviceId: '2', serviceName: "Răng sứ thẩm mỹ" },
+    { serviceId: '3', serviceName: "Cấy ghép Implant" },
+    { serviceId: '4', serviceName: "Niềng răng trong suốt" },
+    { serviceId: '5', serviceName: "Tẩy trắng răng bằng laser" },
+    { serviceId: '6', serviceName: "Điều trị nha chu chuyên sâu" },
+    { serviceId: '7', serviceName: "Phẫu thuật nha chu" },
+    { serviceId: '8', serviceName: "Phẫu thuật chỉnh nha" },
+    { serviceId: '9', serviceName: "Bọc răng toàn sứ cao cấp" },
+    { serviceId: '7', serviceName: "Phẫu thuật nha chu" },
+    { serviceId: '8', serviceName: "Phẫu thuật chỉnh nha" },
+    { serviceId: '9', serviceName: "Bọc răng toàn sứ cao cấp" },
 ];
 
 export const mockTimeSlots: Array<TimeSlot> = [
@@ -23,7 +27,7 @@ export const mockTimeSlots: Array<TimeSlot> = [
 ]
 //===
 
-const clinicData: Clinic[] = [
+export const clinicData: Clinic[] = [
     {
         clinic_id: 1,
         logo: '../../../public/asia-logo.png',
@@ -217,7 +221,6 @@ const clinicData: Clinic[] = [
 
 ];
 
-export default clinicData;
 
 
 export const servicesData: Service[] = [

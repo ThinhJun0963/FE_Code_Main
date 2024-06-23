@@ -1,14 +1,17 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Avatar, Box, Breadcrumbs, Button, Divider, Link, Typography } from '@mui/material';
 import ImageList from './ImageList/ImageList';
 import ClinicServices from './ClinicServices/ClinicServices';
-import clinicData, { Clinic } from '../../../utils/mockData';
+import { clinicData } from '../../../utils/mockData';
+import { Clinic } from '../../../utils/interfaces/interfaces';
 import { useParams } from 'react-router-dom';
 
+import { fetchClinicImages } from '../../../utils/UploadFireBase';
 
 
 const ClinicDetailContent = () => {
     const { id } = useParams<{ id: string }>();
+    const [images, setImages] = useState<string[]>([]);
 
     const clinicId = id;
 
@@ -22,8 +25,22 @@ const ClinicDetailContent = () => {
         );
     }
 
+    useEffect(() => {
+        // clinic id 1 is hardcoded for now
+        const folderPath = 'clinics/1/pictures/'; // Get all pictures from clinic 
+        fetchClinicImages(folderPath)
+            .then((imageUrls) => {
+                setImages(imageUrls);
+                console.log('Image URLs:', imageUrls);
+                // Do something with imageUrls (e.g., store in state)
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+    }, []);
+
+
     const logoSrc = clinic.logo || '../../../../public/placeholder.png';
-    const images = clinic.images.length ? clinic.images : ['../../../../placeholder.png'];
 
     return (
         <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', paddingTop: '5em', paddingBottom: '5em' }}>
@@ -82,7 +99,7 @@ const ClinicDetailContent = () => {
                 <ImageList images={images} />
             </Box>
             <Box sx={{ width: '80%', textAlign: 'right' }}>
-                <Button variant='contained' href={`/booking/${clinicId}`} sx={{ backgroundColor: '#1975dc', color: '#fff', width: '30%', borderRadius: '5px'}}>Đặt lịch ngay</Button>
+                <Button variant='contained' href={`/booking/${clinicId}`} sx={{ backgroundColor: '#1975dc', color: '#fff', width: '30%', borderRadius: '5px' }}>Đặt lịch ngay</Button>
             </Box>
 
             <Box sx={{ width: '80%', marginTop: '5em' }}>

@@ -4,35 +4,13 @@ import { Dispatch, SetStateAction, useLayoutEffect, useState } from 'react';
 import SimpleButton from '../../../../components/User/Components/Buttons/SimpleButton';
 import StatusBadge from '../../../../components/User/StatusBadge/StatusBadge';
 import ImagePlaceholder from '../../../../assets/img_placeholder.jpg'
-import { connection_path } from '../../../../constants/developments';
 import ChangePassword from '../../../../components/User/Layouts/ChangePassword/ChangePassword';
-import axios from 'axios';
+import { getUserData } from '../../../../utils/api/UserAccountUtils';
 
 const UserAccount = () => {
     const [userData, setUserData]: [UserInfo, Dispatch<SetStateAction<UserInfo>>] = useState(default_data);
 
     const [disabled, setDisabled]: [boolean, Dispatch<SetStateAction<boolean>>] = useState(true);
-
-    const fetchUserData = () => {
-        try {
-            // Let's say ... I do some backend fetching here
-
-            const url = connection_path.base_url + connection_path.user.user;
-
-            axios.get(url, { headers: { Authorization: localStorage.getItem("accessToken") } }).then(response => {
-                // And return the fetch result.
-                setUserData(response.data);
-            });
-        }
-        catch (e: unknown) {
-            if (typeof e === "string") {
-                console.log(e.toUpperCase())
-            } else if (e instanceof Error) {
-                console.log(e.message)
-            }
-            setUserData(default_data);
-        }
-    }
 
     const updateUserData = (event: React.FormEvent<HTMLInputElement>) => {
         if (event.currentTarget.value in ["--", "", null]) {
@@ -46,11 +24,22 @@ const UserAccount = () => {
         // [Vẫn đang tìm hiểu] 
     }
 
-
+    const fetchUserData = async () => {
+        try {
+            const usersData = await getUserData(5);
+          
+            console.log('This is account page');
+            console.log('User data status', usersData.status?.state_number);
+            setUserData(usersData);
+        } catch (error) {
+            console.error('Error fetching users:', error);
+        }
+    }
+    
     useLayoutEffect(() => {
         fetchUserData();
     }, [])
-    
+
     return (
         <div className={styles.mainContentRightContainer}>
             <div className={styles.MainSection}>
@@ -66,7 +55,7 @@ const UserAccount = () => {
                                 <img src={userData.profilePicture ?? ImagePlaceholder} onClick={changePicture} alt="lmao" />
                             </span>
                             <span className={styles.ProfileGeneralInfo}>
-                                <h2>{userData.username ?? "--"}</h2>
+                                <h2>{userData.fullname ?? "--"}</h2>
                                 <p className={styles.PatientCode}>Mã bệnh nhân: {userData.id ?? "--"}</p>
                                 <StatusBadge state_number={userData.status?.state_number ?? 0} message={userData.status?.message ?? "Không xác định"} />
                             </span>
@@ -78,20 +67,20 @@ const UserAccount = () => {
                                 <tr className={styles.TableRow}>
                                     <td className={`${styles.TableData} ${styles.FieldName}`}>Tên đăng nhập</td>
                                     <td className={`${styles.TableData} ${styles.FieldValue}`}>
-                                        <input type='text' name='username' placeholder='vd: NguyenQuang6202' disabled={disabled} onBlur={updateUserData} defaultValue={userData.username == null ? "--" : userData.username} />
+                                        <input type='text' name='username' placeholder='vd: NguyenQuang6202' disabled={disabled} onBlur={updateUserData} value={userData.username == null ? "--" : userData.username} />
                                     </td>
                                 </tr>
 
                                 <tr className={styles.TableRow}>
                                     <td className={`${styles.TableData} ${styles.FieldName}`}>Số điện thoại</td>
                                     <td className={`${styles.TableData} ${styles.FieldValue}`}>
-                                        <input type='text' name='phone' placeholder='vd: 090xxxxxxx' disabled={disabled} onBlur={updateUserData} defaultValue={userData.phone == null ? "--" : userData.phone} />
+                                        <input type='text' name='phone' placeholder='vd: 090xxxxxxx' disabled={disabled} onBlur={updateUserData} value={userData.phone == null ? "--" : userData.phone} />
                                     </td>
                                 </tr>
                                 <tr className={styles.TableRow}>
                                     <td className={`${styles.TableData} ${styles.FieldName}`}>Email</td>
                                     <td className={`${styles.TableData} ${styles.FieldValue}`}>
-                                        <input type='text' name="email" placeholder='vd: example@gmail.com' disabled={disabled} onBlur={updateUserData} defaultValue={userData.email == null ? "--" : userData.email} />
+                                        <input type='text' name="email" placeholder='vd: example@gmail.com' disabled={disabled} onBlur={updateUserData} value={userData.email == null ? "--" : userData.email} />
                                     </td>
                                 </tr>
 
@@ -99,20 +88,20 @@ const UserAccount = () => {
                                 <tr className={styles.TableRow}>
                                     <td className={`${styles.TableData} ${styles.FieldName}`}>Mã bảo hiểm y tế</td>
                                     <td className={`${styles.TableData} ${styles.FieldValue}`}>
-                                        <input type='text' name='insurance' placeholder='vd: AN10XXXXXXXX' disabled={disabled} onBlur={updateUserData} defaultValue={userData.insurance == null ? "--" : userData.insurance} />
+                                        <input type='text' name='insurance' placeholder='vd: AN10XXXXXXXX' disabled={disabled} onBlur={updateUserData} value={userData.insurance == null ? "--" : userData.insurance} />
                                     </td>
                                 </tr>
 
                                 <tr className={styles.TableRow}>
                                     <td className={`${styles.TableData} ${styles.FieldName}`}>Họ và tên</td>
                                     <td className={`${styles.TableData} ${styles.FieldValue}`}>
-                                        <input type='text' name='name' placeholder='vd: Trần Văn A' disabled={disabled} onBlur={updateUserData} defaultValue={userData.fullname == null ? "--" : userData.fullname} /></td>
+                                        <input type='text' name='name' placeholder='vd: Trần Văn A' disabled={disabled} onBlur={updateUserData} value={userData.fullname == null ? "--" : userData.fullname} /></td>
                                 </tr>
 
                                 <tr className={styles.TableRow}>
                                     <td className={`${styles.TableData} ${styles.FieldName}`}>Ngày sinh</td>
                                     <td className={`${styles.TableData} ${styles.FieldValue}`}>
-                                        <input type='date' name='birthdate' placeholder={Date.now().toString()} disabled={disabled} onBlur={updateUserData} defaultValue={userData.birthdate == null ? "" : userData.birthdate} />
+                                        <input type='date' name='birthdate' placeholder={Date.now().toString()} disabled={disabled} onBlur={updateUserData} value={userData.birthdate == null ? "" : userData.birthdate} />
                                     </td>
                                 </tr>
 

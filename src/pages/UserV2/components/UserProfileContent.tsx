@@ -2,7 +2,6 @@ import React, { Dispatch, SetStateAction, useState } from 'react'
 import styles from './UserProfileContent.module.css'
 import { Box } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
-import { default_data, UserInfo } from '../../../components/User/Interfaces/UserDefinition';
 import { MenuListProperty } from '../../../utils/interfaces/User/ListProperty';
 import Profile from './Profile/Profile';
 import UserPayment from './Payment/UserPayment';
