@@ -11,7 +11,10 @@ import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import { mainListItems } from "../components/listItems";
-import { Grid, Paper } from "@mui/material";
+import { useEffect, useState } from "react";
+import ClinicInfo from "../components/ClinicInfo/ClinicInfo";
+import { fetchClinicImages } from "../../../../utils/UploadFireBase";
+
 
 const drawerWidth: number = 240;
 
@@ -69,12 +72,74 @@ export default function ClinicInformation() {
     setOpen(!open);
   };
 
+  const [isDesDialogOpen, setIsDesDialogOpen] = useState(false);
+  const [editorData, setEditorData] = useState('');
+  const [textAreaContent, setTextAreaContent] = useState('');
+  const [images, setImages] = useState<string[]>([]);
+  const [logo, setLogo] = useState<string>('');
+  const [isSerDialogOpen, setIsSerDialogOpen] = useState(false);
+  const [services, setServices] = useState(['Service 1', 'Service 2', 'Service 3']);
+  const [selectedService, setSelectedService] = useState('');
+  const [newService, setNewService] = useState('');
+
+
+  useEffect(() => {
+  
+    // if (!clinicId) return; 
+
+    const fetchImages = async (folderName: string) => {
+      const folderPath = `clinics/1/${folderName}/`;
+      try {
+        const imageUrls = await fetchClinicImages(folderPath);
+        if (folderName === 'carousel') {
+          setImages(imageUrls);
+        } else if (folderName === 'logo') {
+
+          setLogo(imageUrls[0]);
+        }
+      } catch (error) {
+        console.error(`Error fetching images from ${folderName}:`, error);
+      }
+    };
+
+    fetchImages('carousel');
+    fetchImages('logo');
+  }, []);
+
+
+  const handleEditorChange = (event: any, editor: { getData: () => any; }) => {
+    const data = editor.getData();
+    setEditorData(data);
+  };
+
+  const handleEditClick = () => {
+    setEditorData(textAreaContent);
+    setIsDesDialogOpen(true);
+  };
+
+  const handleDesSave = () => {
+    setTextAreaContent(editorData);
+    setIsDesDialogOpen(false);
+  };
+
+
+  const handleAddClick = () => {
+    setIsSerDialogOpen(true);
+  };
+
+  const handleServiceSave = () => {
+    if (newService) {
+      setServices([...services, newService]);
+      setNewService('');
+      setIsSerDialogOpen(false);
+    }
+  };
   return (
-    <Box sx={{ display: "flex" }}>
+    <Box sx={{ display: "flex", height: '100%' }}>
       <AppBar position="absolute" open={open}>
         <Toolbar
           sx={{
-            pr: "24px", // keep right padding when drawer closed
+            pr: "24px",
           }}
         >
           <IconButton
@@ -114,44 +179,25 @@ export default function ClinicInformation() {
           </IconButton>
         </Toolbar>
         <Divider />
-        <List>{mainListItems}</List>
+        <List component="nav">
+          {mainListItems}
+        </List>
       </Drawer>
       <Box
+        component="main"
         sx={{
           backgroundColor: (theme) =>
             theme.palette.mode === "light"
               ? theme.palette.grey[100]
               : theme.palette.grey[900],
           flexGrow: 1,
-          height: "100vh",
-          marginTop: 8,
+          marginTop: 5.5,
+          height: '100%',
+          color: '#0d47a1',
+          background: 'linear-gradient(to left, #e3f2fd, #f8fbff)'
         }}
       >
-        <Box sx={{ height: "100%", backgroundColor: "#ffffff" }}>
-          <Grid container spacing={2}>
-            <Grid item lg={12}>
-              <Paper
-                sx={{
-                  p: 2,
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: 2,
-                  margin: "20px auto 0 auto",
-                  width: "95%",
-                  boxShadow: 3,
-                  border: "1px solid #ddd",
-                  backgroundColor: "#ffffff",
-                  borderRadius: 2,
-                  alignItems: "flex-start",
-                }}
-              >
-                <Typography variant="h6" component="h4">
-                  Thông tin phòng khám
-                </Typography>
-              </Paper>
-            </Grid>
-          </Grid>
-        </Box>
+        <ClinicInfo />
       </Box>
     </Box>
   );

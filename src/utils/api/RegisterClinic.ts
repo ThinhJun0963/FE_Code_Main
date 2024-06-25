@@ -39,7 +39,6 @@ export const getServiceList = async (): Promise<databaseService[]> => {
 export const registerClinic = async (formData: FormData) => {
     const api_url: string = connection_path.base_url + connection_path.user.clinic_register;
 
-    console.log('Registering clinic:', formData);
     const accessToken = localStorage.getItem('accessToken');
 
     const configuration: AxiosRequestConfig =

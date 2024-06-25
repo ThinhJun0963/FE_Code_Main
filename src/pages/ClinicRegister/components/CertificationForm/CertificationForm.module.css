@@ -1,6 +1,7 @@
 .container {
     padding: 1rem;
     border: 1px solid #ccc;
+    background-color: white;
     border-radius: 8px;
     width: 100%;
     margin: 0 auto;
@@ -16,6 +17,7 @@
 .heading {
     font-size: 38px;
     font-weight: 700;
+    color: #1da1f3;
     text-align: left;
 }
 

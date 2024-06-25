@@ -1,0 +1,58 @@
+.container {
+    padding: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    width: 90%;
+    background-color: white;
+}
+
+
+.upload {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    padding: 20px;
+    width: 100%;
+    border: 2px dashed #ccc;
+    cursor: pointer;
+    transition: border-color 0.3s ease-in-out;
+}
+
+
+.upload.dragging {
+    border-color: #2196f3;
+    /* Adjust color for dragging state */
+}
+
+.uploadedFile {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.5rem 1rem;
+    margin-top: 1rem;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+}
+
+.uploadProgress {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+}
+
+.button {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.delBtn {
+    background-color: transparent;
+    border: none;
+    border-radius: 50%;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+}

@@ -2,6 +2,13 @@ import axios, { AxiosRequestConfig } from 'axios';
 import { connection_path } from '../../constants/developments'; // Adjust the import according to your project structure
 import { ref } from 'firebase/storage';
 
+import decodeToken from "../../utils/decoder/accessTokenDecoder";
+
+interface JwtPayload {
+    role: string;
+    id: string;
+}
+
 
 export const handleLogin = async (event: React.FormEvent<HTMLFormElement>, navigate: (path: string) => void) => {
     event.preventDefault();
@@ -18,7 +25,7 @@ export const handleLogin = async (event: React.FormEvent<HTMLFormElement>, navig
     //    Chuỗi kết nối tới server backend
     //!   LƯU Ý: KHÔNG THAY ĐỔI TRỰC TIẾP CHUỖI KẾT NỐI TẠI ĐÂY (Fix cứng)
     //==  Chỉ thay đổi dữ liệu của "connection_path" trong file src/constants/developments
-    const api_url: string = connection_path.base_url  + connection_path.auth.login;
+    const api_url: string = connection_path.base_url + connection_path.auth.login;
 
     const configuration: AxiosRequestConfig = {
         method: "POST",
@@ -27,20 +34,35 @@ export const handleLogin = async (event: React.FormEvent<HTMLFormElement>, navig
     };
 
     await axios(configuration)
+
         .then(response => {
-           
+            console.log("Response:", response.data.content);
+
             if (response.status === 200 && response.data.content.accessToken !== undefined) {
-                
+
                 var accessToken = response.data.content.accessToken;
                 var refreshToken = response.data.content.refreshToken;
 
                 localStorage.setItem("accessToken", accessToken);
                 localStorage.setItem("refreshToken", refreshToken);
+
+                const decodedToken = decodeToken(accessToken);
                 //  Thành công thì cho về trang người dùng
-                navigate('/')
+                if (decodedToken && 'role' in decodedToken && 'id' in decodedToken) {
+                    localStorage.setItem('id', decodedToken.id as string);
+                    localStorage.setItem('role', decodedToken.role as string);
+                    if (decodedToken.role === 'Dentist') {
+                        navigate('/admin/clinic-owner');
+                    } else {
+                        navigate('/');
+                    }
+                } else {
+                    console.error('Invalid decoded token:', decodedToken);
+                }
+
             }
             else {
-                console.log(response);  
+                console.log(response);
                 alert("Không đăng nhập thành công");
             }
         })
@@ -50,8 +72,7 @@ export const handleLogin = async (event: React.FormEvent<HTMLFormElement>, navig
         })
 };
 
-export const handleLogout = async (setAuth: React.Dispatch<React.SetStateAction<boolean>>, navigate: (path: string) => void) => {
-    const api_url: string = connection_path.base_url  + connection_path.auth.logout;
+export const handleLogout = async (navigate: (path: string) => void) => {
     const accessToken = localStorage.getItem('accessToken');
     var refreshToken = localStorage.getItem('refreshToken');
 
@@ -60,33 +81,46 @@ export const handleLogout = async (setAuth: React.Dispatch<React.SetStateAction<
         return;
     }
 
+    localStorage.removeItem('accessToken');
+    localStorage.removeItem('refreshToken');
+    console.log('Logout successful');
+    navigate('/');
+};
+
+
+
+export const handleRegister = async (event: React.FormEvent<HTMLFormElement>, onSuccess: () => void) => {
+    const api_url: string = connection_path.base_url + connection_path.user.customer_register;
+
+    const data = new FormData(event.currentTarget);
+
+    const payload = {
+        username: data.get('username'),
+        email: data.get('email'),
+        password: data.get('password'),
+        clinicOwner: false,
+        clinic: 0,
+    };
+
     const configuration: AxiosRequestConfig = {
         method: 'POST',
         url: api_url,
-        headers: {
-            'Authorization': `Bearer ${accessToken}`
-        }
+        data: payload
     };
 
     try {
         const response = await axios(configuration);
-        console.log("Response:", response);
-        
-        if (response.status === 200) {
-            console.log("Logout successful");
-            // Handle successful logout (e.g., clear tokens, redirect to login page)
-            localStorage.removeItem('accessToken');
-            localStorage.removeItem('refreshToken');
-            setAuth(false); // Update the auth state to false
+        console.log('Register response:', response);
 
-            // Redirect user to homepage after logout
-            navigate("/");
+        if (response.status === 200) {
+            onSuccess();
+
         } else {
-            console.error('Logout failed with status:', response.status);
-            alert('Logout failed');
+            console.error('Register failed with status:', response.status);
+            alert('Register failed');
         }
     } catch (error) {
-        console.error('Logout error:', error);
-        alert('Logout failed, please try again later.');
+        console.error('Register error:', error);
+        alert('Register failed, please try again later.');
     }
-};
+}

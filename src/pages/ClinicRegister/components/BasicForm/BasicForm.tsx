@@ -1,78 +1,194 @@
-import React, { useState } from 'react'
-import { Clinic, setClinic } from '../../../../utils/interfaces/ClinicRegister/Clinic'
-import { Box, Button } from '@mui/material';
+import React, { useState } from 'react';
+import { ClinicRegistrationModel, setClinicRegistrationModel } from '../../../../utils/interfaces/ClinicRegister/Clinic';
+import { Container, Row, Col, Button, Form, FormGroup, Label, Input, FormFeedback } from 'reactstrap';
 import styles from './BasicForm.module.css';
 
-
 interface BasicFormProps {
-    formData: Clinic;
-    setFormData: setClinic;
+    formData: ClinicRegistrationModel;
+    setFormData: setClinicRegistrationModel;
     onStepComplete: () => void;
 }
 
-
 const BasicForm = ({ formData, setFormData, onStepComplete }: BasicFormProps) => {
-    const [localFormData, setLocalFormData] = useState<Clinic>(formData);
+    const [errors, setErrors] = useState<Record<string, string>>({});
+    const [localFormData, setLocalFormData] = useState<ClinicRegistrationModel>(formData);
 
-    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const { name, value } = event.target;
-        setLocalFormData((prevData: Clinic) => ({
-            ...prevData,
-            [name]: value,
-        }));
+    const formatTime = (time: string) => {
+        const [hour, minute] = time.split(':');
+        return `${hour.padStart(2, '0')}:${minute.padStart(2, '0')}:00`;
     };
 
     const handleSubmit = () => {
-        setFormData(localFormData);
-        onStepComplete();
+        if (validate()) {
+            if (localFormData.OpenHour === undefined || localFormData.CloseHour === undefined) return;
+            const formattedOpenHour = formatTime(localFormData.OpenHour);
+            const formattedCloseHour = formatTime(localFormData.CloseHour);
+
+            const updatedFormData: ClinicRegistrationModel = {
+                ...localFormData,
+                OpenHour: formattedOpenHour,
+                CloseHour: formattedCloseHour,
+            };
+
+            setFormData(updatedFormData);
+            onStepComplete();
+        }
     };
 
-    // component="form" onSubmit={handleSubmit}
+    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const { name, value } = event.target;
+        setLocalFormData((prevData) => ({
+            ...prevData,
+            [name]: value
+        }));
+    };
+
+    const validate = () => {
+        const newErrors: Record<string, string> = {};
+
+        if (!localFormData.Name) {
+            newErrors.name = 'Tên phòng khám là bắt buộc.';
+        }
+        if (!localFormData.Address) {
+            newErrors.address = 'Địa chỉ là bắt buộc.';
+        }
+        if (!localFormData.Phone) {
+            newErrors.phone = 'Số điện thoại là bắt buộc.';
+        } else if (!/^\d{10}$/.test(localFormData.Phone)) {
+            newErrors.phone = 'Số điện thoại phải có đúng 10 chữ số.';
+        }
+        if (!localFormData.Email) {
+            newErrors.email = 'Địa chỉ email là bắt buộc.';
+        } else if (!/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(localFormData.Email)) {
+            newErrors.email = 'Địa chỉ email không hợp lệ.';
+        } else if (!localFormData.Email.endsWith('@gmail.com')) {
+            newErrors.email = 'Địa chỉ email phải kết thúc bằng @gmail.com.';
+        }
+        if (!localFormData.OpenHour) {
+            newErrors.openHour = 'Giờ mở cửa là bắt buộc.';
+        } else if (!/^(\d|0\d|1\d|2[0-3]):([0-5]\d)$/.test(localFormData.OpenHour)) {
+            newErrors.openHour = 'Giờ mở cửa không hợp lệ.';
+        }
+        if (!localFormData.CloseHour) {
+            newErrors.closeHour = 'Giờ đóng cửa là bắt buộc.';
+        } else if (!/^(\d|0\d|1\d|2[0-3]):([0-5]\d)$/.test(localFormData.CloseHour)) {
+            newErrors.closeHour = 'Giờ đóng cửa không hợp lệ.';
+        }
+
+        setErrors(newErrors);
+        return Object.keys(newErrors).length === 0;
+    };
+
     return (
-        <Box  className={styles.container}>
-            <Box className={styles.headingBox}>
-                <Box className={styles.heading}>Đăng kí SmileCare ngay cho phòng khám!</Box>
-                <Box className={styles.subHeading}>Nhập thông tin cơ bản của phòng khám</Box>
-            </Box>
-            <Box className={styles.formContent}>
-                <Box>
-                    <label htmlFor="name" className={styles.label}>Tên phòng khám:</label>
-                    <input name="name" id="name" type="text" className={styles.input} value={localFormData.name} onChange={handleChange} />
-                </Box>
+        <div className={styles.container}>
+            <Row className={styles.headingBox}>
+                <Col>
+                    <h2 className={styles.heading}>Đăng kí SmileCare ngay cho phòng khám!</h2>
+                    <p className={styles.subHeading}>Nhập thông tin cơ bản của phòng khám</p>
+                </Col>
+            </Row>
+            <Form className={styles.formContent} noValidate>
+                <FormGroup row>
+                    <Label for="name" sm={3} className={styles.label}>Tên phòng khám:</Label>
+                    <Col sm={9}>
+                        <Input
+                            type="text"
+                            name="Name"
+                            id="name"
+                            className={styles.input}
+                            value={localFormData.Name}
+                            onChange={handleChange}
+                            invalid={!!errors.name}
+                        />
+                        <FormFeedback>{errors.name}</FormFeedback>
+                    </Col>
+                </FormGroup>
 
-                <Box>
-                    <label htmlFor="address" className={styles.label}>Địa chỉ:</label>
-                    <input name="address" id="address" type="text" className={styles.input} value={localFormData.address} onChange={handleChange} />
-                </Box>
+                <FormGroup row>
+                    <Label for="address" sm={3} className={styles.label}>Địa chỉ:</Label>
+                    <Col sm={9}>
+                        <Input
+                            type="text"
+                            name="Address"
+                            id="address"
+                            className={styles.input}
+                            value={localFormData.Address}
+                            onChange={handleChange}
+                            invalid={!!errors.address}
+                        />
+                        <FormFeedback>{errors.address}</FormFeedback>
+                    </Col>
+                </FormGroup>
 
+                <FormGroup row>
+                    <Label for="phone" sm={3} className={styles.label}>Số điện thoại:</Label>
+                    <Col sm={9}>
+                        <Input
+                            type="text"
+                            name="Phone"
+                            id="phone"
+                            className={styles.input}
+                            value={localFormData.Phone}
+                            onChange={handleChange}
+                            invalid={!!errors.phone}
+                        />
+                        <FormFeedback>{errors.phone}</FormFeedback>
+                    </Col>
+                </FormGroup>
 
-                <Box>
-                    <label htmlFor="phone" className={styles.label}>Số điện thoại:</label>
-                    <input name="phone" id="phone" type="text" className={styles.input} value={localFormData.phone} onChange={handleChange} />
-                </Box>
+                <FormGroup row>
+                    <Label for="email" sm={3} className={styles.label}>Địa chỉ email:</Label>
+                    <Col sm={9}>
+                        <Input
+                            type="email"
+                            name="Email"
+                            id="email"
+                            className={styles.input}
+                            value={localFormData.Email}
+                            onChange={handleChange}
+                            invalid={!!errors.email}
+                        />
+                        <FormFeedback>{errors.email}</FormFeedback>
+                    </Col>
+                </FormGroup>
 
+                <FormGroup row className={styles.inputGrid}>
+                    <Label for="open-hour" sm={3} className={styles.label}>Giờ mở cửa:</Label>
+                    <Col sm={3}>
+                        <Input
+                            type="text"
+                            name="OpenHour"
+                            id="open-hour"
+                            className={styles.input}
+                            value={localFormData.OpenHour}
+                            onChange={handleChange}
+                            invalid={!!errors.openHour}
+                        />
+                        <FormFeedback>{errors.openHour}</FormFeedback>
+                    </Col>
+                    <Label for="close-hour" sm={3} className={styles.label}>Giờ đóng cửa:</Label>
+                    <Col sm={3}>
+                        <Input
+                            type="text"
+                            name="CloseHour"
+                            id="close-hour"
+                            className={styles.input}
+                            value={localFormData.CloseHour}
+                            onChange={handleChange}
+                            invalid={!!errors.closeHour}
+                        />
+                        <FormFeedback>{errors.closeHour}</FormFeedback>
+                    </Col>
+                </FormGroup>
 
-                <Box>
-                    <label htmlFor="email" className={styles.label}>Địa chỉ email:</label>
-                    <input name="email" id="email" type="email" className={styles.input} value={localFormData.email} onChange={handleChange} />
-                </Box>
+                <FormGroup row className={styles.buttonContainer}>
+                    <Col sm={{ size: 9, offset: 3 }}>
+                        <Button color="primary" className={styles.button} onClick={handleSubmit}>Gửi</Button>
+                    </Col>
+                </FormGroup>
+            </Form>
+        </div>
+    );
+};
 
-                <Box className={styles.inputGrid}>
-                    <label htmlFor="open-hour" className={styles.label}>Giờ mở cửa:</label>
-                    <input name="openHour" id="open-hour" type="text" className={styles.input} value={localFormData.openHour} onChange={handleChange} />
-
-                    <label htmlFor="close-hour" className={styles.label}>Giờ đóng cửa:</label>
-                    <input name="closeHour" id="close-hour" type="text" className={styles.input} value={localFormData.closeHour} onChange={handleChange} />
-                </Box>
-
-                <Box className={styles.buttonContainer}>
-                    <Button variant="contained" className={styles.button} onClick={handleSubmit}>
-                        Gửi
-                    </Button>
-                </Box>
-            </Box>
-        </Box>
-    )
-}
-
-export default BasicForm
+export default BasicForm;

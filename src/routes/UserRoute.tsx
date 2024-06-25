@@ -1,11 +1,10 @@
 import HomePage from "../pages/HomePage/HomePage";
 import BookingPage from "../pages/Booking/BookingPage";
-import UserScheduleMain from "../pages/User/WithWrapper/UserScheduleMain";
-import UserPaymentMain from "../pages/User/WithWrapper/UserPaymentMain";
-import UserAccountMain from "../pages/User/WithWrapper/UserAccountMain";
-import UserProfileMain from "../pages/User/WithWrapper/UserProfileMain";
+// import UserScheduleMain from "../pages/User/WithWrapper/UserScheduleMain";
+// import UserPaymentMain from "../pages/User/WithWrapper/UserPaymentMain";
+// import UserAccountMain from "../pages/User/WithWrapper/UserAccountMain";
+// import UserProfileMain from "../pages/User/WithWrapper/UserProfileMain";
 import AdminClinicPage from "../pages/Admin/AdminClinicOwner/AdminClinicPage";
-import DentistAccounts from "../pages/Admin/AdminClinicOwner/pages/DentistAccounts";
 import AppointmentSchedule from "../pages/Admin/AdminClinicOwner/pages/AppointmentSchedule";
 import ClinicInformation from "../pages/Admin/AdminClinicOwner/pages/ClinicInformation";
 import ClinicDetail from "../pages/ClinicDetail/ClinicDetail";
@@ -28,6 +27,8 @@ import UserDetail from "../pages/Admin/AdminSystem/pages/UserDetail";
 
 //------------------- User V2 -------------------
 import UserProfilePage from "../pages/UserV2/UserProfilePage";
+import SlotRegister from "../pages/Admin/AdminClinicOwner/pages/SlotRegister";
+import ServicesInformation from "../pages/Admin/AdminClinicOwner/pages/ServicesInformation";
 //------------------- User V2 -------------------
 
 export const UserRoutes = [
@@ -37,14 +38,15 @@ export const UserRoutes = [
   { path: '/for-owner/clinic-register', element: <ClinicRegister /> },
   { path: "/clinic", element: <ClinicDetail /> },
   { path: "/userV2", element: <UserProfilePage /> },
-  { path: "/user/", element: <UserScheduleMain /> },
-  { path: "/user/payment", element: <UserPaymentMain /> },
-  { path: "/user/profile", element: <UserProfileMain /> },
-  { path: "/user/account", element: <UserAccountMain /> },
+  // { path: "/user/", element: <UserScheduleMain /> },
+  // { path: "/user/payment", element: <UserPaymentMain /> },
+  // { path: "/user/profile", element: <UserProfileMain /> },
+  // { path: "/user/account", element: <UserAccountMain /> },
   { path: "/admin/clinic-owner", element: <AdminClinicPage /> },
-  { path: "/admin/clinic-owner/dentist", element: <DentistAccounts /> },
   { path: "/admin/clinic-owner/appointment", element: <AppointmentSchedule /> },
   { path: "/admin/clinic-owner/clinic", element: <ClinicInformation /> },
+  { path: "/admin/clinic-owner/slots", element: <SlotRegister /> },
+  { path: "/admin/clinic-owner/services", element: <ServicesInformation /> },
   { path: "/dentist", element: <DentistPage /> },
   { path: "/dentist/dentist-schedule", element: <DentistSchedulePage /> },
   { path: "/dentist/patient-list", element: <PatientListPage /> },

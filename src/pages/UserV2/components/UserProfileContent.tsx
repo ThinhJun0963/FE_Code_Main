@@ -2,7 +2,6 @@ import React, { Dispatch, SetStateAction, useState } from 'react'
 import styles from './UserProfileContent.module.css'
 import { Box } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
-import { default_data, UserInfo } from '../../../components/User/Interfaces/UserDefinition';
 import { MenuListProperty } from '../../../utils/interfaces/User/ListProperty';
 import Profile from './Profile/Profile';
 import UserPayment from './Payment/UserPayment';
@@ -46,8 +45,6 @@ const UserProfileContent = () => {
         url: ""
     });
 
-
-
     const [activeIndex, setActiveIndex] = useState<number | null>(default_config.active);
 
     const handleNavigation = (index: number) => {
@@ -58,7 +55,7 @@ const UserProfileContent = () => {
     const renderContent = () => {
         switch (activeIndex) {
             case 0:
-                return <Profile />;
+                return <Profile setActiveIndex={setActiveIndex} />;
             case 1:
                 return <UserPayment />;
             case 2:
@@ -66,7 +63,7 @@ const UserProfileContent = () => {
             case 3:
                 return <UserAccount />;
             default:
-                return <Profile />;
+                return <Profile setActiveIndex={setActiveIndex} />;
         }
     };
 

@@ -1,6 +1,7 @@
 import { Box, Button, Checkbox, FormControl, FormControlLabel, FormHelperText, FormLabel, Grid, InputLabel, MenuItem, Select, SelectChangeEvent, TextField, Typography } from '@mui/material'
 import React, { SetStateAction, useEffect, useState } from 'react'
 import styles from './CheckoutForm.module.css'
+import VNPayField from './VNPayField';
 
 interface CheckoutFormProps {
     paymentData: { paymentMethod: string, amount: string, orderID: string, orderDetail: string },
@@ -12,10 +13,19 @@ const CheckoutForm = ({ paymentData, setPaymentData }: CheckoutFormProps) => {
     const [amount, setAmount] = useState<string>('');
     const [orderID, setOrderID] = useState<string>('');
     const [orderDetail, setOrderDetail] = useState<string>('Thanh toán dịch vụ khám bệnh');
+    const [showVNPayFields, setShowVNPayFields] = useState(false);
+    const [totalAmount, setTotalAmount] = useState(1200000);
+
+
+    const formatCurrency = (amount: number) => {
+        return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(amount);
+    };
 
     const handlePaymentMethodChange = (event: SelectChangeEvent<string>) => {
         const { value } = event.target;
         setPaymentMethod(value);
+        setShowVNPayFields(value === 'VNPay');
+
         if (value === 'VNPay') {
             const newOrderID = Math.floor(Math.random() * 1000000).toString();
             setOrderID(newOrderID);
@@ -50,7 +60,7 @@ const CheckoutForm = ({ paymentData, setPaymentData }: CheckoutFormProps) => {
             </Box>
 
             <Box sx={{ width: '100%' }} className={styles.content}>
-                <Box className={styles.checkoutContent}> {/* Added flex container */}
+                <Box className={styles.checkoutContent}>
                     <FormControl className={styles.paymentMethod}>
                         <FormLabel sx={{ fontSize: '25px' }}>Hình thức thanh toán</FormLabel>
                         <FormControlLabel
@@ -69,7 +79,9 @@ const CheckoutForm = ({ paymentData, setPaymentData }: CheckoutFormProps) => {
                                         fontSize: 24,
                                     }
                                 }}
-                                checked={paymentMethod === 'VNPay'} onChange={handlePaymentMethodChange} value="VNPay" />}
+                                checked={paymentMethod === 'VNPay'}
+                                onChange={handlePaymentMethodChange}
+                                value="VNPay" />}
                             label="VN Pay"
                         />
                         <FormControlLabel
@@ -101,16 +113,27 @@ const CheckoutForm = ({ paymentData, setPaymentData }: CheckoutFormProps) => {
                         <Box className={styles.paymentInfoItem}>
                             <span className={styles.paymentInfoLabel}>Tổng tiền khám:</span>
                         </Box>
-                        <Box className={styles.paymentInfoItem}>
+                        {/* <Box className={styles.paymentInfoItem}>
                             <span className={styles.paymentInfoLabel}>Phí tiện ích + Phí TGTT:</span>
                             <span>13.200 VNĐ</span>
-                        </Box>
+                        </Box> */}
                         <Box className={styles.paymentInfoItem}>
                             <span className={styles.paymentInfoLabel}>TỔNG CỘNG:</span>
-                            <span>13.200 VNĐ</span>
+                            <span>{formatCurrency(totalAmount)}</span>
                         </Box>
                     </Box>
-
+                    {showVNPayFields && (
+                        <div className={styles.vnpayFields}>
+                            <VNPayField
+                                paymentData={paymentData}
+                                setPaymentData={setPaymentData}
+                                amount={formatCurrency(totalAmount)}
+                                orderID={orderID}
+                                orderDetail={orderDetail}
+                                handleAmountChange={handleAmountChange}
+                            />
+                        </div>
+                    )}
                 </Box>
             </Box>
         </Box>

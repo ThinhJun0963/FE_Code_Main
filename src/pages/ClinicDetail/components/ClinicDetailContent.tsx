@@ -1,17 +1,20 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Avatar, Box, Breadcrumbs, Button, Divider, Link, Typography } from '@mui/material';
 import ImageList from './ImageList/ImageList';
 import ClinicServices from './ClinicServices/ClinicServices';
-import clinicData, { Clinic } from '../../../utils/mockData';
+import { clinicData } from '../../../utils/mockData';
+import { Clinic } from '../../../utils/interfaces/interfaces';
 import { useParams } from 'react-router-dom';
+import styles from './ClinicDetailContent.module.css'
 
+import { fetchClinicImages } from '../../../utils/UploadFireBase';
 
 
 const ClinicDetailContent = () => {
     const { id } = useParams<{ id: string }>();
-
+    const [images, setImages] = useState<string[]>([]);
+    const [logo, setLogo] = useState<string>(''); // [1
     const clinicId = id;
-
     const clinic: Clinic | undefined = clinicId ? clinicData.find(c => c.clinic_id === parseInt(clinicId)) : undefined;
 
     if (!clinic) {
@@ -22,12 +25,35 @@ const ClinicDetailContent = () => {
         );
     }
 
+    useEffect(() => {
+        window.scrollTo(0, 0);
+        // if (!clinicId) return; 
+
+        const fetchImages = async (folderName: string) => {
+            const folderPath = `clinics/${clinicId}/${folderName}/`;
+            try {
+                const imageUrls = await fetchClinicImages(folderPath);
+                if (folderName === 'carousel') {
+                    setImages(imageUrls);
+                } else if (folderName === 'logo') {
+
+                    setLogo(imageUrls[0]);
+                }
+            } catch (error) {
+                console.error(`Error fetching images from ${folderName}:`, error);
+            }
+        };
+
+        fetchImages('carousel');
+        fetchImages('logo');
+    }, [clinicId]);
+
+
     const logoSrc = clinic.logo || '../../../../public/placeholder.png';
-    const images = clinic.images.length ? clinic.images : ['../../../../placeholder.png'];
 
     return (
-        <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', paddingTop: '5em', paddingBottom: '5em' }}>
-            <Box sx={{ width: '90%', textAlign: 'right', color: 'black' }}>
+        <Box className={styles.container}>
+            <Box className={styles.breadcrumbs}>
                 <Breadcrumbs>
                     <Link underline="hover" color="inherit" href="/">
                         Trang chủ
@@ -36,84 +62,53 @@ const ClinicDetailContent = () => {
                 </Breadcrumbs>
             </Box>
 
-            <Divider sx={{ backgroundColor: 'black', width: '100%', margin: '1em auto' }} />
+            <Divider className={styles.divider} />
 
-            <Box sx={{
-                marginTop: '2em',
-                display: 'flex',
-                alignItems: 'flex-start',
-                padding: '1em',
-                width: '80%',
-            }}>
-                <Avatar
-                    variant="square"
-                    sx={{
-                        height: '200px',
-                        width: '200px',
-                        marginRight: '1em',
-                        backgroundColor: 'white',
-                        border: '1px solid black',
-                        borderRadius: '10px',
-                        boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)',
-                        overflow: 'hidden'
-                    }}
-                >
+            <Box className={styles.clinicHeader}>
+                <div className={styles.avatar}>
                     <img
-                        src={logoSrc}
+                        src={logo}
                         alt={`${clinic.name} Logo`}
                         style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                     />
-                </Avatar>
-                <Typography
-                    variant="h4"
-                    component="div"
-                    gutterBottom
-                    sx={{
-                        fontWeight: 'bold'
-                    }}
-                >
+                </div>
+                <Typography variant="h4" component="div" gutterBottom className={styles.clinicName}>
                     {clinic.name}
                 </Typography>
             </Box>
 
-            <Divider sx={{ backgroundColor: 'black', width: '100%', margin: '1em auto' }} />
+            <Divider className={styles.divider} />
 
-            <Box sx={{ width: '80%' }}>
+            <Box className={styles.imageList}>
                 <ImageList images={images} />
             </Box>
-            <Box sx={{ width: '80%', textAlign: 'right' }}>
-                <Button variant='contained' href={`/booking/${clinicId}`} sx={{ backgroundColor: '#1975dc', color: '#fff', width: '30%', borderRadius: '5px'}}>Đặt lịch ngay</Button>
+            <Box className={styles.imageList} style={{ textAlign: 'right' }}>
+                <Button variant="contained" href={`/booking/${clinicId}`} className={styles.button}>Đặt lịch ngay</Button>
             </Box>
 
-            <Box sx={{ width: '80%', marginTop: '5em' }}>
-                <Box sx={{ marginTop: '1em' }}>
-                    <Typography variant='h4' sx={{ fontWeight: 'bold' }} >Giới thiệu chi tiết</Typography>
-                    <Typography variant='body1' sx={{ marginTop: '1em' }}>
+            <Box className={styles.detailSection}>
+                <Box className={styles.sectionContent}>
+                    <Typography variant="h4" className={styles.sectionTitle}>Giới thiệu chi tiết</Typography>
+                    <Typography variant="body1" className={styles.sectionContent}>
                         {clinic.description}
                     </Typography>
                 </Box>
-                <Box sx={{ marginTop: '1em' }}>
-                    <Typography variant='h6' sx={{ fontWeight: 'bold' }}>
-                        Thời gian khám:
-                    </Typography>
-                    <Typography variant='body1' sx={{ marginTop: '1em' }}>
+                <Box className={styles.sectionContent}>
+                    <Typography variant="h6" className={styles.sectionTitle}>Thời gian khám:</Typography>
+                    <Typography variant="body1" className={styles.sectionContent}>
                         {clinic.open_hour} - {clinic.close_hour} tất cả các ngày trong tuần
                     </Typography>
                 </Box>
 
-                <Box sx={{ marginTop: '1em' }}>
-                    <Typography variant='h6' sx={{ fontWeight: 'bold' }}>
-                        Địa chỉ:
-                    </Typography>
-                    <Typography variant='body1' sx={{ marginTop: '1em' }}>
+                <Box className={styles.sectionContent}>
+                    <Typography variant="h6" className={styles.sectionTitle}>Địa chỉ:</Typography>
+                    <Typography variant="body1" className={styles.sectionContent}>
                         {clinic.address}
                     </Typography>
                 </Box>
 
-                <Box sx={{ marginTop: '1em', marginBottom: '5em' }}>
-                    <Typography variant='h6' sx={{ fontWeight: 'bold' }}>
-                        Dịch vụ nổi bật:
-                    </Typography>
+                <Box className={styles.sectionBottom}>
+                    <Typography variant="h6" className={styles.sectionTitle}>Dịch vụ nổi bật:</Typography>
                     <ClinicServices services={clinic.services} />
                 </Box>
             </Box>
