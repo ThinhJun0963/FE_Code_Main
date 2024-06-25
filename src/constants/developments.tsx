@@ -19,7 +19,6 @@ export const connection_path = {
         add_user: "/user/register/customer",
         activate_user: "/user/activate/:id",
         inactivate_user: "/user/inactivate/:id",
-        get_all_service: "/service/get-all",
         clinic_register: "/clinic/register",
     },
 

@@ -95,7 +95,7 @@ export default function Dashboard() {
               <MenuIcon />
             </IconButton>
             <Box className={styles.logoBox}>
-              <Link href="/system-admin"><img src="../../../../../public/Logo.png" /></Link>
+              <Link href="/system-admin"><img src="/Logo.png" /></Link>
             </Box>
           </Toolbar>
         </AppBar>

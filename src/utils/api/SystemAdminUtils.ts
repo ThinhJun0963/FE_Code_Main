@@ -73,6 +73,7 @@ export const setUserStatus = async (userId: number, status: boolean | null) => {
 export const getUsers = async (): Promise<UsersToDisplay[]> => {
     const api_url: string = connection_path.base_url + connection_path.user.user;
 
+
     try {
         const response = await axios.get(api_url);
         if (response.status === 200) {

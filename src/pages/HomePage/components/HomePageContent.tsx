@@ -1,5 +1,4 @@
-import { SearchIcon } from "@chakra-ui/icons";
-import { Box, Button, IconButton, InputBase, Typography } from "@mui/material";
+import { Box, Button } from "@mui/material";
 import Carousel from "../../../components/Carousel/Carousel";
 import clinics from "../../../utils/mockData";
 import Accordion from "./Accordion/Accordion";

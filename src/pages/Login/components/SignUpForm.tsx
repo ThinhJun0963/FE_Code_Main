@@ -63,7 +63,6 @@ const SignUpForm = () => {
     <Box component="form"
      onSubmit={handleSubmit}
      noValidate
-
     >
       <Typography component="h1" variant="h5" sx={{ textAlign: "center" }}>
         Tạo tài khoản
@@ -89,7 +88,6 @@ const SignUpForm = () => {
               id="email"
               label="Email"
               name="email"
-              
             />
           </Grid>
           <Grid item lg={12}>

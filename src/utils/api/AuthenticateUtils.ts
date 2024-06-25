@@ -1,6 +1,6 @@
-import axios, { AxiosRequestConfig } from 'axios';
+import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 import { connection_path } from '../../constants/developments'; // Adjust the import according to your project structure
-import { ref } from 'firebase/storage';
+import { GoogleCredentialResponse } from '@react-oauth/google';
 
 
 export const handleLogin = async (event: React.FormEvent<HTMLFormElement>, navigate: (path: string) => void) => {
@@ -53,7 +53,7 @@ export const handleLogin = async (event: React.FormEvent<HTMLFormElement>, navig
 export const handleLogout = async (setAuth: React.Dispatch<React.SetStateAction<boolean>>, navigate: (path: string) => void) => {
     const api_url: string = connection_path.base_url  + connection_path.auth.logout;
     const accessToken = localStorage.getItem('accessToken');
-    var refreshToken = localStorage.getItem('refreshToken');
+    //var refreshToken = localStorage.getItem('refreshToken');
 
     if (!accessToken) {
         console.error('Access token not found in localStorage');
@@ -90,3 +90,31 @@ export const handleLogout = async (setAuth: React.Dispatch<React.SetStateAction<
         alert('Logout failed, please try again later.');
     }
 };
+
+export const handleGoogleOnSuccess = async (response: GoogleCredentialResponse, navigate: (path: string) => void) => {
+    const api_url: string =
+      connection_path.base_url + connection_path.auth.googleAuth;
+    const configuration: AxiosRequestConfig = {
+      method: "POST",
+      url: api_url,
+      data: { googleToken: response.credential },
+      headers: { "Content-Type": "application/json" },
+    };
+    const axiosResponse: AxiosResponse<{
+      accessToken: string;
+      refreshToken: string;
+      error: string;
+      message: string;
+    }> = await axios(configuration);
+
+    console.log(axiosResponse);
+
+    if (axiosResponse.data.accessToken !== undefined) {
+      localStorage.setItem("accessToken", axiosResponse.data.accessToken);
+      localStorage.setItem("refreshToken", axiosResponse.data.refreshToken);
+      navigate("/");
+    }
+  };
+  export const handleGoogleOnFailure = (navigate: (path: string) => void) => {
+    navigate("/error404")
+  };
