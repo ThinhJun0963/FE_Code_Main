@@ -1,6 +1,5 @@
 import * as React from "react";
 import { styled } from "@mui/material/styles";
-import CssBaseline from "@mui/material/CssBaseline";
 import MuiDrawer from "@mui/material/Drawer";
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
@@ -12,7 +11,6 @@ import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 
 
 import { mainListItems } from "../components/listItems";
-import { useEffect, useRef, useState } from "react";
 import styles from "./Dashboard.module.css";
 
 import {
@@ -21,6 +19,7 @@ import {
 } from "@mui/material";
 
 import Scheduler from "../components/Scheduler/Scheduler";
+import ClinicInfo from "../components/ClinicInfo/ClinicInfo";
 
 const drawerWidth: number = 240;
 

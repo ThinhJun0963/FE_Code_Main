@@ -12,6 +12,7 @@ import styles from './BookingPageContent.module.css';
 import { ArrowBack, ArrowForward } from '@mui/icons-material';
 
 import { handleBookingRegister } from '../../../utils/api/BookingRegister';
+import DentistList from './DentistList/DentistList';
 
 const BookingPageContent = () => {
     const { clinicId } = useParams<{ clinicId: string }>();
@@ -40,13 +41,13 @@ const BookingPageContent = () => {
 
     const { steps, currentStep, step, isFirstStep, isFinalStep, next, back } = UseMultipleStepForm([
         // <TypeOfBookingForm formData={formData} setFormData={setFormData} onStepComplete={() => next()} />,
-        <ServiceList setFormData={setFormData} onStepComplete={() => next()}/>,
+        <ServiceList setFormData={setFormData} onStepComplete={() => next()} />,
         <Calendar
             formData={formData}
             setFormData={setFormData}
             onStepComplete={() => next()}
         />,
-        <ConfirmationForm formData={formData} />,
+        <DentistList setFormData={setFormData} onStepComplete={() => next()} />,
         <CheckoutForm paymentData={paymentData} setPaymentData={setPaymentData} />,
     ]);
 
@@ -66,7 +67,7 @@ const BookingPageContent = () => {
         TimeSlotId: "feb80d31-e4b5-4ec0-9733-799976b318d0",
         AppointmentDate: formData.date,
         CustomerId: 1,
-        DentistId: 2,
+        DentistId: 1,
         ClinicId: parseInt(formData.clinic),
         ServiceId: null,
         RepeatCount: formData.is_repeated ? 1 : 0,
@@ -75,7 +76,7 @@ const BookingPageContent = () => {
 
     const handleSubmit = (payload: BookingRegistrationModel, navigator: (path: string, state?: any) => void) => {
         try {
-            handleBookingRegister(payload, navigator);     
+            handleBookingRegister(payload, navigator);
         } catch (error) {
             console.error('Error fetching users:', error);
         }
@@ -99,10 +100,10 @@ const BookingPageContent = () => {
                                 Thông tin đặt khám
                             </Box>
                             <Box className={styles.informationTabContent}>
-                                <Box>Phòng khám: {formData.clinic}</Box>
-                                <Box>Ngày khám: {formData.date}</Box>
-                                <Box>Slot: {formData.time.start} - {formData.time.end}</Box>
-                                <Box>Dịch vụ: {formData.serviceName}</Box>
+                                <Box><b>Phòng khám:</b> {formData.clinic}</Box>
+                                <Box><b>Ngày khám:</b> {formData.date}</Box>
+                                <Box><b>Slot:</b> {formData.time.start} - {formData.time.end}</Box>
+                                <Box><b>Dịch vụ:</b> {formData.serviceName}</Box>
                             </Box>
                         </Box>}
                     <Box className={styles.formContainer}>

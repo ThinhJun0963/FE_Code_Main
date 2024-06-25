@@ -11,13 +11,10 @@ import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import { mainListItems } from "../components/listItems";
-import { CKEditor } from '@ckeditor/ckeditor5-react';
-import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
-import styles from "./ClinicInformation.module.css";
-import { useState } from "react";
-import { Button, Dialog, DialogActions, DialogContent, DialogTitle } from "@mui/material";
-import ImageUpload from "../components/ImageUpload";
-import ServiceList from "../components/ServiceList";
+import { useEffect, useState } from "react";
+import ClinicInfo from "../components/ClinicInfo/ClinicInfo";
+import { fetchClinicImages } from "../../../../utils/UploadFireBase";
+
 
 const drawerWidth: number = 240;
 
@@ -78,11 +75,37 @@ export default function ClinicInformation() {
   const [isDesDialogOpen, setIsDesDialogOpen] = useState(false);
   const [editorData, setEditorData] = useState('');
   const [textAreaContent, setTextAreaContent] = useState('');
-
+  const [images, setImages] = useState<string[]>([]);
+  const [logo, setLogo] = useState<string>('');
   const [isSerDialogOpen, setIsSerDialogOpen] = useState(false);
   const [services, setServices] = useState(['Service 1', 'Service 2', 'Service 3']);
   const [selectedService, setSelectedService] = useState('');
   const [newService, setNewService] = useState('');
+
+
+  useEffect(() => {
+  
+    // if (!clinicId) return; 
+
+    const fetchImages = async (folderName: string) => {
+      const folderPath = `clinics/1/${folderName}/`;
+      try {
+        const imageUrls = await fetchClinicImages(folderPath);
+        if (folderName === 'carousel') {
+          setImages(imageUrls);
+        } else if (folderName === 'logo') {
+
+          setLogo(imageUrls[0]);
+        }
+      } catch (error) {
+        console.error(`Error fetching images from ${folderName}:`, error);
+      }
+    };
+
+    fetchImages('carousel');
+    fetchImages('logo');
+  }, []);
+
 
   const handleEditorChange = (event: any, editor: { getData: () => any; }) => {
     const data = editor.getData();
@@ -174,112 +197,7 @@ export default function ClinicInformation() {
           background: 'linear-gradient(to left, #e3f2fd, #f8fbff)'
         }}
       >
-        <div className={styles.mainContainer}>
-          <div className={styles.main}>
-            <div className={styles.headerContainer}>
-              <h1 className={styles.title}>Thông tin phòng khám</h1>
-              <div className={styles.imgBox}>
-                <label htmlFor="file-input">
-                  <img src="/path/to/upload-icon.png" alt="Upload Icon" />
-                  <span>Click</span>
-                </label>
-                <input
-                  id="file-input"
-                  type="file"
-                  accept="image/png, image/gif, image/jpeg"
-                  hidden
-                />
-              </div>
-            </div>
-            <div className={styles.content}>
-              <div className={styles.column1}>
-                <div className={styles.formGroup}>
-                  <label htmlFor="clinicName">Tên phòng khám</label>
-                  <input type="text" id="clinicName" name="name" />
-                </div>
-                <div className={styles.formGroup}>
-                  <label htmlFor="clinicAddress">Địa chỉ</label>
-                  <input type="text" id="clinicAddress" name="address" />
-                </div>
-                <div className={styles.formGroup}>
-                  <label htmlFor="clinicPhone">Số điện thoại</label>
-                  <input type="text" id="clinicPhone" name="phone" />
-                </div>
-                <div className={styles.formGroup}>
-                  <label htmlFor="clinicEmail">Email</label>
-                  <input type="text" id="clinicEmail" name="email" />
-                </div>
-                <div className={styles.formGroupHorizontal}>
-                  <div className={styles.formGroup}>
-                    <label htmlFor="openHour">Giờ mở cửa</label>
-                    <input type="text" id="openHour" name="open_hour" />
-                  </div>
-                  <div className={styles.formGroup}>
-                    <label htmlFor="closeHour">Giờ đóng cửa</label>
-                    <input type="text" id="closeHour" name="close_hour" />
-                  </div>
-                </div>
-
-                <div className={styles.formGroup}>
-                  <label>Mô tả</label>
-                  <input
-                    className={styles.textArea}
-                    value={textAreaContent}
-                    onChange={(e) => setTextAreaContent(e.target.value)}
-                  />
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    className={styles.editButton}
-                    onClick={handleEditClick}
-                  >
-                    Chỉnh sửa
-                  </Button>
-
-                  <Dialog
-                    open={isDesDialogOpen}
-                    onClose={() => setIsDesDialogOpen(false)}
-                    maxWidth="md"
-                    fullWidth
-                  >
-                    <DialogTitle>Edit Description</DialogTitle>
-                    <DialogContent>
-                      <CKEditor
-                        editor={ClassicEditor}
-                        data={editorData}
-                        onChange={handleEditorChange}
-                        config={{
-                        }}
-                      />
-                    </DialogContent>
-                    <DialogActions>
-                      <Button onClick={() => setIsDesDialogOpen(false)} color="secondary">
-                        Hủy
-                      </Button>
-                      <Button onClick={handleDesSave} color="primary">
-                        Lưu
-                      </Button>
-                    </DialogActions>
-                  </Dialog>
-                </div>
-              </div>
-              <div className={styles.column2}>
-                <div className={styles.formGroup}>
-                  <ServiceList />
-                </div>
-                <div className={styles.formGroup}>
-                  <ImageUpload />
-                </div>
-              </div>
-            </div>
-            <div className={styles.buttonContainer}>
-              <Button color="primary" className={styles.editButton} variant="contained">
-                Chỉnh sửa
-              </Button>
-            </div>
-          </div>
-
-        </div>
+        <ClinicInfo />
       </Box>
     </Box>
   );

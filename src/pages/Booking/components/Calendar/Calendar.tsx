@@ -37,8 +37,8 @@ export default function BasicDateCalendar({ formData, setFormData, onStepComplet
 
     {
       allDay: true,
-      start: '2024-06-14',
-      end: '2024-06-14',
+      start: '2024-06-26',
+      end: '2024-06-26',
       backgroundColor: "#EA1700",
       display: "background",
       opacity: 0,
@@ -173,27 +173,6 @@ export default function BasicDateCalendar({ formData, setFormData, onStepComplet
           <FontAwesomeIcon icon={faCircle} className={styles.legendIcon} style={{ color: "#EA1700" }} />
           <Typography variant="body2" className={styles.legendText}>Ngày đã đầy lịch</Typography>
         </Box>
-      </Box>
-
-      <Box className={styles.checkboxContainer}>
-        <FormControlLabel
-          control={
-            <Checkbox
-              checked={isRecurring}
-              onChange={handleIsRecurringChange}
-            />
-          }
-          label="Định kì"
-        />
-        <FormControlLabel
-          control={
-            <Checkbox
-              checked={!isRecurring}
-              onChange={handleIsRecurringChange}
-            />
-          }
-          label="Không định kì"
-        />
       </Box>
 
       <Dialog

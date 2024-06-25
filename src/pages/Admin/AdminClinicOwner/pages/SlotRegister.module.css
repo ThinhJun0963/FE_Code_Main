@@ -1,0 +1,16 @@
+.mainContainer {
+  margin-top: 15px;
+  padding: 0 20px 20px 20px;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.main {
+  height: auto;
+}
+
+
+.calendar-three {
+  border: 1px solid #ccc;
+}

@@ -1,4 +1,4 @@
-import { UploadResult, getDownloadURL, listAll, ref, uploadBytes, uploadBytesResumable } from "firebase/storage";
+import { UploadResult, deleteObject, getDownloadURL, listAll, ref, uploadBytes, uploadBytesResumable } from "firebase/storage";
 import { storage } from "../../firebase";
 
 const upload = async (file: File) => {
@@ -51,13 +51,14 @@ export const fetchClinicImages = async (folderPath: string) => {
   }
 };
 
+
 //--------------Upload clinic images to firebase storage----------------
 export const uploadClinicImages = (file: File): Promise<string> => {
   if (file == null) return Promise.reject("No file");
 
   //Set different clinicId for each folder in firebase storage
   //To test go to homepage and click on the clinic cards
-  const clinicId = 1;
+  const clinicId = 12;
   const timestamp = Date.now();
   const imageRef = ref(storage, `clinics/${clinicId}/pictures/${timestamp}_${file.name}`);
 
@@ -71,4 +72,11 @@ export const uploadClinicImages = (file: File): Promise<string> => {
       console.error("Error uploading image:", reason);
       throw reason;
     });
+};
+
+//--------------Delete clinic images from firebase storage----------------
+export const deleteClinicImage = (imagePath: string): Promise<void> => {
+  const imageRef = ref(storage, imagePath);
+  console.log("Deleting image:", imageRef.fullPath);
+  return deleteObject(imageRef);
 };

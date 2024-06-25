@@ -1,0 +1,72 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-top: 5em;
+    padding-bottom: 5em;
+}
+
+.breadcrumbs {
+    width: 90%;
+    text-align: right;
+    color: black;
+}
+
+.divider {
+    background-color: black;
+    width: 100%;
+    margin: 1em auto;
+}
+
+.clinicHeader {
+    margin-top: 2em;
+    display: flex;
+    align-items: flex-start;
+    padding: 1em;
+    width: 80%;
+}
+
+.avatar {
+    height: 200px;
+    width: 200px;
+    margin-right: 1em;
+    background-color: white;
+    border: 1px solid black;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+}
+
+.clinicName {
+    font-weight: bold;
+}
+
+.imageList {
+    width: 80%;
+}
+
+.button {
+    background-color: #1975dc;
+    color: #fff;
+    width: 30%;
+    border-radius: 5px;
+}
+
+.detailSection {
+    width: 80%;
+    margin-top: 5em;
+}
+
+.sectionTitle {
+    font-weight: bold;
+}
+
+.sectionContent {
+    margin-top: 1em;
+}
+
+.sectionBottom {
+    margin-top: 1em;
+    margin-bottom: 5em;
+}

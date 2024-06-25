@@ -46,7 +46,7 @@ const ServiceList = () => {
   };
 
   return (
-    <>
+    <div className={styles.mainContainer}>
       <Box className={styles.container}>
         <Typography variant="h6">Dịch vụ</Typography>
         <div className={styles.serviceContainer}>
@@ -107,7 +107,7 @@ const ServiceList = () => {
       >
         Thêm dịch vụ mới
       </Button>
-    </>
+    </div>
   );
 }
 

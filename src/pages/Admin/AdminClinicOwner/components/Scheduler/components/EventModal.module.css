@@ -1,9 +1,13 @@
 .customModal {
-    top: 100px;
+    top: 50%;
 }
 
+
 .formGroup {
+ 
     display: flex;
-    padding: 10px;
+    align-items: center;
     justify-content: space-between;
+    gap: 20px;
+    padding: 4px;
 }

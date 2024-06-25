@@ -13,14 +13,26 @@ export const connection_path = {
 
     
     user: {
-        user: "/user",
-        register: "/user/register",
-        add_user: "/user/register/customer",
+        customer: "/customer",
+        customer_update: "/user/update",
+        customer_register: "/customer/register",
         activate_user: "/user/activate/:id",
         inactivate_user: "/user/inactivate/:id",
         get_all_service: "/service/get-all",
         clinic_register: "/clinic/register",
     },
+
+    clinic: {
+        register_clinic_owner: "/clinic/register/clinic-owner",
+        get_clinic_general_info: "/clinic/",
+        get_all_clinic: "/clinic/search",
+        get_clinic_dentist: "/clinic/dentist/:id",
+        get_clinic_service: "/clinic/service/:id",
+        get_clinic_schedule: "/clinic/schedule/:id",
+        get_clinic_booking: "/clinic/booking/:id",
+        get_clinic_patient: "/clinic/patient/:id",
+        get_clinic_chat: "/clinic/chat/:id",
+    }, 
 
     booking: {
         available_date: '/booking/availabe-date',

@@ -6,6 +6,7 @@ import { CalendarApi, EventClickArg } from "@fullcalendar/core";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin, { DateClickArg } from "@fullcalendar/interaction";
+import viLocale from '@fullcalendar/core/locales/vi';
 import EventModal from "./components/EventModal";
 
 interface Booking {
@@ -16,7 +17,6 @@ interface Booking {
   customerName: string;
   dentistName: string;
   serviceType: string;
-  duration: number;
   dentistStatus?: string;
   bookingStatus?: string;
 }
@@ -31,7 +31,6 @@ const predefinedBookings: Booking[] = [
     customerName: "John Doe",
     dentistName: "Dr. Smith",
     serviceType: "Cleaning",
-    duration: 60, // Duration in minutes
     dentistStatus: "Có mặt",
     bookingStatus: "Đã xác nhận",
   },
@@ -43,11 +42,9 @@ const predefinedBookings: Booking[] = [
     customerName: "Jane Roe",
     dentistName: "Dr. Brown",
     serviceType: "Filling",
-    duration: 60, // Duration in minutes
     dentistStatus: "Bận",
     bookingStatus: "Đang chờ xác nhận",
   },
-  // Add more mock data here
 ];
 
 // Render event content
@@ -66,126 +63,106 @@ const App: React.FC = () => {
   const [allBookings, setAllBookings] = useState<Booking[]>(predefinedBookings);
   const [selectedBooking, setSelectedBooking] = useState<Booking | undefined>(undefined);
   const [modalOpen, setModalOpen] = useState(false);
-  const [selectedBookingType, setSelectedBookingType] = useState<string>("Khám");
-  const [checkupDuration, setCheckupDuration] = useState<number>(45);
-  const [treatmentDuration, setTreatmentDuration] = useState<number>(90);
 
   useEffect(() => {
     console.log('allBookings', allBookings)
     calendarRef.current?.getApi().refetchEvents()
   }, [allBookings])
 
-  const handleSaveBooking = (updatedBooking: Booking) => {
-    const updatedBookings = allBookings.map((b) =>
-      b.id === updatedBooking.id ? updatedBooking : b
-    );
-    setAllBookings(updatedBookings);
-    setModalOpen(false);
-  };
+  useEffect(() => {
+    const calendarApi = calendarRef.current?.getApi();
+    if (calendarApi) {
+      const updateTitle = (dateInfo: { start: Date }) => {
+        const titleElement = document.querySelector('.fc-toolbar-title');
+        if (titleElement) {
+          titleElement.textContent = formatDateTitle(dateInfo);
+        }
+      };
 
-  const handleDeleteBooking = (id: string) => {
-    const updatedBookings = allBookings.filter((booking) => booking.id !== id);
-    setAllBookings(updatedBookings);
-    setModalOpen(false);
-  };
+      calendarApi.on('datesSet', updateTitle); 
 
-  const handleEventClick = (clickInfo: EventClickArg) => {
-    const { event } = clickInfo;
-    const isoStart = event.startStr;
-    const datePart = isoStart.slice(0, 10);
-    const startTime = `${datePart}T${event.startStr.slice(11, 16)}:00+07:00`;
-    const endTime = `${datePart}T${event.endStr.slice(11, 16)}:00+07:00`;
+      updateTitle({ start: calendarApi.view.activeStart }); 
 
-    setSelectedBooking({
-      id: event.id,
-      start: startTime,
-      end: endTime,
-      date: datePart,
-      customerName: event.extendedProps.customerName,
-      dentistName: event.extendedProps.dentistName,
-      serviceType: event.extendedProps.serviceType,
-      duration: event.extendedProps.duration,
-      dentistStatus: event.extendedProps.dentistStatus,
-      bookingStatus: event.extendedProps.bookingStatus,
-    });
-
-    setModalOpen(true);
-  };
-
-  const addBooking = (data: DateClickArg, serviceType: string) => {
-    const localOffset = new Date().getTimezoneOffset() * 60000;
-    const startDate = new Date(new Date(data.date).getTime() - localOffset);
-    let endDate: Date;
-
-    if (serviceType === "Khám") {
-      endDate = new Date(startDate.getTime() + checkupDuration * 60000);
-    } else if (serviceType === "Điều trị") {
-      endDate = new Date(startDate.getTime() + treatmentDuration * 60000);
-    } else {
-      return;
+      return () => {
+        calendarApi.off('datesSet', updateTitle);
+      };
     }
+  }, []); 
 
-    const startTimeString = startDate.toISOString().slice(0, 16) + ":00+07:00";
-    const endTimeString = endDate.toISOString().slice(0, 16) + ":00+07:00";
+  // const handleSaveBooking = (updatedBooking: Booking) => {
+  //   const updatedBookings = allBookings.map((b) =>
+  //     b.id === updatedBooking.id ? updatedBooking : b
+  //   );
+  //   setAllBookings(updatedBookings);
+  //   setModalOpen(false);
+  // };
 
-    const newBooking: Booking = {
-      id: `booking-${Date.now()}`,
-      start: startTimeString,
-      end: endTimeString,
-      date: startDate.toISOString().slice(0, 10),
-      customerName: "New Customer",
-      dentistName: "New Dentist",
-      serviceType: serviceType,
-      duration: serviceType === "Khám" ? checkupDuration : treatmentDuration,
-      dentistStatus: "Có mặt",
-      bookingStatus: "Đang chờ xác nhận"
-    };
 
-    setAllBookings([...allBookings, newBooking]);
-    console.log('newBooking', newBooking);
-  };
+  function formatDateTitle(dateInfo: { start: Date }): string {
+    const startDate = dateInfo.start;
+    const monthYear = startDate.toLocaleDateString('vi-VN', { month: 'long', year: 'numeric' }).replace('tháng', 'Tháng');
+    const weekRange = getWeekRange(startDate, 'vi-VN'); // Updated to use Vietnamese locale
 
-  const toggleModal = () => {
-    setModalOpen(!modalOpen);
-  };
+    if (weekRange[0].getMonth() === weekRange[1].getMonth()) {
+      // Same month, format as "23 - 29 Tháng 6, 2024"
+      return `${weekRange[0].getDate()} – ${weekRange[1].getDate()} ${monthYear}`;
+    } else {
+      // Different months, format as "23 Tháng 6 – 29 Tháng 7, 2024"
+      const startMonthYear = weekRange[0].toLocaleDateString('vi-VN', { month: 'long', year: 'numeric' }).replace('tháng', 'Tháng');
+      const endMonthYear = weekRange[1].toLocaleDateString('vi-VN', { month: 'long', year: 'numeric' }).replace('tháng', 'Tháng');
+      return `${weekRange[0].getDate()} ${startMonthYear} – ${weekRange[1].getDate()} ${endMonthYear}`;
+    }
+  }
+
+  function getWeekRange(date: Date, locale: string): [Date, Date] {
+    const dayOfWeekIndex = (date.getDay() + 6) % 7; 
+
+    const startOfWeek = new Date(date);
+    startOfWeek.setDate(date.getDate() - dayOfWeekIndex);  
+
+    const endOfWeek = new Date(startOfWeek);
+    endOfWeek.setDate(startOfWeek.getDate() + 6);
+
+    return [startOfWeek, endOfWeek];
+}
+
+
+  // const handleEventClick = (clickInfo: EventClickArg) => {
+  //   const { event } = clickInfo;
+  //   const isoStart = event.startStr;
+  //   const datePart = isoStart.slice(0, 10);
+  //   const startTime = `${datePart}T${event.startStr.slice(11, 16)}:00+07:00`;
+  //   const endTime = `${datePart}T${event.endStr.slice(11, 16)}:00+07:00`;
+
+  //   setSelectedBooking({
+  //     id: event.id,
+  //     start: startTime,
+  //     end: endTime,
+  //     date: datePart,
+  //     customerName: event.extendedProps.customerName,
+  //     dentistName: event.extendedProps.dentistName,
+  //     serviceType: event.extendedProps.serviceType,
+  //     dentistStatus: event.extendedProps.dentistStatus,
+  //     bookingStatus: event.extendedProps.bookingStatus,
+  //   });
+
+  //   setModalOpen(true);
+  // };
+
+  // const toggleModal = () => {
+  //   setModalOpen(!modalOpen);
+  // };
 
   return (
     <div className={styles.mainContainer}>
       <div className={styles.main}>
         <div className={styles.content}>
-          <div className={styles.durationControl}>
-            <div className={styles.bookingType}>
-              <input type="radio" id="checkup" name="bookingType" value="Khám" checked={selectedBookingType === "Khám"} onChange={() => setSelectedBookingType("Khám")} />
-              <label htmlFor="checkup">Khám</label>
-              <input type="radio" id="treatment" name="bookingType" value="Điều trị" checked={selectedBookingType === "Điều trị"} onChange={() => setSelectedBookingType("Điều trị")} />
-              <label htmlFor="treatment">Điều trị</label>
-            </div>
-            <div className={styles.durationInputs}>
-              <div>
-                <label htmlFor="checkupDuration">Thời gian khám tổng quát:</label>
-                <input
-                  type="number"
-                  id="checkupDuration"
-                  value={checkupDuration}
-                  onChange={(e) => setCheckupDuration(parseInt(e.target.value))}
-                />
-              </div>
-              <div>
-                <label htmlFor="treatmentDuration">Thời gian điều trị:</label>
-                <input
-                  type="number"
-                  id="treatmentDuration"
-                  value={treatmentDuration}
-                  onChange={(e) => setTreatmentDuration(parseInt(e.target.value))}
-                />
-              </div>
-            </div>
-          </div>
           <div className={styles.rowContainer}>
             <div className={styles.fullColumn}>
               <div className="calendar-two">
                 <FullCalendar
                   ref={calendarRef}
+                  locale={viLocale}
                   events={allBookings.map((booking) => ({
                     id: booking.id,
                     title: booking.customerName,
@@ -196,12 +173,12 @@ const App: React.FC = () => {
                       dentistName: booking.dentistName,
                       serviceType: booking.serviceType,
                       dentistStatus: booking.dentistStatus,
-                      duration: booking.duration,
                       bookingStatus: booking.bookingStatus,
                     },
+                    className: 'custom-event-class'
                   }))}
                   contentHeight="auto"
-                  plugins={[dayGridPlugin,timeGridPlugin, interactionPlugin]}
+                  plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
                   headerToolbar={{
                     left: "prev,next",
                     center: "title",
@@ -215,26 +192,25 @@ const App: React.FC = () => {
                   }}
                   eventContent={renderEventContent}
                   initialView="timeGridWeek"
-                  editable={true}
-                  selectable={true}
+                  editable={false}
+                  selectable={false}
                   nowIndicator={true}
                   selectMirror={true}
                   dayMaxEvents={true}
                   weekends={weekendsVisible}
-                  dateClick={(data) => addBooking(data, selectedBookingType)}
-                  eventClick={handleEventClick}
-                  slotMinTime="08:00:00"
+                  // eventClick={handleEventClick}
+                  slotMinTime="07:00:00"
                   slotMaxTime="18:00:00"
+                  firstDay={0}
                 />
               </div>
+              {/* <EventModal
+                isOpen={modalOpen}
+                toggle={toggleModal}
+                booking={selectedBooking}
+                onSave={handleSaveBooking}
+              /> */}
             </div>
-            <EventModal
-              isOpen={modalOpen}
-              toggle={toggleModal}
-              booking={selectedBooking}
-              onSave={handleSaveBooking}
-              onDelete={handleDeleteBooking}
-            />
           </div>
         </div>
       </div>

@@ -1,56 +1,39 @@
-.clinicBox {
-    display: flex;
-    padding: 16px;
-    margin-bottom: 16px;
-    border-radius: 10px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease-in-out;
+.container {
+    background: linear-gradient(to left, #e3f2fd, #f8fbff);
 }
 
-.clinicBox:hover {
-    transform: scale(1.02);
+.clinicBox {
+    display: flex;
+    align-items: center;
 }
 
 .clinicImage {
-    width: 220px;
-    height: 180px;
-    object-fit: cover;
-    border-radius: 10px;
+    width: 100px; 
+    height: 100px; 
+    border-radius: 30%; 
+    margin-right: 20px;
 }
 
 .clinicTitle {
-    font-weight: bold;
-    font-size: 1.5rem;
-    text-align: left;
-    margin-bottom: 8px;
     text-decoration: none;
-    color: inherit;
-}
-
-.clinicTitle:hover {
-    text-decoration: underline;
+    color: #333;
 }
 
 .clinicAddress {
-    text-align: left;
+    color: #666;
 }
 
 .clinicDivider {
-    background-color: black;
-    width: 100%;
-    margin: 1em auto;
-    height: 1.5px;
+    margin-top: 10px;
 }
 
 .searchBar {
-    margin: 0 auto;
+    padding: 10px;
+    margin-bottom: 10px;
 }
 
 .searchIconButton {
-    color: #000;
-    position: absolute;
-    right: 15px;
-    top: 0;
-    bottom: 0;
-    margin: auto;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
 }

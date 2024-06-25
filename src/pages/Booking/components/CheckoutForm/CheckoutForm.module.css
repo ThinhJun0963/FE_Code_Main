@@ -59,3 +59,16 @@
     font-weight: bold;
     color: #333;
 }
+
+.vnpayFields {
+    flex-grow: 1; 
+    width: 50%;   
+  }
+  
+  .vnpayFields .MuiTextField-root {
+    margin-bottom: 15px; 
+  }
+  
+  .vnpayFields .MuiInputLabel-root {
+    font-weight: 500; 
+  }

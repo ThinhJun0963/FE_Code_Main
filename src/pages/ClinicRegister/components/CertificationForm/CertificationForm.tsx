@@ -5,16 +5,11 @@ import styles from './CertificationForm.module.css';
 import { storage } from '../../../../../firebase';
 import { v4 } from 'uuid';
 import { getDownloadURL, listAll, ref, uploadBytes, UploadResult } from 'firebase/storage';
-import { Clinic, setClinic } from '../../../../utils/interfaces/ClinicRegister/Clinic'
 
 import { uploadClinicImages } from '../../../../utils/UploadFireBase'
 
-interface CertificationFormProps {
-    formData: Clinic;
-    setFormData: setClinic;
-}
 
-const CertificationForm = ({ formData, setFormData }: CertificationFormProps) => {
+const CertificationForm = () => {
 
     //----------------------------------State variables----------------------------------
     const [uploadedFiles, setUploadedFiles] = useState<{ file: File; imageUrl: string }[]>([]);
@@ -124,10 +119,6 @@ const CertificationForm = ({ formData, setFormData }: CertificationFormProps) =>
 
             setUploadedUrls(urls);
 
-            setFormData((prevData) => ({
-                ...prevData,
-                clinicMedia: urls,
-            }));
             setUploadedFiles([]);
             setDialogMessage("Đăng ảnh thành công");
             setUploadSuccess(true);
@@ -152,8 +143,8 @@ const CertificationForm = ({ formData, setFormData }: CertificationFormProps) =>
     return (
         <Box>
             <Box className={styles.headingBox}>
-                <Box className={styles.heading}>Giấy chứng nhận cho phòng khám của bạn</Box>
-                <Box className={styles.subHeading}>Một số giấy tờ cho phòng khám của bạn</Box>
+                <Box className={styles.heading}>Để chúng tôi đại diện bạn</Box>
+                <Box className={styles.subHeading}>Một số hình ảnh cho phòng khám của bạn</Box>
             </Box>
             <Box className={styles.container}>
                 <Box
