@@ -1,5 +1,6 @@
 import { ClinicRegistrationModel } from "../interfaces/ClinicRegister/Clinic";
-import {connection_path} from "../../constants/developments";
+import { UserRegistrationModel } from "../interfaces/User/UserDefinition";
+import { connection_path } from "../../constants/developments";
 import axios from "axios";
 
 export const handleClinicRegister = async (payload: ClinicRegistrationModel, navigate: (path: string, state?: any) => void) => {
@@ -10,17 +11,16 @@ export const handleClinicRegister = async (payload: ClinicRegistrationModel, nav
         url: api_url,
         data: payload,
         headers: {
-            'Content-Type': 'application/json' 
+            'Content-Type': 'application/json'
         }
     };
-
-    console.log(configuration)
 
     await axios(configuration)
         .then(response => {
             if (response.status === 200) {
                 console.log("Register successful");
-                navigate('/')
+                navigate('/');
+                return response.data;
             } else {
                 console.log(response);
                 alert("Register failed");
@@ -28,6 +28,35 @@ export const handleClinicRegister = async (payload: ClinicRegistrationModel, nav
         })
         .catch(error => {
             alert('Register failed, please try again later.')
-            console.log(error);
+            throw error;
         })
 };
+export const handleOwnerRegister = async (payload: UserRegistrationModel) => {
+    const api_url = connection_path.base_url + connection_path.clinic.register_clinic_owner;
+
+    const configuration = {
+        method: "POST",
+        url: api_url,
+        data: payload,
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    };
+
+    try {
+        const response = await axios(configuration);
+        const { statusCode, message } = response.data;
+
+        if (statusCode === 200) {
+            console.log("Register successful");
+            return statusCode;
+        } else {
+            alert("Register failed: " + message);
+            return statusCode;
+        }
+    } catch (error) {
+        alert('Register failed, please try again later.');
+        console.log(error);
+        return null;
+    }
+}

@@ -1,66 +1,68 @@
-import { useState, useEffect } from 'react'
+
+import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import clinicsData from '../../../utils/mockData'
 import { Box, Pagination, Divider, Typography, Paper, TextField, IconButton } from '@mui/material';
 import { SearchIcon } from '@chakra-ui/icons';
-import styles from './PaginatedClinicList.module.css';
+import styles from './PaginatedClinicList.module.css'; // Import CSS styles
+import { ClinicToDisplay } from '../../../utils/interfaces/ClinicRegister/Clinic';
+import { getAllClinics } from '../../../utils/api/MiscUtils';
 
-const clinicPerPage = 7;
-
-interface clinicService {
-    serviceId: string;
-    serviceName: string;
-}
-
-interface clinicsToDisplay {
-    id: number;
-    image: string;
-    title: string;
-    address: string;
-    services: clinicService[]
-};
+const clinicPerPage = 5;
 
 const PaginatedClinicList = () => {
-
-    const [clinics, setClinics] = useState<clinicsToDisplay[]>([]);
+    const [clinics, setClinics] = useState<ClinicToDisplay[]>([]);
     const [searchTerm, setSearchTerm] = useState('');
+    const [currentPage, setCurrentPage] = useState(1);
+    const [numberOfPages, setNumberOfPages] = useState(1);
 
     const location = useLocation();
     const queryParams = new URLSearchParams(location.search);
     const searchTermParams = queryParams.get('search');
 
-    const clinicsList = clinicsData.map(clinic => ({
-        id: clinic.clinic_id,
-        image: clinic.imageToShow,
-        title: clinic.name,
-        address: clinic.address,
-        services: clinic.services
-    }))
-
-    useEffect(() => {
-        setClinics(clinicsList);
-    }, []);
-
     useEffect(() => {
         setSearchTerm(searchTermParams || '');
     }, [searchTermParams]);
 
+    const fetchClinics = async () => {
+        try {
+            const { content, totalCount } = await getAllClinics(searchTerm, clinicPerPage, currentPage);
+            console.log(content);
+            setClinics(content);
+            setNumberOfPages(Math.ceil(totalCount / clinicPerPage));
+        } catch (error) {
+            console.error('Error fetching clinics:', error);
+        }
+    };
+
+    const handleSearch = () => {
+        fetchClinics();
+    };
+
     useEffect(() => {
-        const filteredClinics = clinicsList.filter(clinic =>
-            clinic.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            clinic.address.toLowerCase().includes(searchTerm.toLowerCase())
-        );
-        setClinics(filteredClinics);
-    }, [searchTerm, searchTermParams]);
+        fetchClinics();
+    }, [currentPage, searchTerm]);
 
-    const [currentPage, setCurrentPage] = useState(1);
-
-    const numberOfPages = Math.ceil(clinicsList.length / clinicPerPage);
-
-    const clinicsToDisplay = clinicsList.slice((currentPage - 1) * clinicPerPage, currentPage * clinicPerPage);
+    const clinicsToDisplay = clinics.map(clinic => (
+        <Box key={clinic.id} sx={{ display: 'flex', flexDirection: 'column', margin: '15px 0' }}>
+            <Box className={styles.clinicBox}>
+                <img src={''} alt={clinic.name} className={styles.clinicImage} />
+                <Box sx={{ flexGrow: 1, marginLeft: '5%' }}>
+                    <Link to={`/clinic/${clinic.id}`} className={styles.clinicTitle}>
+                        <Typography variant="h5" component="div" gutterBottom>
+                            {clinic.name}
+                        </Typography>
+                    </Link>
+                    <Typography variant="body1" component="div" className={styles.clinicAddress} gutterBottom>
+                        Địa chỉ: {clinic.address}
+                    </Typography>
+                </Box>
+            </Box>
+            <Divider className={styles.clinicDivider} />
+        </Box>
+    ));
 
     return (
-        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 5, paddingTop: '8em', paddingBottom: '5em' }}>
+        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 5, paddingTop: '8em', paddingBottom: '5em' }} className={styles.container}>
             <Paper sx={{ width: '65%', margin: '0 auto', display: 'flex', position: 'relative' }}>
                 <TextField
                     fullWidth
@@ -69,13 +71,13 @@ const PaginatedClinicList = () => {
                     placeholder='Tìm kiếm theo tên, địa chỉ phòng khám'
                     onChange={(e) => setSearchTerm(e.target.value)}
                     sx={{ margin: '0 auto' }}
-                    className={styles.searchBar} 
+                    className={styles.searchBar} // Apply CSS class from module
                 />
                 <IconButton
-                    type="submit"
+                    onClick={handleSearch}
                     aria-label="search"
                     sx={{ color: "#000", position: 'absolute', right: '15px', top: '0', bottom: '0', margin: 'auto' }}
-                    className={styles.searchIconButton} 
+                    className={styles.searchIconButton} // Apply CSS class from module
                 >
                     <SearchIcon />
                 </IconButton>
@@ -83,24 +85,7 @@ const PaginatedClinicList = () => {
 
             <Paper sx={{ width: '65%', margin: '20px auto 0 auto', padding: '3em', borderRadius: '1em', border: '.25px solid black' }}>
                 <Box sx={{ width: '100%', margin: '20px auto 0 auto' }}>
-                    {clinicsToDisplay.map((clinic, index) => (
-                        <Box key={index} sx={{ display: 'flex', flexDirection: 'column', margin: '15px 0 15px 0' }}>
-                            <Box className={styles.clinicBox}>
-                                <img src={clinic.image} alt={clinic.title} className={styles.clinicImage} />
-                                <Box sx={{ flexGrow: 1, marginLeft: '5%' }}>
-                                    <Link to={`/clinic/${clinic.id}`} className={styles.clinicTitle}>
-                                        <Typography variant="h5" component="div" gutterBottom>
-                                            {clinic.title}
-                                        </Typography>
-                                    </Link>
-                                    <Typography variant="body1" component="div" className={styles.clinicAddress} gutterBottom>
-                                        Địa chỉ: {clinic.address}
-                                    </Typography>
-                                </Box>
-                            </Box>
-                            {index !== clinicsToDisplay.length - 1 && <Divider className={styles.clinicDivider} />}
-                        </Box>
-                    ))}
+                    {clinicsToDisplay}
                 </Box>
             </Paper>
             <Box sx={{ width: '80%', margin: '0 auto' }}>
@@ -108,15 +93,11 @@ const PaginatedClinicList = () => {
                     sx={{ width: 'auto', display: 'flex', justifyContent: 'center' }}
                     count={numberOfPages}
                     color="primary"
-                    onChange={(event, page) => {
-                        console.log(event)
-                        console.log(page)
-                        setCurrentPage(page)
-                    }}
+                    onChange={(event, page) => setCurrentPage(page)}
                 />
             </Box>
         </Box>
-    )
-}
+    );
+};
 
-export default PaginatedClinicList
+export default PaginatedClinicList;

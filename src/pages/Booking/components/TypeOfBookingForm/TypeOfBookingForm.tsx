@@ -1,6 +1,7 @@
 import { SetStateAction, useState } from 'react';
 import { Box, Button, Typography } from '@mui/material';
 import typeOfBooking from './data';
+
 import { BookingInformation, SetBookingInformation } from '../../../../utils/interfaces/interfaces';
 import styles from './TypeOfBookingForm.module.css';
 
@@ -22,7 +23,7 @@ const TypeOfBookingForm = ({ formData, setFormData, onStepComplete }: TypeOfBook
     return (
         <Box className={styles.container}>
             <Box className={styles.headingBox}>
-                <Box className={styles.heading}>Chọn hình thức khám</Box>
+                <Box className={styles.heading}>Chọn dịch vụ khám</Box>
             </Box>
             <Box className={styles.buttonContainer}>
                 {typeOfBooking.map((type, index) => (

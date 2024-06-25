@@ -11,55 +11,56 @@ import { ArrowBack, ArrowForward } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
 import { ClinicRegistrationModel } from '../../../utils/interfaces/ClinicRegister/Clinic';
 import { handleClinicRegister } from '../../../utils/api/ClinicRegister';
+import OwnerRegisterForm from './OwnerRegisterForm/OwnerRegisterForm';
 
 const ClinicRegisterContent = () => {
     const navigator = useNavigate();
     const [services, setServices] = useState<Service[]>(servicesData);
 
-    const [formData, setFormData] = useState<Clinic>({
-        ownerId: 0,
-        name: '',
-        description: '',
-        address: '',
-        phone: '',
-        email: '',
-        openHour: '',
-        closeHour: '',
-        clinicServices: [],
-        clinicSlots: [],
-        clinicMedia: [],
+    const [formData, setFormData] = useState<ClinicRegistrationModel>({
+        OwnerId: 0,
+        OwnerUserName: '',
+        OwnerPassword: '',
+        OwnerEmail: '',
+        OwnerFullName: '',
+        Name: '',
+        Description: '',
+        Address: '',
+        Phone: '',
+        Email: '',
+        OpenHour: '',
+        CloseHour: '',
+        ClinicServices: [],
     });
 
-    function formatTime(timeString: string): string {
-        const timeParts = timeString.split(':');
-        let hours = parseInt(timeParts[0], 10);
-        let minutes = parseInt(timeParts[1], 10);
 
-        if (timeString.includes('AM') && hours === 12) {
-            hours = 0;
-        } else if (timeString.includes('PM') && hours !== 12) {
-            hours += 12;
-        }
-
-        return `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:00.0000000`;
-    }
 
     const payload: ClinicRegistrationModel = {
-        OwnerId: 2,
-        Name: formData.name,
-        Description: formData.description,
-        Address: formData.address,
-        Phone: formData.phone,
-        Email: formData.email,
-        OpenHour: formatTime(formData.openHour),
-        CloseHour: formatTime(formData.closeHour),
-        ClinicServices: formData.clinicServices.map(service => service.serviceId),
-        ClinicSlots: [{ slotId: 0, maxAppointments: 0 }],
+        OwnerUserName: formData.OwnerUserName,
+        OwnerPassword: formData.OwnerPassword,
+        OwnerEmail: formData.OwnerEmail,
+        OwnerFullName: "Truong Gia Binh",
+        Name: formData.Name,
+        Description: formData.Description,
+        Address: formData.Address,
+        Phone: formData.Phone,
+        Email: formData.Email,
+        OpenHour: formData.OpenHour,
+        CloseHour: formData.CloseHour,
+        ClinicServices: [],
     };
 
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        handleClinicRegister(payload, navigator);
+        try {
+            console.log(payload)
+            await handleClinicRegister(payload, navigator);
+            console.log('Register successful');
+        }
+        catch (error) {
+            console.log(error);
+        }
     }
 
     const handleBack = () => {
@@ -80,9 +81,9 @@ const ClinicRegisterContent = () => {
     const { steps, currentStep, step, isFirstStep, isFinalStep, next, back } =
         UseMultipleStepForm([
             <BasicForm setFormData={setFormData} formData={formData} onStepComplete={() => next()} />,
-            <ServicesForm formData={formData} services={services} onStepComplete={() => next()} setFormData={setFormData} />,
-
-            <CertificationForm formData={formData} setFormData={setFormData} />
+            // <ServicesForm formData={formData} services={services} onStepComplete={() => next()} setFormData={setFormData} />,
+            <OwnerRegisterForm formData={formData} setFormData={setFormData} onStepComplete={() => next()} />,
+            <CertificationForm/>
         ]);
 
     return (

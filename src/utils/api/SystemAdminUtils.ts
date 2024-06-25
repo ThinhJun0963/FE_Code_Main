@@ -19,7 +19,7 @@ export interface UsersToDisplay {
 
 export const registerUser = async (userData: UserRegistrationModel) => {
 
-    const api_url: string = connection_path.base_url + connection_path.user.add_user;
+    const api_url: string = connection_path.base_url + connection_path.user.customer_register;
 
     const config: AxiosRequestConfig = {
         method: 'POST',
@@ -45,7 +45,6 @@ export const registerUser = async (userData: UserRegistrationModel) => {
 
 
 export const setUserStatus = async (userId: number, status: boolean | null) => {
-    console.log(status)
     const end_point: string = status ? `/inactivate/${userId}` : `/activate/${userId}`; 
     const api_url : string = connection_path.base_url + connection_path.user.user + end_point;
     const config = {

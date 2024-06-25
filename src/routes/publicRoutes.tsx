@@ -5,7 +5,6 @@ import UserPayment from '../pages/User/Payment/UserPayment';
 import UserAccount from '../pages/User/Account/UserAccount';
 import UserProfile from '../pages/User/Profile/UserProfile';
 import AdminClinicPage from '../pages/Admin/AdminClinicOwner/AdminClinicPage';
-import DentistAccounts from '../pages/Admin/AdminClinicOwner/pages/DentistAccounts';
 import AppointmentSchedule from '../pages/Admin/AdminClinicOwner/pages/AppointmentSchedule';
 import ClinicInformation from '../pages/Admin/AdminClinicOwner/pages/ClinicInformation';
 import LoginMUI from '../pages/Login/index';
@@ -31,11 +30,10 @@ export const publicRoutes = [
     { path: "/success", element: <SuccessPage /> },
     { path: "/chat", element: <Chat /> },
     //{ path: "/login-google", element: <GoogleLogin />,
-    { path: "/user/payment", element: <UserPayment /> },
-    { path: "/user/profile", element: <UserProfile /> },
-    { path: "/user/account", element: <UserAccount /> },
+    // { path: "/user/payment", element: <UserPayment /> },
+    // { path: "/user/profile", element: <UserProfile /> },
+    // { path: "/user/account", element: <UserAccount /> },
     { path: '/admin/clinic-owner', element: <AdminClinicPage /> },
-    { path: '/admin/clinic-owner/dentist', element: <DentistAccounts /> },
     { path: '/admin/clinic-owner/appointment', element: <AppointmentSchedule /> },
     { path: '/admin/clinic-owner/clinic', element: <ClinicInformation /> },
 ]

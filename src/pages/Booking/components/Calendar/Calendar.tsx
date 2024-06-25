@@ -7,14 +7,11 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircle } from '@fortawesome/free-solid-svg-icons';
 import { Accordion, Box, Checkbox, Dialog, DialogContent, FormControlLabel, Typography } from '@mui/material';
 import styles from './Calendar.module.css';
-import './Calendar.css'
+import './CalendarOne.css'
 import TimeSlots from '../TimeSlots/TimeSlots';
 import { BookingInformation, SetBookingInformation, TimeSlot } from '../../../../utils/interfaces/interfaces';
 
 interface CalendarFormProps {
-  // formData: { clinic: string, typeOfBooking: string; date: string; time: TimeSlot; is_repeated: number; dentist: string, service: string },
-  // setFormData: (value: SetStateAction<{ clinic: string, typeOfBooking: string; date: string; time: TimeSlot; is_repeated: number; dentist: string, service: string }>) => void
-
   formData: BookingInformation,
   setFormData: SetBookingInformation,
   onStepComplete: () => void
@@ -40,8 +37,8 @@ export default function BasicDateCalendar({ formData, setFormData, onStepComplet
 
     {
       allDay: true,
-      start: '2024-06-14',
-      end: '2024-06-14',
+      start: '2024-06-26',
+      end: '2024-06-26',
       backgroundColor: "#EA1700",
       display: "background",
       opacity: 0,
@@ -132,33 +129,34 @@ export default function BasicDateCalendar({ formData, setFormData, onStepComplet
   // =========================================================================================
 
 
-
   return (
     <Box className={styles.container}>
       <Box className={styles.headerBox}>
         <Box className={styles.header}>Chọn ngày khám</Box>
       </Box>
       <Box className={styles.calendarContainer}>
-        <FullCalendar
-          plugins={[dayGridPlugin, interactionPlugin]}
-          contentHeight="auto"
-          initialView="dayGridMonth"
-          viewClassNames="custom-calendar"
-          locale={viLocale}
-          datesSet={handleDatesSet}
-          headerToolbar={{
-            left: 'prev',
-            center: 'title',
-            right: 'next'
-          }}
-          fixedWeekCount={false}
-          showNonCurrentDates={false}
-          dateClick={(event) => handleDateClick(event)}
-          validRange={{
-            start: today.toISOString().split('T')[0]
-          }}
-          events={events}
-        />
+        <div className="calendar-one">
+          <FullCalendar
+            plugins={[dayGridPlugin, interactionPlugin]}
+            contentHeight="auto"
+            initialView="dayGridMonth"
+            viewClassNames="custom-calendar"
+            locale={viLocale}
+            datesSet={handleDatesSet}
+            headerToolbar={{
+              left: 'prev',
+              center: 'title',
+              right: 'next'
+            }}
+            fixedWeekCount={false}
+            showNonCurrentDates={false}
+            dateClick={(event) => handleDateClick(event)}
+            validRange={{
+              start: today.toISOString().split('T')[0]
+            }}
+            events={events}
+          />
+        </div>
       </Box>
       <Box className={styles.legendContainer}>
         <Box className={styles.legendItem}>
@@ -175,27 +173,6 @@ export default function BasicDateCalendar({ formData, setFormData, onStepComplet
           <FontAwesomeIcon icon={faCircle} className={styles.legendIcon} style={{ color: "#EA1700" }} />
           <Typography variant="body2" className={styles.legendText}>Ngày đã đầy lịch</Typography>
         </Box>
-      </Box>
-
-      <Box className={styles.checkboxContainer}>
-        <FormControlLabel
-          control={
-            <Checkbox
-              checked={isRecurring}
-              onChange={handleIsRecurringChange}
-            />
-          }
-          label="Định kì"
-        />
-        <FormControlLabel
-          control={
-            <Checkbox
-              checked={!isRecurring}
-              onChange={handleIsRecurringChange}
-            />
-          }
-          label="Không định kì"
-        />
       </Box>
 
       <Dialog

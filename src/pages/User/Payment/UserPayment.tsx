@@ -1,15 +1,15 @@
-import React from 'react'
-import Header from '../../../components/Header/Header'
+// import React from 'react'
+// import Header from '../../../components/Header/Header'
 
-const UserPayment: React.FC = () => {
-  return (
-    <>
-      <Header />
-      <main>
+// const UserPayment: React.FC = () => {
+//   return (
+//     <>
+//       <Header />
+//       <main>
 
-      </main>
-    </>
-  )
-}
+//       </main>
+//     </>
+//   )
+// }
 
-export default UserPayment
+// export default UserPayment

@@ -11,9 +11,9 @@ export interface Slot {
     endTime: string;
 }
 
-export interface SlotModel { 
+export interface SlotModel {
     slotId: number;
-    maxAppointments: number;    
+    maxAppointments: number;
 }
 
 export interface Clinic {
@@ -30,20 +30,42 @@ export interface Clinic {
     clinicMedia: string[];
 }
 
+
 export interface setClinic {
     (value: SetStateAction<Clinic>): void;
 }
 
 
 export interface ClinicRegistrationModel {
-    OwnerId: number;
-    Name: string;
-    Description: string;
-    Address: string;
-    Phone: string;
-    Email: string;
-    OpenHour: string;
-    CloseHour: string;
-    ClinicServices: number[];
-    ClinicSlots: SlotModel[];
+    OwnerId?: number;
+    OwnerUserName?: string;
+    OwnerPassword?: string;
+    OwnerEmail?: string;
+    OwnerFullName?: string;
+    Name?: string;
+    Description?: string;
+    Address?: string;
+    Phone?: string;
+    Email?: string;
+    OpenHour?: string;
+    CloseHour?: string;
+    ClinicServices?: number[];
+}
+
+export interface setClinicRegistrationModel {
+    (value: SetStateAction<ClinicRegistrationModel>): void;
+}
+
+
+export interface ClinicToDisplay {
+    id: number;
+    name: string;
+    description: string; 
+    address: string;
+    phone: string;
+    email: string;
+    openHour: string;
+    closeHour: string;
+    status: string;
+    ownerId: number;
 }

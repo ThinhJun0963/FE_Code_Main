@@ -2,18 +2,20 @@ import React from 'react';
 import { TextField } from '@mui/material';
 
 interface VNPayFieldsProps {
-    paymentData: { 
-        paymentMethod: string; 
-        amount: string; 
-        orderID: string; 
+    paymentData: {
+        paymentMethod: string;
+        amount: string;
+        orderID: string;
         orderDetail: string;
     };
-    setPaymentData: (value: React.SetStateAction<{ 
-        paymentMethod: string; 
-        amount: string; 
-        orderID: string; 
+
+    setPaymentData: (value: React.SetStateAction<{
+        paymentMethod: string;
+        amount: string;
+        orderID: string;
         orderDetail: string;
     }>) => void;
+
     handleAmountChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
     amount: string;
     orderID: string;

@@ -10,7 +10,7 @@ const ForOwnerContent: React.FC = () => {
             <Box className={styles.container}>
                 <Box className={styles.firstContent}>
                     <Box sx={{ textAlign: 'center', gridRow: 1, paddingTop: '20px' }}>
-                        <Box sx={{ fontWeight: 900, fontSize: '48px' }}>
+                        <Box sx={{ fontWeight: 800, fontSize: '38px' }}>
                             Phần mềm quản lí phòng khám đa năng
                         </Box>
                         <Box sx={{ fontSize: '22px' }}>
@@ -76,7 +76,7 @@ const ForOwnerContent: React.FC = () => {
                 </Box>
 
                 <Box sx={{ textAlign: 'center', gridRow: 1, paddingTop: '50px' }}>
-                    <Box sx={{ fontWeight: 900, fontSize: '48px' }}>
+                    <Box sx={{ fontWeight: 800, fontSize: '38px' }}>
                         Nền tảng quản lý phòng khám hiện đại
                     </Box>
                     <Box sx={{ fontSize: '22px' }}>

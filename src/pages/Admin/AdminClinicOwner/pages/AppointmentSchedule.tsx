@@ -9,13 +9,104 @@ import List from "@mui/material/List";
 import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
-import Grid from "@mui/material/Grid";
 import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import { mainListItems } from "../components/listItems";
-import { GridColDef } from "@mui/x-data-grid";
-import { Button, Paper } from "@mui/material";
-import Table from "../components/Table";
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+
+import styles from "./AppointmentSchedule.module.css";
+import BookingDialog from "./BookingDialog";
+
+const mockBookings = [
+  
+  {
+    bookingId: 'BK001',
+    customer: 'Nguyễn Văn A',
+    doctor: 'Dr. Nguyễn Thị B',
+    appointmentDate: '2024-06-25',
+    slotStartTime: '09:00 AM',
+    createdAt: '2024-06-20',
+    service: 'Tẩy trắng răng',
+    status: 'Đang chờ xác nhận',
+  },
+  {
+    bookingId: 'BK002',
+    customer: 'Trần Thị C',
+    doctor: 'Dr. Lê Văn D',
+    appointmentDate: '2024-06-26',
+    slotStartTime: '10:30 AM',
+    createdAt: '2024-06-21',
+    service: 'Lấy cắp mô nha chu',
+    status: 'Đã xác nhận',
+  },
+  {
+    bookingId: 'BK003',
+    customer: 'Phạm Văn E',
+    doctor: 'Dr. Nguyễn Thị B',
+    appointmentDate: '2024-06-27',
+    slotStartTime: '02:00 PM',
+    createdAt: '2024-06-22',
+    service: 'Chữa viêm lợi',
+    status: 'Đã hoàn thành',
+  },
+  {
+    bookingId: 'BK004',
+    customer: 'Lê Thị F',
+    doctor: 'Dr. Lê Văn D',
+    appointmentDate: '2024-06-28',
+    slotStartTime: '08:30 AM',
+    createdAt: '2024-06-23',
+    service: 'Niềng răng',
+    status: 'Đã hủy',
+  },
+];
+
+const mockDentists = [
+  {
+    dentistId: 'D001',
+    name: 'Dr. Nguyễn Thị B',
+    appointmentsToday: 5,
+    status: 'Hoạt động',
+  },
+  {
+    dentistId: 'D002',
+    name: 'Dr. Lê Văn D',
+    appointmentsToday: 3,
+    status: 'Xin vắng',
+  },
+  {
+    dentistId: 'D003',
+    name: 'Dr. Trần Văn E',
+    appointmentsToday: 7,
+    status: 'Hoạt động',
+  },
+  {
+    dentistId: 'D004',
+    name: 'Dr. Phạm Thị F',
+    appointmentsToday: 2,
+    status: 'Xin vắng',
+  },
+];
+
+const suggestedCheckups = [
+  {
+    patient: 'Nguyễn Văn A',
+    date: '2024-06-25',
+    doctor: 'Dr. Nguyễn Thị B',
+    startTime: '09:00 AM',
+    suggestedSchedule: 'Đề xuất 6 tháng/lần',
+    status: 'Đang chờ xác nhận',
+  },
+  {
+    patient: 'Trần Thị C',
+    date: '2024-06-26',
+    doctor: 'Dr. Lê Văn D',
+    startTime: '10:30 AM',
+    suggestedSchedule: 'Đề xuất 1 năm/lần',
+    status: 'Đã xác nhận',
+  },
+];
 
 const drawerWidth: number = 240;
 
@@ -67,228 +158,50 @@ const Drawer = styled(MuiDrawer, {
   },
 }));
 
-const appointmentColumns: GridColDef[] = [
-  { field: "customerId", headerName: "Mã số bệnh nhân", flex: 1 },
-  { field: "dentist", headerName: "Nha sĩ", flex: 1 },
-  { field: "date", headerName: "Ngày khám", flex: 1 },
-  { field: "slot", headerName: "Ca khám", flex: 1 },
-  { field: "type", headerName: "Hình thức khám", flex: 1 },
-  {
-    field: "status",
-    headerName: "Trạng thái",
-    flex: 1,
-    renderCell: (params) => {
-      let color: "success" | "primary" | "warning" | "secondary";
-      switch (params.value) {
-        case "Hoàn thành":
-          color = "success";
-          break;
-        case "Đang diễn ra":
-          color = "primary";
-          break;
-        case "Sắp diễn ra":
-          color = "warning";
-          break;
-        default:
-          color = "secondary";
-      }
-      return (
-        <Button variant="contained" color={color}>
-          {params.value}
-        </Button>
-      );
-    },
-  },
-];
-
-const appointmentRows = [
-  {
-    id: 1,
-    customerId: "1",
-    dentist: "Nguyễn Văn A",
-    date: "26/05/2024",
-    slot: "11:30-12:00",
-    type: "Khám tổng quát",
-    status: "Hoàn thành",
-  },
-  {
-    id: 2,
-    customerId: "2",
-    dentist: "Nguyễn Văn B",
-    date: "30/05/2024",
-    slot: "8:30-9:00",
-    type: "Khám tổng quát",
-    status: "Đang diễn ra",
-  },
-  {
-    id: 3,
-    customerId: "3",
-    dentist: "Nguyễn Văn C",
-    date: "15/04/2024",
-    slot: "9:00-9:30",
-    type: "Khám theo dịch vụ",
-    status: "Hoàn thành",
-  },
-  {
-    id: 4,
-    customerId: "4",
-    dentist: "Nguyễn Văn D",
-    date: "26/06/2024",
-    slot: "14:30-15:00",
-    type: "Khám định kì",
-    status: "Sắp diễn ra",
-  },
-  {
-    id: 5,
-    customerId: "5",
-    dentist: "Nguyễn Văn E",
-    date: "23/05/2024",
-    slot: "15:30-16:00",
-    type: "Khám tổng quát",
-    status: "Hoàn thành",
-  },
-  {
-    id: 6,
-    customerId: "6",
-    dentist: "Nguyễn Văn F",
-    date: "26/05/2024",
-    slot: "11:30-12:00",
-    type: "Khám tổng quát",
-    status: "Hoàn thành",
-  },
-  {
-    id: 7,
-    customerId: "7",
-    dentist: "Nguyễn Văn G",
-    date: "30/05/2024",
-    slot: "8:30-9:00",
-    type: "Khám tổng quát",
-    status: "Đang diễn ra",
-  },
-  {
-    id: 8,
-    customerId: "8",
-    dentist: "Nguyễn Văn H",
-    date: "15/04/2024",
-    slot: "9:00-9:30",
-    type: "Khám theo dịch vụ",
-    status: "Hoàn thành",
-  },
-  {
-    id: 9,
-    customerId: "9",
-    dentist: "Nguyễn Văn I",
-    date: "26/06/2024",
-    slot: "14:30-15:00",
-    type: "Khám định kì",
-    status: "Sắp diễn ra",
-  },
-  {
-    id: 10,
-    customerId: "10",
-    dentist: "Nguyễn Văn J",
-    date: "23/05/2024",
-    slot: "15:30-16:00",
-    type: "Khám tổng quát",
-    status: "Hoàn thành",
-  },
-  {
-    id: 11,
-    customerId: "11",
-    dentist: "Nguyễn Văn A",
-    date: "26/05/2024",
-    slot: "11:30-12:00",
-    type: "Khám tổng quát",
-    status: "Hoàn thành",
-  },
-  {
-    id: 12,
-    customerId: "12",
-    dentist: "Nguyễn Văn B",
-    date: "30/05/2024",
-    slot: "8:30-9:00",
-    type: "Khám tổng quát",
-    status: "Đang diễn ra",
-  },
-  {
-    id: 13,
-    customerId: "13",
-    dentist: "Nguyễn Văn C",
-    date: "15/04/2024",
-    slot: "9:00-9:30",
-    type: "Khám theo dịch vụ",
-    status: "Hoàn thành",
-  },
-  {
-    id: 14,
-    customerId: "14",
-    dentist: "Nguyễn Văn D",
-    date: "26/06/2024",
-    slot: "14:30-15:00",
-    type: "Khám định kì",
-    status: "Sắp diễn ra",
-  },
-  {
-    id: 15,
-    customerId: "15",
-    dentist: "Nguyễn Văn E",
-    date: "23/05/2024",
-    slot: "15:30-16:00",
-    type: "Khám tổng quát",
-    status: "Hoàn thành",
-  },
-  {
-    id: 16,
-    customerId: "16",
-    dentist: "Nguyễn Văn F",
-    date: "26/05/2024",
-    slot: "11:30-12:00",
-    type: "Khám tổng quát",
-    status: "Hoàn thành",
-  },
-  {
-    id: 17,
-    customerId: "17",
-    dentist: "Nguyễn Văn G",
-    date: "30/05/2024",
-    slot: "8:30-9:00",
-    type: "Khám tổng quát",
-    status: "Đang diễn ra",
-  },
-  {
-    id: 18,
-    customerId: "18",
-    dentist: "Nguyễn Văn H",
-    date: "15/04/2024",
-    slot: "9:00-9:30",
-    type: "Khám theo dịch vụ",
-    status: "Hoàn thành",
-  },
-  {
-    id: 19,
-    customerId: "19",
-    dentist: "Nguyễn Văn I",
-    date: "26/06/2024",
-    slot: "14:30-15:00",
-    type: "Khám định kì",
-    status: "Sắp diễn ra",
-  },
-  {
-    id: 20,
-    customerId: "20",
-    dentist: "Nguyễn Văn J",
-    date: "23/05/2024",
-    slot: "15:30-16:00",
-    type: "Khám tổng quát",
-    status: "Hoàn thành",
-  },
-];
-
 export default function AppointmentSchedule() {
   const [open, setOpen] = React.useState(true);
   const toggleDrawer = () => {
     setOpen(!open);
   };
+
+  const navigator = useNavigate();
+
+
+  const [selectedBooking, setSelectedBooking] = useState(null);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  //----------------------------------------------------------------------
+
+  //----------------------------------------------------------------------
+  //Action handlers
+  const handleStatusButtonClick = (booking: React.SetStateAction<null>) => {
+    setSelectedBooking(booking);
+    setIsDialogOpen(true);
+  };
+
+  const handleCloseDialog = () => {
+    setIsDialogOpen(false);
+  };
+
+
+
+  function getStatusStyle(status: string) {
+    switch (status) {
+      case 'Hoạt động':
+        return styles.active;
+      case 'Xin vắng':
+        return styles.inactive;
+      case 'Đang chờ xác nhận':
+        return styles.waiting;
+      case 'Đã xác nhận':
+        return styles.confirmed;
+      case 'Đã hoàn thành':
+        return styles.completed;
+      case 'Đã hủy':
+        return styles.cancelled;
+      default:
+        return '';
+    }
+  }
 
   return (
     <Box sx={{ display: "flex" }}>
@@ -346,37 +259,149 @@ export default function AppointmentSchedule() {
               ? theme.palette.grey[100]
               : theme.palette.grey[900],
           flexGrow: 1,
-          height: "100vh",
+          height: "100%",
           marginTop: 8,
         }}
       >
-        <Box sx={{ height: "100%", backgroundColor: "#ffffff" }}>
-          <Grid container spacing={3}>
-            <Grid item lg={12}>
-              <Paper
-                sx={{
-                  p: 2,
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: 2,
-                  margin: "20px auto 0 auto",
-                  width: "95%",
-                  boxShadow: 3,
-                  border: "1px solid #ddd",
-                  backgroundColor: "#ffffff",
-                  borderRadius: 2,
-                  alignItems: "flex-start",
-                }}
-              >
-                <Typography variant="h6" component="h4">
-                  Các lịch hẹn
-                </Typography>
-                <Table rows={appointmentRows} columns={appointmentColumns} />
-              </Paper>
-            </Grid>
-          </Grid>
+        <Box className={styles.mainContainer}>
+          <div className={styles.content}>
+            <div className={styles.tableContainer}>
+              <div className={styles.title}>Danh sách lịch hẹn</div>
+              <Box className={styles.toolbar}>
+                <Box className={styles.searchbar}>
+                  <input type="text" placeholder="Tìm kiếm tên người dùng" className={styles.searchInput} />
+                  <button className={styles.searchButton}>Tìm kiếm</button>
+                </Box>
+                <Box className={styles.utilities}>
+                  <select className={styles.filterSelect}>
+                    <option value="">Filter</option>
+                    <option value="role1">Role 1</option>
+                    <option value="role2">Role 2</option>
+                  </select>
+
+                </Box>
+              </Box>
+              <table className={styles.table}>
+                <thead>
+                  <tr>
+                    <th>Booking ID</th>
+                    <th>Khách hàng</th>
+                    <th>Bác sĩ</th>
+                    <th>Ngày hẹn</th>
+                    <th>Slot(thời gian bắt đầu)</th>
+                    <th>Ngày tạo</th>
+                    <th>Dịch vụ</th>
+                    <th>
+                      <Box className={styles.tooltip}>
+                        Trạng thái
+                        <span className={styles.tooltiptext}>Nhấn để cập nhật trạng thái</span>
+                        <span className={styles.tooltipicon}>!</span>
+                      </Box>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {mockBookings.map((booking: any) => (
+                    <tr key={booking.bookingId} className={styles.tableRow} >
+                      <td>{booking.bookingId}</td>
+                      <td>{booking.customer}</td>
+                      <td>{booking.doctor}</td>
+                      <td>{booking.appointmentDate}</td>
+                      <td>{booking.slotStartTime}</td>
+                      <td>{booking.createdAt}</td>
+                      <td>{booking.service}</td>
+                      <td>
+                        <button className={`${styles.statusButton} ${getStatusStyle(booking.status)}`}
+                          onClick={() => handleStatusButtonClick(booking)}
+                        >
+                          {booking.status}
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+            <div className={styles.row2}>
+              <div className={styles.column1}>
+                <div className={styles.tableContainer}>
+                  <div className={styles.title}>Danh sách nha sĩ</div>
+                  <table className={styles.table}>
+                    <thead>
+                      <tr>
+                        <th>Nha sĩ ID</th>
+                        <th>Tên</th>
+                        <th>Số lịch hẹn hôm nay</th>
+                        <th>
+                          <Box className={styles.tooltip}>
+                            Trạng thái
+                            <span className={styles.tooltiptext}>Nhấn để cập nhật trạng thái</span>
+                            <span className={styles.tooltipicon}>!</span>
+                          </Box>
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {mockDentists.map((dentist: any) => (
+                        <tr key={dentist.dentistId} className={styles.tableRow} >
+                          <td>{dentist.dentistId}</td>
+                          <td>{dentist.name}</td>
+                          <td>{dentist.appointmentsToday}</td>
+                          <td>
+                            <button className={`${styles.statusButton} ${getStatusStyle(dentist.status)}`}>
+                              {dentist.status}
+                            </button>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div className={styles.column2}>
+                <div className={styles.tableContainer}>
+                  <div className={styles.title}>Đề xuất lịch khám định kì</div>
+                  <table className={styles.table}>
+                    <thead>
+                      <tr>
+                        <th>Bệnh nhân</th>
+                        <th>Ngày lên lịch</th>
+                        <th>Bác sĩ</th>
+                        <th>Thời gian bắt đầu</th>
+                        <th>Đề xuất lịch khám</th>
+                        <th>
+                          <Box className={styles.tooltip}>
+                            Trạng thái
+                            <span className={styles.tooltiptext}>Nhấn để cập nhật trạng thái</span>
+                            <span className={styles.tooltipicon}>!</span>
+                          </Box>
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {suggestedCheckups.map((checkup, index) => (
+                        <tr key={index}>
+                          <td>{checkup.patient}</td>
+                          <td>{checkup.date}</td>
+                          <td>{checkup.doctor}</td>
+                          <td>{checkup.startTime}</td>
+                          <td>{checkup.suggestedSchedule}</td>
+                          <td>
+                            <button className={`${styles.statusButton} ${getStatusStyle(checkup.status)}`}>
+                              {checkup.status}
+                            </button>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
         </Box>
       </Box>
+      <BookingDialog isOpen={isDialogOpen} onClose={handleCloseDialog} booking={selectedBooking} />
     </Box>
   );
 }
