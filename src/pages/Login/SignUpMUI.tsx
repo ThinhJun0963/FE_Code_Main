@@ -12,5 +12,7 @@ export default function SignUp() {
       <SignUpForm />
       <Box className={styles.backgroundImageBox}></Box>
     </Box>
+
+    
   );
 }
