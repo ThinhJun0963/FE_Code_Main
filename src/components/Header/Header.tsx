@@ -21,10 +21,17 @@ const Header = () => {
 
   const [auth, setAuth] = React.useState(false);
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  console.log(auth);
 
   React.useEffect(() => {
-    // window.location.reload();
-  }, [auth]); 
+    const accessToken = localStorage.getItem("accessToken");
+    setAuth(accessToken ? true : false);
+  }, []);
+
+  const handleLogoutAndRefresh = () => {
+    handleLogout(navigator); 
+    setAuth(false); 
+  };
 
   const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -40,7 +47,7 @@ const Header = () => {
   }
 
   // ============================ Proposed changes ==================================
-  React.useLayoutEffect(() => { localStorage.getItem("accessToken") == null ? setAuth(false) : setAuth(true) }, []);
+  // React.useLayoutEffect(() => { localStorage.getItem("accessToken") == null ? setAuth(false) : setAuth(true) }, []);
 
   // ============================ End of proposal  ===================================
 
@@ -91,7 +98,7 @@ const Header = () => {
                     onClose={handleClose}
                   >
                     <MenuItem onClick={handleProfile}>Tài khoản</MenuItem>
-                    <MenuItem onClick={() => { handleClose(); handleLogout(navigator) }}>Đăng xuất</MenuItem>
+                    <MenuItem onClick={() => { handleClose(); handleLogoutAndRefresh() }}>Đăng xuất</MenuItem>
                   </Menu>
                 </Box>
               ) : (

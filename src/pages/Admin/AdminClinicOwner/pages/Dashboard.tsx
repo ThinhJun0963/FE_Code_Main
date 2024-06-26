@@ -20,6 +20,7 @@ import {
 
 import Scheduler from "../components/Scheduler/Scheduler";
 import ClinicInfo from "../components/ClinicInfo/ClinicInfo";
+import { useState } from "react";
 
 const drawerWidth: number = 240;
 
@@ -72,7 +73,7 @@ const Drawer = styled(MuiDrawer, {
 }));
 
 const Dashboard = () => {
-  const [open, setOpen] = React.useState(true);
+  const [open, setOpen] = useState(true);
 
   const toggleDrawer = () => {
     setOpen(!open);
@@ -145,7 +146,7 @@ const Dashboard = () => {
       >
         <div className={styles.mainContainer} >
           <div className={styles.main}>
-            <Scheduler />
+            <Scheduler/>
           </div>
         </div>
       </Box>

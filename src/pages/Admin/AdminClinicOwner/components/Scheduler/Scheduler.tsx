@@ -8,6 +8,7 @@ import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin, { DateClickArg } from "@fullcalendar/interaction";
 import viLocale from '@fullcalendar/core/locales/vi';
 import EventModal from "./components/EventModal";
+import { useTheme } from "@mui/material";
 
 interface Booking {
   id: string;
@@ -57,7 +58,7 @@ function renderEventContent(eventInfo: any) {
   );
 }
 
-const App: React.FC = () => {
+const App: React.FC = (open) => {
   const calendarRef = useRef<FullCalendar>(null);
   const [weekendsVisible, setWeekendsVisible] = useState(true);
   const [allBookings, setAllBookings] = useState<Booking[]>(predefinedBookings);
@@ -79,15 +80,15 @@ const App: React.FC = () => {
         }
       };
 
-      calendarApi.on('datesSet', updateTitle); 
+      calendarApi.on('datesSet', updateTitle);
 
-      updateTitle({ start: calendarApi.view.activeStart }); 
+      updateTitle({ start: calendarApi.view.activeStart });
 
       return () => {
         calendarApi.off('datesSet', updateTitle);
       };
     }
-  }, []); 
+  }, []);
 
   // const handleSaveBooking = (updatedBooking: Booking) => {
   //   const updatedBookings = allBookings.map((b) =>
@@ -100,31 +101,45 @@ const App: React.FC = () => {
 
   function formatDateTitle(dateInfo: { start: Date }): string {
     const startDate = dateInfo.start;
-    const monthYear = startDate.toLocaleDateString('vi-VN', { month: 'long', year: 'numeric' }).replace('tháng', 'Tháng');
-    const weekRange = getWeekRange(startDate, 'vi-VN'); // Updated to use Vietnamese locale
+    const weekRange = getWeekRange(startDate, 'vi-VN');
+
+    const formatter = new Intl.DateTimeFormat("vi-VN", {
+      month: "long",
+      year: "numeric",
+    });
 
     if (weekRange[0].getMonth() === weekRange[1].getMonth()) {
-      // Same month, format as "23 - 29 Tháng 6, 2024"
+      // Same month
+      const monthYear = formatter.format(startDate).replace("tháng", "Tháng");
       return `${weekRange[0].getDate()} – ${weekRange[1].getDate()} ${monthYear}`;
     } else {
-      // Different months, format as "23 Tháng 6 – 29 Tháng 7, 2024"
-      const startMonthYear = weekRange[0].toLocaleDateString('vi-VN', { month: 'long', year: 'numeric' }).replace('tháng', 'Tháng');
-      const endMonthYear = weekRange[1].toLocaleDateString('vi-VN', { month: 'long', year: 'numeric' }).replace('tháng', 'Tháng');
-      return `${weekRange[0].getDate()} ${startMonthYear} – ${weekRange[1].getDate()} ${endMonthYear}`;
+      // Different months
+      const startMonthYear = formatter.format(weekRange[0]).replace("tháng", "Tháng");
+      console.log('startMonthYear', startMonthYear)
+      const endMonthYear = formatter.format(weekRange[1]).replace("tháng", "Tháng");
+      console.log('endMonthYear', endMonthYear)
+
+      // Only include the year in the first part if it's different from the current year
+      const currentYear = new Date().getFullYear();
+      console.log('currentYear', currentYear)
+      const includeYearInStart = weekRange[0].getFullYear() !== currentYear;
+      console.log('includeYearInStart', includeYearInStart)
+
+      return `${weekRange[0].getDate()} ${includeYearInStart ? startMonthYear : startMonthYear.split(' ')[0]} ${startMonthYear.split(' ')[1]} - ${weekRange[1].getDate()} ${endMonthYear}`;
     }
   }
 
   function getWeekRange(date: Date, locale: string): [Date, Date] {
-    const dayOfWeekIndex = (date.getDay() + 6) % 7; 
+    const day = date.getDay();
+    const diff = date.getDate() - day;
 
-    const startOfWeek = new Date(date);
-    startOfWeek.setDate(date.getDate() - dayOfWeekIndex);  
-
-    const endOfWeek = new Date(startOfWeek);
-    endOfWeek.setDate(startOfWeek.getDate() + 6);
+    const startOfWeek = new Date(date.setDate(diff));
+    const endOfWeek = new Date(date.setDate(diff + 6));
 
     return [startOfWeek, endOfWeek];
-}
+  }
+
+
 
 
   // const handleEventClick = (clickInfo: EventClickArg) => {
@@ -154,7 +169,8 @@ const App: React.FC = () => {
   // };
 
   return (
-    <div className={styles.mainContainer}>
+    // <div className={styles.mainContainer} style={{ width: open ? "calc(100% - 240px)" : "100%" }}>
+    <div className={styles.mainContainer} >
       <div className={styles.main}>
         <div className={styles.content}>
           <div className={styles.rowContainer}>
