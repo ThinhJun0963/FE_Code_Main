@@ -154,3 +154,22 @@
     position: relative;
 }
 
+/* .calendar-three fc-timegrid-event-harness fc-timegrid-event-harness-inset  {
+    padding: 0;
+    margin: 0;
+} */
+
+.calendar-three .event-status-true {
+    width: 100%;
+    height: 100%;
+    background-color: green;
+    color: white;
+}
+
+.calendar-three .event-status-false {
+    width: 100%;
+    height: 100%;
+    background-color: #FA8072;
+    /* Salmon */
+    color: white;
+}
