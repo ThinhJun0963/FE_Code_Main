@@ -1,21 +1,11 @@
-.container {
-    height: 100vh;
-    background-color: #f1eff2;
-    display: grid;
-    grid-template-columns: 40% 60%;
-    justify-content: center;
-    align-items: center;
-}
 
-.backgroundImageBox {
-    background-image: url('../../../../public/icon/simple-bg4.svg');
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
-    width: 100%;
-    height: 100%;
-}
-
+/* .formPaper {
+    width: 70%;
+    height: auto;
+    margin: 0 auto;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    
+} */
 
 .input {
     border: 2px solid #e0e4e5;

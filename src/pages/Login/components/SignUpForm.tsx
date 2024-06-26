@@ -39,6 +39,17 @@ const SignUpForm = () => {
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
+
+  const handleMouseDownPassword = (
+    event: React.MouseEvent<HTMLButtonElement>
+  ) => {
+    event.preventDefault();
+  };
+//add eye-icon to password
+  const [showPassword, setShowPassword] = React.useState(false);
+
+  const handleClickShowPassword = () => setShowPassword((show) => !show);
+
   const handleMouseDownPassword = (
     event: React.MouseEvent<HTMLButtonElement>
   ) => {
@@ -110,6 +121,7 @@ const SignUpForm = () => {
         >
           Đăng kí
         </Button>
+
       </Box>
     </Box >
   );
