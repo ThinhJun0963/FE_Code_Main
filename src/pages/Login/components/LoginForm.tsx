@@ -17,7 +17,7 @@ import { ArrowBack } from "@mui/icons-material";
 const LoginForm = () => {
   const navigate = useNavigate();
 
-  const handleBack = () => { 
+  const handleBack = () => {
     navigate(-1);
   }
 
@@ -117,9 +117,10 @@ const LoginForm = () => {
   });
 
 
-  
+
   //add eye icon into the password field
   const [showPassword, setShowPassword] = React.useState(false);
+
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
@@ -129,14 +130,14 @@ const LoginForm = () => {
     event.preventDefault();
   };
 
-
+  
 
   return (
     <Box
       component="form"
       onSubmit={(event) => handleLogin(event, navigate)}
       noValidate
-      // className={styles.form}
+    // className={styles.form}
     >
       <Box className={styles.buttonBox}>
         <button type="button" className={styles.backButton} onClick={handleBack}>
@@ -153,7 +154,7 @@ const LoginForm = () => {
           fullWidth
           id="username"
           label="Tên tài khoản"
-          name="username"
+         
         />
 
         <TextField

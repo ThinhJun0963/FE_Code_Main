@@ -13,7 +13,7 @@ import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import { mainListItems } from "../components/listItems";
 
 import styles from "./ClinicManagement.module.css";
-import clinicData from "../../../../utils/mockData";
+import {clinicData} from "../../../../utils/mockData";
 
 const drawerWidth: number = 240;
 
