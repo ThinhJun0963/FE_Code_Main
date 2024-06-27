@@ -21,13 +21,19 @@ export const connection_path = {
         clinic_register: "/clinic/register",
     },
 
+    invoker: {
+        get_dentist_invoker: "/invoker",
+    },
+
     clinic: {
         register_clinic_owner: "/clinic/register/clinic-owner",
         get_clinic_general_info: "/clinic/",
         get_all_clinic: "/clinic/search",
         get_clinic_dentist: "/clinic/dentist/:id",
         get_clinic_service: "/clinic/service/:id",
-        get_clinic_schedule: "/clinic/schedule/:id",
+        post_clinic_schedule: "/schedule/slot/create",
+        get_clinic_schedule: "/schedule/:id/slots",
+        put_clinic_schedule: "/schedule/slot/update",
         get_clinic_booking: "/clinic/booking/:id",
         get_clinic_patient: "/clinic/patient/:id",
         get_clinic_chat: "/clinic/chat/:id",
