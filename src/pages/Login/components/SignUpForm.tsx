@@ -3,19 +3,16 @@ import {
   Box,
   Grid,
   Link,
-  Divider,
   Typography,
   TextField,
   InputAdornment,
   IconButton,
-  FormControlLabel,
 } from "@mui/material";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import styles from './SignUpForm.module.css'
 import { handleRegister } from "../../../utils/api/AuthenticateUtils";
 import { ArrowBack, Visibility, VisibilityOff } from "@mui/icons-material";
-import { useState } from "react";
+import React from "react";
 
 const SignUpForm = () => {
   const navigate = useNavigate();
@@ -35,10 +32,12 @@ const SignUpForm = () => {
     }
   };
 
-  const [showPassword, setShowPassword] = useState(false);
+
+
+  //add eye-icon to password
+  const [showPassword, setShowPassword] = React.useState(false);
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
-
 
   const handleMouseDownPassword = (
     event: React.MouseEvent<HTMLButtonElement>
@@ -46,9 +45,29 @@ const SignUpForm = () => {
     event.preventDefault();
   };
 
+  //validate username and password
+  const [username, setUsername] = React.useState("");
+  const [password, setPassword] = React.useState("");
+  const [email, setEmail] = React.useState("");
+
+  const validateUsername = (inputUsername: string): boolean => {
+    //  const regex = /^[A-Za-z](?=.*[A-Z])(?=.*[a-z])(?=.*\d)[A-Za-z0-9_]{7,29}$/
+    const regex = /^(?=[A-Za-z])(?=.*[A-Z])(?=.*[a-z])(?=.*\d)[A-Za-z0-9_]{8,30}$/
+    return regex.test(inputUsername);
+  };
+
+  const validatePassword = (inputPassword: string): boolean => {
+    const regex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)[A-Za-z0-9_]{8,30}$/
+    return regex.test(inputPassword);
+  };
+
+  const validateEmail = (inputEmail: string): boolean => {
+    const regex = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/
+    return regex.test(inputEmail);
+  };
+
   return (
-    <Box
-      component="form"
+    <Box component="form"
       onSubmit={(event) => handleSubmit(event)}
       noValidate
       className={styles.form}
@@ -58,10 +77,11 @@ const SignUpForm = () => {
           <ArrowBack />
         </button>
       </Box>
-      <Box className={styles.centerText} >
-        Đăng kí
-      </Box>
+
       <Box className={styles.formContainer}>
+        <Typography component="h1" variant="h5" sx={{ textAlign: "center" }}>
+          Tạo tài khoản
+        </Typography>
         <TextField
           className={styles.input}
           required
@@ -69,6 +89,14 @@ const SignUpForm = () => {
           id="username"
           label="Tên tài khoản"
           name="username"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+          error={!!username && !validateUsername(username)}
+          helperText={
+            username && !validateUsername(username)
+              ? "Tên đăng nhập phải bắt đầu bằng một ký tự chữ cái, có từ 8 đến 30 ký tự, và bao gồm ít nhất một chữ hoa, một chữ thường và một số."
+              : ""
+          }
         />
         <TextField
           className={styles.input}
@@ -77,6 +105,15 @@ const SignUpForm = () => {
           id="email"
           label="Email"
           name="email"
+          placeholder="abc@domain.com"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          error={!!email && !validateEmail(email)}
+          helperText={
+            email && !validateEmail(email)
+              ? "Địa chỉ email không hợp lệ"
+              : ""
+          }
         />
         <TextField
           required
@@ -87,6 +124,14 @@ const SignUpForm = () => {
           type={showPassword ? "text" : "password"}
           id="password"
           autoComplete="off"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          error={!!password && !validatePassword(password)}
+          helperText={
+            password && !validatePassword(password)
+              ? "Mật khẩu phải dài từ 8-30 ký tự, bao gồm ít nhất một chữ hoa, một chữ thường và một số."
+              : ""
+          }
           InputProps={{
             endAdornment: (
               <InputAdornment position="end">
@@ -102,6 +147,7 @@ const SignUpForm = () => {
             ),
           }}
         />
+
         <Button
           type="submit"
           variant="contained"
@@ -112,8 +158,26 @@ const SignUpForm = () => {
           Đăng kí
         </Button>
 
+        <Grid item lg={12}>
+          <Box
+            sx={{
+              width: "100%",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            Đã có tài khoản?
+            <Box ml={1}>
+              <Link href="/login" variant="body2" sx={{ fontSize: "17px" }}>
+                Đăng nhập
+              </Link>
+            </Box>
+          </Box>
+        </Grid>
       </Box>
-    </Box >
+    </Box>
+
   );
 };
 

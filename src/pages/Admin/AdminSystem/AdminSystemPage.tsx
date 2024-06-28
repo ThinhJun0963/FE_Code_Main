@@ -1,9 +1,8 @@
-import React from 'react'
-import Dashboard from './pages/Dashboard'
+import Dashboard from './components/Dashboard'
 
 const AdminSystemPage = () => {
   return (
-    <Dashboard />
+    <Dashboard/>
   )
 }
 

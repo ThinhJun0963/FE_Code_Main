@@ -12,11 +12,8 @@ import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import { mainListItems } from "../components/listItems";
 
-import { ClinicInfoModel, getAllClinics } from "../../../../utils/api/SystemAdminUtils";
 import styles from "./ClinicManagement.module.css";
-import { useEffect, useState } from "react";
-import { MenuItem, Select } from "@mui/material";
-import { verifyClinicStatus } from "../../../../utils/api/SystemAdminUtils";
+import {clinicData} from "../../../../utils/mockData";
 
 const drawerWidth: number = 240;
 
@@ -77,48 +74,6 @@ const ClinicManagement = () => {
         setOpen(!open);
     };
 
-    const [clinics, setClinics] = useState<ClinicInfoModel[]>([]);
-    const [loading, setLoading] = useState(false);
-    const [error, setError] = useState<string>('');
-
-    const fetchClinics = async (page: number) => {
-        setLoading(true);
-        try {
-            const data = await getAllClinics(page);
-            if (typeof data === 'string') {
-                setError(data);
-            } else {
-                setClinics(data);
-            }
-        } catch (error) {
-            setError(error as string);
-        } finally {
-            setLoading(false);
-        }
-    };
-
-    useEffect(() => {
-        fetchClinics(1);
-    }, []);
-
-    const handleVerifyClinic = async (clinicId: number) => {
-        try {
-            const updatedClinicInfo = await verifyClinicStatus(clinicId);
-            // Optionally update clinics state or handle success message
-            console.log('Clinic status updated:', updatedClinicInfo);
-            // Example: Update the clinics state to reflect the updated status
-            const updatedClinics = clinics.map(clinic => {
-                if (clinic.id === clinicId) {
-                    return { ...clinic, status: 'verified' }; // Update status to 'verified' after successful update
-                }
-                return clinic;
-            });
-            setClinics(updatedClinics);
-        } catch (error) {
-            console.error('Error updating clinic status:', error);
-            // Handle error scenario (show error message, etc.)
-        }
-    };
 
     return (
         <ThemeProvider theme={defaultTheme}>
@@ -148,7 +103,7 @@ const ClinicManagement = () => {
                             noWrap
                             sx={{ flexGrow: 1 }}
                         >
-                            Trang tài khoản người dùng
+                            Trang phòng khám
                         </Typography>
                     </Toolbar>
                 </AppBar>
@@ -190,6 +145,16 @@ const ClinicManagement = () => {
                                     <input type="text" placeholder="Tìm kiếm phòng khám" className={styles.searchInput} />
                                     <button className={styles.searchButton}>Tìm kiếm</button>
                                 </Box>
+                                <Box className={styles.utilities}>
+                                    <select className={styles.filterSelect}>
+                                        <option value="">Filter</option>
+                                        <option value="role1">Role 1</option>
+                                        <option value="role2">Role 2</option>
+                                    </select>
+                                    <button className={styles.addButton}>
+                                        Thêm phòng khám
+                                    </button>
+                                </Box>
                             </Box>
                             <table className={styles.table}>
                                 <thead>
@@ -197,54 +162,31 @@ const ClinicManagement = () => {
                                         <th>ID</th>
                                         <th>Tên phòng khám</th>
                                         <th>Địa chỉ</th>
-                                        <th>Giờ mở cửa</th>
+                                        <th>Giờ hoạt động</th>
                                         <th>Email</th>
                                         <th>Số điện thoại</th>
                                         <th>ID chủ phòng khám</th>
-                                        <th>Trạng thái</th>
-                                        <th>Actions</th>
+                                        <th>
+                                            <Box className={styles.tooltip}>
+                                                Trạng thái
+                                                
+                                            </Box>
+                                        </th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {loading ? (
-                                        <tr>
-                                            <td colSpan={8}>Loading...</td>
+                                    {clinicData.map((clinic) => (
+                                        <tr key={clinic.clinic_id}>
+                                            <td>{clinic.clinic_id}</td>
+                                            <td>{clinic.name}</td>
+                                            <td>{clinic.address}</td>
+                                            <td>{clinic.open_hour} - {clinic.close_hour}</td>
+                                            <td>{clinic.email}</td>
+                                            <td>{clinic.phone}</td>
+                                            <td>{/* Insert ID chủ phòng khám here */}</td>
+                                            <td>{/* Insert trạng thái here */}</td>
                                         </tr>
-                                    ) : error ? (
-                                        <tr>
-                                            <td colSpan={8}>Error: {error}</td>
-                                        </tr>
-                                    ) : (
-                                        clinics.map((clinic) => (
-                                            <tr key={clinic.id}>
-                                                <td>{clinic.id}</td>
-                                                <td>{clinic.name}</td>
-                                                <td>{clinic.address}</td>
-                                                <td>{clinic.openHour}</td>
-                                                <td>{clinic.email}</td>
-                                                <td>{clinic.phone}</td>
-                                                <td>{clinic.ownerId}</td>
-                                                <td>{clinic.status}</td>
-                                                <td>
-                                                    {clinic.status === 'verified' ? (
-                                                        <button
-                                                            className={`${styles.statusButton} ${styles.verifiedButton}`}
-                                                            onClick={() => handleVerifyClinic(clinic.id)}
-                                                        >
-                                                            Verified
-                                                        </button>
-                                                    ) : (
-                                                        <button
-                                                            className={styles.statusButton}
-                                                            onClick={() => handleVerifyClinic(clinic.id)}
-                                                        >
-                                                            Verify
-                                                        </button>
-                                                    )}
-                                                </td>
-                                            </tr>
-                                        ))
-                                    )}
+                                    ))}
                                 </tbody>
                             </table>
                         </div>
