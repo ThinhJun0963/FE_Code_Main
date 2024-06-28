@@ -12,7 +12,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import styles from "./Dashboard.module.css";
 import { Link } from "@mui/material";
-import { mainListItems } from "./listItems";
+import { mainListItems } from "../components/listItems";
 
 const drawerWidth: number = 240;
 
@@ -95,7 +95,7 @@ export default function Dashboard() {
               <MenuIcon />
             </IconButton>
             <Box className={styles.logoBox}>
-              <Link href="/system-admin"><img src="../../../../../public/Logo.png" /></Link>
+              <Link href="/"><img src="../../../../../public/Logo.png" /></Link>
             </Box>
           </Toolbar>
         </AppBar>

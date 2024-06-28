@@ -39,14 +39,15 @@ export const getUserData = async (): Promise<IUserAccount> => {
 export const putUserData = async (userData: IUserAccount) => {
     const userId = localStorage.getItem('id');
 
-    const api_url: string = `${connection_path.base_url}${connection_path.user.customer_update}?id=${userId}`;
+    const api_url: string = `${connection_path.base_url}${connection_path.user.customer_update}`;
 
     const config = {
         method: "PUT",
         url: api_url,
         data: userData,
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${localStorage.getItem("accessToken")}`
         },
     }
 

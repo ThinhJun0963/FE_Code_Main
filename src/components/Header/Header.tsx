@@ -21,7 +21,6 @@ const Header = () => {
 
   const [auth, setAuth] = React.useState(false);
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-  console.log(auth);
 
   React.useEffect(() => {
     const accessToken = localStorage.getItem("accessToken");

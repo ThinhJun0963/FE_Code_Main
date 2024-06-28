@@ -19,9 +19,10 @@ import {
   Typography,
 } from "@mui/material";
 
-import Scheduler from "../components/Scheduler/Scheduler";
-import ClinicInfo from "../components/ClinicInfo/ClinicInfo";
 import { useState } from "react";
+import SlotRegister from "./DentistAppointmentManager";
+import { Schedule } from "@mui/icons-material";
+import Scheduler from "../components/Scheduler";
 
 const drawerWidth: number = 240;
 
@@ -100,9 +101,16 @@ const Dashboard = () => {
           >
             <MenuIcon />
           </IconButton>
-          <Box className={styles.logoBox}>
-            <Link href="/"><img src="../../../../../public/Logo.png" /></Link>
-          </Box>
+          <Typography
+            component="h1"
+            variant="h6"
+            color="inherit"
+            noWrap
+            sx={{ flexGrow: 1 }}
+          >
+            Dashboard
+          </Typography>
+
         </Toolbar>
       </AppBar>
       <Drawer variant="permanent" open={open}>
@@ -139,7 +147,6 @@ const Dashboard = () => {
 
         }}
       >
-
         <div className={styles.mainContainer} >
           <div className={styles.main}>
             <Typography
@@ -151,8 +158,8 @@ const Dashboard = () => {
             >
               Trang chủ
             </Typography>
-            <Scheduler />
           </div>
+          <Scheduler />
         </div>
       </Box>
     </Box>

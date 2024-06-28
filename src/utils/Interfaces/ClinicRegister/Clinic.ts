@@ -85,7 +85,7 @@ export interface ClinicInfoModel {
 }
 
 export interface ClinicSlotInfoModel {
-    clinicSlotId?: string;
+    clinicSlotId: string;
     clinicId: number;
     maxCheckup: number;
     maxTreatment: number;

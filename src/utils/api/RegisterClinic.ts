@@ -13,28 +13,6 @@ interface FormData {
     certifications: string[];
 }
 
-export const getServiceList = async (): Promise<databaseService[]> => {
-    const api_url: string = connection_path.base_url + connection_path.service.get_all_service;
-
-    const configuration: AxiosRequestConfig = { method: "GET", url: api_url };
-
-    try {
-        const response = await axios(configuration);
-        if (response.status === 200) {
-            const services = response.data.map((service: databaseService) => ({
-                serviceId: service.serviceId,
-                serviceName: service.serviceName
-            }));
-            return services;
-        } else {
-            console.log('Failed to get services');
-            return [];
-        }
-    } catch (error) {
-        console.error(error);
-        return [];
-    }
-}
 
 export const registerClinic = async (formData: FormData) => {
     const api_url: string = connection_path.base_url + connection_path.user.clinic_register;

@@ -1,9 +1,9 @@
 import HomePage from '../pages/HomePage/HomePage';
 import BookingPage from '../pages/Booking/BookingPage';
 import ClinicRegisterForm from '../pages/ClinicRegister/ClinicRegister';
-import UserPayment from '../pages/User/Payment/UserPayment';
-import UserAccount from '../pages/User/Account/UserAccount';
-import UserProfile from '../pages/User/Profile/UserProfile';
+// import UserPayment from '../pages/User/Payment/UserPayment';
+// import UserAccount from '../pages/User/Account/UserAccount';
+// import UserProfile from '../pages/User/Profile/UserProfile';
 import AdminClinicPage from '../pages/Admin/AdminClinicOwner/AdminClinicPage';
 import AppointmentSchedule from '../pages/Admin/AdminClinicOwner/pages/AppointmentSchedule';
 import ClinicInformation from '../pages/Admin/AdminClinicOwner/pages/ClinicInformation';
