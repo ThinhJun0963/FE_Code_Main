@@ -13,6 +13,7 @@ import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import { mainListItems } from "../components/listItems";
 
 import styles from "./ClinicManagement.module.css";
+import {clinicData} from "../../../../utils/mockData";
 
 const drawerWidth: number = 240;
 
@@ -102,7 +103,7 @@ const ClinicManagement = () => {
                             noWrap
                             sx={{ flexGrow: 1 }}
                         >
-                            Trang tài khoản người dùng
+                            Trang phòng khám
                         </Typography>
                     </Toolbar>
                 </AppBar>
@@ -141,7 +142,7 @@ const ClinicManagement = () => {
                         <div className={styles.tableContainer}>
                             <Box className={styles.toolbar}>
                                 <Box className={styles.searchbar}>
-                                    <input type="text" placeholder="Tìm kiếm người dùng" className={styles.searchInput} />
+                                    <input type="text" placeholder="Tìm kiếm phòng khám" className={styles.searchInput} />
                                     <button className={styles.searchButton}>Tìm kiếm</button>
                                 </Box>
                                 <Box className={styles.utilities}>
@@ -161,22 +162,31 @@ const ClinicManagement = () => {
                                         <th>ID</th>
                                         <th>Tên phòng khám</th>
                                         <th>Địa chỉ</th>
-                                        <th>Giờ mở cửa</th>
+                                        <th>Giờ hoạt động</th>
                                         <th>Email</th>
                                         <th>Số điện thoại</th>
                                         <th>ID chủ phòng khám</th>
-                                        <th>Trạng thái</th>
+                                        <th>
+                                            <Box className={styles.tooltip}>
+                                                Trạng thái
+                                                
+                                            </Box>
+                                        </th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <td>ID</td>
-                                    <td>Tên phòng khám</td>
-                                    <td>Địa chỉ</td>
-                                    <td>Giờ mở cửa</td>
-                                    <td>Email</td>
-                                    <td>Số điện thoại</td>
-                                    <td>ID chủ phòng khám</td>
-                                    <td>Trạng thái</td>
+                                    {clinicData.map((clinic) => (
+                                        <tr key={clinic.clinic_id}>
+                                            <td>{clinic.clinic_id}</td>
+                                            <td>{clinic.name}</td>
+                                            <td>{clinic.address}</td>
+                                            <td>{clinic.open_hour} - {clinic.close_hour}</td>
+                                            <td>{clinic.email}</td>
+                                            <td>{clinic.phone}</td>
+                                            <td>{/* Insert ID chủ phòng khám here */}</td>
+                                            <td>{/* Insert trạng thái here */}</td>
+                                        </tr>
+                                    ))}
                                 </tbody>
                             </table>
                         </div>
