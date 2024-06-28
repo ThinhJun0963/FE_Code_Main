@@ -39,7 +39,7 @@ import { ClinicSlotRegistrationModel, Weekdays } from "../../../../utils/interfa
 import { ClinicSlotInfoModel } from "../../../../utils/interfaces/ClinicRegister/Clinic";
 import { ClinicSlotUpdateModel } from "../../../../utils/interfaces/ClinicRegister/Clinic";
 import { EventInput } from "@fullcalendar/core/index.js";
-import { fetchDentistInfo, registerSlots, getAllClinicSlots, updateClinicSlot } from "../../../../utils/api/ClinicOwnerUtils";
+import { fetchDentistInfo, registerSlots, getAllClinicSlots, updateClinicSlot, enableSlot } from "../../../../utils/api/ClinicOwnerUtils";
 import { DentistInfoViewModel } from "../../../../utils/interfaces/AdminClinicOwner/DentistAccounts";
 
 
@@ -222,6 +222,7 @@ const SlotRegister = () => {
 
   const handleDateClick = (info: DateClickArg) => {
     const start = info.date;
+    console.log(start, 'in here')
     const end = new Date(start);
     end.setMinutes(end.getMinutes() + 30); // Assuming 30-minute slots
 
@@ -231,14 +232,13 @@ const SlotRegister = () => {
     let weekday = start.getDay(); // This should correctly give you the weekday number (0-6)
 
     const newSlotInfo: ClinicSlotRegistrationModel = {
-      clinicId: 6, // You'll need to provide the actual clinic ID
+      clinicId: 1, // You'll need to provide the actual clinic ID
       clinicSlotId: slotId,
       weekday: weekday,
       maxCheckup: defaultMaxCheckup,
       maxTreatment: defaultMaxTreatment,
       SlotId: 0
     };
-    console.log('New slot info:', newSlotInfo);
     setSelectedSlot(newSlotInfo);
     setConfirmationModalOpen(true);
   };
@@ -339,6 +339,13 @@ const SlotRegister = () => {
     return `${startStr} - ${endStr}`;
   };
 
+  const handleEnableSlot = async (slot: ClinicSlotInfoModel) => {
+    const enable = slot.status ? 'enable' : 'disable';
+    if (slot.clinicSlotId) {
+      await enableSlot(slot.clinicSlotId, enable);
+    }
+
+  }
 
   return (
     <Box sx={{ display: "flex", height: '100%' }}>
@@ -426,13 +433,14 @@ const SlotRegister = () => {
                             const eventStatusClass = slot.status ? 'event-status-true' : 'event-status-false';
 
                             return (
-                              <div className={`fc-timegrid-event-harness fc-timegrid-event-harness-inset ${eventStatusClass}`}>
-                                {arg.timeText} {arg.event.title}
-                              </div>
+                              <a className={`${eventStatusClass}`}>
+                                {/* {arg.timeText} {arg.event.title} */}
+                              </a>
                             );
-                          }} eventClick={handleEventClick}
+                          }}
+                          eventClick={handleEventClick}
                           dateClick={handleDateClick}
-                          selectable={true}
+                          selectable={false}
                           nowIndicator={true}
                           selectMirror={true}
                           dayMaxEvents={true}
@@ -517,12 +525,12 @@ const SlotRegister = () => {
                 />
               </FormGroup>
               <FormGroup>
-                <Label for="status" style={{marginRight: '8px'}}>Trạng thái:</Label>
+                <Label for="status" style={{ marginRight: '8px' }}>Trạng thái:</Label>
                 <Input
                   type="checkbox"
                   id="status"
                   value={status ? 1 : 0}
-                  onChange={() => setStatus(!status)}
+                  onChange={() => handleEnableSlot(clinicSlotInfoData[selectedSlot.weekday][selectedSlot.clinicSlotId])}
                 />
                 <label htmlFor="status" style={{ marginLeft: '8px' }}>
                   {status ? 'Đang hoạt động' : 'Không hoạt động'}

@@ -10,13 +10,11 @@ import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
+import { Container, Grid, Paper, TextField, Button, ListItem, ListItemText } from "@mui/material";
 import { mainListItems } from "../components/listItems";
-import styles from "./UserManagement.module.css";
-import { UserInfoModel, getAllUsers } from "../../../../utils/api/SystemAdminUtils";
-import UserModal from "../components/UserModal";
-import { useNavigate } from "react-router-dom";
+import styles from "./ClinicServices.module.css";
+import { ClinicServiceCategoryRegistrationModel, ClinicServiceCategoryModel, getAllCategories, addCategory } from '../../../../utils/api/SystemAdminUtils'; // Assuming type definitions are imported
 import { useEffect, useState } from "react";
-import { MenuItem, Select } from "@mui/material";
 
 
 const drawerWidth: number = 240;
@@ -72,35 +70,52 @@ const Drawer = styled(MuiDrawer, {
 const defaultTheme = createTheme();
 
 
-const UserManagement = () => {
-    const [users, setUsers] = useState<UserInfoModel[]>([]);
-    const [loading, setLoading] = useState(false);
-    const [error, setError] = useState<string>('');
-
-
+const ClinicServices = () => {
     const [open, setOpen] = React.useState(true);
+    const [newCategoryName, setNewCategoryName] = useState<string>('');
+    const [categories, setCategories] = useState<ClinicServiceCategoryModel[]>([]);
+
     const toggleDrawer = () => {
         setOpen(!open);
     };
-    const fetchUsers = async () => {
-        setLoading(true);
+
+    useEffect(() => {
+        fetchCategories();
+    }, []);
+
+    const fetchCategories = async () => {
         try {
-            const data = await getAllUsers();
-            if (typeof data === 'string') {
-                setError(data);
+            const data = await getAllCategories();
+            if (Array.isArray(data)) {
+                setCategories(data);
             } else {
-                setUsers(data);
+                console.error('Invalid data format received:', data);
+                // Handle error scenario
             }
         } catch (error) {
-            setError(error as string);
-        } finally {
-            setLoading(false);
+            console.error('Error fetching categories:', error);
+            // Handle error scenario
         }
     };
 
-    useEffect(() => {
-        fetchUsers();
-    }, []);
+    const handleAddCategory = async () => {
+        try {
+            const newCategory: ClinicServiceCategoryRegistrationModel = {
+                Name: newCategoryName,
+            };
+            const data = await addCategory(newCategory);
+            if (Array.isArray(data)) {
+                setCategories(data); // Update categories state with updated list
+                setNewCategoryName(''); // Clear input field after successful addition
+            } else {
+                console.error('Invalid data format received:', data);
+                // Handle error scenario
+            }
+        } catch (error) {
+            console.error('Error adding category:', error);
+            // Handle error scenario
+        }
+    };
 
 
     return (
@@ -131,7 +146,7 @@ const UserManagement = () => {
                             noWrap
                             sx={{ flexGrow: 1 }}
                         >
-                            Trang tài khoản người dùng
+                            Trang đăng kí danh mục dịch vụ
                         </Typography>
                     </Toolbar>
                 </AppBar>
@@ -141,6 +156,7 @@ const UserManagement = () => {
                             display: "flex",
                             alignItems: "center",
                             justifyContent: "flex-end",
+                            px: [1],
                         }}
                     >
                         <IconButton onClick={toggleDrawer}>
@@ -154,7 +170,7 @@ const UserManagement = () => {
                 </Drawer>
                 <Box
                     component="main"
-                    pt={8}
+                    pt={10}
                     sx={{
                         backgroundColor: (theme) =>
                             theme.palette.mode === "light"
@@ -165,74 +181,52 @@ const UserManagement = () => {
                         overflow: "auto",
                     }}
                 >
-
                     <Box className={styles.mainContainer}>
-                        <div className={styles.tableContainer}>
-                            <Box className={styles.toolbar}>
-                                <Box className={styles.searchbar}>
-                                    <input type="text" placeholder="Tìm kiếm người dùng" className={styles.searchInput} />
-                                    <button className={styles.searchButton}>Tìm kiếm</button>
-                                </Box>
-                            </Box>
-                            <table className={styles.table}>
-                                <thead>
-                                    <tr>
-                                        <th>ID</th>
-                                        <th>Username</th>
-                                        <th>Ngày tạo</th>
-                                        <th>Role</th>
-                                        <th>Fullname</th>
-                                        <th>Dentist ID</th>
-                                        <th>Clinic ID</th>
-                                        <th>IsOwner</th>
-                                        <th>
-                                            <Box className={styles.tooltip}>
-                                                Trạng thái
-                                                <span className={styles.tooltiptext}>Nhấn để cập nhật trạng thái</span>
-                                                <span className={styles.tooltipicon}>!</span>
-                                            </Box>
-                                        </th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {loading ? (
-                                        <tr>
-                                            <td colSpan={16}>Loading...</td>
-                                        </tr>
-                                    ) : error ? (
-                                        <tr>
-                                            <td colSpan={16}>Error: {error}</td>
-                                        </tr>
-                                    ) : (
-                                        users.map((user) => (
-                                            <tr key={user.id} className={styles.tableRow}>
-                                                <td>{user.id}</td>
-                                                <td>{user.username}</td>
-                                                <td>{user.joinedDate ? user.joinedDate.toString() : ""}</td>
-                                                <td>{user.role}</td>
-                                                <td>{user.fullname}</td>
-                                                <td>{user.dentistId}</td>
-                                                <td>{user.clinicId}</td>
-                                                <td>{user.isOwner ? 'Yes' : 'No'}</td>
-                                                <td>
-                                                    <button
-                                                        className={`${styles.statusButton} ${user.isActive ? styles.active : styles.inactive}`}
-                                                    >
-                                                        {user.isActive ? 'Hoạt động' : 'Ngừng hoạt động'}
-                                                    </button>
-                                                </td>
-                                            </tr>
-                                        ))
-                                    )}
-                                </tbody>
-                            </table>
-                        </div>
+                        <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
+                            <Grid container spacing={3}>
+                                <Grid item xs={12} md={6}>
+                                    <Paper sx={{ p: 2 }}>
+                                        <Typography variant="h6" gutterBottom>
+                                            Thêm danh mục dịch vụ phòng khám
+                                        </Typography>
+                                        <TextField
+                                            label="Tên danh mục"
+                                            variant="outlined"
+                                            value={newCategoryName}
+                                            onChange={(e) => setNewCategoryName(e.target.value)}
+                                            fullWidth
+                                            sx={{ mb: 2 }}
+                                        />
+                                        <Button
+                                            variant="contained"
+                                            color="primary"
+                                            onClick={handleAddCategory} // Call handleAddCategory function on button click
+                                        >
+                                            Thêm mới
+                                        </Button>
+                                    </Paper>
+                                </Grid>
+                                <Grid item xs={12} md={6}>
+                                    <Paper sx={{ p: 2 }}>
+                                        <Typography variant="h6" gutterBottom>
+                                            Danh sách danh mục dịch vụ phòng khám
+                                        </Typography>
+                                        <List>
+                                            {categories.map((category) => (
+                                                <ListItem key={category.id}>
+                                                    <ListItemText primary={category.name} />
+                                                </ListItem>
+                                            ))}
+                                        </List>
+                                    </Paper>
+                                </Grid>
+                            </Grid>
+                        </Container>
                     </Box>
                 </Box>
             </Box>
         </ThemeProvider>
-    )
-}
+    );
+};
 
-
-export default UserManagement
+export default ClinicServices;

@@ -1,34 +1,49 @@
 import React, { useState, useEffect } from "react";
-import { Modal, ModalHeader, ModalBody, ModalFooter, Button } from "reactstrap";
+import { Modal, ModalHeader, ModalBody, ModalFooter, Button, Form, FormGroup, Label, Input } from "reactstrap";
 import styles from "./EventModal.module.css";
-import { AppointmentViewModel } from "../../../../../../utils/api/ClinicOwnerUtils";
+import { display, margin, padding } from "@mui/system";
+
+interface Booking {
+  id: string;
+  start: string;
+  end: string;
+  date: string;
+  customerName: string;
+  dentistName: string;
+  serviceType: string;
+  dentistStatus?: string;
+  bookingStatus?: string;
+}
 
 interface EventModalProps {
   isOpen: boolean;
   toggle: () => void;
-  appointment: AppointmentViewModel | undefined;
-  onSave: (appointment: AppointmentViewModel) => void;
+  booking: Booking | undefined;
+  onSave: (booking: Booking) => void;
 }
 
 const EventModal: React.FC<EventModalProps> = ({
   isOpen,
   toggle,
-  appointment,
+  booking,
   onSave,
 }) => {
   const [dentistName, setDentistName] = useState<string>("");
 
   useEffect(() => {
-    if (appointment) {
-      setDentistName(appointment.DentistFullname);
-    }
-  }, [appointment]);
+    if (booking) {
+      setDentistName(booking.dentistName);
 
-  const handleSave = () => {
-    if (appointment) {
+    }
+  }, [booking]);
+
+
+
+  const handleSave = (e: React.FormEvent<HTMLButtonElement>) => {
+    if (booking) {
       onSave({
-        ...appointment,
-        DentistFullname: dentistName,
+        ...booking,
+        dentistName: dentistName, 
       });
     }
   };
@@ -37,7 +52,8 @@ const EventModal: React.FC<EventModalProps> = ({
     toggle();
   };
 
-  if (!isOpen || !appointment) {
+
+  if (!isOpen || !booking) {
     return null;
   }
 
@@ -53,7 +69,7 @@ const EventModal: React.FC<EventModalProps> = ({
               className="form-control"
               id="customerName"
               name="customerName"
-              value={appointment.CustomerFullName}
+              value={booking.customerName}
               disabled
             />
           </div>
@@ -75,7 +91,7 @@ const EventModal: React.FC<EventModalProps> = ({
               className="form-control"
               id="serviceType"
               name="serviceType"
-              value={appointment.SelectedServiceName}
+              value={booking.serviceType}
               disabled
             />
           </div>
@@ -86,7 +102,7 @@ const EventModal: React.FC<EventModalProps> = ({
               className="form-control"
               id="start"
               name="start"
-              value={appointment.AppointmentTime}
+              value={booking.start.slice(11, 16)}
               disabled
             />
           </div>
@@ -97,28 +113,28 @@ const EventModal: React.FC<EventModalProps> = ({
               className="form-control"
               id="end"
               name="end"
-              value={appointment.ExpectedEndTime}
+              value={booking.end.slice(11, 16)}
               disabled
             />
           </div>
           <div className={styles.formGroup}>
             <label htmlFor="dentistStatus">Trạng thái nha sĩ:</label>
             <Button
-              color={appointment.BookingStatus === "Confirmed" ? "success" : "secondary"}
+              color={booking.dentistStatus ? "success" : "secondary"}
               className={`${styles.toggleButton} ml-2`}
               disabled
             >
-              {appointment.BookingStatus === "Confirmed" ? "Có mặt" : "Bận"}
+              {booking.dentistStatus ? "Có mặt" : "Bận"}
             </Button>
           </div>
           <div className={styles.formGroup}>
             <label htmlFor="bookingStatus">Booking Status:</label>
             <Button
-              color={appointment.BookingStatus === "Confirmed" ? "success" : "secondary"}
+              color={booking.bookingStatus ? "success" : "secondary"}
               className={`${styles.toggleButton} ml-2`}
               disabled
             >
-              {appointment.BookingStatus === "Confirmed" ? "Đã xác nhận" : "Đang chờ xác nhận"}
+              {booking.bookingStatus ? "Đã xác nhận" : "Đang chờ xác nhận"}
             </Button>
           </div>
         </form>
@@ -134,6 +150,5 @@ const EventModal: React.FC<EventModalProps> = ({
     </Modal>
   );
 };
-
 
 export default EventModal;
